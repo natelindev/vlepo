@@ -69,3 +69,7 @@ export const CardBody = styled.div`
   min-height: 1px;
   padding: 1.25rem;
 `;
+
+export const Button = styled.button`
+  border: none;
+`;

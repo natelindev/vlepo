@@ -1,21 +1,21 @@
 import { css, Global } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { global } from './lib';
+// import { global } from './lib';
 
-export const globalStyles = (
-  <Global
-    styles={css`
-      ${global}
-      __next {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        width: 100%;
-      }
-    `}
-  />
-);
+// export const globalStyles = (
+//   <Global
+//     styles={css`
+//       ${global}
+//       __next {
+//         display: flex;
+//         flex-direction: column;
+//         min-height: 100vh;
+//         width: 100%;
+//       }
+//     `}
+//   />
+// );
 
 export const animations = {};
 

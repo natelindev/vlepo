@@ -1,5 +1,5 @@
+import Link from 'next/link';
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 interface NavLinkProps {
   to: string;
@@ -8,9 +8,5 @@ interface NavLinkProps {
 
 export default function NavLink(props: NavLinkProps): React.ReactElement {
   const { to, children } = props;
-  return (
-    <Link className="nav-link" to={to}>
-      {children}
-    </Link>
-  );
+  return <Link href={to}>{children}</Link>;
 }
