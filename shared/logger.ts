@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import { colors } from './consts';
+import { isBrowser, isNode } from './env';
 import { circularStringify } from './stringify';
+
 export const enum logLevel {
   Debug = 'Debug',
   Info = 'Info',
@@ -17,11 +19,10 @@ export const enum logTarget {
  * custom Logger
  */
 export const getLogger = (componentName: string, target = logTarget.console) => {
-  const logFn = (message: any) => {
-    return target === logTarget.console ? console.log : console.log;
-  };
+  //TODO: add log to file function
+  const logFn = console.log;
 
-  const log = (level: logLevel, componentName: string, message: any): void => {
+  const log = (level: logLevel, componentName: string, message: unknown): void => {
     const time = new Date();
     let color = colors.FgWhite;
     switch (level) {
@@ -41,23 +42,21 @@ export const getLogger = (componentName: string, target = logTarget.console) => 
         color = colors.FgWhite;
         break;
     }
-    console.log(
-      `${time.toISOString()} - ${color}[${level}][${componentName}]${message}${colors.Reset}`
-    );
+    logFn(`${time.toISOString()} - ${color}[${level}][${componentName}]${message}${colors.Reset}`);
   };
 
   return {
-    raw: (message: any): void => {
+    raw: (message: unknown): void => {
       if (typeof message === 'object') {
-        console.log(circularStringify(message));
+        logFn(circularStringify(message));
       } else {
-        console.log(message);
+        logFn(message);
       }
     },
-    info: (message: any): void => log(logLevel.Info, componentName, message),
-    error: (message: any): void => log(logLevel.Error, componentName, message),
-    debug: (message: any): void => log(logLevel.Debug, componentName, message),
-    warn: (message: any): void => log(logLevel.Warn, componentName, message),
+    info: (message: unknown): void => log(logLevel.Info, componentName, message),
+    error: (message: unknown): void => log(logLevel.Error, componentName, message),
+    debug: (message: unknown): void => log(logLevel.Debug, componentName, message),
+    warn: (message: unknown): void => log(logLevel.Warn, componentName, message),
   };
 };
 

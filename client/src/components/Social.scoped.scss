@@ -1,0 +1,48 @@
+.social-link .social-svg {
+  width: 2.5rem;
+  height: 2.5rem;
+
+  .social-group__icon {
+    fill: #191308;
+    transition: all 0.2s;
+  }
+
+  .social-group__inner-circle {
+    fill: transparent;
+    transition: all 0.2s;
+  }
+
+  .social-group__outline {
+    stroke: #191308;
+    transform-origin: 50% 50%;
+    transition: all 0.2s;
+  }
+
+  &:hover .social-group__icon,
+  &:active .social-group__icon,
+  &:focus .social-group__icon {
+    fill: #fffbfa;
+    transition: all 0.45s;
+  }
+
+  &:hover .social-group__inner-circle,
+  &:active .social-group__inner-circle,
+  &:focus .social-group__inner-circle {
+    fill: currentColor;
+    transition: all 0.45s;
+  }
+
+  &:hover .social-group__inner-circle--instagram,
+  &:active .social-group__inner-circle--instagram,
+  &:focus .social-group__inner-circle--instagram {
+    fill: url(#simpleInsta) !important;
+  }
+
+  &:hover .social-group__outline,
+  &:active .social-group__outline,
+  &:focus .social-group__outline {
+    stroke: currentColor;
+    transform: scale(1.1);
+    transition: all 0.45s;
+  }
+}
