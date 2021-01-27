@@ -2,7 +2,7 @@ import React from 'react';
 
 import { css } from '@emotion/react';
 
-import { CardImg as BasicCardImg, CardImgOverlay } from './basic';
+import { CardImg as BasicCardImg, CardImgOverlay } from './base';
 
 export interface CardImgProps extends React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode;

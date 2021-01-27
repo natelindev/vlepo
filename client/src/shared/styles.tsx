@@ -1,21 +1,33 @@
 import { css, Global } from '@emotion/react';
 import styled from '@emotion/styled';
 
-// import { global } from './lib';
-
-// export const globalStyles = (
-//   <Global
-//     styles={css`
-//       ${global}
-//       __next {
-//         display: flex;
-//         flex-direction: column;
-//         min-height: 100vh;
-//         width: 100%;
-//       }
-//     `}
-//   />
-// );
+export const globalStyles = (
+  <Global
+    styles={css`
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        text-align: left;
+      }
+      *,
+      ::after,
+      ::before {
+        box-sizing: border-box;
+      }
+      #__next {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        width: 100%;
+      }
+    `}
+  />
+);
 
 export const animations = {};
 

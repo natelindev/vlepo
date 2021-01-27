@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@emotion-icons/material-outlined": "^3.0.0",
     "@emotion/react": "11.1.1",
     "@emotion/styled": "11.0.0",
     "next": "10.0.3",

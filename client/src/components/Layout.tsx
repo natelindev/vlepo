@@ -1,49 +1,48 @@
-export {};
-// import Head from 'next/head';
-// import React from 'react';
+import Head from 'next/head';
+import React from 'react';
 
-// import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
-// import Footbar from './Footbar';
-// import Navbar from './Navbar';
-// import ScrollToTop from './ScrollToTop';
+import Footbar from './Footbar';
+import Navbar from './Navbar';
+import ScrollToTop from './ScrollToTop';
 
-// interface LayoutProps {
-//   title?: string;
-//   children?: React.ReactNode;
-// }
+const Header = styled.header`
+  flex: none;
+`;
 
-// const Layout: React.FC<LayoutProps> = (props: LayoutProps) => {
-//   const { children, title } = props;
-//   return (
-//     <>
-//       <Head>
-//         <title>{title}</title>
-//       </Head>
-//       <header
-//         css={css`
-//           flex: none;
-//         `}
-//       >
-//         <Navbar />
-//       </header>
-//       <main
-//         css={css`
-//           flex: 1 0 auto;
-//           width: 100%;
-//         `}
-//       >
-//         {children}
-//         <ScrollToTop />
-//       </main>
-//       <footer
-//         css={css`
-//           flex: none;
-//         `}
-//       >
-//         <Footbar />
-//       </footer>
-//     </>
-//   );
-// };
-// export default Layout;
+const Main = styled.main`
+  flex: 1 0 auto;
+  width: 100%;
+`;
+
+const Footer = styled.footer`
+  flex: none;
+`;
+
+interface LayoutProps {
+  title?: string;
+  children?: React.ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = (props: LayoutProps) => {
+  const { children, title } = props;
+  return (
+    <>
+      <Head>
+        <title>{title}</title>
+      </Head>
+      <Header>
+        <Navbar />
+      </Header>
+      <Main>
+        {children}
+        <ScrollToTop />
+      </Main>
+      <Footer>
+        <Footbar />
+      </Footer>
+    </>
+  );
+};
+export default Layout;

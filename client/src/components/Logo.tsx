@@ -1,4 +1,5 @@
-import * as React from 'react';
+import Image from 'next/image';
+import React from 'react';
 
 export interface LogoProps {
   size?: string;
@@ -6,18 +7,9 @@ export interface LogoProps {
   width?: string;
 }
 
-export default function Logo(props: LogoProps): React.ReactElement {
-  const { size, height, width } = props;
-  return (
-    <img
-      className="logo"
-      style={{
-        maxHeight: size ?? height ?? '2rem',
-        maxWidth: size ?? width ?? '2rem',
-        margin: '0.3rem',
-      }}
-      src="logo.svg"
-      alt="logo"
-    />
-  );
-}
+const Logo: React.FC<LogoProps> = (props: LogoProps) => {
+  const { size = '100px', height, width } = props;
+  return <Image height={height ?? size} width={width ?? size} src="/logo.svg" alt="logo" />;
+};
+
+export default Logo;

@@ -1,12 +1,10 @@
-import './Card.scoped.scss';
-
 import Link from 'next/link';
 import React from 'react';
 import { useHoverIntent } from 'react-use-hoverintent';
 
 import { css } from '@emotion/react';
 
-import { Card } from './basic';
+import { Card } from './base';
 
 export interface CardProps extends React.HTMLAttributes<HTMLElement> {
   [key: string]: any;
@@ -28,9 +26,6 @@ export default React.forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement
 
   return (
     <Card
-      className={`${className ?? ''}${hoverEffect ? ` card-${hoverEffect}` : ''}${lr ? ' lr' : ''}${
-        isHovering ? ' temp' : ' active'
-      }`}
       css={css`
         max-width: ${width};
         max-height: ${height};

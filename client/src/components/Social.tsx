@@ -1,5 +1,3 @@
-import './Social.scoped.scss';
-
 import React from 'react';
 
 import { css } from '@emotion/react';

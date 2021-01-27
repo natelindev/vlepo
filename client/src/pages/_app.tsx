@@ -1,15 +1,14 @@
 import type { AppProps /*, AppContext */ } from 'next/app';
-import './index.css';
 
-// import { globalStyles } from '../shared/styles';
+import { globalStyles } from '../shared/styles';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      {/* {globalStyles} */}
+      {globalStyles}
       <Component {...pageProps} />
     </>
   );
 }
 
-export default MyApp;
+export default App;

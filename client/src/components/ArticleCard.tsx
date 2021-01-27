@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, CardBody, CardImgOverlay } from './basic';
+import { Card, CardBody, CardImgOverlay } from './base';
 
 export interface ArticleCardProps {
   title: string;

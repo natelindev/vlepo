@@ -1,11 +1,10 @@
-import './GradientButton.scoped.scss';
-
 import Link from 'next/link';
 import React from 'react';
 
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
-import { Button } from './basic';
+import { Button } from './base';
 
 export interface GradientButtonProps {
   children?: React.ReactNode;
@@ -21,11 +20,50 @@ const isBright = (hexColor: string) => {
   return (r * 299 + g * 587 + b * 114) / 1000 >= 128;
 };
 
+const BaseGradientButton = styled(Button)`
+  position: relative;
+  border: none;
+  transition: opacity linear 0.3s;
+
+  &::before {
+    border-radius: inherit;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: '';
+    transition: opacity linear 0.3s;
+    opacity: 0;
+  }
+
+  &:hover {
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  &:focus,
+  &:active,
+  &:not(:disabled):not(.disabled):active:focus {
+    outline: none;
+    box-shadow: none;
+  }
+`;
+
+const GradientButtonContent = styled.div`
+  position: relative;
+  z-index: 1;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+`;
+
 const GradientButton: React.FC<GradientButtonProps> = (props: GradientButtonProps) => {
   const { colorA, colorB, children, className, link, ...rest } = props;
   return (
-    <Button
-      className={`${className ?? ''} gradient-button`}
+    <BaseGradientButton
       css={css`
         background-image: linear-gradient(45deg, ${colorA} 10%, ${colorB} 90%);
         color: ${isBright(colorA) && isBright(colorB) ? '#000000' : '#ffffff'};
@@ -35,8 +73,10 @@ const GradientButton: React.FC<GradientButtonProps> = (props: GradientButtonProp
       `}
       {...rest}
     >
-      <div className="btn-content">{link ? <Link href={link}>{children}</Link> : children}</div>
-    </Button>
+      <GradientButtonContent>
+        {link ? <Link href={link}>{children}</Link> : children}
+      </GradientButtonContent>
+    </BaseGradientButton>
   );
 };
 
