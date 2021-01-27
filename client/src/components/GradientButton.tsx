@@ -61,7 +61,7 @@ const GradientButtonContent = styled.div`
 `;
 
 const GradientButton: React.FC<GradientButtonProps> = (props: GradientButtonProps) => {
-  const { colorA, colorB, children, className, link, ...rest } = props;
+  const { colorA, colorB, children, link, ...rest } = props;
   return (
     <BaseGradientButton
       css={css`

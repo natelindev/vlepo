@@ -56,7 +56,7 @@ const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps) => {
         <div className="d-flex align-self-center text-economica justify-content-between">
           <div className="mt-auto mb-2"> 2020-04-03 </div>
           <a className="btn border-draw-within mx-2 z-2" href="/Article/View/54">
-            阅读更多
+            More
           </a>
           <div className="mt-auto mb-2">
             <i className="material-icons img-h-32">remove_red_eye</i> 20

@@ -14,11 +14,11 @@ const BaseNavbar = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 1rem;
   width: 100%;
   flex-flow: row nowrap;
   box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.2);
   background-color: #f8f9fa;
+  height: 4rem;
 `;
 
 const NavBrand = styled.a`
@@ -38,7 +38,7 @@ const NavbarCollapse = styled.div`
   flex-grow: 1;
 `;
 
-const NavbarNav = styled.ul`
+const NavbarNav = styled.div`
   display: flex;
   flex-wrap: wrap;
   padding-left: 0;
@@ -52,6 +52,12 @@ const NavItem = styled.li`
 
 const Dropdown = styled.div`
   position: relative;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: #007bff;
+  background-color: transparent;
+  margin-top: auto;
+  margin-bottom: auto;
 `;
 
 const DropdownToggle = styled.div`
@@ -71,6 +77,16 @@ const DropdownToggle = styled.div`
   &:empty::after {
     margin-left: 0;
   }
+`;
+
+const NavLogo = styled(Logo)`
+  margin-left: 1rem;
+`;
+
+const LoginButton = styled(GradientButton)`
+  margin-left: auto;
+  margin-right: 1rem;
+  height: 100%;
 `;
 
 export const DropdownMenu = styled.div`
@@ -109,7 +125,7 @@ const Navbar: React.FC = () => {
   const [open, setOpen] = useState(false);
   return (
     <BaseNavbar>
-      <Logo />
+      <NavLogo />
       <Link href="/" passHref>
         <NavBrand href="/">Nathaniel&#39;s Blog</NavBrand>
       </Link>
@@ -139,11 +155,10 @@ const Navbar: React.FC = () => {
       </NavbarCollapse>
       <NavbarCollapse>
         <NavbarNav>
-          <h2>Search</h2>
           {/* <SearchBar /> */}
-          <GradientButton className="ml-2" link="/login" colorA="#5CC6EE" colorB="#3232FF">
+          <LoginButton link="/login" colorA="#5CC6EE" colorB="#3232FF">
             Login
-          </GradientButton>
+          </LoginButton>
         </NavbarNav>
       </NavbarCollapse>
       {/* <NavbarToggler className="animated--toggler" /> */}
