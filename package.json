@@ -1,18 +1,36 @@
 {
-  "name": "lonefire3",
-  "version": "1.0.0",
-  "private": true,
+  "name": "lonefire",
+  "version": "3.0.0",
+  "description": "lonefire monorepo",
   "workspaces": [
-    "client",
-    "server",
-    "shared"
+    "packages/*"
   ],
+  "private": true,
   "scripts": {
-    "start": "",
-    "build": ""
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run build",
+    "lint": "lerna run lint"
   },
   "devDependencies": {
-    "concurrently": "^5.3.0",
-    "cross-env": "^7.0.2"
-  }
+    "@types/eslint": "^7.2.6",
+    "@types/node": "^14.14.22",
+    "@types/react": "^17.0.0",
+    "@types/rimraf": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/parser": "^4.14.1",
+    "eslint": "^7.18.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "lerna": "3.22.1",
+    "prettier": "2.2.1",
+    "react": "^17.0.1",
+    "rimraf": "^3.0.2",
+    "typescript": "4.1.3"
+  },
+  "license": "MIT"
 }

@@ -24,11 +24,6 @@ export const enum colors {
   BgWhite = '\x1b[47m',
 }
 
-export const enum path {
-  model = 'src/model',
-  image = 'src/image',
-}
-
 export const enum fileOptions {
   files = 1,
   dirs = 2,

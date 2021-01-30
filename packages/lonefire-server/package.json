@@ -1,4 +1,8 @@
 {
+  "name": "lonefire-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
   "dependencies": {
     "@types/koa-send": "^4.1.2",
     "koa": "^2.13.0",
@@ -7,10 +11,6 @@
     "koa-send": "^5.0.1",
     "koa-static": "^5.0.0"
   },
-  "name": "testkoa",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
   "devDependencies": {
     "dotenv": "^8.2.0",
     "@types/koa": "^2.11.4",

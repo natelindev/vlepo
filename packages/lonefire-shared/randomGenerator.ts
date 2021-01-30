@@ -29,7 +29,7 @@ export function rng<T extends RngOption>(
   option: T,
   max: number,
   min = 0,
-  length = 0
+  length = 0,
 ): T extends RngOption.string ? string : T extends RngOption.array ? number[] : number {
   type ReturnType = T extends RngOption.string
     ? string
@@ -54,7 +54,7 @@ export function rng<T extends RngOption>(
     case RngOption.array:
       result = Array.from(
         { length },
-        () => Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) + Math.ceil(min)
+        () => Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) + Math.ceil(min),
       ) as ReturnType;
       break;
     default:

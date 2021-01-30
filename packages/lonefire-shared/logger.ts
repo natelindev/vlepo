@@ -1,7 +1,7 @@
+import { circularStringify } from './circularStringify';
 /* eslint-disable no-console */
 import { colors } from './consts';
 import { isBrowser, isNode } from './env';
-import { circularStringify } from './stringify';
 
 export const enum logLevel {
   Debug = 'Debug',
@@ -19,7 +19,7 @@ export const enum logTarget {
  * custom Logger
  */
 export const getLogger = (componentName: string, target = logTarget.console) => {
-  //TODO: add log to file function
+  // TODO: add log to file function
   const logFn = console.log;
 
   const log = (level: logLevel, componentName: string, message: unknown): void => {
