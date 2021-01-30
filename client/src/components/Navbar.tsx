@@ -144,9 +144,9 @@ const Navbar: React.FC = () => {
       </Link>
       <LeftNavCollapse>
         <NavbarNav>
-          <NavLink href="/portfolio">portfolio</NavLink>
-          <NavLink href="/papers">papers</NavLink>
-          <NavLink href="/about">about</NavLink>
+          <NavLink href="/portfolio">Portfolio</NavLink>
+          <NavLink href="/papers">Papers</NavLink>
+          <NavLink href="/about">About</NavLink>
           <Dropdown>
             <DropdownToggle>More</DropdownToggle>
             <DropdownMenu>

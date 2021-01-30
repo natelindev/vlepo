@@ -13,6 +13,9 @@ export const globalStyles = (
         line-height: 1.5;
         color: #212529;
         text-align: left;
+        font-family: Titillium, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+          'Segoe UI Symbol', 'Noto Color Emoji';
       }
       *,
       ::after,

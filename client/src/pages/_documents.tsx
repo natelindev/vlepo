@@ -8,7 +8,7 @@ class LfDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <link
             href="https://fonts.googleapis.com/css2?family=Economica:wght@400;700&family=Titillium+Web:wght@300;400;700&display=swap"

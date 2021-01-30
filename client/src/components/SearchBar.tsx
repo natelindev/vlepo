@@ -12,7 +12,7 @@ const InputGroup = styled.div`
   border: 1px solid #ced4da;
 
   flex-grow: 0;
-  transition: flex-grow 0.12s;
+  transition: all 0.12s;
   text-transform: none;
 
   &:focus-within {
