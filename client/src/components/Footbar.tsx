@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import Logo from './Logo';
@@ -8,37 +7,42 @@ import Social from './Social';
 
 const FootbarContainer = styled.div`
   display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+`;
+
+const CenteredText = styled.div`
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+`;
+
+const LoveIcon = styled.div`
+  margin-left: 0.2rem;
+`;
+
+const BottomText = styled.div`
+  color: #6c757d;
 `;
 
 const Footbar: React.FC = () => (
-  <div className="d-flex bg-smoke justify-content-around align-items-center flex-wrap flex-sm-nowrap py-4">
-    <Logo size="3rem" />
-
-    <div className="text-muted text-titillium">
-      <div className="d-flex mx-auto justify-content-center">
-        <div className="d-flex">
-          © 2019-{new Date().getFullYear()} Nathaniel&#39;s PlayGround. MIT licensed
-        </div>
-      </div>
-      <div className="d-flex mx-auto justify-content-center">
+  <FootbarContainer>
+    <Logo size="42px" />
+    <BottomText>
+      <CenteredText>
+        © 2019-{new Date().getFullYear()} Nathaniel&#39;s Blog. CC-BY-NC 4.0
+      </CenteredText>
+      <CenteredText>
         Made by Nathaniel with
-        <span
-          role="img"
-          aria-label="love"
-          css={css`
-            margin: 0 0.3rem;
-          `}
-        >
-          ❤️
-        </span>{' '}
+        <LoveIcon>❤️</LoveIcon>
         and effort
-      </div>
-    </div>
+      </CenteredText>
+    </BottomText>
 
-    <div className="mt-2 mt-sm-auto">
-      <Social />
-    </div>
-  </div>
+    <Social />
+  </FootbarContainer>
 );
 
 export default Footbar;

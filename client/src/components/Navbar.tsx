@@ -6,8 +6,7 @@ import styled from '@emotion/styled';
 import GradientButton from './GradientButton';
 import Logo from './Logo';
 import NavLink from './Navlink';
-
-// import SearchBar from './SearchBar';
+import SearchBar from './SearchBar';
 
 const BaseNavbar = styled.nav`
   position: relative;
@@ -18,7 +17,7 @@ const BaseNavbar = styled.nav`
   flex-flow: row nowrap;
   box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.2);
   background-color: #f8f9fa;
-  height: 4rem;
+  height: 3.5rem;
 `;
 
 const NavBrand = styled.a`
@@ -38,9 +37,17 @@ const NavbarCollapse = styled.div`
   flex-grow: 1;
 `;
 
+const LeftNavCollapse = styled(NavbarCollapse)`
+  flex-grow: 0;
+  flex-basis: auto;
+`;
+
+const RightNavCollapse = styled(NavbarCollapse)`
+  flex-grow: 0;
+`;
+
 const NavbarNav = styled.div`
   display: flex;
-  flex-wrap: wrap;
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
@@ -81,10 +88,16 @@ const DropdownToggle = styled.div`
 
 const NavLogo = styled(Logo)`
   margin-left: 1rem;
+  margin-right: 0.3rem;
+  margin-top: 0.3rem;
+`;
+
+const NavSearchBar = styled(SearchBar)`
+  margin-left: auto;
+  margin-right: 0.5rem;
 `;
 
 const LoginButton = styled(GradientButton)`
-  margin-left: auto;
   margin-right: 1rem;
   height: 100%;
 `;
@@ -125,11 +138,11 @@ const Navbar: React.FC = () => {
   const [open, setOpen] = useState(false);
   return (
     <BaseNavbar>
-      <NavLogo />
+      <NavLogo size="50px" />
       <Link href="/" passHref>
         <NavBrand href="/">Nathaniel&#39;s Blog</NavBrand>
       </Link>
-      <NavbarCollapse>
+      <LeftNavCollapse>
         <NavbarNav>
           <NavLink href="/portfolio">portfolio</NavLink>
           <NavLink href="/papers">papers</NavLink>
@@ -152,15 +165,15 @@ const Navbar: React.FC = () => {
             </DropdownMenu>
           </Dropdown>
         </NavbarNav>
-      </NavbarCollapse>
-      <NavbarCollapse>
+      </LeftNavCollapse>
+      <RightNavCollapse>
         <NavbarNav>
-          {/* <SearchBar /> */}
+          <NavSearchBar />
           <LoginButton link="/login" colorA="#5CC6EE" colorB="#3232FF">
             Login
           </LoginButton>
         </NavbarNav>
-      </NavbarCollapse>
+      </RightNavCollapse>
       {/* <NavbarToggler className="animated--toggler" /> */}
     </BaseNavbar>
   );
