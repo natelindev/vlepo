@@ -5,7 +5,18 @@ import styled from '@emotion/styled';
 
 const BaseTag = styled.a`
   color: #f8f9fa;
-  border-color: #f8f9fa;
+
+  margin-bottom: auto;
+
+  margin-left: 0.15rem;
+  margin-right: 0.15rem;
+
+  text-decoration: none;
+  padding: 0.3rem;
+  border: 1px solid #f8f9fa;
+  border-radius: 0.2rem;
+
+  transition: all 0.1s ease-in;
 
   &:hover {
     color: #212529;

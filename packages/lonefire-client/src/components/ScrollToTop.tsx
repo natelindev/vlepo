@@ -69,7 +69,7 @@ const BaseScrollToTop = styled.div<ScrollTopProps>`
   }
 `;
 
-const ScrollToTop = (): React.ReactElement => {
+const ScrollToTop = () => {
   const scrollPosition = useScrollPosition();
   return (
     <BaseScrollToTop

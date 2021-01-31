@@ -45,6 +45,7 @@ export default function Home(): React.ReactElement {
   const items: ArticleCardProps[] = [
     {
       title: 'hello',
+      tags: ['nodejs', 'note'],
       headerImage: 'https://placeholder.pics/svg/300',
       abstract: 'This is an test article',
     },
@@ -102,23 +103,21 @@ export default function Home(): React.ReactElement {
     { title: 'hello' },
   ];
   return (
-    <>
-      <Layout>
-        <IndexCard width="30rem" href="/">
-          <IndexSlogan cursor={{ show: false }}>
-            <h1>I code, Therefore I am</h1>
-          </IndexSlogan>
-        </IndexCard>
-        <IndexRow>
-          <IndexMasonry
-            columnWidth={350}
-            items={items}
-            columnGutter={20}
-            overscanBy={2}
-            render={MasonryCard}
-          />
-        </IndexRow>
-      </Layout>
-    </>
+    <Layout>
+      <IndexCard width="30rem" href="/">
+        <IndexSlogan cursor={{ show: false }}>
+          <h1>I code, Therefore I am</h1>
+        </IndexSlogan>
+      </IndexCard>
+      <IndexRow>
+        <IndexMasonry
+          columnWidth={350}
+          items={items}
+          columnGutter={20}
+          overscanBy={2}
+          render={MasonryCard}
+        />
+      </IndexRow>
+    </Layout>
   );
 }
