@@ -28,7 +28,9 @@ const CardImg: React.FC<CardImgProps> = (props: CardImgProps) => {
       <BaseCardImg
         src={src}
         alt={alt}
-        layout="fill"
+        layout="responsive"
+        width="150"
+        height="100"
         className={className}
         left={left}
         right={right}

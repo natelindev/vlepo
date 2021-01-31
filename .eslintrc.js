@@ -67,6 +67,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'import/extensions': 'off',
     'implicit-arrow-linebreak': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
   },

@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import styled from '@emotion/styled';
 
-import { ZIndex } from './zIndex';
+import { ZIndex } from './ZIndex';
 
 export const Link = styled.a``;
 
@@ -42,7 +42,8 @@ export type CardImgProps = {
 };
 
 export const CardImg = styled(Image)<CardImgProps>`
-  flex-shrink: 0;
+  object-fit: cover;
+  flex-grow: 0;
   border-top-left-radius: ${(props) => (props.left || props.top ? `calc(0.25rem - 1px)` : `0`)};
   border-top-right-radius: ${(props) => (props.right || props.top ? `calc(0.25rem - 1px)` : `0`)};
   border-bottom-right-radius: ${(props) =>

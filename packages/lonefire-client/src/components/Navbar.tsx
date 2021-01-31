@@ -7,7 +7,7 @@ import GradientButton from './GradientButton';
 import Logo from './Logo';
 import NavLink from './Navlink';
 import SearchBar from './SearchBar';
-import { ZIndex } from './zIndex';
+import { ZIndex } from './ZIndex';
 
 const BaseNavbar = styled.nav`
   display: flex;

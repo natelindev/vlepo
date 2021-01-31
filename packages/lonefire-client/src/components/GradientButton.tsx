@@ -4,7 +4,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { Button } from './base';
-import { ZIndex } from './zIndex';
+import { ZIndex } from './ZIndex';
 
 export interface GradientButtonProps {
   children?: React.ReactNode;

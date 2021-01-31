@@ -7,7 +7,7 @@ declare module '@emotion/react' {
     primaryFontFamily: string;
     secondaryFontFamily: string;
     borderWidth: BorderWidth;
-    zIndex: ZIndex;
+    ZIndex: ZIndex;
   }
 
   export interface BorderWidth {

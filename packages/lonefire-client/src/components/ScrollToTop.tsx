@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { useScrollPosition } from '../hooks/scrollPosition';
-import { ZIndex } from './zIndex';
+import { ZIndex } from './ZIndex';
 
 const animation = css`
   @keyframes fadeOutRight {

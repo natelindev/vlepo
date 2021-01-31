@@ -4,20 +4,23 @@ import React from 'react';
 import { RemoveRedEye } from '@emotion-icons/material-outlined';
 import styled from '@emotion/styled';
 
-import { CardBody, CardImgOverlay, Row } from './base';
+import { CardBody, Row } from './base';
 import Card from './Card';
 import CardImg from './CardImg';
 import Tag from './Tag';
-import { ZIndex } from './zIndex';
+import { ZIndex } from './ZIndex';
 
 export interface ArticleCardProps {
-  title: string;
-  headerImage: string;
-  abstract: string;
-  date: Date;
-  href: string;
-  tags: string[];
-  viewCount: number;
+  title?: string;
+  headerImage?: string;
+  abstract?: string;
+  date?: Date;
+  href?: string;
+  tags?: string[];
+  viewCount?: number;
+  className?: string;
+  width?: number;
+  height?: number;
 }
 
 const Abstract = styled.div`
@@ -53,30 +56,49 @@ const ArticleLink = styled.a`
   z-index: ${ZIndex.ArticleLink};
 `;
 
+const ViewCounts = styled.div`
+  margin-top: auto;
+  margin-bottom: auto;
+`;
+
+const BaseArticleCard = styled(Card)`
+  border: 1px solid black;
+`;
+
 const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps) => {
-  const { title, headerImage, abstract, date, href, tags, viewCount } = props;
+  const { title, headerImage, abstract, date, href, tags, viewCount, className, width } = props;
   return (
-    <Card href={href} className="my-3 mx-auto mx-md-3 border-0 animated--shadow-translate">
-      <CardImg src={headerImage} alt={title} />
-      <CardImgOverlay>
-        {tags.map((t) => (
-          <Tag name={t} href={`/Tag/${t}`} />
-        ))}
-      </CardImgOverlay>
+    <BaseArticleCard href={href} width={width} className={className}>
+      {headerImage && (
+        <CardImg src={headerImage} alt={title} top>
+          {tags && tags.length && tags.map((t) => <Tag name={t} href={`/tags/${t}`} />)}
+        </CardImg>
+      )}
       <CardBody>
-        <Row>
-          <ArticleCardTitle>{title}</ArticleCardTitle>
-        </Row>
-        <Abstract>{abstract}</Abstract>
-        <ArticleCardFooter>
-          <ArticleDate>{date}</ArticleDate>
-          <Link href={href} passHref>
-            <ArticleLink>More</ArticleLink>
-          </Link>
-          <RemoveRedEye />
-        </ArticleCardFooter>
+        {title && (
+          <Row>
+            <ArticleCardTitle>{title}</ArticleCardTitle>
+          </Row>
+        )}
+        {abstract && <Abstract>{abstract}</Abstract>}
+        {(date || viewCount || href) && (
+          <ArticleCardFooter>
+            {date && <ArticleDate>{date}</ArticleDate>}
+            {href && (
+              <Link href={href} passHref>
+                <ArticleLink>More</ArticleLink>
+              </Link>
+            )}
+            {viewCount && (
+              <ViewCounts>
+                <RemoveRedEye />
+                {viewCount}
+              </ViewCounts>
+            )}
+          </ArticleCardFooter>
+        )}
       </CardBody>
-    </Card>
+    </BaseArticleCard>
   );
 };
 

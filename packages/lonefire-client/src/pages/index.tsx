@@ -1,81 +1,123 @@
-import { rng, RngOption } from 'lonefire-shared';
+import { Masonry } from 'masonic';
 import React from 'react';
-import { Button, CardBody, CardImg } from 'src/components/base';
+import Typist from 'react-typist';
+import ArticleCard, { ArticleCardProps } from 'src/components/ArticleCard';
 import Card from 'src/components/Card';
 import Layout from 'src/components/Layout';
-import Masonry from 'src/components/Masonry';
 
 import styled from '@emotion/styled';
 
 const IndexMasonry = styled(Masonry)`
   width: 100%;
   align-self: center;
-  margin: 0 0;
+  margin-left: auto;
+  margin-right: auto;
+  &:focus {
+    border: none;
+    outline: none;
+  }
 `;
 
 const IndexCard = styled(Card)`
-  font-family: 'Economica', sans-serif;
+  margin-left: auto;
+  margin-right: auto;
   backdrop-filter: saturate(180%) blur(5px);
 `;
 
-const MasonryCard = styled(Card)`
-  max-width: 300px;
+const IndexRow = styled.div`
+  margin-left: 6rem;
+  margin-right: 6rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
 `;
 
-const CardTitle = styled.h3`
-  margin: 0;
-  padding: 0;
+const IndexSlogan = styled(Typist)`
+  font-size: 1.5rem;
 `;
 
-const CardSubtitle = styled.h4`
-  margin: 0;
-  padding: 0;
-`;
-
-const CardText = styled.p`
-  margin: 0;
-  padding: 0;
-`;
+const MasonryCard = ({ data, width }: { data: unknown; width: number }) => (
+  <ArticleCard width={width} {...data} />
+);
 
 export default function Home(): React.ReactElement {
+  const items: ArticleCardProps[] = [
+    {
+      title: 'hello',
+      headerImage: 'https://placeholder.pics/svg/300',
+      abstract: 'This is an test article',
+    },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
+    { title: 'hello' },
+  ];
   return (
     <>
       <Layout>
-        <IndexCard className="border-draw-within mx-auto my-3" width="20rem" href="/">
-          <h1 className="mx-auto my-4">Nathaniel&#39;s Dev Area</h1>
+        <IndexCard width="30rem" href="/">
+          <IndexSlogan cursor={{ show: false }}>
+            <h1>I code, Therefore I am</h1>
+          </IndexSlogan>
         </IndexCard>
-        <div className="d-flex justify-content-center mt-5 mb-3">
+        <IndexRow>
           <IndexMasonry
-            packed="packed"
-            sizes={[
-              { columns: 1, gutter: 20 },
-              { mq: '768px', columns: 2, gutter: 20 },
-              { mq: '1024px', columns: 3, gutter: 20 },
-            ]}
-            position
-          >
-            {Array(10)
-              .fill(0)
-              .map((i: number) => (
-                <MasonryCard key={rng(RngOption.integer, 100)}>
-                  <CardImg
-                    layout="fill"
-                    src="https://placeholder.pics/svg/300"
-                    alt="Card image cap"
-                  />
-                  <CardBody>
-                    <CardTitle>Card title</CardTitle>
-                    <CardSubtitle>Card subtitle</CardSubtitle>
-                    <CardText>
-                      Some quick example text to build on the card title and make up the bulk of the
-                      card&#39;s content.
-                    </CardText>
-                    <Button>Button</Button>
-                  </CardBody>
-                </MasonryCard>
-              ))}
-          </IndexMasonry>
-        </div>
+            columnWidth={350}
+            items={items}
+            columnGutter={20}
+            overscanBy={2}
+            render={MasonryCard}
+          />
+        </IndexRow>
       </Layout>
     </>
   );

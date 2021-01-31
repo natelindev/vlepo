@@ -22,7 +22,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLElement> {
 
 const Card = styled(BaseCard)<{ width?: string; height?: string }>`
   max-width: ${(props) => props.width};
-  max-height: ${(props) => props.height};
+  min-height: ${(props) => props.height};
 `;
 
 const OverlayLink = styled.a`
@@ -39,7 +39,7 @@ export default React.forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement
   const [isHovering, intentRef] = useHoverIntent<HTMLDivElement>({ ref });
 
   return (
-    <Card height={height} width={width} {...rest} ref={intentRef}>
+    <Card height={height} width={width} {...rest} ref={intentRef} className={className}>
       {children}
       {href ? (
         <Link href={href} passHref>
