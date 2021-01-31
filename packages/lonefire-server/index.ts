@@ -15,7 +15,7 @@ router.get('/', async (ctx) => {
 
 app.use(router.routes());
 app.use(function* index() {
-  yield send(this, `${__dirname}/index.html`);
+  yield 'hello world';
 });
 
-app.listen(3000).on('listening', () => console.log('Server running on port 3000'));
+app.listen(3001).on('listening', () => console.log('Server running on port 3001'));

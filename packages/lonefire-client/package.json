@@ -12,6 +12,7 @@
     "@emotion/react": "11.1.1",
     "@emotion/styled": "11.0.0",
     "bricks.js": "1.8.0",
+    "lonefire-shared": "^1.0.0",
     "next": "10.0.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",

@@ -2,6 +2,8 @@ import Image from 'next/image';
 
 import styled from '@emotion/styled';
 
+import { ZIndex } from './zIndex';
+
 export const Link = styled.a``;
 
 export const AnimatedLink = styled.a`
@@ -35,14 +37,18 @@ export const AnimatedLink = styled.a`
 export type CardImgProps = {
   left?: boolean;
   right?: boolean;
+  top?: boolean;
+  bottom?: boolean;
 };
 
 export const CardImg = styled(Image)<CardImgProps>`
   flex-shrink: 0;
-  border-top-left-radius: ${(props) => (props.left ? `calc(0.25rem - 1px)` : `0`)};
-  border-top-right-radius: ${(props) => (props.right ? `calc(0.25rem - 1px)` : `0`)};
-  border-bottom-right-radius: ${(props) => (props.right ? `calc(0.25rem - 1px)` : `0`)};
-  border-bottom-left-radius: ${(props) => (props.left ? `calc(0.25rem - 1px)` : `0`)};
+  border-top-left-radius: ${(props) => (props.left || props.top ? `calc(0.25rem - 1px)` : `0`)};
+  border-top-right-radius: ${(props) => (props.right || props.top ? `calc(0.25rem - 1px)` : `0`)};
+  border-bottom-right-radius: ${(props) =>
+    props.right || props.bottom ? `calc(0.25rem - 1px)` : `0`};
+  border-bottom-left-radius: ${(props) =>
+    props.left || props.bottom ? `calc(0.25rem - 1px)` : `0`};
 `;
 
 export const CardImgOverlay = styled.div`
@@ -56,9 +62,15 @@ export const CardImgOverlay = styled.div`
   padding: 1.25rem;
   color: ${(props) => props.color};
   text-decoration: none;
+  z-index: ${ZIndex.CardImageOverlay};
 `;
 
 type CardProps = { direction?: string };
+
+export const Row = styled.div`
+  display: flex;
+`;
+
 export const Card = styled.div<CardProps>`
   display: flex;
   flex-direction: ${(props) => (props.direction === 'lr' ? 'row' : 'column')};

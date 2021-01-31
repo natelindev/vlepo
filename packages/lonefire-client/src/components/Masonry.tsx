@@ -1,5 +1,5 @@
 import Bricks, { SizeDetail } from 'bricks.js';
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 
 interface MasonryProps {
   packed: string;
@@ -11,7 +11,7 @@ interface MasonryProps {
 export default function Masonry(props: MasonryProps): React.ReactElement {
   const { packed, sizes, children, position } = props;
   const masonryContainer = useRef<HTMLDivElement>(null);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const instance = Bricks({
       container: masonryContainer.current as Node,
       packed,

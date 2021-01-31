@@ -1,5 +1,6 @@
 import { promises as fsPromises } from 'fs';
 import { join } from 'path';
+
 import { fileOptions } from './consts';
 import getLogger from './logger';
 
@@ -29,7 +30,7 @@ export const listDir = async (path: string, option = fileOptions.all): Promise<s
               return true;
           }
         })
-        .map((file) => JSON.stringify(file).replace(/"/gm, ''))
+        .map((file) => JSON.stringify(file).replace(/"/gm, '')),
     );
 
     return dirs;

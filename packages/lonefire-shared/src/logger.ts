@@ -1,7 +1,5 @@
-import { circularStringify } from './circularStringify';
 /* eslint-disable no-console */
 import { colors } from './consts';
-import { isBrowser, isNode } from './env';
 
 export const enum logLevel {
   Debug = 'Debug',
@@ -18,7 +16,15 @@ export const enum logTarget {
 /**
  * custom Logger
  */
-export const getLogger = (componentName: string, target = logTarget.console) => {
+export const getLogger = (
+  componentName: string,
+): {
+  raw: (message: unknown) => void;
+  info: (message: unknown) => void;
+  error: (message: unknown) => void;
+  debug: (message: unknown) => void;
+  warn: (message: unknown) => void;
+} => {
   // TODO: add log to file function
   const logFn = console.log;
 
@@ -48,7 +54,7 @@ export const getLogger = (componentName: string, target = logTarget.console) => 
   return {
     raw: (message: unknown): void => {
       if (typeof message === 'object') {
-        logFn(circularStringify(message));
+        logFn(JSON.stringify(message));
       } else {
         logFn(message);
       }

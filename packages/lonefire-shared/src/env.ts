@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
 
 const isWebWorker =

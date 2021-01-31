@@ -7,17 +7,20 @@ import GradientButton from './GradientButton';
 import Logo from './Logo';
 import NavLink from './Navlink';
 import SearchBar from './SearchBar';
+import { ZIndex } from './zIndex';
 
 const BaseNavbar = styled.nav`
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   flex-flow: row nowrap;
   box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.2);
-  background-color: #f8f9fa;
+  background-color: transparent;
   height: 3.5rem;
+  position: fixed;
+  backdrop-filter: saturate(180%) blur(5px);
+  z-index: ${ZIndex.Navbar};
 `;
 
 const NavBrand = styled.a`
@@ -106,7 +109,7 @@ export const DropdownMenu = styled.div`
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 1000;
+  z-index: ${ZIndex.DropDownMenu};
   display: none;
   float: left;
   min-width: 10rem;

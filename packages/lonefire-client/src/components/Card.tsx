@@ -2,12 +2,12 @@ import Link from 'next/link';
 import React from 'react';
 import { useHoverIntent } from 'react-use-hoverintent';
 
-import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
-import { Card } from './base';
+import { Card as BaseCard } from './base';
 
 export interface CardProps extends React.HTMLAttributes<HTMLElement> {
-  [key: string]: any;
+  [key: string]: unknown;
   hoverEffect?: 'bubba' | undefined | null | '';
   children?: React.ReactNode;
   className?: string;
@@ -20,33 +20,30 @@ export interface CardProps extends React.HTMLAttributes<HTMLElement> {
   href?: string;
 }
 
+const Card = styled(BaseCard)<{ width?: string; height?: string }>`
+  max-width: ${(props) => props.width};
+  max-height: ${(props) => props.height};
+`;
+
+const OverlayLink = styled.a`
+  font-size: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+`;
+
 export default React.forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement | null>) => {
   const { children, className, lr, hoverEffect, width, height, href, ...rest } = props;
   const [isHovering, intentRef] = useHoverIntent<HTMLDivElement>({ ref });
 
   return (
-    <Card
-      css={css`
-        max-width: ${width};
-        max-height: ${height};
-      `}
-      {...rest}
-      ref={intentRef}
-    >
+    <Card height={height} width={width} {...rest} ref={intentRef}>
       {children}
       {href ? (
-        <Link
-          href={href}
-          css={css`
-            font-size: 0;
-            position: absolute;
-            top: 0;
-            right: 0;
-            left: 0;
-            bottom: 0;
-          `}
-        >
-          Some text
+        <Link href={href} passHref>
+          <OverlayLink />
         </Link>
       ) : null}
     </Card>

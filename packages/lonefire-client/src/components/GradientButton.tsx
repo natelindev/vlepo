@@ -4,6 +4,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { Button } from './base';
+import { ZIndex } from './zIndex';
 
 export interface GradientButtonProps {
   children?: React.ReactNode;
@@ -60,7 +61,7 @@ const BaseGradientButton = styled(Button)<{ colorA: `#${string}`; colorB: `#${st
 
 const GradientButtonContent = styled.div`
   position: relative;
-  z-index: 1;
+  z-index: ${ZIndex.GradientButton};
   a {
     color: inherit;
     text-decoration: none;

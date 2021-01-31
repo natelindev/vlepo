@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { ArrowUpward } from '@emotion-icons/material-outlined';
+import { KeyboardArrowUp } from '@emotion-icons/material-outlined';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { useScrollPosition } from '../hooks/scrollPosition';
+import { ZIndex } from './zIndex';
 
 const animation = css`
   @keyframes fadeOutRight {
@@ -45,9 +46,8 @@ const BaseScrollToTop = styled.div<ScrollTopProps>`
   text-align: center;
   color: #fff;
   background: rgba(90, 92, 105, 0.3);
-  line-height: 37px;
   border-radius: 0.5rem;
-  z-index: 1;
+  z-index: ${ZIndex.ScrollToTop};
 
   opacity: ${(props) => (props.scrollPosition > 100 ? 1 : 0)};
   animation: ${(props) =>
@@ -82,7 +82,7 @@ const ScrollToTop = (): React.ReactElement => {
         });
       }}
     >
-      <ArrowUpward />
+      <KeyboardArrowUp />
     </BaseScrollToTop>
   );
 };
