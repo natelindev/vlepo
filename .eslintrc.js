@@ -55,6 +55,7 @@ module.exports = {
     'import/no-unresolved': 'off',
     'operator-linebreak': 'off',
     'no-shadow': 'off',
+    indent: 'off',
     'arrow-parens': 'off',
     'no-confusing-arrow': 'off',
     'no-use-before-define': 'off',
@@ -65,7 +66,7 @@ module.exports = {
     'react/jsx-filename-extension': 'off',
     'react/jsx-props-no-spreading': 'off',
     'import/extensions': 'off',
-
+    'implicit-arrow-linebreak': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
   },

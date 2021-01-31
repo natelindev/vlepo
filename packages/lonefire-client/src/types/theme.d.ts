@@ -1,6 +1,5 @@
 import '@emotion/react';
 
-import type { BorderWidth } from '../components/constants';
 declare module '@emotion/react' {
   export interface Theme {
     primaryColor: string;

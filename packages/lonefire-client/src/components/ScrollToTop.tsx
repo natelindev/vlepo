@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { ArrowUpward } from '@emotion-icons/material-outlined';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
@@ -81,7 +82,7 @@ const ScrollToTop = (): React.ReactElement => {
         });
       }}
     >
-      <i className="fas fa-angle-up" />
+      <ArrowUpward />
     </BaseScrollToTop>
   );
 };

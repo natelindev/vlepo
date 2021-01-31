@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Card, CardBody, CardImgOverlay } from './base';
+import Tag from './Tag';
 
 export interface ArticleCardProps {
   title: string;
@@ -17,33 +18,12 @@ const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps) => {
       <img
         className="card-img-top darken-20 text-economica"
         src={headerImage}
-        alt="Speed up your build by putting node_modules in ram Header Image"
+        alt="Speed up your build by putting node_modules in ram Header"
       />
       <CardImgOverlay>
-        <a
-          className="btn btn-outline-light px-1 py-1 mt-n2 mb-3 position-relative mx-1 z-2"
-          href="/Tag/List?name=Javascript"
-        >
-          Javascript
-        </a>
-        <a
-          className="btn btn-outline-light px-1 py-1 mt-n2 mb-3 position-relative mx-1 z-2"
-          href="/Tag/List?name= Node"
-        >
-          Node
-        </a>
-        <a
-          className="btn btn-outline-light px-1 py-1 mt-n2 mb-3 position-relative mx-1 z-2"
-          href="/Tag/List?name= ramdisk"
-        >
-          ramdisk
-        </a>
-        <a
-          className="btn btn-outline-light px-1 py-1 mt-n2 mb-3 position-relative mx-1 z-2"
-          href="/Tag/List?name= tutorial"
-        >
-          tutorial
-        </a>
+        {['Javascript', 'Node'].map((t) => (
+          <Tag name={t} href={`/Tag/${t}`} />
+        ))}
       </CardImgOverlay>
       <CardBody className="d-flex flex-column">
         <div className="d-flex">
@@ -59,7 +39,8 @@ const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps) => {
             More
           </a>
           <div className="mt-auto mb-2">
-            <i className="material-icons img-h-32">remove_red_eye</i> 20
+            <i className="material-icons img-h-32">remove_red_eye</i>
+            20
           </div>
         </div>
         <a className="full-div-link z-1" href="/Article/View/54" />
