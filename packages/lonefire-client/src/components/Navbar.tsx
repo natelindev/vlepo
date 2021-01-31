@@ -16,11 +16,17 @@ const BaseNavbar = styled.nav`
   width: 100%;
   flex-flow: row nowrap;
   box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.2);
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.9);
+
   height: 3.5rem;
   position: fixed;
   backdrop-filter: saturate(180%) blur(5px);
   z-index: ${ZIndex.Navbar};
+
+  @supports ((-webkit-backdrop-filter: blur(5px)) or (backdrop-filter: blur(5px))) {
+    background-color: transparent;
+    backdrop-filter: saturate(180%) blur(5px);
+  }
 `;
 
 const NavBrand = styled.a`
