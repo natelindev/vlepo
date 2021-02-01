@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 
 import { KeyboardArrowUp } from '@emotion-icons/material-outlined';
@@ -33,6 +34,7 @@ const animation = css`
 
 interface ScrollTopProps {
   scrollPosition: number;
+  speed: number;
 }
 
 const BaseScrollToTop = styled.div<ScrollTopProps>`
@@ -51,9 +53,8 @@ const BaseScrollToTop = styled.div<ScrollTopProps>`
 
   opacity: ${(props) => (props.scrollPosition > 100 ? 1 : 0)};
   animation: ${(props) =>
-    `${
-      props.scrollPosition > 100 ? 'fadeInRight' : 'fadeOutRight'
-    } 1s 1 cubic-bezier(0.77, 0, 0.175, 1)`};
+      props.scrollPosition > 100 ? 'fadeInRight' : props.speed < 0 ? 'fadeOutRight' : 'none'}
+    1s 1 cubic-bezier(0.77, 0, 0.175, 1);
 
   &:focus,
   &:hover {
@@ -70,9 +71,10 @@ const BaseScrollToTop = styled.div<ScrollTopProps>`
 `;
 
 const ScrollToTop = () => {
-  const scrollPosition = useScrollPosition();
+  const [scrollPosition, speed] = useScrollPosition();
   return (
     <BaseScrollToTop
+      speed={speed}
       scrollPosition={scrollPosition}
       onClick={() => {
         window.scroll({
