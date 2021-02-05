@@ -8,6 +8,7 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
+    "dev": "lerna run dev",
     "build": "lerna run build",
     "lint": "lerna run lint"
   },

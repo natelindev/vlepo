@@ -2,7 +2,6 @@ import { Masonry } from 'masonic';
 import React from 'react';
 import Typist from 'react-typist';
 import ArticleCard, { ArticleCardProps } from 'src/components/ArticleCard';
-import Card from 'src/components/Card';
 import Layout from 'src/components/Layout';
 
 import styled from '@emotion/styled';
@@ -18,12 +17,6 @@ const IndexMasonry = styled(Masonry)`
   }
 `;
 
-const IndexCard = styled(Card)`
-  margin-left: auto;
-  margin-right: auto;
-  backdrop-filter: saturate(180%) blur(5px);
-`;
-
 const IndexRow = styled.div`
   margin-left: 6rem;
   margin-right: 6rem;
@@ -34,7 +27,13 @@ const IndexRow = styled.div`
 `;
 
 const IndexSlogan = styled(Typist)`
-  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  margin-bottom: 7rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.75rem;
 `;
 
 const MasonryCard = ({ data, width }: { data: unknown; width: number }) => (
@@ -104,11 +103,9 @@ export default function Home(): React.ReactElement {
   ];
   return (
     <Layout>
-      <IndexCard width="30rem" href="/">
-        <IndexSlogan cursor={{ show: false }}>
-          <h1>I code, Therefore I am</h1>
-        </IndexSlogan>
-      </IndexCard>
+      <IndexSlogan cursor={{ show: false }}>
+        <h1>I code, Therefore I am</h1>
+      </IndexSlogan>
       <IndexRow>
         <IndexMasonry
           columnWidth={350}

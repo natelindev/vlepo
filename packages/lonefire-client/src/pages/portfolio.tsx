@@ -1,4 +1,5 @@
 import React from 'react';
 import Layout from 'src/components/Layout';
 
-export default () => <Layout />;
+const Portfolio = () => <Layout />;
+export default Portfolio;

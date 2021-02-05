@@ -12,6 +12,8 @@ const Header = styled.header`
 `;
 
 const Main = styled.main`
+  display: flex;
+  flex-direction: column;
   margin-top: 3.5rem;
   flex: 1 0 auto;
   width: 100%;
