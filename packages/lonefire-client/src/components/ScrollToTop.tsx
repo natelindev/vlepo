@@ -33,8 +33,8 @@ const animation = css`
 `;
 
 interface ScrollTopProps {
-  scrollPosition: number;
-  speed: number;
+  show: boolean;
+  up: boolean;
 }
 
 const BaseScrollToTop = styled.div<ScrollTopProps>`
@@ -55,10 +55,9 @@ const BaseScrollToTop = styled.div<ScrollTopProps>`
 
   z-index: ${ZIndex.ScrollToTop};
   transition: background-color 0.3s ease-in-out;
-  opacity: ${(props) => (props.scrollPosition > 100 ? 1 : 0)};
-  animation: ${(props) =>
-      props.scrollPosition > 100 ? 'fadeInRight' : props.speed < 0 ? 'fadeOutRight' : 'none'}
-    1s 1 cubic-bezier(0.77, 0, 0.175, 1);
+  opacity: ${(props) => (props.show ? 1 : 0)};
+  animation: ${(props) => (props.show ? 'fadeInRight' : props.up ? 'fadeOutRight' : 'none')} 1s 1
+    cubic-bezier(0.77, 0, 0.175, 1);
 
   &:focus,
   &:hover {
@@ -76,10 +75,12 @@ const BaseScrollToTop = styled.div<ScrollTopProps>`
 
 const ScrollToTop = () => {
   const [scrollPosition, speed] = useScrollPosition();
+  const up = speed < 0;
+  const show = scrollPosition > 100;
   return (
     <BaseScrollToTop
-      speed={speed}
-      scrollPosition={scrollPosition}
+      up={up}
+      show={show}
       onClick={() => {
         window.scroll({
           top: 0,

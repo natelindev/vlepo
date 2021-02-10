@@ -3,6 +3,8 @@ import React, { ReactElement } from 'react';
 
 import styled from '@emotion/styled';
 
+import { ZIndex } from './ZIndex';
+
 const BaseTag = styled.a`
   color: #f8f9fa;
 
@@ -45,6 +47,8 @@ const BaseTag = styled.a`
   &:not(:disabled):not(.disabled):active:focus {
     box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);
   }
+
+  z-index: ${ZIndex.Tags};
 `;
 
 type TagProps = {

@@ -63,13 +63,17 @@ export const CardImgOverlay = styled.div`
   padding: 1.25rem;
   color: ${(props) => props.color};
   text-decoration: none;
-  z-index: ${ZIndex.CardImageOverlay};
 `;
 
 type CardProps = { direction?: string };
 
 export const Row = styled.div`
   display: flex;
+`;
+
+export const Column = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Card = styled.div<CardProps>`

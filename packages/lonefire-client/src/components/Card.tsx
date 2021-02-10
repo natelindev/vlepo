@@ -5,6 +5,7 @@ import { useHoverIntent } from 'react-use-hoverintent';
 import styled from '@emotion/styled';
 
 import { Card as BaseCard } from './base';
+import { ZIndex } from './ZIndex';
 
 export interface CardProps extends React.HTMLAttributes<HTMLElement> {
   [key: string]: unknown;
@@ -32,6 +33,7 @@ const OverlayLink = styled.a`
   right: 0;
   left: 0;
   bottom: 0;
+  z-index: ${ZIndex.CardLink};
 `;
 
 export default React.forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement | null>) => {

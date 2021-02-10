@@ -43,10 +43,16 @@ const MasonryCard = ({ data, width }: { data: unknown; width: number }) => (
 export default function Home(): React.ReactElement {
   const items: ArticleCardProps[] = [
     {
-      title: 'hello',
+      href: '/article',
+      title: 'Hello world',
       tags: ['nodejs', 'note'],
       headerImage: 'https://placeholder.pics/svg/300',
       abstract: 'This is an test article',
+      date: new Date(),
+      author: {
+        name: 'Nathaniel',
+        profileImageUrl: '/images/avatar.jpg',
+      },
     },
     { title: 'hello' },
     { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },

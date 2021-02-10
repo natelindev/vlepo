@@ -1,23 +1,27 @@
-import Link from 'next/link';
+import { format } from 'date-fns';
+import Image from 'next/image';
 import React from 'react';
+import readingTime from 'reading-time';
 
-import { RemoveRedEye } from '@emotion-icons/material-outlined';
 import styled from '@emotion/styled';
 
-import { CardBody, Row } from './base';
+import { CardBody, Column, Row } from './base';
 import Card from './Card';
 import CardImg from './CardImg';
 import Tag from './Tag';
-import { ZIndex } from './ZIndex';
 
 export interface ArticleCardProps {
   title?: string;
+  author?: {
+    userId?: string;
+    name?: string;
+    profileImageUrl?: string;
+  };
   headerImage?: string;
   abstract?: string;
   date?: Date;
   href?: string;
   tags?: string[];
-  viewCount?: number;
   className?: string;
   width?: number;
   height?: number;
@@ -32,14 +36,17 @@ const Abstract = styled.div`
   margin-bottom: 1rem;
 `;
 
-const ArticleCardTitle = styled.h4`
-  margin-left: auto;
-  margin-right: auto;
-  font-family: 'Economica, Titillium';
+const ArticleCardTitle = styled.h1`
+  padding: 0;
+  margin-block-start: 0;
+  margin-block-end: 0.5rem;
+  font-weight: 400;
+  font-family: Economica, Titillium, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
 `;
 
 const ArticleDate = styled.div`
-  margin-left: auto;
   margin-right: auto;
 `;
 
@@ -50,23 +57,32 @@ const ArticleCardFooter = styled.div`
   justify-content: space-between;
 `;
 
-const ArticleLink = styled.a`
-  margin-left: auto;
-  margin-right: auto;
-  z-index: ${ZIndex.ArticleLink};
+const AuthorProfileImageConatanier = styled.div`
+  margin-top: 0.5rem;
+  margin-left: 0.2rem;
+  margin-right: 0.5rem;
 `;
 
-const ViewCounts = styled.div`
-  margin-top: auto;
-  margin-bottom: auto;
+const AuthorName = styled(Row)`
+  font-size: 0.9rem;
+`;
+
+const AuthorProfileImage = styled(Image)`
+  object-fit: contain;
+`;
+
+const AuthorSection = styled(Row)`
+  justify-content: flex-start;
+  align-items: center;
 `;
 
 const BaseArticleCard = styled(Card)`
+  border-radius: 0.5rem;
   border: 1px solid black;
 `;
 
 const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps) => {
-  const { title, headerImage, abstract, date, href, tags, viewCount, className, width } = props;
+  const { title, headerImage, abstract, date, href, tags, author, className, width } = props;
   return (
     <BaseArticleCard href={href} width={width} className={className}>
       {headerImage && (
@@ -80,23 +96,31 @@ const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps) => {
             <ArticleCardTitle>{title}</ArticleCardTitle>
           </Row>
         )}
-        {abstract && <Abstract>{abstract}</Abstract>}
-        {(date || viewCount || href) && (
-          <ArticleCardFooter>
-            {date && <ArticleDate>{date}</ArticleDate>}
-            {href && (
-              <Link href={href} passHref>
-                <ArticleLink>More</ArticleLink>
-              </Link>
-            )}
-            {viewCount && (
-              <ViewCounts>
-                <RemoveRedEye />
-                {viewCount}
-              </ViewCounts>
-            )}
-          </ArticleCardFooter>
+        {author && (
+          <AuthorSection>
+            <AuthorProfileImageConatanier>
+              <AuthorProfileImage
+                src={author.profileImageUrl ?? '/images/avatar.jpg'}
+                layout="fixed"
+                height="36"
+                width="36"
+              />
+            </AuthorProfileImageConatanier>
+            <Column>
+              <AuthorName>{author.name}</AuthorName>
+              <AuthorName>
+                {date && (
+                  <ArticleDate>
+                    {format(date, 'MMM d, yyyy')}
+                    {' • '}
+                    {readingTime(abstract ?? '').text}
+                  </ArticleDate>
+                )}
+              </AuthorName>
+            </Column>
+          </AuthorSection>
         )}
+        {abstract && <Abstract>{abstract}</Abstract>}
       </CardBody>
     </BaseArticleCard>
   );
