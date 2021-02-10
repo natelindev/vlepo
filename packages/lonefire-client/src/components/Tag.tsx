@@ -20,14 +20,9 @@ const BaseTag = styled.a`
 
   &:hover {
     color: #212529;
-    background-color: rgba(255, 255, 255, 0.9);
-
+    background-color: rgba(255, 255, 255, 0.5);
     border-color: #f8f9fa;
-
-    @supports ((-webkit-backdrop-filter: blur(5px)) or (backdrop-filter: blur(5px))) {
-      background-color: rgba(255, 255, 255, 0.5);
-      backdrop-filter: saturate(180%) blur(5px);
-    }
+    backdrop-filter: saturate(180%) blur(5px);
   }
 
   &:focus,

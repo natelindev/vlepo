@@ -8,8 +8,8 @@ import Social from './Social';
 const FootbarContainer = styled.div`
   display: flex;
   justify-content: space-around;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
 `;
 
 const CenteredText = styled.div`
@@ -32,7 +32,10 @@ const Footbar: React.FC = () => (
     <Logo size="42px" />
     <BottomText>
       <CenteredText>
-        © 2019-{new Date().getFullYear()} Nathaniel&#39;s Blog. CC-BY-NC 4.0
+        © 2019-
+        {new Date().getFullYear()}
+        {'  '}
+        Nathaniel&#39;s Blog. CC-BY 4.0
       </CenteredText>
       <CenteredText>
         Made by Nathaniel with

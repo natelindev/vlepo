@@ -47,17 +47,14 @@ const BaseScrollToTop = styled.div<ScrollTopProps>`
   height: 2.2rem;
   text-align: center;
   color: #fff;
+  background-color: rgba(90, 92, 105, 0.3);
+  backdrop-filter: saturate(180%) blur(5px);
 
-  @supports ((-webkit-backdrop-filter: blur(5px)) or (backdrop-filter: blur(5px))) {
-    background-color: rgba(90, 92, 105, 0.3);
-    backdrop-filter: saturate(180%) blur(5px);
-  }
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
 
   z-index: ${ZIndex.ScrollToTop};
   transition: background-color 0.3s ease-in-out;
-
   opacity: ${(props) => (props.scrollPosition > 100 ? 1 : 0)};
   animation: ${(props) =>
       props.scrollPosition > 100 ? 'fadeInRight' : props.speed < 0 ? 'fadeOutRight' : 'none'}
