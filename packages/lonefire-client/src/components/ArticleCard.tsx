@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import Image from 'next/image';
 import React from 'react';
+import { createFragmentContainer, graphql } from 'react-relay';
 import readingTime from 'reading-time';
 
 import styled from '@emotion/styled';
@@ -126,4 +127,17 @@ const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps) => {
   );
 };
 
-export default ArticleCard;
+export default createFragmentContainer(ArticleCard, {
+  post: graphql`
+    fragment ArticleCard_post on Viewer {
+      allBlogPosts(first: 10, orderBy: { createdAt: desc }) {
+        edges {
+          node {
+            ...BlogPostPreview_post
+            id
+          }
+        }
+      }
+    }
+  `,
+});

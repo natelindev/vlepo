@@ -1,10 +1,36 @@
 import { Masonry } from 'masonic';
 import React from 'react';
+import { fetchQuery, graphql } from 'react-relay';
 import Typist from 'react-typist';
+import { useQuery } from 'relay-hooks';
 import ArticleCard, { ArticleCardProps } from 'src/components/ArticleCard';
 import Layout from 'src/components/Layout';
+import { initEnvironment } from 'src/shared/createEnvironment';
 
 import styled from '@emotion/styled';
+
+const query = graphql`
+  query pages_indexQuery {
+    viewer {
+      ...BlogPosts_viewer
+    }
+  }
+`;
+
+export async function getStaticProps() {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const { environment, relaySSR } = initEnvironment!();
+
+  await fetchQuery(environment, query, { test: 1 });
+
+  const relayData = (await relaySSR.getCache())?.[0];
+
+  return {
+    props: {
+      relayData: !relayData ? null : [[relayData[0], relayData[1].data]],
+    },
+  };
+}
 
 const IndexMasonry = styled(Masonry)`
   width: 100%;

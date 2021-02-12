@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "target": "es2015",
+    "module": "esnext",
     "noEmit": true,
     "typeRoots": [
       "node_modules/@types",
@@ -13,7 +14,7 @@
       {
         "name": "typescript-styled-plugin"
       }
-    ],
+    ]
   },
   "typeRoots": [
     "../node_modules/@types",

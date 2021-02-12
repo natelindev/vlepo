@@ -61,4 +61,9 @@ temp
 # build output directory
 build
 
+# macOS specific
 .DS_Store
+
+# ignore generated files
+schema.graphql
+__generated__

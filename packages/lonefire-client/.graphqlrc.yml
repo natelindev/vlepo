@@ -1,0 +1,7 @@
+schema: https://path
+extensions:
+  codegen:
+    generates:
+      ./src/schema/schema.graphql:
+        plugins:
+          - schema-ast

@@ -9,5 +9,8 @@
       }
     ]
   ],
-  "plugins": ["@emotion/babel-plugin"]
+  "plugins": [
+    "@emotion/babel-plugin",
+    ["relay", { "artifactDirectory": "./src/__generated__" }]
+  ]
 }
