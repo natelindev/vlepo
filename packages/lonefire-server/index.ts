@@ -7,7 +7,7 @@ import serve from 'koa-static';
 const app = new Koa();
 const router = new Router();
 app.use(bodyParser());
-app.use(serve(`${__dirname}/public`));
+app.use(serve(`${__dirname}/public`, { defer: true }));
 
 router.get('/', async (ctx) => {
   ctx.body = serve('index.ts');
