@@ -9,7 +9,8 @@ import Router from 'koa-router';
 import { PrismaClient } from '@prisma/client';
 
 import authRouter from './auth';
-import myGraphqlSchema from './graphqlSchema';
+import { createContext } from './context';
+import schema from './schema';
 
 const debug = debugInit('app');
 const prisma = new PrismaClient();
@@ -20,7 +21,8 @@ app.use(bodyParser());
 const router = new Router();
 
 const graphqlServer = graphqlHTTP({
-  schema: myGraphqlSchema,
+  schema,
+  context: createContext(),
   formatError: (error: Error) => ({
     // better errors for development. `stack` used in `gqErrors` middleware
     message: error.message,
