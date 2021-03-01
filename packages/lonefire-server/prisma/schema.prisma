@@ -7,6 +7,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum Language {
+  en
+  zh
+}
+
 model Blog {
   id           String   @id @default(uuid())
   name         String?
@@ -16,48 +21,230 @@ model Blog {
 }
 
 model UserRole {
-  id    String @id @default(uuid())
-  name  String
-  users User[]
+  id        String   @id @default(uuid())
+  value     String   @unique
+  name      String
+  users     User[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model User {
-  id          String     @id @default(uuid())
-  name        String?
-  username    String     @unique
-  password    String
-  description String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  posts       Post[]
-  role        UserRole[]
+  id              String     @id @default(uuid())
+  name            String?
+  username        String     @unique
+  password        String
+  email           String?
+  website         String?
+  profileImageUrl String?
+  description     String?
+  posts           Post[]
+  roles           UserRole[]
+  comments        Comment[]
+  images          Image[]
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
 }
 
 model Post {
-  id           String     @id @default(uuid())
-  authorId     String?
-  content      String?
-  published    Boolean    @default(false)
-  status       PostStatus
-  title        String
-  headerImgUrl String?
-  author       User?      @relation(fields: [authorId], references: [id])
-  likeCount    Int        @default(0)
-  viewCount    Int        @default(0)
-  scoreAverge  Int        @default(0)
-  minuteRead   Int?
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-  tags         Tag[]
+  id             String       @id @default(uuid())
+  ownerId        String?
+  content        String?
+  status         PostStatus   @default(DRAFT)
+  title          String
+  headerImageUrl String?
+  owner          User?        @relation(fields: [ownerId], references: [id])
+  comments       Comment[]
+  viewCount      Int          @default(0)
+  ratings        Rating[]
+  reactions      Reaction[]
+  minuteRead     Int?
+  tags           Tag[]
+  images         Image[]
+  shares         ShareCount[]
+  editedAt       DateTime?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
 }
 
 enum PostStatus {
   DRAFT
+  PRIVATE
+  PUBLISHED
+}
+
+enum ToughtStatus {
+  DRAFT
+  PRIVATE
   PUBLISHED
 }
 
 model Tag {
-  id   String @id @default(uuid())
-  name String
-  post Post[]
+  id           String    @id @default(uuid())
+  name         String    @unique
+  posts        Post[]
+  thoughts     Thought[]
+  headerImgUrl String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  projects     Project[] @relation(fields: [projectId], references: [id])
+  projectId    String?
+  papers       Paper[]   @relation(fields: [paperId], references: [id])
+  paperId      String?
+}
+
+model Comment {
+  id            String    @id @default(uuid())
+  owner         User      @relation(fields: [userId], references: [id])
+  userId        String
+  parent        Comment?  @relation("CommentToComment", fields: [parentId], references: [id])
+  childComments Comment[] @relation("CommentToComment")
+  parentId      String?
+  content       String
+  thought       Thought?  @relation(fields: [thoughtId], references: [id])
+  thoughtId     String?
+  post          Post?     @relation(fields: [postId], references: [id])
+  postId        String?
+  images        Image[]
+  language      Language
+  editedAt      DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Image {
+  id             String   @id @default(uuid())
+  owner          User     @relation(fields: [onwerId], references: [id])
+  onwerId        String
+  mainColor      String
+  secondaryColor String?
+  url            String
+  height         Int
+  width          Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  thought        Thought? @relation(fields: [thoughtId], references: [id])
+  thoughtId      String?
+  comment        Comment? @relation(fields: [commentId], references: [id])
+  commentId      String?
+  post           Post?    @relation(fields: [postId], references: [id])
+  postId         String?
+  project        Project? @relation(fields: [projectId], references: [id])
+  projectId      String?
+  paper          Paper?   @relation(fields: [paperId], references: [id])
+  paperId        String?
+}
+
+model Link {
+  id        String   @id @default(uuid())
+  url       String
+  iconUrl   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Thought {
+  id        String       @id @default(uuid())
+  content   String
+  status    ToughtStatus @default(DRAFT)
+  images    Image[]
+  comments  Comment[]
+  reactions Reaction[]
+  shares    ShareCount[]
+  editedAt  DateTime?
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  tags      Tag[]        @relation(fields: [tagId], references: [id])
+  tagId     String?
+}
+
+model Reaction {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  iconUrl   String?
+  post      Post?    @relation(fields: [postId], references: [id])
+  postId    String?
+  thought   Thought? @relation(fields: [thoughtId], references: [id])
+  thoughtId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  project   Project? @relation(fields: [projectId], references: [id])
+  projectId String?
+  paper     Paper?   @relation(fields: [paperId], references: [id])
+  paperId   String?
+}
+
+model Rating {
+  id        String   @id @default(uuid())
+  score     Int
+  comment   String?
+  post      Post?    @relation(fields: [postId], references: [id])
+  postId    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum TranslationType {
+  Blog
+  Post
+  Thought
+  Tag
+  User
+  UserRole
+  Project
+  Paper
+}
+
+enum ShareType {
+  REDDIT
+  TWITTER
+  TELEGRAM
+}
+
+model ShareCount {
+  id        String    @id @default(uuid())
+  targetId  String
+  count     Int
+  source    ShareType
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  post      Post?     @relation(fields: [postId], references: [id])
+  postId    String?
+  thought   Thought?  @relation(fields: [thoughtId], references: [id])
+  thoughtId String?
+}
+
+model Translation {
+  id        String          @id @default(uuid())
+  targetId  String
+  type      TranslationType
+  language  Language
+  content   Json
+  editedAt  DateTime?
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+}
+
+model Project {
+  id        String     @id @default(uuid())
+  name      String
+  content   String
+  url       String?
+  tags      Tag[]
+  images    Image[]
+  reactions Reaction[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Paper {
+  id        String     @id @default(uuid())
+  name      String
+  content   String
+  url       String?
+  tags      Tag[]
+  images    Image[]
+  reactions Reaction[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }

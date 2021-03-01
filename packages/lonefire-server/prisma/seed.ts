@@ -14,7 +14,7 @@ const debug = debugInit('seed');
       title: name.title(),
       content: lorem.paragraphs(5),
       status: PostStatus.PUBLISHED,
-      author: {
+      owner: {
         create: {
           username: 'admin',
           password: await argon2.hash('admin', { type: argon2.argon2id }),

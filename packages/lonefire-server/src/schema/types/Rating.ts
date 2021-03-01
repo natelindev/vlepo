@@ -1,11 +1,11 @@
 import { objectType } from 'nexus';
 
-export const Blog = objectType({
-  name: 'Blog',
+export const Rating = objectType({
+  name: 'Rating',
   definition(t) {
     t.model.id();
-    t.model.name();
-    t.model.visitorCount();
+    t.model.score();
+    t.model.comment();
     t.model.createdAt();
     t.model.updatedAt();
   },
