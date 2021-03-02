@@ -1,5 +1,11 @@
 import { objectType } from 'nexus';
 
+import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
+
+import { Image } from './Image';
+import { Reaction } from './Reaction';
+import { Tag } from './Tag';
+
 export const Project = objectType({
   name: 'Project',
   definition(t) {
@@ -12,5 +18,38 @@ export const Project = objectType({
     t.model.reactions();
     t.model.createdAt();
     t.model.updatedAt();
+    t.connectionField('imagesConnection', {
+      type: Image,
+      async resolve(root, args, ctx, info) {
+        const result = await findManyCursorConnection(
+          (args) => ctx.prisma.image.findMany(args),
+          () => ctx.prisma.image.count(),
+          args,
+        );
+        return result;
+      },
+    });
+    t.connectionField('tagsConnection', {
+      type: Tag,
+      async resolve(root, args, ctx, info) {
+        const result = await findManyCursorConnection(
+          (args) => ctx.prisma.tag.findMany(args),
+          () => ctx.prisma.tag.count(),
+          args,
+        );
+        return result;
+      },
+    });
+    t.connectionField('reactionsConnection', {
+      type: Reaction,
+      async resolve(root, args, ctx, info) {
+        const result = await findManyCursorConnection(
+          (args) => ctx.prisma.reaction.findMany(args),
+          () => ctx.prisma.reaction.count(),
+          args,
+        );
+        return result;
+      },
+    });
   },
 });

@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/heading-has-content */
-import type { AppProps /* , AppContext */ } from 'next/app';
+
+import type { AppProps } from 'next/app';
 import React from 'react';
 import { SSRCache } from 'react-relay-network-modern-ssr/node8/server';
 import { RelayEnvironmentProvider } from 'relay-hooks';

@@ -10,6 +10,7 @@ export default NexusSchema.makeSchema({
     nexusPrisma({
       experimentalCRUD: true,
     }),
+    NexusSchema.connectionPlugin(),
   ],
   outputs: {
     typegen: path.join(__dirname, '../../node_modules/@types/nexus-typegen/index.d.ts'),

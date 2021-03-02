@@ -44,6 +44,7 @@ model User {
   images          Image[]
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
+  thoughts        Thought[]
 }
 
 model Post {
@@ -146,6 +147,7 @@ model Link {
 model Thought {
   id        String       @id @default(uuid())
   content   String
+  onwer     User         @relation(fields: [ownerId], references: [id])
   status    ToughtStatus @default(DRAFT)
   images    Image[]
   comments  Comment[]
@@ -156,6 +158,7 @@ model Thought {
   updatedAt DateTime     @updatedAt
   tags      Tag[]        @relation(fields: [tagId], references: [id])
   tagId     String?
+  ownerId   String
 }
 
 model Reaction {
