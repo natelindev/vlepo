@@ -185,14 +185,14 @@ model Rating {
 }
 
 enum TranslationType {
-  Blog
-  Post
-  Thought
-  Tag
-  User
-  UserRole
-  Project
-  Paper
+  BLOG
+  POST
+  THOUGHT
+  TAG
+  USER
+  USERROLE
+  PROJECT
+  PAPER
 }
 
 enum ShareType {

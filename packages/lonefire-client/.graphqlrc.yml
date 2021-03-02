@@ -1,4 +1,4 @@
-schema: https://path
+schema: http://localhost:3001/graphql
 extensions:
   codegen:
     generates:

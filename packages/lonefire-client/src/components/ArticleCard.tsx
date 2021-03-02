@@ -129,14 +129,14 @@ const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps) => {
 
 export default createFragmentContainer(ArticleCard, {
   post: graphql`
-    fragment ArticleCard_post on Viewer {
-      allBlogPosts(first: 10, orderBy: { createdAt: desc }) {
-        edges {
-          node {
-            ...BlogPostPreview_post
-            id
-          }
-        }
+    fragment ArticleCard_post on Post {
+      id
+      title
+      headerImageUrl
+      createdAt
+      updatedAt
+      owner {
+        name
       }
     }
   `,

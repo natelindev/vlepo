@@ -16,7 +16,24 @@ const store = new Store(source);
 let storeEnvironment: RelayModernEnvironment | undefined;
 
 const client = {
-  initEnvironment: undefined,
+  initEnvironment: () => {
+    const source = new RecordSource();
+    const store = new Store(source);
+    const relaySSR = new ServerRelaySSR();
+
+    return {
+      relaySSR,
+      environment: new Environment({
+        store,
+        network: new RelayNetworkLayer([
+          urlMiddleware({
+            url: () => process.env.NEXT_PUBLIC_RELAY_ENDPOINT ?? '',
+          }),
+          relaySSR.getMiddleware(),
+        ]),
+      }),
+    };
+  },
   createEnvironment: (relayData: SSRCache) => {
     if (storeEnvironment) return storeEnvironment;
 
@@ -52,7 +69,7 @@ const server = {
         store,
         network: new RelayNetworkLayer([
           urlMiddleware({
-            url: () => process.env.NEXT_PUBLIC_RELAY_ENDPOINT ?? '',
+            url: () => process.env.NEXT_PUBLIC_RELAY_ENDPOINT ?? 'http://localhost:3001/graphql',
           }),
           relaySSR.getMiddleware(),
         ]),
@@ -74,4 +91,4 @@ const server = {
 };
 
 export const { initEnvironment, createEnvironment } =
-  typeof window === 'undefined' ? client : server;
+  typeof window === 'undefined' ? server : client;

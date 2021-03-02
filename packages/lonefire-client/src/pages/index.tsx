@@ -9,28 +9,7 @@ import { initEnvironment } from 'src/shared/createEnvironment';
 
 import styled from '@emotion/styled';
 
-const query = graphql`
-  query pages_indexQuery {
-    viewer {
-      ...BlogPosts_viewer
-    }
-  }
-`;
-
-export async function getStaticProps() {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const { environment, relaySSR } = initEnvironment!();
-
-  await fetchQuery(environment, query, { test: 1 });
-
-  const relayData = (await relaySSR.getCache())?.[0];
-
-  return {
-    props: {
-      relayData: !relayData ? null : [[relayData[0], relayData[1].data]],
-    },
-  };
-}
+import { pages_indexQuery as pageIndexQuery } from '../__generated__/pages_indexQuery.graphql';
 
 const IndexMasonry = styled(Masonry)`
   width: 100%;
@@ -62,77 +41,45 @@ const IndexSlogan = styled(Typist)`
   font-size: 1.75rem;
 `;
 
+const query = graphql`
+  query pages_indexQuery {
+    posts {
+      title
+      headerImageUrl
+      createdAt
+    }
+  }
+`;
+
+export async function getStaticProps() {
+  const { environment, relaySSR } = initEnvironment();
+
+  await fetchQuery(environment, query, {});
+
+  const relayData = (await relaySSR.getCache())?.[0];
+
+  return {
+    props: {
+      relayData: !relayData ? null : [[relayData[0], relayData[1].data]],
+    },
+  };
+}
+
 const MasonryCard = ({ data, width }: { data: unknown; width: number }) => (
   <ArticleCard width={width} {...data} />
 );
 
 export default function Home(): React.ReactElement {
-  const items: ArticleCardProps[] = [
-    {
-      href: '/article',
-      title: 'Hello world',
-      tags: ['nodejs', 'note'],
-      headerImage: 'https://placeholder.pics/svg/300',
-      abstract: 'This is an test article',
-      date: new Date(),
-      author: {
-        name: 'Nathaniel',
-        profileImageUrl: '/images/avatar.jpg',
-      },
-    },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-    { title: 'hello', headerImage: 'https://placeholder.pics/svg/300' },
-    { title: 'hello' },
-  ];
+  const { error, data } = useQuery<pageIndexQuery>(query);
+  if (error) return <div>{error.message}</div>;
+
+  if (!data) return <div>Loading</div>;
+
+  const items: ArticleCardProps[] = data.posts.map((p) => ({
+    title: p.title,
+    date: p.createdAt as Date,
+  }));
+
   return (
     <Layout>
       <IndexSlogan cursor={{ show: false }}>

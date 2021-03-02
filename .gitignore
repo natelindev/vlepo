@@ -66,4 +66,5 @@ build
 
 # ignore generated files
 schema.graphql
+generated-types.d.ts
 __generated__

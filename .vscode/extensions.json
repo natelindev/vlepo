@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "streetsidesoftware.code-spell-checker",
+    "apollographql.vscode-apollo",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode",
+    "prisma.prisma",
+    "mike-co.import-sorter",
+    "jpoissonnier.vscode-styled-components",
+    "vscode-icons-team.vscode-icons"
+  ]
+}
