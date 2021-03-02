@@ -1,11 +1,12 @@
 import { Masonry } from 'masonic';
+import { GetServerSideProps } from 'next';
 import React from 'react';
 import { fetchQuery, graphql } from 'react-relay';
 import Typist from 'react-typist';
 import { useQuery } from 'relay-hooks';
 import ArticleCard, { ArticleCardProps } from 'src/components/ArticleCard';
 import Layout from 'src/components/Layout';
-import { initEnvironment } from 'src/shared/createEnvironment';
+import { initEnvironment } from 'src/relay';
 
 import styled from '@emotion/styled';
 
@@ -51,19 +52,22 @@ const query = graphql`
   }
 `;
 
-export async function getStaticProps() {
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const { environment, relaySSR } = initEnvironment();
 
   await fetchQuery(environment, query, {});
 
   const relayData = (await relaySSR.getCache())?.[0];
 
+  res.setHeader('Cache-Control', 's-maxage=604800, stale-while-revalidate');
+
   return {
     props: {
-      relayData: !relayData ? null : [[relayData[0], relayData[1].data]],
+      // @ts-expect-error QueryPayload is a union type of which only one type contains .json
+      relayData: !relayData ? null : [[relayData[0], relayData[1].json]],
     },
   };
-}
+};
 
 const MasonryCard = ({ data, width }: { data: unknown; width: number }) => (
   <ArticleCard width={width} {...data} />
