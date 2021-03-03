@@ -8,12 +8,12 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "dev": "lerna run dev",
+    "dev": "lerna run dev --parallel",
     "build": "lerna run build",
     "lint": "lerna run lint",
     "generate": "lerna run generate",
-    "predev": "lerna run generate",
-    "prebuild": "lerna run generate"
+    "predev": "yarn generate",
+    "prebuild": "yarn generate"
   },
   "devDependencies": {
     "@types/eslint": "^7.2.6",

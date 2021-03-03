@@ -31,5 +31,14 @@
   "files.associations": {
     "**/package.json": "json",
     "**/*.json": "jsonc"
+  },
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": "schema.prisma",
+        "isAsync": true,
+        "cmd": "yarn prisma format"
+      }
+    ]
   }
 }

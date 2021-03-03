@@ -8,6 +8,6 @@
     "prisma.prisma",
     "mike-co.import-sorter",
     "jpoissonnier.vscode-styled-components",
-    "vscode-icons-team.vscode-icons"
+    "emeraldwalk.runonsave"
   ]
 }
