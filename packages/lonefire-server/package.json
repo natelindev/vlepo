@@ -16,11 +16,12 @@
   },
   "dependencies": {
     "@devoxa/prisma-relay-cursor-connection": "^1.1.1",
-    "@prisma/client": "^2.18.0",
+    "@prisma/client": "2.17.0",
     "@types/koa-graphql": "^0.8.4",
     "argon2": "^0.27.1",
     "debug": "^4.3.1",
     "graphql": "^15.5.0",
+    "graphql-depth-limit": "^1.1.0",
     "graphql-playground-middleware-koa": "^1.6.21",
     "graphql-scalars": "^1.7.0",
     "koa": "^2.13.0",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "@types/debug": "^4.1.5",
     "@types/faker": "^5.1.7",
+    "@types/graphql-depth-limit": "^1.1.2",
     "@types/koa": "^2.11.4",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-graphql": "^0.8.4",
@@ -46,7 +48,7 @@
     "@types/node": "^14.14.26",
     "dotenv": "^8.2.0",
     "faker": "^5.4.0",
-    "prisma": "^2.18.0",
+    "prisma": "2.17.0",
     "ts-node": "^9.1.1",
     "ts-node-dev": "^1.1.1",
     "typescript": "^4.1.5"

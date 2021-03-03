@@ -1,4 +1,5 @@
 import debugInit from 'debug';
+import depthLimit from 'graphql-depth-limit';
 import koaPlayground from 'graphql-playground-middleware-koa';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
@@ -23,6 +24,7 @@ const router = new Router();
 const graphqlServer = graphqlHTTP({
   schema,
   context: createContext(),
+  validationRules: [depthLimit(10)],
   formatError: (error: Error) => ({
     // better errors for development. `stack` used in `gqErrors` middleware
     message: error.message,
