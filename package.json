@@ -10,7 +10,10 @@
     "bootstrap": "lerna bootstrap",
     "dev": "lerna run dev",
     "build": "lerna run build",
-    "lint": "lerna run lint"
+    "lint": "lerna run lint",
+    "generate": "lerna run generate",
+    "predev": "lerna run generate",
+    "prebuild": "lerna run generate"
   },
   "devDependencies": {
     "@types/eslint": "^7.2.6",

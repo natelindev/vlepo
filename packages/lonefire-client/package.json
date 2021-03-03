@@ -7,9 +7,7 @@
     "build": "next build",
     "start": "next start",
     "relay": "relay-compiler --src ./src --exclude '**/.next/**' '**/node_modules/**' '**/test/**'  '**/__generated__/**' --exclude '**/schema/**' --schema ./src/schema/schema.graphql --language typescript --artifactDirectory ./src/__generated__",
-    "generate": "graphql codegen",
-    "predev": "graphql codegen",
-    "prebuild": "graphql codegen"
+    "generate": "yarn relay"
   },
   "dependencies": {
     "@emotion-icons/material-outlined": "3.0.0",
