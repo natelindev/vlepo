@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
 
-import styled from '@emotion/styled';
-
 export interface LogoProps {
   size?: string;
   height?: string;

@@ -20,7 +20,7 @@ export const Tag = objectType({
     t.model.updatedAt();
     t.connectionField('postsConnection', {
       type: Post,
-      async resolve(root, args, ctx, info) {
+      async resolve(_, args, ctx) {
         const result = await findManyCursorConnection(
           (args) => ctx.prisma.post.findMany(args),
           () => ctx.prisma.post.count(),
@@ -31,7 +31,7 @@ export const Tag = objectType({
     });
     t.connectionField('thoughtsConnection', {
       type: Thought,
-      async resolve(root, args, ctx, info) {
+      async resolve(_, args, ctx) {
         const result = await findManyCursorConnection(
           (args) => ctx.prisma.thought.findMany(args),
           () => ctx.prisma.thought.count(),
@@ -42,7 +42,7 @@ export const Tag = objectType({
     });
     t.connectionField('projectConnection', {
       type: Project,
-      async resolve(root, args, ctx, info) {
+      async resolve(_, args, ctx) {
         const result = await findManyCursorConnection(
           (args) => ctx.prisma.project.findMany(args),
           () => ctx.prisma.project.count(),
@@ -53,7 +53,7 @@ export const Tag = objectType({
     });
     t.connectionField('papersConnection', {
       type: Paper,
-      async resolve(root, args, ctx, info) {
+      async resolve(_, args, ctx) {
         const result = await findManyCursorConnection(
           (args) => ctx.prisma.paper.findMany(args),
           () => ctx.prisma.paper.count(),

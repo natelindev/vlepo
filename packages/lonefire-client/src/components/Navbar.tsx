@@ -1,5 +1,5 @@
 ﻿import Link from 'next/link';
-import React, { useState } from 'react';
+import React from 'react';
 
 import styled from '@emotion/styled';
 
@@ -137,49 +137,46 @@ export const DropdownMenu = styled.div`
   }
 `;
 
-const Navbar: React.FC = () => {
-  const [open, setOpen] = useState(false);
-  return (
-    <BaseNavbar>
-      <NavLogo size="50px" />
-      <Link href="/" passHref>
-        <NavBrand href="/">Nathaniel&#39;s Blog</NavBrand>
-      </Link>
-      <LeftNavCollapse>
-        <NavbarNav>
-          <NavLink href="/portfolio">Portfolio</NavLink>
-          <NavLink href="/papers">Papers</NavLink>
-          <NavLink href="/about">About</NavLink>
-          <Dropdown>
-            <DropdownToggle>More</DropdownToggle>
-            <DropdownMenu>
-              <Link href="/notes" passHref>
-                <NavItem>Notes</NavItem>
-              </Link>
-              <Link href="/friends">
-                <NavItem>friends</NavItem>
-              </Link>
-              <Link href="/messageBoard">
-                <NavItem>MessageBoard</NavItem>
-              </Link>
-              <Link href="/timeline">
-                <NavItem>Timeline</NavItem>
-              </Link>
-            </DropdownMenu>
-          </Dropdown>
-        </NavbarNav>
-      </LeftNavCollapse>
-      <RightNavCollapse>
-        <NavbarNav>
-          <NavSearchBar />
-          <LoginButton link="/login" colorA="#5CC6EE" colorB="#3232FF">
-            Login
-          </LoginButton>
-        </NavbarNav>
-      </RightNavCollapse>
-      {/* <NavbarToggler className="animated--toggler" /> */}
-    </BaseNavbar>
-  );
-};
+const Navbar: React.FC = () => (
+  <BaseNavbar>
+    <NavLogo size="50px" />
+    <Link href="/" passHref>
+      <NavBrand href="/">Nathaniel&#39;s Blog</NavBrand>
+    </Link>
+    <LeftNavCollapse>
+      <NavbarNav>
+        <NavLink href="/portfolio">Portfolio</NavLink>
+        <NavLink href="/papers">Papers</NavLink>
+        <NavLink href="/about">About</NavLink>
+        <Dropdown>
+          <DropdownToggle>More</DropdownToggle>
+          <DropdownMenu>
+            <Link href="/notes" passHref>
+              <NavItem>Notes</NavItem>
+            </Link>
+            <Link href="/friends">
+              <NavItem>friends</NavItem>
+            </Link>
+            <Link href="/messageBoard">
+              <NavItem>MessageBoard</NavItem>
+            </Link>
+            <Link href="/timeline">
+              <NavItem>Timeline</NavItem>
+            </Link>
+          </DropdownMenu>
+        </Dropdown>
+      </NavbarNav>
+    </LeftNavCollapse>
+    <RightNavCollapse>
+      <NavbarNav>
+        <NavSearchBar />
+        <LoginButton link="/login" colorA="#5CC6EE" colorB="#3232FF">
+          Login
+        </LoginButton>
+      </NavbarNav>
+    </RightNavCollapse>
+    {/* <NavbarToggler className="animated--toggler" /> */}
+  </BaseNavbar>
+);
 
 export default Navbar;

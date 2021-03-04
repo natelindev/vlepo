@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
-import { useHoverIntent } from 'react-use-hoverintent';
 
+// import { useHoverIntent } from 'react-use-hoverintent';
 import styled from '@emotion/styled';
 
 import { Card as BaseCard } from './base';
@@ -36,12 +36,12 @@ const OverlayLink = styled.a`
   z-index: ${ZIndex.CardLink};
 `;
 
-export default React.forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement | null>) => {
-  const { children, className, lr, hoverEffect, width, height, href, ...rest } = props;
-  const [isHovering, intentRef] = useHoverIntent<HTMLDivElement>({ ref });
+export default React.forwardRef((props: CardProps /* ref: React.Ref<HTMLDivElement | null> */) => {
+  const { children, className, width, height, href, ...rest } = props;
+  // const [isHovering, intentRef] = useHoverIntent<HTMLDivElement>({ ref });
 
   return (
-    <Card height={height} width={width} {...rest} ref={intentRef} className={className}>
+    <Card height={height} width={width} {...rest} className={className}>
       {children}
       {href ? (
         <Link href={href} passHref>

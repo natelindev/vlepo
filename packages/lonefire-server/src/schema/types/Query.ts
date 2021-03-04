@@ -33,7 +33,7 @@ export const Query = queryField((t) => {
   t.crud.userRoles();
   t.connectionField('PostsConnection', {
     type: Post,
-    async resolve(root, args, ctx, info) {
+    async resolve(_, args, ctx) {
       const result = await findManyCursorConnection(
         (args) => ctx.prisma.post.findMany(args),
         () => ctx.prisma.post.count(),
@@ -44,7 +44,7 @@ export const Query = queryField((t) => {
   });
   t.connectionField('ThoughtsConnection', {
     type: Thought,
-    async resolve(root, args, ctx, info) {
+    async resolve(_, args, ctx) {
       const result = await findManyCursorConnection(
         (args) => ctx.prisma.thought.findMany(args),
         () => ctx.prisma.thought.count(),
@@ -55,7 +55,7 @@ export const Query = queryField((t) => {
   });
   t.connectionField('CommentsConnection', {
     type: Comment,
-    async resolve(root, args, ctx, info) {
+    async resolve(_, args, ctx) {
       const result = await findManyCursorConnection(
         (args) => ctx.prisma.comment.findMany(args),
         () => ctx.prisma.comment.count(),
@@ -66,7 +66,7 @@ export const Query = queryField((t) => {
   });
   t.connectionField('TagsConnection', {
     type: Tag,
-    async resolve(root, args, ctx, info) {
+    async resolve(_, args, ctx) {
       const result = await findManyCursorConnection(
         (args) => ctx.prisma.tag.findMany(args),
         () => ctx.prisma.tag.count(),
@@ -77,7 +77,7 @@ export const Query = queryField((t) => {
   });
   t.connectionField('ImagesConnection', {
     type: Image,
-    async resolve(root, args, ctx, info) {
+    async resolve(_, args, ctx) {
       const result = await findManyCursorConnection(
         (args) => ctx.prisma.image.findMany(args),
         () => ctx.prisma.image.count(),
@@ -88,7 +88,7 @@ export const Query = queryField((t) => {
   });
   t.connectionField('SharesConnection', {
     type: ShareCount,
-    async resolve(root, args, ctx, info) {
+    async resolve(_, args, ctx) {
       const result = await findManyCursorConnection(
         (args) => ctx.prisma.shareCount.findMany(args),
         () => ctx.prisma.shareCount.count(),
@@ -99,7 +99,7 @@ export const Query = queryField((t) => {
   });
   t.connectionField('TagsConnection', {
     type: Tag,
-    async resolve(root, args, ctx, info) {
+    async resolve(_, args, ctx) {
       const result = await findManyCursorConnection(
         (args) => ctx.prisma.tag.findMany(args),
         () => ctx.prisma.tag.count(),
@@ -110,7 +110,7 @@ export const Query = queryField((t) => {
   });
   t.connectionField('RatingsConnection', {
     type: Rating,
-    async resolve(root, args, ctx, info) {
+    async resolve(_, args, ctx) {
       const result = await findManyCursorConnection(
         (args) => ctx.prisma.rating.findMany(args),
         () => ctx.prisma.rating.count(),
@@ -121,7 +121,7 @@ export const Query = queryField((t) => {
   });
   t.connectionField('ReactionsConnection', {
     type: Reaction,
-    async resolve(root, args, ctx, info) {
+    async resolve(_, args, ctx) {
       const result = await findManyCursorConnection(
         (args) => ctx.prisma.reaction.findMany(args),
         () => ctx.prisma.reaction.count(),
@@ -132,7 +132,7 @@ export const Query = queryField((t) => {
   });
   t.connectionField('PapersConnection', {
     type: Paper,
-    async resolve(root, args, ctx, info) {
+    async resolve(_, args, ctx) {
       const result = await findManyCursorConnection(
         (args) => ctx.prisma.paper.findMany(args),
         () => ctx.prisma.paper.count(),
@@ -143,7 +143,7 @@ export const Query = queryField((t) => {
   });
   t.connectionField('ProjectsConnection', {
     type: Project,
-    async resolve(root, args, ctx, info) {
+    async resolve(_, args, ctx) {
       const result = await findManyCursorConnection(
         (args) => ctx.prisma.project.findMany(args),
         () => ctx.prisma.project.count(),
@@ -154,7 +154,7 @@ export const Query = queryField((t) => {
   });
   t.connectionField('TranslationsConnection', {
     type: Translation,
-    async resolve(root, args, ctx, info) {
+    async resolve(_, args, ctx) {
       const result = await findManyCursorConnection(
         (args) => ctx.prisma.translation.findMany(args),
         () => ctx.prisma.translation.count(),
@@ -165,7 +165,7 @@ export const Query = queryField((t) => {
   });
   t.connectionField('LinksConnection', {
     type: Link,
-    async resolve(root, args, ctx, info) {
+    async resolve(_, args, ctx) {
       const result = await findManyCursorConnection(
         (args) => ctx.prisma.link.findMany(args),
         () => ctx.prisma.link.count(),

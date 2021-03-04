@@ -123,6 +123,7 @@ const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps) => {
         )}
         {abstract && <Abstract>{abstract}</Abstract>}
       </CardBody>
+      <ArticleCardFooter />
     </BaseArticleCard>
   );
 };

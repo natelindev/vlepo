@@ -25,7 +25,7 @@ export const User = objectType({
     t.model.updatedAt();
     t.connectionField('postsConnection', {
       type: Post,
-      async resolve(root, args, ctx, info) {
+      async resolve(_, args, ctx) {
         const result = await findManyCursorConnection(
           (args) => ctx.prisma.post.findMany(args),
           () => ctx.prisma.post.count(),
@@ -36,7 +36,7 @@ export const User = objectType({
     });
     t.connectionField('thoughtsConnection', {
       type: Thought,
-      async resolve(root, args, ctx, info) {
+      async resolve(_, args, ctx) {
         const result = await findManyCursorConnection(
           (args) => ctx.prisma.thought.findMany(args),
           () => ctx.prisma.thought.count(),
@@ -47,7 +47,7 @@ export const User = objectType({
     });
     t.connectionField('commentsConnection', {
       type: Comment,
-      async resolve(root, args, ctx, info) {
+      async resolve(_, args, ctx) {
         const result = await findManyCursorConnection(
           (args) => ctx.prisma.comment.findMany(args),
           () => ctx.prisma.comment.count(),
@@ -58,7 +58,7 @@ export const User = objectType({
     });
     t.connectionField('imagesConnection', {
       type: Image,
-      async resolve(root, args, ctx, info) {
+      async resolve(_, args, ctx) {
         const result = await findManyCursorConnection(
           (args) => ctx.prisma.image.findMany(args),
           () => ctx.prisma.image.count(),

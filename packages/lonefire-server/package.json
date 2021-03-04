@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "yarn -s clean && yarn -s generate && tsc",
-    "dev": "ts-node-dev --tree-kill --no-notify --respawn --transpile-only src/app.ts",
+    "dev": "ts-node-dev --exit-child --tree-kill --respawn --transpile-only src/app.ts",
     "db:new-migration": "prisma migrate dev --preview-feature --name",
     "db:migrate": "prisma migrate dev --preview-feature",
     "generate": "yarn -s generate:prisma && yarn -s generate:nexus",
@@ -50,7 +50,7 @@
     "faker": "^5.4.0",
     "prisma": "2.17.0",
     "ts-node": "^9.1.1",
-    "ts-node-dev": "^1.1.1",
+    "ts-node-dev": "^1.1.6",
     "typescript": "^4.1.5"
   }
 }

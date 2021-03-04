@@ -28,6 +28,10 @@ const Body = styled.div`
   display: flex;
 `;
 
+const Author = styled.div`
+  font-size: 1.5rem;
+`;
+
 type ArticleProps = {
   title: string;
   headerImg: string;
@@ -53,6 +57,7 @@ const Article = (props: ArticleProps) => {
       <Body>
         <ArticleBody>
           <Title>{title}</Title>
+          <Author>{author}</Author>
           <MDX>{content}</MDX>
         </ArticleBody>
       </Body>

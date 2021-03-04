@@ -2,8 +2,6 @@ import Image from 'next/image';
 
 import styled from '@emotion/styled';
 
-import { ZIndex } from './ZIndex';
-
 export const Link = styled.a``;
 
 export const AnimatedLink = styled.a`
