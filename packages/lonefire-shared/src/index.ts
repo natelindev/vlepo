@@ -1,3 +1,3 @@
 export { rng, RngOption } from './randomGenerator';
-export { colors, fileOptions } from './consts';
-export { getLogger } from './logger';
+export { isBrowser, isWebWorker, isNode } from './envDetect';
+export { fileOptions, listDir } from './fileUtil';

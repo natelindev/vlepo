@@ -1,11 +1,15 @@
+import debugInit from 'debug';
 import { promises as fsPromises } from 'fs';
 import { join } from 'path';
 
-import { fileOptions } from './consts';
-import getLogger from './logger';
-
-const logger = getLogger(__filename.slice(__dirname.length + 1, -3));
+const debug = debugInit('lonefire:shared');
 const { readdir, stat } = fsPromises;
+
+export const enum fileOptions {
+  files = 1,
+  dirs = 2,
+  all = 3,
+}
 
 /**
  * listDir
@@ -35,7 +39,7 @@ export const listDir = async (path: string, option = fileOptions.all): Promise<s
 
     return dirs;
   } catch (err) {
-    logger.error(err);
+    debug(err);
     return [];
   }
 };

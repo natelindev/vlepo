@@ -1,10 +1,16 @@
 {
-  "name": "lonefire-shared",
+  "name": "@lonefire/shared",
   "version": "1.0.0",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
     "build": "tsc && cp package.json build"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^4.3.1"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.5"
+  }
 }

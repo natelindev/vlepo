@@ -1,5 +1,5 @@
 {
-  "name": "lonefire-server",
+  "name": "@lonefire/server",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -31,7 +31,7 @@
     "koa-router": "^9.4.0",
     "koa-send": "^5.0.1",
     "koa-static": "^5.0.0",
-    "lonefire-shared": "^1.0.0",
+    "@lonefire/shared": "^1.0.0",
     "nexus": "^1.0.0",
     "nexus-plugin-prisma": "^0.31.0"
   },

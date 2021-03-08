@@ -13,7 +13,7 @@ import authRouter from './auth';
 import { createContext } from './context';
 import schema from './schema';
 
-const debug = debugInit('app');
+const debug = debugInit('lonefire:app');
 const prisma = new PrismaClient();
 
 const app = new Koa();
