@@ -11,6 +11,7 @@
     "dev": "lerna run dev --parallel",
     "build": "lerna run build",
     "lint": "lerna run lint",
+    "watch": "lerna run watch",
     "generate": "lerna run generate",
     "prebuild": "yarn generate"
   },

@@ -4,13 +4,18 @@ import React from 'react';
 import { fetchQuery, graphql } from 'react-relay';
 import Typist from 'react-typist';
 import { useQuery } from 'relay-hooks';
-import ArticleCard, { ArticleCardProps } from 'src/components/ArticleCard';
+import ArticleCard from 'src/components/ArticleCard';
 import Layout from 'src/components/Layout';
+import PlaceHolder from 'src/components/PlaceHolder';
 import { initEnvironment } from 'src/relay';
 
 import styled from '@emotion/styled';
+import { Mutable } from '@lonefire/shared';
 
-import { pages_indexQuery as pageIndexQuery } from '../__generated__/pages_indexQuery.graphql';
+import {
+  pages_indexQuery as pageIndexQuery,
+  pages_indexQueryResponse,
+} from '../__generated__/pages_indexQuery.graphql';
 
 const IndexMasonry = styled(Masonry)`
   width: 100%;
@@ -21,7 +26,7 @@ const IndexMasonry = styled(Masonry)`
     border: none;
     outline: none;
   }
-`;
+` as typeof Masonry;
 
 const IndexRow = styled.div`
   margin-left: 6rem;
@@ -45,9 +50,7 @@ const IndexSlogan = styled(Typist)`
 const query = graphql`
   query pages_indexQuery {
     posts {
-      title
-      headerImageUrl
-      createdAt
+      ...ArticleCard_post
     }
   }
 `;
@@ -69,20 +72,19 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   };
 };
 
-const MasonryCard = ({ data, width }: { data: unknown; width: number }) => (
-  <ArticleCard width={width} {...data} />
-);
+type PostItem = Mutable<pages_indexQueryResponse['posts'][number]>;
+type MasonryCardProps = { data: PostItem; width: number };
+
+const MasonryCard: React.FC<MasonryCardProps> = (props: MasonryCardProps) => {
+  const { data, width } = props;
+  return <ArticleCard width={`${width}px`} post={data} />;
+};
 
 export default function Home(): React.ReactElement {
   const { error, data } = useQuery<pageIndexQuery>(query);
   if (error) return <div>{error.message}</div>;
 
-  if (!data) return <div>Loading</div>;
-
-  const items: ArticleCardProps[] = data.posts.map((p) => ({
-    title: p.title,
-    date: p.createdAt as Date,
-  }));
+  if (!data) return <PlaceHolder />;
 
   return (
     <Layout>
@@ -90,9 +92,9 @@ export default function Home(): React.ReactElement {
         <h1>I code, Therefore I am</h1>
       </IndexSlogan>
       <IndexRow>
-        <IndexMasonry
+        <IndexMasonry<PostItem>
           columnWidth={350}
-          items={items}
+          items={data.posts as PostItem[]}
           columnGutter={20}
           overscanBy={2}
           render={MasonryCard}

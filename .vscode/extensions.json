@@ -8,6 +8,7 @@
     "prisma.prisma",
     "mike-co.import-sorter",
     "jpoissonnier.vscode-styled-components",
-    "emeraldwalk.runonsave"
+    "emeraldwalk.runonsave",
+    "mikestead.dotenv"
   ]
 }

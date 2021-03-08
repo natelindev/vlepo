@@ -40,5 +40,6 @@
         "cmd": "yarn prisma format"
       }
     ]
-  }
+  },
+  "emmet.showExpandedAbbreviation": "never"
 }

@@ -53,6 +53,8 @@ module.exports = {
     'import/default': 'off',
     // This rule is already covered by the TypeScript compiler.
     'import/no-unresolved': 'off',
+    // This rule is already covered by vscode import-sorter
+    'import/order': 'off',
     'operator-linebreak': 'off',
     'no-shadow': 'off',
     indent: 'off',
@@ -67,6 +69,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'import/extensions': 'off',
     'implicit-arrow-linebreak': 'off',
+    camelcase: 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
