@@ -13,7 +13,7 @@ import styled from '@emotion/styled';
 import { Mutable } from '@lonefire/shared';
 
 import {
-  pages_indexQuery as pageIndexQuery,
+  pages_indexQuery,
   pages_indexQueryResponse,
 } from '../__generated__/pages_indexQuery.graphql';
 
@@ -47,7 +47,7 @@ const IndexSlogan = styled(Typist)`
   font-size: 1.75rem;
 `;
 
-const query = graphql`
+const IndexQuery = graphql`
   query pages_indexQuery {
     posts {
       ...ArticleCard_post
@@ -58,16 +58,16 @@ const query = graphql`
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const { environment, relaySSR } = initEnvironment();
 
-  await fetchQuery(environment, query, {});
-
-  const relayData = (await relaySSR.getCache())?.[0];
+  await fetchQuery(environment, IndexQuery, {});
+  const [relayData] = await relaySSR.getCache();
+  const [queryString, queryPayload] = relayData;
 
   res.setHeader('Cache-Control', 's-maxage=604800, stale-while-revalidate');
 
   return {
     props: {
-      // @ts-expect-error QueryPayload is a union type of which only one type contains .json
-      relayData: !relayData ? null : [[relayData[0], relayData[1].json]],
+      // @ts-expect-error relay typing inaccurate, json needed
+      relayData: relayData ? [[queryString, queryPayload.json]] : null,
     },
   };
 };
@@ -81,7 +81,7 @@ const MasonryCard: React.FC<MasonryCardProps> = (props: MasonryCardProps) => {
 };
 
 export default function Home(): React.ReactElement {
-  const { error, data } = useQuery<pageIndexQuery>(query);
+  const { error, data } = useQuery<pages_indexQuery>(IndexQuery);
   if (error) return <div>{error.message}</div>;
 
   if (!data) return <PlaceHolder />;

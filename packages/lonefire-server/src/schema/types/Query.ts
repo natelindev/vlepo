@@ -16,7 +16,23 @@ import { Thought } from './Thought';
 import { Translation } from './Translation';
 
 export const Query = queryField((t) => {
-  t.crud.blogs();
+  t.crud.blog();
+
+  t.crud.user();
+  t.crud.post();
+  t.crud.tag();
+  t.crud.comment();
+  t.crud.image();
+  t.crud.link();
+  t.crud.paper();
+  t.crud.project();
+  t.crud.rating();
+  t.crud.reaction();
+  t.crud.shareCount();
+  t.crud.thought();
+  t.crud.translation();
+  t.crud.userRole();
+
   t.crud.users();
   t.crud.posts();
   t.crud.tags();
