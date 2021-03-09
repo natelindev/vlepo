@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "yarn -s clean && yarn -s generate && tsc",
-    "dev": "ts-node-dev --exit-child --tree-kill --respawn --transpile-only src/app.ts",
+    "dev": "cross-env DEBUG=lonefire ts-node-dev --exit-child --tree-kill --respawn --transpile-only src/app.ts",
     "db:new-migration": "prisma migrate dev --preview-feature --name",
     "db:migrate": "prisma migrate dev --preview-feature",
     "generate": "yarn -s generate:prisma && yarn -s generate:nexus",
@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@devoxa/prisma-relay-cursor-connection": "^1.1.1",
+    "@lonefire/shared": "^1.0.0",
     "@prisma/client": "2.17.0",
     "@types/koa-graphql": "^0.8.4",
     "argon2": "^0.27.1",
@@ -31,7 +32,6 @@
     "koa-router": "^9.4.0",
     "koa-send": "^5.0.1",
     "koa-static": "^5.0.0",
-    "@lonefire/shared": "^1.0.0",
     "nexus": "^1.0.0",
     "nexus-plugin-prisma": "^0.31.0"
   },
@@ -46,6 +46,7 @@
     "@types/koa-send": "^4.1.2",
     "@types/koa-static": "^4.0.1",
     "@types/node": "^14.14.26",
+    "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "faker": "^5.4.0",
     "prisma": "2.17.0",

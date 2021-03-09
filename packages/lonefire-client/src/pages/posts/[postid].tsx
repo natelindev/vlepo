@@ -2,9 +2,19 @@ import Image from 'next/image';
 import React from 'react';
 import HoverShare from 'src/components/HoverShare';
 import Layout from 'src/components/Layout';
+import renderToString from 'next-mdx-remote/render-to-string';
+import hydrate from 'next-mdx-remote/hydrate';
+import * as components from 'src/components/MDXComponents';
 
 import styled from '@emotion/styled';
-import MDX from '@mdx-js/runtime';
+import { InferGetServerSidePropsType } from 'next';
+
+export const getServerSideProps = async () => {
+  // MDX text - can be from a local file, database, anywhere
+  const source = 'Some **mdx** text, with a component <PlaceHolder />';
+  const mdxSource = await renderToString(source, { components });
+  return { props: { source: mdxSource } };
+};
 
 const Header = styled.div`
   max-height: 30rem;
@@ -32,20 +42,22 @@ const Author = styled.div`
   font-size: 1.5rem;
 `;
 
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 type ArticleProps = {
   title: string;
   headerImg: string;
   author: string;
-  content: string;
+  source: InferGetServerSidePropsType<typeof getServerSideProps>['source'];
 };
 
 const Article = (props: ArticleProps) => {
-  const {
-    title = 'test',
-    headerImg = '/images/red-panda.jpg',
-    author = 'nate',
-    content = '# hello world',
-  } = props;
+  const { title = 'test', headerImg = '/images/red-panda.jpg', author = 'nate', source } = props;
+
+  const content = hydrate(source, { components });
   return (
     <Layout>
       {headerImg && (
@@ -58,7 +70,7 @@ const Article = (props: ArticleProps) => {
         <ArticleBody>
           <Title>{title}</Title>
           <Author>{author}</Author>
-          <MDX>{content}</MDX>
+          <Content>{content}</Content>
         </ArticleBody>
       </Body>
     </Layout>
