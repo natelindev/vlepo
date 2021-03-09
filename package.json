@@ -13,7 +13,8 @@
     "lint": "lerna run lint",
     "watch": "lerna run watch",
     "generate": "lerna run generate",
-    "prebuild": "yarn generate"
+    "prebuild": "yarn generate",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
     "@types/eslint": "^7.2.6",
@@ -34,5 +35,9 @@
     "react": "^17.0.1",
     "typescript": "4.1.5"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "patch-package": "^6.4.6",
+    "postinstall-postinstall": "^2.1.0"
+  }
 }

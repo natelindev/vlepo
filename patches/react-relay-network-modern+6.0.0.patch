@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-relay-network-modern/lib/index.d.ts b/node_modules/react-relay-network-modern/lib/index.d.ts
+index 4d4ab2a..2f7269e 100644
+--- a/node_modules/react-relay-network-modern/lib/index.d.ts
++++ b/node_modules/react-relay-network-modern/lib/index.d.ts
+@@ -251,7 +251,7 @@ export type QueryPayload =
+     errors?: any[];
+     rerunVariables?: Variables;
+   }
+-  | RelayResponse;
++  & RelayResponse;
+ 
+ export type MiddlewareSync = {
+   execute: (

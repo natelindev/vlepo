@@ -1,60 +1,41 @@
+import debugInit from 'debug';
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
+import hydrate from 'next-mdx-remote/hydrate';
+import renderToString from 'next-mdx-remote/render-to-string';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React from 'react';
+import { fetchQuery, graphql } from 'react-relay';
+import { useQuery } from 'relay-hooks';
 import HoverShare from 'src/components/HoverShare';
 import Layout from 'src/components/Layout';
-import renderToString from 'next-mdx-remote/render-to-string';
-import hydrate from 'next-mdx-remote/hydrate';
 import * as components from 'src/components/MDXComponents';
-import { fetchQuery, graphql } from 'react-relay';
-
-import styled from '@emotion/styled';
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { initEnvironment } from 'src/relay';
 
-import { PostIdQuery } from '../../__generated__/PostIdQuery.graphql';
-import { useQuery } from 'relay-hooks';
+import styled from '@emotion/styled';
 
-const postIdQuery = graphql`
-  query PostIdQuery($id: String!) {
-    post(where: { id: $id }) {
-      title
-      owner {
-        name
-      }
-      headerImageUrl
-      content
-    }
-  }
-`;
+import { PostIdQuery } from '../../__generated__/PostIdQuery.graphql';
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  const debug = debugInit('lonefire:postId');
   const { query, res } = context;
   const { environment, relaySSR } = initEnvironment();
+  const PostId = query.postId as string;
 
-  if (!query.postId || Array.isArray(query.postId)) {
-    return {
-      props: {
-        relayData: undefined,
-        source: undefined,
-      },
-    };
-  }
-
-  await fetchQuery<PostIdQuery>(environment, postIdQuery, { id: query.postId });
+  await fetchQuery<PostIdQuery>(environment, postIdQuery, { id: PostId });
 
   const [relayData] = await relaySSR.getCache();
   const [queryString, queryPayload] = relayData;
+  debug(`${PostId} visited`);
 
   res.setHeader('Cache-Control', 's-maxage=604800, stale-while-revalidate');
 
-  // @ts-expect-error relay typing inaccurate, json needed
-  const renderedMDX = await renderToString(JSON.parse(queryPayload.json).post.content, {
+  const renderedMDX = await renderToString(queryPayload.data?.post.content, {
     components,
   });
 
   return {
     props: {
-      // @ts-expect-error relay typing inaccurate, json needed
       relayData: relayData ? [[queryString, queryPayload.json]] : null,
       renderedMDX,
     },
@@ -95,17 +76,36 @@ const Content = styled.div`
   flex-direction: column;
 `;
 
-const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { renderedMDX } = props;
-  const { error, data } = useQuery<PostIdQuery>(postIdQuery);
-  if (error) return <div>{error.message}</div>;
+const postIdQuery = graphql`
+  query PostIdQuery($id: String!) {
+    post(where: { id: $id }) {
+      title
+      owner {
+        name
+      }
+      headerImageUrl
+      content
+    }
+  }
+`;
 
-  if (!renderedMDX) return <div>mdx render failed</div>;
+const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const Router = useRouter();
+  const PostId = Router.query.postId as string;
+  const {
+    renderedMDX = {
+      compiledSource: '',
+      renderedOutput: '',
+      scope: {},
+    },
+  } = props;
+  const { error, data } = useQuery<PostIdQuery>(postIdQuery, { id: PostId });
+  const mdxContent = hydrate(renderedMDX, { components });
+
+  if (error) return <div>{error.message}</div>;
   if (!data || !data.post) return <components.PlaceHolder />;
 
   const { headerImageUrl, title, owner } = data.post;
-
-  const mdxContent = hydrate(renderedMDX, { components });
 
   return (
     <Layout>

@@ -7,6 +7,7 @@ import graphqlHTTP from 'koa-graphql';
 import graphqlBatchHTTPWrapper from 'koa-graphql-batch';
 import Router from 'koa-router';
 
+import cors from '@koa/cors';
 import { PrismaClient } from '@prisma/client';
 
 import authRouter from './auth';
@@ -19,6 +20,16 @@ const prisma = new PrismaClient();
 const app = new Koa();
 
 app.use(bodyParser());
+app.use(
+  cors({
+    origin: '*',
+    allowMethods: ['GET', 'POST', 'OPTIONS'],
+    credentials: true,
+    allowHeaders:
+      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
+  }),
+);
+
 const router = new Router();
 
 const graphqlServer = graphqlHTTP({
