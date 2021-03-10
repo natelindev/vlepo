@@ -109,14 +109,14 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
   const { error, data } = useQuery<PostIdQuery>(postIdQuery, { id: PostId });
   const mdxContent = hydrate(renderedMDX, { components });
   const [fullUrl, setFullUrl] = useState('');
+  useEffect(() => {
+    setFullUrl(window.location.href);
+  }, []);
+
   if (error) return <div>{error.message}</div>;
   if (!data || !data.post) return <components.PlaceHolder />;
 
   const { headerImageUrl, title, owner, tags } = data.post;
-
-  useEffect(() => {
-    setFullUrl(window.location.href);
-  }, []);
 
   return (
     <Layout>
