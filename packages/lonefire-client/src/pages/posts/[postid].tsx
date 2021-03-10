@@ -21,16 +21,19 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const { query, res } = context;
   const { environment, relaySSR } = initEnvironment();
   const PostId = query.postId as string;
-
-  await fetchQuery<PostIdQuery>(environment, postIdQuery, { id: PostId });
+  const response = await fetchQuery<PostIdQuery>(environment, postIdQuery, {
+    id: PostId,
+    // @ts-expect-error relay types are not updated yet
+  }).toPromise();
+  debug(response);
 
   const [relayData] = await relaySSR.getCache();
-  const [queryString, queryPayload] = relayData;
+  const [queryString, queryPayload] = relayData ?? [];
   debug(`${PostId} visited`);
 
   res.setHeader('Cache-Control', 's-maxage=604800, stale-while-revalidate');
 
-  const renderedMDX = await renderToString(queryPayload.data?.post.content, {
+  const renderedMDX = await renderToString(queryPayload?.data?.post.content, {
     components,
   });
 
@@ -85,6 +88,8 @@ const postIdQuery = graphql`
       }
       headerImageUrl
       content
+      createdAt
+      editedAt
     }
   }
 `;

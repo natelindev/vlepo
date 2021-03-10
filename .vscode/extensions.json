@@ -9,6 +9,7 @@
     "mike-co.import-sorter",
     "jpoissonnier.vscode-styled-components",
     "emeraldwalk.runonsave",
-    "mikestead.dotenv"
+    "mikestead.dotenv",
+    "howardzuo.vscode-npm-dependency"
   ]
 }

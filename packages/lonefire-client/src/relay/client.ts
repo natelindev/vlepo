@@ -1,11 +1,12 @@
 import RelaySSR from 'react-relay-network-modern-ssr/node8/client';
-import { SSRCache } from 'react-relay-network-modern-ssr/node8/server';
 import {
   cacheMiddleware,
   RelayNetworkLayer,
   urlMiddleware,
 } from 'react-relay-network-modern/node8';
 import { Environment, RecordSource, Store } from 'relay-runtime';
+
+import type { SSRCache } from 'react-relay-network-modern-ssr/node8/server';
 
 const source = new RecordSource();
 const store = new Store(source);

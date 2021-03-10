@@ -1,3 +1,4 @@
+import debugInit from 'debug';
 import { Masonry } from 'masonic';
 import { GetServerSideProps } from 'next';
 import React from 'react';
@@ -16,6 +17,8 @@ import {
   pages_indexQuery,
   pages_indexQueryResponse,
 } from '../__generated__/pages_indexQuery.graphql';
+
+const debug = debugInit('lonefire:index');
 
 const IndexMasonry = styled(Masonry)`
   width: 100%;
@@ -60,7 +63,8 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
 
   await fetchQuery(environment, IndexQuery, {});
   const [relayData] = await relaySSR.getCache();
-  const [queryString, queryPayload] = relayData;
+  debug(relayData);
+  const [queryString, queryPayload] = relayData ?? [];
 
   res.setHeader('Cache-Control', 's-maxage=604800, stale-while-revalidate');
 
