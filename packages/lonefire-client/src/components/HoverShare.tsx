@@ -29,17 +29,23 @@ const ShareContainer = styled.div<{ scrollPosition: number }>`
   }
 `;
 
-const HoverShare = () => {
+type HoverShareProps = {
+  title: string;
+  url: string;
+  tags: string[];
+};
+const HoverShare = (props: HoverShareProps) => {
+  const { title, url, tags } = props;
   const [scrollPosition] = useScrollPosition();
   return (
     <ShareContainer scrollPosition={scrollPosition}>
-      <TelegramShareButton title="test" url="https://test.com">
+      <TelegramShareButton title={title} url={url}>
         <TelegramIcon size="2.25rem" />
       </TelegramShareButton>
-      <RedditShareButton title="test" url="https://test.com">
+      <RedditShareButton title={title} url={url}>
         <RedditIcon size="2.25rem" />
       </RedditShareButton>
-      <TwitterShareButton title="test" hashtags={['tags']} url="https://test.com">
+      <TwitterShareButton title={title} hashtags={tags} url={url}>
         <TwitterIcon size="2.25rem" />
       </TwitterShareButton>
     </ShareContainer>

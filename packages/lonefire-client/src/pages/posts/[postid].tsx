@@ -4,7 +4,7 @@ import hydrate from 'next-mdx-remote/hydrate';
 import renderToString from 'next-mdx-remote/render-to-string';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { fetchQuery, graphql } from 'react-relay';
 import { useQuery } from 'relay-hooks';
 import HoverShare from 'src/components/HoverShare';
@@ -21,11 +21,10 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const { query, res } = context;
   const { environment, relaySSR } = initEnvironment();
   const PostId = query.postId as string;
-  const response = await fetchQuery<PostIdQuery>(environment, postIdQuery, {
+  await fetchQuery<PostIdQuery>(environment, postIdQuery, {
     id: PostId,
     // @ts-expect-error relay types are not updated yet
   }).toPromise();
-  debug(response);
 
   const [relayData] = await relaySSR.getCache();
   const [queryString, queryPayload] = relayData ?? [];
@@ -86,6 +85,9 @@ const postIdQuery = graphql`
       owner {
         name
       }
+      tags {
+        name
+      }
       headerImageUrl
       content
       createdAt
@@ -95,8 +97,8 @@ const postIdQuery = graphql`
 `;
 
 const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const Router = useRouter();
-  const PostId = Router.query.postId as string;
+  const router = useRouter();
+  const PostId = router.query.postId as string;
   const {
     renderedMDX = {
       compiledSource: '',
@@ -106,11 +108,15 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
   } = props;
   const { error, data } = useQuery<PostIdQuery>(postIdQuery, { id: PostId });
   const mdxContent = hydrate(renderedMDX, { components });
-
+  const [fullUrl, setFullUrl] = useState('');
   if (error) return <div>{error.message}</div>;
   if (!data || !data.post) return <components.PlaceHolder />;
 
-  const { headerImageUrl, title, owner } = data.post;
+  const { headerImageUrl, title, owner, tags } = data.post;
+
+  useEffect(() => {
+    setFullUrl(window.location.href);
+  }, []);
 
   return (
     <Layout>
@@ -119,7 +125,7 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
           <FullWidthImage layout="responsive" src={headerImageUrl} width="16" height="5" />
         </Header>
       )}
-      <HoverShare />
+      <HoverShare title={title} url={fullUrl} tags={tags.map((t) => t.name)} />
       <Body>
         <ArticleBody>
           <Title>{title}</Title>
