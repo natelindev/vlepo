@@ -1,16 +1,19 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { graphql } from 'react-relay';
 import { animated, AnimatedValue, ForwardedProps, useTransition } from 'react-spring';
+import { useToasts } from 'react-toast-notifications';
+import { useMutation } from 'relay-hooks';
 import Modal, { StyledModalProps } from 'styled-modal';
 
 import styled from '@emotion/styled';
 
+import {
+  LoginInput as LoginInputType,
+  LoginModal_Mutation,
+  LoginModal_MutationResponse,
+} from '../../__generated__/LoginModal_Mutation.graphql';
 import GradientButton from '../GradientButton';
-
-type LoginInputData = {
-  username: string;
-  password: string;
-};
 
 const BaseModal = styled(Modal)<{
   style: AnimatedValue<ForwardedProps<ForwardedProps<React.CSSProperties>>>;
@@ -72,8 +75,15 @@ const LoginButton = styled(GradientButton)`
 
 const LoginModal = (props: StyledModalProps): React.ReactElement => {
   const { open, onClose } = props;
-  const { register, handleSubmit, errors } = useForm<LoginInputData>();
-  const onSubmit = (data: LoginInputData) => console.log(data);
+  const { register, handleSubmit, errors } = useForm<LoginInputType>();
+
+  const onSubmit = (data: LoginInputType) =>
+    mutate({
+      variables: {
+        input: data,
+      },
+    });
+
   const transitions = useTransition(open, null, {
     from: { position: 'absolute', transform: 'translate3d(0,-30px,0)', opacity: 0 },
     enter: { transform: 'translate3d(0,0px,0)', opacity: 1 },
@@ -84,6 +94,41 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
       mass: 0.5,
     },
   });
+
+  const { addToast } = useToasts();
+
+  const [mutate, { loading }] = useMutation<LoginModal_Mutation>(
+    graphql`
+      mutation LoginModal_Mutation($input: LoginInput!) {
+        LoginMutation(LoginInput: $input) {
+          ok
+          loggedInUserName
+          error
+        }
+      }
+    `,
+    {
+      onCompleted: ({ LoginMutation }: LoginModal_MutationResponse) => {
+        if (LoginMutation?.ok && LoginMutation.loggedInUserName) {
+          addToast(`Login succeed, ${LoginMutation?.loggedInUserName}`, {
+            appearance: 'success',
+          });
+          onClose?.();
+        } else if (LoginMutation?.error) {
+          addToast(`Login failed, ${LoginMutation?.error}`, {
+            appearance: 'error',
+          });
+          onClose?.();
+        }
+      },
+      onError: (error) => {
+        addToast(`Login failed, ${error}`, {
+          appearance: 'error',
+        });
+        onClose?.();
+      },
+    },
+  );
 
   return (
     <>
@@ -119,7 +164,7 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
                 {errors.password && <ErrorText>This field is required</ErrorText>}
 
                 <LoginButton colorA="#5CC6EE" colorB="#3232FF" type="submit">
-                  Login
+                  {loading ? 'Login...' : 'Login'}
                 </LoginButton>
               </LoginForm>
             </BaseModal>

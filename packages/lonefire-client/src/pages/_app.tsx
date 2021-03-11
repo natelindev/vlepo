@@ -3,7 +3,9 @@
 import type { AppProps } from 'next/app';
 import React from 'react';
 import { SSRCache } from 'react-relay-network-modern-ssr/node8/server';
+import { ToastProvider } from 'react-toast-notifications';
 import { RelayEnvironmentProvider } from 'relay-hooks';
+import { Toast } from 'src/components/Toast';
 
 import { createEnvironment } from '../relay';
 import { globalStyles } from '../shared/styles';
@@ -13,13 +15,19 @@ interface PageProps extends AppProps<any> {
     relayData: SSRCache;
   };
 }
-
 function App({ Component, pageProps }: PageProps): React.ReactElement {
   return (
     <React.StrictMode>
       <RelayEnvironmentProvider environment={createEnvironment(pageProps.relayData)}>
-        {globalStyles}
-        <Component {...pageProps} />
+        <ToastProvider
+          components={{ Toast }}
+          autoDismiss
+          autoDismissTimeout={6000}
+          placement="top-right"
+        >
+          {globalStyles}
+          <Component {...pageProps} />
+        </ToastProvider>
       </RelayEnvironmentProvider>
     </React.StrictMode>
   );

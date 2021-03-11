@@ -18,7 +18,7 @@ export const Comment = objectType({
     t.model.updatedAt();
     t.connectionField('childCommentsConnection', {
       type: Comment,
-      async resolve(_, args, ctx) {
+      async resolve(_root, args, ctx) {
         const result = await findManyCursorConnection(
           (args) => ctx.prisma.comment.findMany(args),
           () => ctx.prisma.comment.count(),
@@ -29,7 +29,7 @@ export const Comment = objectType({
     });
     t.connectionField('imagesConnection', {
       type: Image,
-      async resolve(_, args, ctx) {
+      async resolve(_root, args, ctx) {
         const result = await findManyCursorConnection(
           (args) => ctx.prisma.image.findMany(args),
           () => ctx.prisma.image.count(),

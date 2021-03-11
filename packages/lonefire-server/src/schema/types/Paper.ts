@@ -20,7 +20,7 @@ export const Paper = objectType({
     t.model.updatedAt();
     t.connectionField('imagesConnection', {
       type: Image,
-      async resolve(_, args, ctx) {
+      async resolve(_root, args, ctx) {
         const result = await findManyCursorConnection(
           (args) => ctx.prisma.image.findMany(args),
           () => ctx.prisma.image.count(),
@@ -31,7 +31,7 @@ export const Paper = objectType({
     });
     t.connectionField('tagsConnection', {
       type: Tag,
-      async resolve(_, args, ctx) {
+      async resolve(_root, args, ctx) {
         const result = await findManyCursorConnection(
           (args) => ctx.prisma.tag.findMany(args),
           () => ctx.prisma.tag.count(),
@@ -42,7 +42,7 @@ export const Paper = objectType({
     });
     t.connectionField('reactionsConnection', {
       type: Reaction,
-      async resolve(_, args, ctx) {
+      async resolve(_root, args, ctx) {
         const result = await findManyCursorConnection(
           (args) => ctx.prisma.reaction.findMany(args),
           () => ctx.prisma.reaction.count(),

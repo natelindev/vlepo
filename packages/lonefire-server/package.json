@@ -34,7 +34,8 @@
     "koa-send": "^5.0.1",
     "koa-static": "^5.0.0",
     "nexus": "^1.0.0",
-    "nexus-plugin-prisma": "^0.32.0"
+    "nexus-plugin-prisma": "^0.32.0",
+    "ts-pattern": "^2.4.0"
   },
   "devDependencies": {
     "@types/debug": "^4.1.5",
