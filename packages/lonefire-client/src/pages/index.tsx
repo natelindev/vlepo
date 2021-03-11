@@ -63,7 +63,6 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
 
   await fetchQuery(environment, IndexQuery, {});
   const [relayData] = await relaySSR.getCache();
-  debug(relayData);
   const [queryString, queryPayload] = relayData ?? [];
 
   res.setHeader('Cache-Control', 's-maxage=604800, stale-while-revalidate');
@@ -85,8 +84,8 @@ const MasonryCard: React.FC<MasonryCardProps> = (props: MasonryCardProps) => {
 
 export default function Home(): React.ReactElement {
   const { error, data } = useQuery<pages_indexQuery>(IndexQuery);
-  if (error) return <div>{error.message}</div>;
 
+  if (error) return <div>{error.message}</div>;
   if (!data) return <PlaceHolder />;
 
   return (

@@ -6,13 +6,11 @@ import styled from '@emotion/styled';
 import { Button } from './base';
 import { ZIndex } from './ZIndex';
 
-export interface GradientButtonProps {
-  children?: React.ReactNode;
-  className?: string;
+export type GradientButtonProps = {
   link?: string;
   colorA: `#${string}`;
   colorB: `#${string}`;
-}
+} & React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
 const isBright = (hexColor: `#${string}`) => {
   const [r, g, b] = [0, 2, 4].map((p) => parseInt(hexColor.substr(p, 2), 16));
@@ -69,9 +67,9 @@ const GradientButtonContent = styled.div`
 `;
 
 const GradientButton: React.FC<GradientButtonProps> = (props: GradientButtonProps) => {
-  const { colorA, colorB, children, link, className } = props;
+  const { colorA, colorB, children, link, ...rest } = props;
   return (
-    <BaseGradientButton colorA={colorA} colorB={colorB} className={className}>
+    <BaseGradientButton colorA={colorA} colorB={colorB} {...rest}>
       <GradientButtonContent>
         {link ? <Link href={link}>{children}</Link> : children}
       </GradientButtonContent>

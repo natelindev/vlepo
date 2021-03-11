@@ -1,5 +1,5 @@
 ﻿import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -8,6 +8,7 @@ import Logo from './Logo';
 import NavLink from './Navlink';
 import SearchBar from './SearchBar';
 import { ZIndex } from './ZIndex';
+import LoginModal from './Modals/LoginModal';
 
 const BaseNavbar = styled.nav`
   display: flex;
@@ -137,46 +138,50 @@ export const DropdownMenu = styled.div`
   }
 `;
 
-const Navbar: React.FC = () => (
-  <BaseNavbar>
-    <NavLogo size="50px" />
-    <Link href="/" passHref>
-      <NavBrand href="/">Nathaniel&#39;s Blog</NavBrand>
-    </Link>
-    <LeftNavCollapse>
-      <NavbarNav>
-        <NavLink href="/portfolio">Portfolio</NavLink>
-        <NavLink href="/papers">Papers</NavLink>
-        <NavLink href="/about">About</NavLink>
-        <Dropdown>
-          <DropdownToggle>More</DropdownToggle>
-          <DropdownMenu>
-            <Link href="/notes" passHref>
-              <NavItem>Notes</NavItem>
-            </Link>
-            <Link href="/friends">
-              <NavItem>friends</NavItem>
-            </Link>
-            <Link href="/messageBoard">
-              <NavItem>MessageBoard</NavItem>
-            </Link>
-            <Link href="/timeline">
-              <NavItem>Timeline</NavItem>
-            </Link>
-          </DropdownMenu>
-        </Dropdown>
-      </NavbarNav>
-    </LeftNavCollapse>
-    <RightNavCollapse>
-      <NavbarNav>
-        <NavSearchBar />
-        <LoginButton link="/login" colorA="#5CC6EE" colorB="#3232FF">
-          Login
-        </LoginButton>
-      </NavbarNav>
-    </RightNavCollapse>
-    {/* <NavbarToggler className="animated--toggler" /> */}
-  </BaseNavbar>
-);
+const Navbar: React.FC = () => {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  return (
+    <BaseNavbar>
+      <NavLogo size="50px" />
+      <Link href="/" passHref>
+        <NavBrand href="/">Nathaniel&#39;s Blog</NavBrand>
+      </Link>
+      <LeftNavCollapse>
+        <NavbarNav>
+          <NavLink href="/portfolio">Portfolio</NavLink>
+          <NavLink href="/papers">Papers</NavLink>
+          <NavLink href="/about">About</NavLink>
+          <Dropdown>
+            <DropdownToggle>More</DropdownToggle>
+            <DropdownMenu>
+              <Link href="/notes" passHref>
+                <NavItem>Notes</NavItem>
+              </Link>
+              <Link href="/friends">
+                <NavItem>friends</NavItem>
+              </Link>
+              <Link href="/messageBoard">
+                <NavItem>MessageBoard</NavItem>
+              </Link>
+              <Link href="/timeline">
+                <NavItem>Timeline</NavItem>
+              </Link>
+            </DropdownMenu>
+          </Dropdown>
+        </NavbarNav>
+      </LeftNavCollapse>
+      <RightNavCollapse>
+        <NavbarNav>
+          <NavSearchBar />
+          <LoginButton onClick={() => setShowLoginModal(true)} colorA="#5CC6EE" colorB="#3232FF">
+            Login
+          </LoginButton>
+        </NavbarNav>
+      </RightNavCollapse>
+      {/* <NavbarToggler className="animated--toggler" /> */}
+      <LoginModal open={showLoginModal} onClose={() => setShowLoginModal(false)} />
+    </BaseNavbar>
+  );
+};
 
 export default Navbar;
