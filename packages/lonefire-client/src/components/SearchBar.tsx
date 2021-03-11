@@ -10,6 +10,7 @@ const InputGroup = styled.div`
 
   background-color: #ffffff;
   border: 1px solid #ced4da;
+  border-radius: 0.25rem;
 
   flex-grow: 0;
   transition: all 0.12s;

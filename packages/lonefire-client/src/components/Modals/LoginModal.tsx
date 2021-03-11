@@ -1,15 +1,132 @@
 import React from 'react';
-import Modal from 'styled-modal';
+import { useForm } from 'react-hook-form';
+import { animated, AnimatedValue, ForwardedProps, useTransition } from 'react-spring';
+import Modal, { StyledModalProps } from 'styled-modal';
 
-type LoginModalProps = {
-  open: boolean;
-  onClose: () => void;
+import styled from '@emotion/styled';
+
+import GradientButton from '../GradientButton';
+
+type LoginInputData = {
+  username: string;
+  password: string;
 };
 
-const LoginModal = (props: LoginModalProps): React.ReactElement => (
-  <Modal {...props}>
-    <p>Test modal</p>
-  </Modal>
-);
+const BaseModal = styled(Modal)<{
+  style: AnimatedValue<ForwardedProps<ForwardedProps<React.CSSProperties>>>;
+}>`
+  border-radius: 0.5rem;
+`;
+
+const BaseAnimatedContainer = styled(animated.div)<StyledModalProps>`
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: saturate(180%) blur(5px);
+`;
+
+const LoginForm = styled.form`
+  display: flex;
+  padding: 3rem;
+  width: 20rem;
+  flex-direction: column;
+`;
+
+const LoginInput = styled.input`
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  padding: 1rem;
+`;
+
+const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+`;
+
+const Label = styled.label`
+  font-size: 1.25rem;
+  margin-left: 0.2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #000;
+`;
+
+const ErrorText = styled.span`
+  color: #ff4602;
+`;
+
+const LoginButton = styled(GradientButton)`
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+`;
+
+const LoginModal = (props: StyledModalProps): React.ReactElement => {
+  const { open, onClose } = props;
+  const { register, handleSubmit, errors } = useForm<LoginInputData>();
+  const onSubmit = (data: LoginInputData) => console.log(data);
+  const transitions = useTransition(open, null, {
+    from: { position: 'absolute', transform: 'translate3d(0,-30px,0)', opacity: 0 },
+    enter: { transform: 'translate3d(0,0px,0)', opacity: 1 },
+    leave: { transform: 'translate3d(0,-30px,0)', opacity: 0 },
+    config: {
+      duration: 200,
+      tension: 300,
+      mass: 0.5,
+    },
+  });
+
+  return (
+    <>
+      {transitions.map(
+        ({ item, key, props: styles }) =>
+          item && (
+            <BaseModal
+              modalComponent={BaseAnimatedContainer}
+              key={key}
+              style={styles}
+              onClose={onClose}
+            >
+              <LoginForm onSubmit={handleSubmit(onSubmit)}>
+                <InputGroup>
+                  <Label>Username</Label>
+                  <LoginInput
+                    autoComplete="username"
+                    name="username"
+                    ref={register({ required: true })}
+                  />
+                  {errors.username && <ErrorText>This field is required</ErrorText>}
+                </InputGroup>
+
+                <InputGroup>
+                  <Label>Password</Label>
+                  <LoginInput
+                    autoComplete="current-password"
+                    type="password"
+                    name="password"
+                    ref={register({ required: true })}
+                  />
+                </InputGroup>
+                {errors.password && <ErrorText>This field is required</ErrorText>}
+
+                <LoginButton colorA="#5CC6EE" colorB="#3232FF" type="submit">
+                  Login
+                </LoginButton>
+              </LoginForm>
+            </BaseModal>
+          ),
+      )}
+    </>
+  );
+};
 
 export default LoginModal;

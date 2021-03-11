@@ -5,4 +5,5 @@ export enum ZIndex {
   Tags = 2,
   Navbar = 3,
   DropDownMenu = 4,
+  ModalContainer = 5000,
 }
