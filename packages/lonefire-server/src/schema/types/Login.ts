@@ -1,6 +1,6 @@
 import argon2 from 'argon2';
 import { inputObjectType, mutationField, nonNull, objectType } from 'nexus';
-import { __, match, not, select } from 'ts-pattern';
+import { match } from 'ts-pattern';
 
 export const LoginInput = inputObjectType({
   name: 'LoginInput',
