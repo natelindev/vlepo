@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "yarn -s clean && yarn -s generate && tsc",
-    "dev": "cross-env DEBUG=lonefire ts-node-dev --exit-child --tree-kill --respawn --transpile-only src/app.ts",
+    "dev": "cross-env DEBUG=lonefire:* ts-node-dev --exit-child --tree-kill --respawn --transpile-only src/app.ts",
     "db:new-migration": "prisma migrate dev --preview-feature --name",
     "db:migrate": "prisma migrate dev --preview-feature",
     "generate": "yarn -s generate:prisma && yarn -s generate:nexus",
@@ -27,6 +27,7 @@
     "graphql-depth-limit": "^1.1.0",
     "graphql-playground-middleware-koa": "^1.6.21",
     "graphql-scalars": "^1.9.0",
+    "jwt-decode": "^3.1.2",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
     "koa-graphql": "^0.8.0",
@@ -37,6 +38,7 @@
     "koa-static": "^5.0.0",
     "nexus": "^1.0.0",
     "nexus-plugin-prisma": "^0.32.0",
+    "node-fetch": "^2.6.1",
     "ts-pattern": "^2.4.0"
   },
   "devDependencies": {
@@ -52,6 +54,7 @@
     "@types/koa-static": "^4.0.1",
     "@types/koa__cors": "^3.0.2",
     "@types/node": "^14.14.33",
+    "@types/node-fetch": "^2.5.8",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "faker": "^5.4.0",

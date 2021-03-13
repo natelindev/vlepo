@@ -5,7 +5,7 @@ import { KeyboardArrowUp } from '@emotion-icons/material-outlined';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { useScrollPosition } from '../hooks/scrollPosition';
+import { useScrollPosition } from '../hooks/useScrollPosition';
 import { ZIndex } from './ZIndex';
 
 const animation = css`

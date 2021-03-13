@@ -24,6 +24,9 @@ export const globalStyles = (
       ::before {
         box-sizing: border-box;
       }
+      *:focus {
+        outline: none;
+      }
       #__next {
         display: flex;
         flex-direction: column;

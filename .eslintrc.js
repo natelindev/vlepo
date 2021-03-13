@@ -67,6 +67,8 @@ module.exports = {
     'max-classes-per-file': 'off',
     'react/jsx-filename-extension': 'off',
     'react/jsx-props-no-spreading': 'off',
+    // conflict with prettier
+    'react/jsx-curly-newline': 'off',
     'import/extensions': 'off',
     'implicit-arrow-linebreak': 'off',
     camelcase: 'off',

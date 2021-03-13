@@ -86,11 +86,13 @@ export const CardBody = styled.div`
 `;
 
 export const Button = styled.button`
+  cursor: pointer;
   font-weight: 400;
   text-align: center;
   vertical-align: middle;
   user-select: none;
   background-color: transparent;
+
   border: 1px solid transparent;
   padding: 0.375rem 0.75rem;
   font-size: 1rem;

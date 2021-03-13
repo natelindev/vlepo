@@ -7,7 +7,7 @@ import {
   TwitterIcon,
   TwitterShareButton,
 } from 'react-share';
-import { useScrollPosition } from 'src/hooks/scrollPosition';
+import { useScrollPosition } from 'src/hooks/useScrollPosition';
 
 import styled from '@emotion/styled';
 

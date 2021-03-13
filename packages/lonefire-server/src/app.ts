@@ -1,19 +1,19 @@
 import debugInit from 'debug';
+import grant from 'grant';
 import depthLimit from 'graphql-depth-limit';
 import koaPlayground from 'graphql-playground-middleware-koa';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
-import session from 'koa-session';
 import graphqlHTTP from 'koa-graphql';
 import graphqlBatchHTTPWrapper from 'koa-graphql-batch';
 import Router from 'koa-router';
-import grant from 'grant';
+import session from 'koa-session';
 
 import cors from '@koa/cors';
 import { PrismaClient } from '@prisma/client';
 
-import authRouter from './oauth';
 import { createContext } from './context';
+import authRouter from './oauth';
 import schema from './schema';
 
 const debug = debugInit('lonefire:app');
@@ -32,23 +32,40 @@ app.use(
       'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
   }),
 );
+
 app.use(session(app));
-debug(process.env.GOOGLE_OAUTH_CLIENT_ID);
 app.use(
-  grant({
+  grant.koa()({
     defaults: {
-      origin: process.env.BASE_URL,
+      origin: process.env.API_URL,
       transport: 'session',
-      state: true,
+      nonce: true,
+      callback: '/oauth-callback',
     },
     google: {
       key: process.env.GOOGLE_OAUTH_CLIENT_ID,
       secret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
-      scope: ['openid'],
-      nonce: true,
-      custom_params: { access_type: 'offline', prompt: 'consent' },
-      response: ['tokens'],
-      callback: '/oauth-callback',
+      scope: [
+        'openid',
+        'https://www.googleapis.com/auth/userinfo.email',
+        'https://www.googleapis.com/auth/userinfo.profile',
+      ],
+      response: ['tokens', 'profile'],
+    },
+    github: {
+      key: process.env.GITHUB_OAUTH_CLIENT_ID,
+      secret: process.env.GITHUB_OAUTH_CLIENT_SECRET,
+      scope: ['openid', 'user:email'],
+      response: ['tokens', 'profile'],
+    },
+    reddit: {
+      key: process.env.REDDIT_OAUTH_CLIENT_ID,
+      secret: process.env.REDDIT_OAUTH_CLIENT_SECRET,
+      custom_params: { duration: 'temporary' },
+      state: 'some state',
+      nonce: false,
+      scope: ['identity'],
+      response: ['tokens', 'profile'],
     },
   }),
 );

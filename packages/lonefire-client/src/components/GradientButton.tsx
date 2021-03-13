@@ -21,6 +21,7 @@ const BaseGradientButton = styled(Button)<{ colorA: `#${string}`; colorB: `#${st
   position: relative;
   border: none;
   transition: opacity linear 0.3s;
+  z-index: ${ZIndex.GradientButton};
 
   &::before {
     border-radius: inherit;

@@ -28,10 +28,10 @@ export function createEnvironment(relayData: SSRCache): Environment {
       }),
       urlMiddleware({
         url: () => {
-          if (!process.env.NEXT_PUBLIC_RELAY_ENDPOINT) {
-            throw new Error('please add NEXT_PUBLIC_RELAY_ENDPOINT in your .env file');
+          if (!process.env.NEXT_PUBLIC_API_ENDPOINT) {
+            throw new Error('please add NEXT_PUBLIC_API_ENDPOINT in your .env file');
           }
-          return process.env.NEXT_PUBLIC_RELAY_ENDPOINT;
+          return `${process.env.NEXT_PUBLIC_API_ENDPOINT}/graphql`;
         },
       }),
     ]),

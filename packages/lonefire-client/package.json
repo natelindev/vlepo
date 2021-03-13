@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env DEBUG=lonefire* next dev",
+    "dev": "cross-env DEBUG=lonefire:* next dev",
     "build": "next build",
     "start": "next start",
     "watch": "yarn relay:watch",
