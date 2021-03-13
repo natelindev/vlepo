@@ -17,7 +17,7 @@ import styled from '@emotion/styled';
 import { PostIdQuery } from '../../__generated__/PostIdQuery.graphql';
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const debug = debugInit('lonefire:postId');
+  const debug = debugInit('vlepo:postId');
   const { query, res } = context;
   const { environment, relaySSR } = initEnvironment();
   const PostId = query.postId as string;

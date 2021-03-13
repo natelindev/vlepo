@@ -13,7 +13,7 @@ export default NexusSchema.makeSchema({
     NexusSchema.connectionPlugin(),
   ],
   outputs: {
-    schema: path.join(__dirname, '../../../lonefire-client/src/schema/schema.graphql'),
+    schema: path.join(__dirname, '../../../vlepo-client/src/schema/schema.graphql'),
     typegen: path.join(__dirname, '../../node_modules/@types/nexus-typegen/index.d.ts'),
   },
   contextType: {

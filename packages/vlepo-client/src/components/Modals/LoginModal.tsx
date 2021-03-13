@@ -217,7 +217,7 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
                         }
                       >
                         <Image
-                          src={`/images/${provider}-logo.svg`}
+                          src={`/images/logo/${provider}.svg`}
                           height={24}
                           width={24}
                           layout="fixed"

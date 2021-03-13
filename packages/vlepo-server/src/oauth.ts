@@ -5,7 +5,7 @@ const router = new Router({
   prefix: '/api',
 });
 
-const debug = debugInit('lonefire:oauth');
+const debug = debugInit('vlepo:oauth');
 
 type GrantResponse = {
   id_token: string;

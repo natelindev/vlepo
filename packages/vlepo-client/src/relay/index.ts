@@ -4,7 +4,8 @@
 import type { Environment } from 'relay-runtime';
 import type { SSRCache } from 'react-relay-network-modern-ssr/node8/server';
 import RelaySSR from 'react-relay-network-modern-ssr/node8/server';
-import { isBrowser, isNode } from '@lonefire/shared';
+
+import { isBrowser, isNode } from '@vlepo/shared';
 
 interface Env {
   relaySSR: RelaySSR;

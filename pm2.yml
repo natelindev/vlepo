@@ -1,12 +1,12 @@
 apps:
   - script: next
     args: start
-    name: 'lonefire-client'
-    cwd: './packages/lonefire-client/'
+    name: 'vlepo-client'
+    cwd: './packages/vlepo-client/'
     env:
       NODE_ENV: production
 
-  - script: ./packages/lonefire-server/build/app.js
-    name: 'lonefire-server'
+  - script: ./packages/vlepo-server/build/app.js
+    name: 'vlepo-server'
     env:
       NODE_ENV: production

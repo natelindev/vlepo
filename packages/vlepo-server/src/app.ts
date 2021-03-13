@@ -16,7 +16,7 @@ import { createContext } from './context';
 import authRouter from './oauth';
 import schema from './schema';
 
-const debug = debugInit('lonefire:app');
+const debug = debugInit('vlepo:app');
 const prisma = new PrismaClient();
 
 const app = new Koa();

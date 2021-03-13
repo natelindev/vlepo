@@ -1,7 +1,7 @@
 {
-  "name": "lonefire",
+  "name": "vlepo",
   "version": "3.0.0",
-  "description": "lonefire monorepo",
+  "description": "vlepo monorepo",
   "workspaces": [
     "packages/*"
   ],
@@ -15,7 +15,8 @@
     "watch": "lerna run watch",
     "generate": "lerna run generate",
     "prebuild": "patch-package && yarn generate",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "publish": "yarn lerna publish from-package --dist-tag canary --yes --no-verify-access"
   },
   "devDependencies": {
     "@types/eslint": "^7.2.7",

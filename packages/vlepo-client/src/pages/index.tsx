@@ -10,7 +10,7 @@ import PlaceHolder from 'src/components/PlaceHolder';
 import { initEnvironment } from 'src/relay';
 
 import styled from '@emotion/styled';
-import { Mutable } from '@lonefire/shared';
+import { Mutable } from '@vlepo/shared';
 
 import {
   pages_indexQuery,
