@@ -2,7 +2,7 @@
   "name": "@lonefire/server",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "private": true,
   "scripts": {
     "clean": "rm -rf ./build",
     "build": "yarn -s clean && tsc --outDir ./build",
