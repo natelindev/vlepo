@@ -209,7 +209,7 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
                         type="button"
                         onClick={() =>
                           openOauthWindow(
-                            `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/connect/${provider}`,
+                            `/api/connect/${provider}`,
                             `User Oauth`,
                             provider === 'reddit' ? 1000 : 400,
                             600,
