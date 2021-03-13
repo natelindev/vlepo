@@ -5,7 +5,7 @@ import {
   RelayNetworkLayer,
   urlMiddleware,
 } from 'react-relay-network-modern/node8';
-import { Environment, GraphQLSingularResponse, Network, RecordSource, Store } from 'relay-runtime';
+import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 
 import type { SSRCache } from 'react-relay-network-modern-ssr/node8/server';
 import type RelayModernEnvironment from 'relay-runtime/lib/store/RelayModernEnvironment';
@@ -82,10 +82,7 @@ const server = {
 
     return new Environment({
       store,
-      network: Network.create(
-        () =>
-          (relayData?.[0]?.[1] as Promise<readonly GraphQLSingularResponse[]>) ?? Promise.resolve(),
-      ),
+      network: Network.create(() => (relayData?.[0]?.[1] as any) ?? Promise.resolve()),
     });
   },
 };

@@ -1,4 +1,3 @@
-import debugInit from 'debug';
 import { Masonry } from 'masonic';
 import { GetServerSideProps } from 'next';
 import React from 'react';
@@ -17,8 +16,6 @@ import {
   pages_indexQuery,
   pages_indexQueryResponse,
 } from '../__generated__/pages_indexQuery.graphql';
-
-const debug = debugInit('lonefire:index');
 
 const IndexMasonry = styled(Masonry)`
   width: 100%;
