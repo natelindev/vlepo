@@ -1,0 +1,12 @@
+apps:
+  - script: next
+    args: start
+    name: 'lonefire-client'
+    cwd: './packages/lonefire-client/'
+    env:
+      NODE_ENV: production
+
+  - script: ./packages/lonefire-server/build/app.js
+    name: 'lonefire-server'
+    env:
+      NODE_ENV: production

@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "clean": "rm -rf dist",
-    "build": "yarn -s clean && yarn -s generate && tsc",
+    "clean": "rm -rf ./build",
+    "build": "yarn -s clean && tsc --outDir ./build",
     "dev": "cross-env DEBUG=lonefire:* ts-node-dev --exit-child --tree-kill --respawn --transpile-only src/app.ts",
     "db:new-migration": "prisma migrate dev --preview-feature --name",
     "db:migrate": "prisma migrate dev --preview-feature",

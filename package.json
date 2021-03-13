@@ -8,6 +8,7 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
+    "start": "pm2 start ./pm2.yml",
     "dev": "lerna run dev --parallel",
     "build": "lerna run build --parallel",
     "lint": "lerna run lint",
