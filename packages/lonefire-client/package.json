@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "watch": "yarn relay:watch",
+    "get-schema": "graphql-codegen -r dotenv/config --config .graphqlrc.yml",
+    "prebuild": "yarn get-schema && yarn generate",
     "debug": "NODE_OPTIONS='--inspect=5009' next dev",
     "generate": "yarn relay",
     "relay": "relay-compiler --src ./src --exclude '**/.next/**' '**/node_modules/**' '**/test/**'  '**/__generated__/**' --exclude '**/schema/**' --schema ./src/schema/schema.graphql --language typescript --customScalars.DateTime=String --artifactDirectory ./src/__generated__",
@@ -19,6 +21,7 @@
     "@lonefire/shared": "1.0.0",
     "date-fns": "^2.19.0",
     "debug": "^4.3.1",
+    "dotenv": "^8.2.0",
     "graphql": "^15.5.0",
     "masonic": "3.4.1",
     "next": "10.0.8",
@@ -44,6 +47,7 @@
     "vscode-apollo-relay": "^1.5.1"
   },
   "devDependencies": {
+    "@graphql-cli/codegen": "^1.17.21",
     "@graphql-codegen/schema-ast": "^1.18.1",
     "@types/debug": "^4.1.5",
     "@types/eslint": "^7.2.7",
