@@ -21,7 +21,10 @@ const prisma = new PrismaClient();
 
 const app = new Koa();
 
-app.keys = ['grant'];
+if (!process.env.SECRET_KEY) {
+  throw new Error('You need SECRET_KEY env variable in order to run');
+}
+app.keys = [process.env.SECRET_KEY];
 app.use(bodyParser());
 app.use(
   cors({
@@ -40,7 +43,8 @@ app.use(
       origin: process.env.API_URL,
       transport: 'session',
       nonce: true,
-      callback: '/oauth-callback',
+      prefix: '/api/connect',
+      callback: '/api/oauth-callback',
     },
     google: {
       key: process.env.GOOGLE_OAUTH_CLIENT_ID,

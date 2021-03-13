@@ -1,7 +1,10 @@
 import debugInit from 'debug';
 import Router from 'koa-router';
 
-const router = new Router();
+const router = new Router({
+  prefix: '/api',
+});
+
 const debug = debugInit('lonefire:oauth');
 
 type GrantResponse = {
@@ -19,6 +22,7 @@ type GrantResponse = {
     locale: string;
   };
 };
+
 router.get('/oauth-callback', async (ctx) => {
   const response: GrantResponse = ctx.session?.grant.response;
   const provider = ctx.session?.grant.provider;

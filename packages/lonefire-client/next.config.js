@@ -17,7 +17,7 @@ module.exports = {
     return [
       {
         source: '/api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/:path*`, // Proxy to Backend
+        destination: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/:path*`, // Proxy to Backend
       },
     ];
   },
