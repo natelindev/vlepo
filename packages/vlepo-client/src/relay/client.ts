@@ -1,5 +1,6 @@
 import RelaySSR from 'react-relay-network-modern-ssr/node8/client';
 import {
+  authMiddleware,
   cacheMiddleware,
   RelayNetworkLayer,
   urlMiddleware,
@@ -25,6 +26,11 @@ export function createEnvironment(relayData: SSRCache): Environment {
       }),
       new RelaySSR(relayData).getMiddleware({
         lookup: false,
+      }),
+      authMiddleware({
+        token: '',
+        allowEmptyToken: true,
+        prefix: 'Bearer',
       }),
       urlMiddleware({
         url: () => {

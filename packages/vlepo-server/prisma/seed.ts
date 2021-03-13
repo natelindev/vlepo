@@ -16,7 +16,7 @@ const debug = debugInit('seed');
       status: PostStatus.PUBLISHED,
       owner: {
         create: {
-          username: 'admin',
+          email: 'test@test.com',
           password: await argon2.hash('admin', { type: argon2.argon2id }),
           name: `${name.firstName()} ${name.lastName()}`,
         },

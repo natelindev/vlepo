@@ -41,8 +41,5 @@
       }
     ]
   },
-  "emmet.showExpandedAbbreviation": "never",
-  "cSpell.words": [
-    "vlepo"
-  ]
+  "emmet.showExpandedAbbreviation": "never"
 }

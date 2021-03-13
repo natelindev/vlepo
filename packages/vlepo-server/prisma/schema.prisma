@@ -29,12 +29,17 @@ model UserRole {
   updatedAt DateTime @updatedAt
 }
 
+enum OAuthProviders {
+  google
+  github
+  reddit
+}
+
 model User {
-  id              String     @id @default(uuid())
+  id              String          @id @default(uuid())
   name            String?
-  username        String     @unique
-  password        String
-  email           String?
+  password        String?
+  email           String?         @unique
   website         String?
   profileImageUrl String?
   description     String?
@@ -42,8 +47,10 @@ model User {
   roles           UserRole[]
   comments        Comment[]
   images          Image[]
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
+  provider        OAuthProviders?
+  openid          String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
   thoughts        Thought[]
 }
 
