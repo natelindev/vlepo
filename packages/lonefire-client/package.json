@@ -1,6 +1,6 @@
 {
   "name": "@lonefire/client",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "cross-env DEBUG=lonefire:* next dev",
@@ -18,7 +18,7 @@
     "@emotion-icons/material-outlined": "3.8.0",
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.1.5",
-    "@lonefire/shared": "1.0.0",
+    "@lonefire/shared": "^1.0.0",
     "date-fns": "^2.19.0",
     "debug": "^4.3.1",
     "dotenv": "^8.2.0",
