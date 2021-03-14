@@ -13,13 +13,14 @@ import cors from '@koa/cors';
 import { PrismaClient } from '@prisma/client';
 
 import { createContext } from './context';
-import authRouter from './oauth';
+import authRouter from './oauth2/callback';
+import { Oauth2Config } from './oauth2/config';
 import schema from './schema';
 
 const debug = debugInit('vlepo:app');
 const prisma = new PrismaClient();
 
-const app = new Koa();
+const app = new Koa<Koa.DefaultState, Koa.DefaultContext>();
 
 if (!process.env.SECRET_KEY) {
   throw new Error('You need SECRET_KEY env variable in order to run');
@@ -37,42 +38,7 @@ app.use(
 );
 
 app.use(session(app));
-app.use(
-  grant.koa()({
-    defaults: {
-      origin: process.env.API_URL,
-      transport: 'session',
-      nonce: true,
-      prefix: '/api/connect',
-      callback: '/api/oauth-callback',
-    },
-    google: {
-      key: process.env.GOOGLE_OAUTH_CLIENT_ID,
-      secret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
-      scope: [
-        'openid',
-        'https://www.googleapis.com/auth/userinfo.email',
-        'https://www.googleapis.com/auth/userinfo.profile',
-      ],
-      response: ['tokens', 'profile'],
-    },
-    github: {
-      key: process.env.GITHUB_OAUTH_CLIENT_ID,
-      secret: process.env.GITHUB_OAUTH_CLIENT_SECRET,
-      scope: ['openid', 'user:email'],
-      response: ['tokens', 'profile'],
-    },
-    reddit: {
-      key: process.env.REDDIT_OAUTH_CLIENT_ID,
-      secret: process.env.REDDIT_OAUTH_CLIENT_SECRET,
-      custom_params: { duration: 'temporary' },
-      state: 'some state',
-      nonce: false,
-      scope: ['identity'],
-      response: ['tokens', 'profile'],
-    },
-  }),
-);
+app.use(grant.koa()(Oauth2Config));
 
 const router = new Router();
 

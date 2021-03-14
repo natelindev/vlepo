@@ -2,14 +2,15 @@ import debugInit from 'debug';
 import Router from 'koa-router';
 import { match } from 'ts-pattern';
 
-import { OAuthProviders, PrismaClient } from '@prisma/client';
+import { OAuthProviders } from '@prisma/client';
 
-const router = new Router({
+import { ExtendedContext } from '../context';
+
+const router = new Router<unknown, ExtendedContext>({
   prefix: '/api',
 });
 
-const prisma = new PrismaClient();
-const debug = debugInit('vlepo:oauth');
+const debug = debugInit('vlepo:oauth2:callback');
 
 type GrantGoogleResponse = {
   id_token: string;
@@ -74,6 +75,9 @@ router.get('/oauth-callback', async (ctx) => {
     ctx.session?.grant.response;
   const provider: OAuthProviders = ctx.session?.grant.provider;
 
+  debug(response);
+  debug(provider);
+
   if (response.access_token) {
     ctx.redirect(`${process.env.CLIENT_URL}/oauth2-error&error=access_denied`);
   }
@@ -81,7 +85,7 @@ router.get('/oauth-callback', async (ctx) => {
   await match(provider)
     .with(OAuthProviders.google, async () => {
       const { profile } = response as GrantGoogleResponse;
-      await prisma.user.create({
+      await ctx.prisma?.user.create({
         data: {
           email: profile.email,
           name: profile.name,
@@ -93,7 +97,7 @@ router.get('/oauth-callback', async (ctx) => {
     })
     .with(OAuthProviders.github, async () => {
       const { profile } = response as GrantGithubResponse;
-      await prisma.user.create({
+      await ctx.prisma?.user.create({
         data: {
           email: profile.email,
           name: profile.name,

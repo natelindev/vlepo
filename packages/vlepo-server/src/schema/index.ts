@@ -18,7 +18,7 @@ export default NexusSchema.makeSchema({
   },
   contextType: {
     module: require.resolve('../context'),
-    export: 'Context',
+    export: 'ExtendedContext',
   },
   sourceTypes: {
     modules: [

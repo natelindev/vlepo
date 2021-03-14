@@ -52,6 +52,8 @@ model User {
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
   thoughts        Thought[]
+
+  OAuthClients OAuthClient[]
 }
 
 model Post {
@@ -257,4 +259,97 @@ model Paper {
   reactions Reaction[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
+}
+
+model OAuthScope {
+  value       String  @id
+  name        String
+  description String?
+
+  //self
+  parentId    String
+  parent      OAuthScope   @relation("OAuthScopeToOAuthScope", fields: [parentId], references: [value])
+  childScopes OAuthScope[] @relation("OAuthScopeToOAuthScope")
+
+  //token
+  accessTokens  OAuthAccessToken[]
+  refreshTokens OAuthRefreshToken[]
+
+  //code
+  authorizationCodes OAuthAuthorizationCode[]
+
+  //client
+  clients OAuthClient[]
+
+  @@index([value])
+}
+
+model OAuthAccessToken {
+  accessToken          String   @id
+  accessTokenExpiresAt DateTime
+
+  //client
+  clientId String
+  client   OAuthClient @relation(fields: [clientId], references: [id])
+
+  //scope
+  scopes OAuthScope[]
+}
+
+model OAuthRefreshToken {
+  refreshToken          String   @id
+  refreshTokenExpiresAt DateTime
+
+  //client
+  clientId String
+  client   OAuthClient @relation(fields: [clientId], references: [id])
+
+  //scope
+  scopes OAuthScope[]
+}
+
+enum OAuthGrants {
+  authorization_code
+  client_credentials
+  refresh_token
+  password
+  extension
+}
+
+model OAuthClient {
+  id                   String        @id
+  secret               String        @unique
+  grants               OAuthGrants[]
+  redirectUris         String[]
+  accessTokenLifetime  Int?
+  refreshTokenLifetime Int?
+
+  //token
+  accessTokens  OAuthAccessToken[]
+  refreshTokens OAuthRefreshToken[]
+
+  //user
+  user User @relation(fields: [userId], references: [id])
+
+  //code
+  authorizationCodes OAuthAuthorizationCode[]
+
+  //scope
+  scopes OAuthScope[]
+
+  userId String
+  @@index([secret])
+}
+
+model OAuthAuthorizationCode {
+  authorizationCode String   @id
+  expiresAt         DateTime
+  redirectUri       String?
+
+  //client
+  clientId String
+  client   OAuthClient @relation(fields: [clientId], references: [id])
+
+  //scope
+  scopes OAuthScope[]
 }
