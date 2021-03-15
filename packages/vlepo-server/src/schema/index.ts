@@ -11,6 +11,7 @@ export default NexusSchema.makeSchema({
       experimentalCRUD: true,
     }),
     NexusSchema.connectionPlugin(),
+    NexusSchema.fieldAuthorizePlugin(),
   ],
   outputs: {
     schema: path.join(__dirname, '../../../vlepo-client/src/schema/schema.graphql'),

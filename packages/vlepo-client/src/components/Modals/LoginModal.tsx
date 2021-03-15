@@ -182,15 +182,14 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
             >
               <LoginForm onSubmit={handleSubmit(onSubmit)}>
                 <InputGroup>
-                  <Label>Username</Label>
+                  <Label>Email</Label>
                   <LoginInput
-                    autoComplete="username"
-                    name="username"
-                    ref={register({ required: true })}
+                    autoComplete="email"
+                    name="email"
+                    ref={register({ required: true, pattern: /.+@.+/ })}
                   />
-                  {errors.username && <ErrorText>This field is required</ErrorText>}
+                  {errors.email && <ErrorText>{errors.email}</ErrorText>}
                 </InputGroup>
-
                 <InputGroup>
                   <Label>Password</Label>
                   <LoginInput
@@ -200,7 +199,7 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
                     ref={register({ required: true })}
                   />
                 </InputGroup>
-                {errors.password && <ErrorText>This field is required</ErrorText>}
+                {errors.password && <ErrorText>{errors.password}</ErrorText>}
                 <OauthButtonSection>
                   {process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS &&
                     process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS.split(',').map((provider) => (

@@ -316,7 +316,7 @@ const validateScope = async (_user: User, client: OAuthClient, scope: string) =>
     .join(' ');
 };
 
-const verifyScope = async (token: OAuthAccessToken, scope: string | string[]) => {
+export const verifyScope = async (token: OAuthAccessToken, scope: string | string[]) => {
   debug(`Verify scope ${scope} in token ${token.accessToken}`);
 
   const scopes = Array.isArray(scope) ? scope : scope.split(' ');

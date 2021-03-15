@@ -1,4 +1,3 @@
-import { Session } from 'koa-session';
 import {
   AuthorizationCodeModel,
   ClientCredentialsModel,
@@ -12,6 +11,8 @@ import { PrismaClient } from '@prisma/client';
 import { koaOauth2, KoaOauth2Context } from './oauth2/middleware';
 import model from './oauth2/model';
 
+import type { Context } from 'koa';
+
 type ModelType =
   | AuthorizationCodeModel
   | ClientCredentialsModel
@@ -19,20 +20,21 @@ type ModelType =
   | PasswordModel
   | RefreshTokenModel;
 
-const prisma = new PrismaClient();
-const oauth = koaOauth2({
-  model: (model as unknown) as ModelType,
-  accessTokenLifetime: 3600, // 1 hour
-  refreshTokenLifetime: 604800,
-});
-
 export type ExtendedContext = {
   prisma: PrismaClient;
-  session: Session | null;
   oauth: KoaOauth2Context;
-};
+} & Context;
 
-export const createContext = () => ({
-  prisma,
-  oauth,
-});
+export const createContext = () => {
+  const prisma = new PrismaClient();
+  const oauth = koaOauth2({
+    model: (model as unknown) as ModelType,
+    accessTokenLifetime: 3600, // 1 hour
+    refreshTokenLifetime: 604800,
+  });
+
+  return {
+    prisma,
+    oauth,
+  };
+};

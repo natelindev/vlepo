@@ -1,11 +1,11 @@
 import argon2 from 'argon2';
 import { inputObjectType, mutationField, nonNull, objectType } from 'nexus';
-import { match } from 'ts-pattern';
+import { __, match, not } from 'ts-pattern';
 
 export const LoginInput = inputObjectType({
   name: 'LoginInput',
   definition(t) {
-    t.nonNull.string('username');
+    t.nonNull.string('email');
     t.nonNull.string('password');
   },
 });
@@ -31,28 +31,29 @@ export const LoginMutation = mutationField('LoginMutation', {
         password: true,
       },
       where: {
-        username: args.LoginInput.username,
+        email: args.LoginInput.email,
       },
     });
 
-    return match(
-      user &&
-        (await argon2.verify(user.password, args.LoginInput.password, {
-          type: argon2.argon2id,
-        })),
-    )
-      .with(null, () => ({
+    return match(user)
+      .with(null, async () => ({
         ok: false,
         error: 'user not found',
       }))
-      .with(false, () => ({
+      .with({ password: __.string }, async (u) => {
+        const result = await argon2.verify(u.password, args.LoginInput.password, {
+          type: argon2.argon2id,
+        });
+        return result
+          ? { ok: true, error: '', loggedInUserName: u.name }
+          : {
+              ok: false,
+              error: 'username or password incorrect',
+            };
+      })
+      .with({ password: not(__.string) }, async () => ({
         ok: false,
-        error: 'username or password incorrect',
-      }))
-      .with(true, () => ({
-        ok: true,
-        error: '',
-        loggedInUserName: user?.name,
+        error: 'cannot login using password, please use third party login',
       }))
       .run();
   },

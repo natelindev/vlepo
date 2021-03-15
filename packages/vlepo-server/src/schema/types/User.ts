@@ -2,6 +2,7 @@ import { objectType } from 'nexus';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 
+import { OAuthCheckScope } from '../../oauth2/nexus';
 import { Comment } from './Comment';
 import { Image } from './Image';
 import { Post } from './Post';
@@ -12,7 +13,7 @@ export const User = objectType({
   definition(t) {
     t.model.id();
     t.model.name();
-    t.model.email();
+    t.model.email({ resolve: OAuthCheckScope('user:email') });
     t.model.website();
     t.model.profileImageUrl();
     t.model.description();

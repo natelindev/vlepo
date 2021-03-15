@@ -42,9 +42,11 @@ app.use(grant.koa()(Oauth2Config));
 
 const router = new Router();
 
+const customContext = createContext();
+
 const graphqlServer = graphqlHTTP({
   schema,
-  context: createContext(),
+  context: customContext,
   validationRules: [depthLimit(10)],
   formatError: (error: Error) => ({
     // better errors for development. `stack` used in `gqErrors` middleware
@@ -56,6 +58,12 @@ const graphqlServer = graphqlHTTP({
 router.all('/playground', koaPlayground({ endpoint: '/graphql' }));
 router.all('/graphql/batch', graphqlBatchHTTPWrapper(graphqlServer));
 router.all('/graphql', graphqlServer);
+router.get('/secret', customContext.oauth.authenticate(), async (ctx) => {
+  ctx.body = 'secret message';
+});
+router.get('/super-secret', customContext.oauth.authorize(), async (ctx) => {
+  ctx.body = 'super secret message';
+});
 
 app.use(router.routes());
 app.use(authRouter.routes());
