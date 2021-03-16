@@ -15,9 +15,9 @@
     "generate": "lerna run generate",
     "postinstall": "patch-package",
     "lint": "lerna run lint",
+    "publish": "yarn lerna publish from-package --dist-tag canary --yes --no-verify-access",
     "start": "pm2 start ./pm2.yml",
-    "watch": "lerna run watch",
-    "publish": "yarn lerna publish from-package --dist-tag canary --yes --no-verify-access"
+    "watch": "lerna run watch --parallel"
   },
   "dependencies": {
     "patch-package": "6.4.6",

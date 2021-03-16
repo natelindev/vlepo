@@ -11610,6 +11610,11 @@ ts-pattern@2.4.0:
   resolved "https://registry.yarnpkg.com/ts-pattern/-/ts-pattern-2.4.0.tgz#638442d5df86a076bbefad8e4762080e7d5dbb4d"
   integrity sha512-DaKcS7nmM+yFpLjyUj1GDc7seLDtQpKUSAuB9q47DgmihMtabQuM/locB//HsNpZ0bMb3rR3UKtzICzIEPE58g==
 
+ts-pattern@3.0.3:
+  version "3.0.3"
+  resolved "https://registry.npmjs.org/ts-pattern/-/ts-pattern-3.0.3.tgz#d13585e9bd2f46325b350d49cd3cb190b00efe86"
+  integrity sha512-e9Pzlh/KuoKuI9ZA6Uf1Mbb2ABsbRNMcGyjyBqtksHPmO2aM2hLfn/bBSV2BzPHg3JAjxFopH4nMwA6wDwQ/lg==
+
 ts-pnp@^1.1.6:
   version "1.2.0"
   resolved "https://registry.npmjs.org/ts-pnp/-/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"

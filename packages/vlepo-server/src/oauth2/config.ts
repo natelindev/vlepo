@@ -7,6 +7,7 @@ export const Oauth2Config: GrantConfig = {
     nonce: true,
     prefix: '/api/connect',
     callback: '/api/oauth2/callback',
+    pkce: true,
   },
   google: {
     key: process.env.GOOGLE_OAUTH_CLIENT_ID,
@@ -30,6 +31,7 @@ export const Oauth2Config: GrantConfig = {
     custom_params: { duration: 'temporary' },
     state: 'some state',
     nonce: false,
+    pkce: false,
     scope: ['identity'],
     response: ['tokens', 'profile'],
   },
