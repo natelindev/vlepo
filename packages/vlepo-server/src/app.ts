@@ -13,8 +13,9 @@ import cors from '@koa/cors';
 import { PrismaClient } from '@prisma/client';
 
 import { createContext } from './context';
-import authRouter from './oauth2/callback';
 import { Oauth2Config } from './oauth2/config';
+import { authenticate, authorize } from './oauth2/middleware';
+import authRouter from './oauth2/router';
 import schema from './schema';
 
 const debug = debugInit('vlepo:app');
@@ -25,7 +26,10 @@ const app = new Koa<Koa.DefaultState, Koa.DefaultContext>();
 if (!process.env.SECRET_KEY) {
   throw new Error('You need SECRET_KEY env variable in order to run');
 }
+
 app.keys = [process.env.SECRET_KEY];
+app.context.prisma = prisma;
+
 app.use(bodyParser());
 app.use(
   cors({
@@ -58,10 +62,12 @@ const graphqlServer = graphqlHTTP({
 router.all('/playground', koaPlayground({ endpoint: '/graphql' }));
 router.all('/graphql/batch', graphqlBatchHTTPWrapper(graphqlServer));
 router.all('/graphql', graphqlServer);
-router.get('/secret', customContext.oauth.authenticate(), async (ctx) => {
+
+router.get('/secret', authenticate(), async (ctx) => {
   ctx.body = 'secret message';
 });
-router.get('/super-secret', customContext.oauth.authorize(), async (ctx) => {
+
+router.get('/super-secret', authorize(), async (ctx) => {
   ctx.body = 'super secret message';
 });
 

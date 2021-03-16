@@ -6,7 +6,7 @@ export const Oauth2Config: GrantConfig = {
     transport: 'session',
     nonce: true,
     prefix: '/api/connect',
-    callback: '/api/oauth-callback',
+    callback: '/api/oauth2/callback',
   },
   google: {
     key: process.env.GOOGLE_OAUTH_CLIENT_ID,

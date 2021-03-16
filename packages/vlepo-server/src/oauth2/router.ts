@@ -2,12 +2,13 @@ import debugInit from 'debug';
 import Router from 'koa-router';
 import { match } from 'ts-pattern';
 
-import { OAuthProviders } from '@prisma/client';
+import { OAuthProviders, User } from '@prisma/client';
 
 import { ExtendedContext } from '../context';
+import { token } from './middleware';
 
 const router = new Router<unknown, ExtendedContext>({
-  prefix: '/api',
+  prefix: '/api/oauth2',
 });
 
 const debug = debugInit('vlepo:oauth2:callback');
@@ -70,7 +71,7 @@ type GrantErrorResponse = {
   error: string;
 };
 
-router.get('/oauth-callback', async (ctx) => {
+router.get('/callback', async (ctx) => {
   const response: GrantGoogleResponse | GrantGithubResponse | GrantErrorResponse =
     ctx.session?.grant.response;
   const provider: OAuthProviders = ctx.session?.grant.provider;
@@ -82,10 +83,19 @@ router.get('/oauth-callback', async (ctx) => {
     ctx.redirect(`${process.env.CLIENT_URL}/oauth2-error&error=access_denied`);
   }
 
-  await match(provider)
+  const result = await match<OAuthProviders, Promise<User | undefined>>(provider)
     .with(OAuthProviders.google, async () => {
       const { profile } = response as GrantGoogleResponse;
-      await ctx.prisma?.user.create({
+      const existingUser = await ctx.prisma.user.findFirst({
+        where: {
+          provider: OAuthProviders.google,
+          openid: profile.sub,
+        },
+      });
+      if (existingUser) {
+        return existingUser;
+      }
+      return ctx.prisma?.user.create({
         data: {
           email: profile.email,
           name: profile.name,
@@ -97,7 +107,16 @@ router.get('/oauth-callback', async (ctx) => {
     })
     .with(OAuthProviders.github, async () => {
       const { profile } = response as GrantGithubResponse;
-      await ctx.prisma?.user.create({
+      const existingUser = await ctx.prisma.user.findFirst({
+        where: {
+          provider: OAuthProviders.github,
+          openid: profile.id.toString(),
+        },
+      });
+      if (existingUser) {
+        return existingUser;
+      }
+      return ctx.prisma.user.create({
         data: {
           email: profile.email,
           name: profile.name,
@@ -108,12 +127,20 @@ router.get('/oauth-callback', async (ctx) => {
         },
       });
     })
-    .otherwise(async () => {
-      const { error } = response as GrantErrorResponse;
-      ctx.redirect(`${process.env.CLIENT_URL}/oauth2-error&error=${error}`);
-    });
+    .otherwise(async () => undefined);
 
-  ctx.redirect(`${process.env.CLIENT_URL}/oauth2-redirect`);
+  if (result) {
+    if (ctx.session) {
+      delete ctx.session.grant;
+      ctx.session.userId = result.id;
+    }
+    ctx.redirect(`${process.env.CLIENT_URL}/oauth2-redirect?success=true`);
+  } else {
+    const { error } = response as GrantErrorResponse;
+    ctx.redirect(`${process.env.CLIENT_URL}/oauth2-redirect?error=${error}`);
+  }
 });
+
+router.post('/token', token());
 
 export default router;
