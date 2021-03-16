@@ -2999,10 +2999,10 @@
   resolved "https://registry.npmjs.org/@types/range-parser/-/range-parser-1.2.3.tgz#7ee330ba7caafb98090bece86a5ee44115904c2c"
   integrity sha512-ewFXqrQHlFsgc09MK5jP5iR7vumV/BYayNC6PgJO2LPe8vrnNFyjQjSppfEngITi0qvfKtzFvgKymGheFM9UOA==
 
-"@types/react-relay@7.0.17":
-  version "7.0.17"
-  resolved "https://registry.yarnpkg.com/@types/react-relay/-/react-relay-7.0.17.tgz#83f6b85c41b5fd3bb27d04d759fa4c0e4dd6a8d4"
-  integrity sha512-cJqOFIbp3M3/QkRpxlL4pwWRWB0lPGHevJFW8unuebkkITre8ptgknkGhAKe5IlA6ENTRJqVQXMuNdyLxl+0cQ==
+"@types/react-relay@11.0.0":
+  version "11.0.0"
+  resolved "https://registry.npmjs.org/@types/react-relay/-/react-relay-11.0.0.tgz#23730d0c7216df4462634624c5dcb6dc061647cb"
+  integrity sha512-kLzDqhb+w0caxWt9nf2UyVvSiAwjs6mzoxswh8PqXaHgKG20YrpGTWYfs2JDX1QNQ032MkuRwqLfzucTif/y+Q==
   dependencies:
     "@types/react" "*"
     "@types/relay-runtime" "*"
@@ -3023,10 +3023,15 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/relay-runtime@*", "@types/relay-runtime@10.1.9":
+"@types/relay-runtime@*":
   version "10.1.9"
   resolved "https://registry.npmjs.org/@types/relay-runtime/-/relay-runtime-10.1.9.tgz#3928680a46e456153d340b347871bb00639cf62c"
   integrity sha512-KzuBsOnyex7z30o8fzKdC6s386Tcze/UX3w4AR3LtNlzO3+BOTNSCZJQql1AA2/WNB3U+NjlulKZOYnp1b6iDw==
+
+"@types/relay-runtime@10.1.10":
+  version "10.1.10"
+  resolved "https://registry.npmjs.org/@types/relay-runtime/-/relay-runtime-10.1.10.tgz#6d4da929129d7ad39c4932ca36bb5281bf301729"
+  integrity sha512-IyEqvYzMdNcsvhjIVsCvbwQsYT2KMpZrZcw4hQu+2k2MsQNmFSwN0ycWi1Q861qNKMv2rmcMn39O7xtoNhZ8Eg==
 
 "@types/scheduler@*":
   version "0.16.1"

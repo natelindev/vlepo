@@ -23,7 +23,6 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const PostId = query.postId as string;
   await fetchQuery<PostIdQuery>(environment, postIdQuery, {
     id: PostId,
-    // @ts-expect-error relay types are not updated yet
   }).toPromise();
 
   const [relayData] = await relaySSR.getCache();
