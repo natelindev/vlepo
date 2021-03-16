@@ -1,17 +1,17 @@
 {
   "name": "@vlepo/shared",
   "version": "1.0.0",
+  "license": "MIT",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
     "build": "tsc && cp package.json build",
     "watch": "tsc --watch"
   },
-  "license": "MIT",
   "dependencies": {
-    "debug": "^4.3.1"
+    "debug": "4.3.1"
   },
   "devDependencies": {
-    "@types/debug": "^4.1.5"
+    "@types/debug": "4.1.5"
   }
 }

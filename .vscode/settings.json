@@ -38,6 +38,11 @@
         "match": "schema.prisma",
         "isAsync": true,
         "cmd": "yarn prisma format"
+      },
+      {
+        "match": "package.json",
+        "isAsync": true,
+        "cmd": "yarn sort-package-json ${file}"
       }
     ]
   },
