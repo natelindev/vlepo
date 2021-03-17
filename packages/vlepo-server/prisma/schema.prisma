@@ -47,13 +47,17 @@ model User {
   roles           UserRole[]
   comments        Comment[]
   images          Image[]
+  thoughts        Thought[]
   provider        OAuthProviders?
   openid          String?
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
-  thoughts        Thought[]
 
-  OAuthClients OAuthClient[]
+
+  accessTokens            OAuthAccessToken[]
+  refreshTokens           OAuthRefreshToken[]
+  OAuthClients            OAuthClient[]
+  OAuthAuthorizationCodes OAuthAuthorizationCode[]
 }
 
 model Post {
@@ -133,16 +137,17 @@ model Image {
   width          Int
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  thought        Thought? @relation(fields: [thoughtId], references: [id])
-  thoughtId      String?
-  comment        Comment? @relation(fields: [commentId], references: [id])
-  commentId      String?
-  post           Post?    @relation(fields: [postId], references: [id])
-  postId         String?
-  project        Project? @relation(fields: [projectId], references: [id])
-  projectId      String?
-  paper          Paper?   @relation(fields: [paperId], references: [id])
-  paperId        String?
+
+  thought   Thought? @relation(fields: [thoughtId], references: [id])
+  thoughtId String?
+  comment   Comment? @relation(fields: [commentId], references: [id])
+  commentId String?
+  post      Post?    @relation(fields: [postId], references: [id])
+  postId    String?
+  project   Project? @relation(fields: [projectId], references: [id])
+  projectId String?
+  paper     Paper?   @relation(fields: [paperId], references: [id])
+  paperId   String?
 }
 
 model Link {
@@ -294,6 +299,12 @@ model OAuthAccessToken {
 
   //scope
   scopes OAuthScope[]
+
+  //user
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  createdAt DateTime @default(now())
 }
 
 model OAuthRefreshToken {
@@ -306,6 +317,13 @@ model OAuthRefreshToken {
 
   //scope
   scopes OAuthScope[]
+
+  //user
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  createdAt DateTime @default(now())
+
 }
 
 enum OAuthGrants {
@@ -338,6 +356,10 @@ model OAuthClient {
   scopes OAuthScope[]
 
   userId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([secret])
 }
 
@@ -352,4 +374,7 @@ model OAuthAuthorizationCode {
 
   //scope
   scopes OAuthScope[]
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 }

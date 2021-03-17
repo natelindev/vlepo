@@ -43,8 +43,8 @@ app.use(
 );
 
 app.use(session(app));
-app.use(graphqlUploadKoa({ maxFileSize: 100000000, maxFiles: 5 }));
 app.use(grant.koa()(Oauth2Config));
+app.use(authRouter.routes());
 
 const router = new Router();
 
@@ -73,8 +73,8 @@ router.get('/super-secret', authorize(), async (ctx) => {
   ctx.body = 'super secret message';
 });
 
+app.use(graphqlUploadKoa({ maxFileSize: 100000000, maxFiles: 5 }));
 app.use(router.routes());
-app.use(authRouter.routes());
 
 app
   .listen(3001)
