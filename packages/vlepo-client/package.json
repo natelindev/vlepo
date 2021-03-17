@@ -20,7 +20,7 @@
     "@emotion/styled": "11.1.5",
     "@vlepo/shared": "1.0.0",
     "date-fns": "2.19.0",
-    "debug": "4.3.1",
+    "debug": "4.3.0",
     "dotenv": "8.2.0",
     "graphql": "15.5.0",
     "masonic": "3.4.1",

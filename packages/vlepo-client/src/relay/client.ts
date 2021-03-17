@@ -1,8 +1,11 @@
 import RelaySSR from 'react-relay-network-modern-ssr/node8/client';
 import {
   authMiddleware,
+  batchMiddleware,
   cacheMiddleware,
+  errorMiddleware,
   RelayNetworkLayer,
+  uploadMiddleware,
   urlMiddleware,
 } from 'react-relay-network-modern/node8';
 import { Environment, RecordSource, Store } from 'relay-runtime';
@@ -27,11 +30,6 @@ export function createEnvironment(relayData: SSRCache): Environment {
       new RelaySSR(relayData).getMiddleware({
         lookup: false,
       }),
-      authMiddleware({
-        token: '',
-        allowEmptyToken: true,
-        prefix: 'Bearer',
-      }),
       urlMiddleware({
         url: () => {
           if (!process.env.NEXT_PUBLIC_API_ENDPOINT) {
@@ -40,6 +38,15 @@ export function createEnvironment(relayData: SSRCache): Environment {
           return `${process.env.NEXT_PUBLIC_API_ENDPOINT}/graphql`;
         },
       }),
+      authMiddleware({
+        token: '',
+        allowEmptyToken: true,
+      }),
+      batchMiddleware({
+        batchUrl: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/graphql/batch`,
+      }),
+      errorMiddleware(),
+      uploadMiddleware(),
     ]),
   });
 

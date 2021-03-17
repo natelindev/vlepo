@@ -2,6 +2,7 @@ import debugInit from 'debug';
 import grant from 'grant';
 import depthLimit from 'graphql-depth-limit';
 import koaPlayground from 'graphql-playground-middleware-koa';
+import { graphqlUploadKoa } from 'graphql-upload';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import graphqlHTTP from 'koa-graphql';
@@ -42,6 +43,7 @@ app.use(
 );
 
 app.use(session(app));
+app.use(graphqlUploadKoa({ maxFileSize: 100000000, maxFiles: 5 }));
 app.use(grant.koa()(Oauth2Config));
 
 const router = new Router();
