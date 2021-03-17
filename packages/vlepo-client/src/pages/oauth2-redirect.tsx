@@ -12,24 +12,32 @@ const LoginSuccessMessage = styled.h1`
 `;
 const Oauth2Redirect = () => {
   const [message, setMessage] = useState<string | null>();
+  const [closeTime, setCloseTime] = useState(1);
   useEffect(() => {
-    setTimeout(() => {
-      window.opener?.location.reload();
-      window.close();
-    }, 1000);
     const params = new URLSearchParams(window.location.search);
     const error = params.get('error');
     const success = params.get('success');
     if (success) {
       setMessage('Login success');
+      setCloseTime(1);
     } else {
       setMessage(`Login failed ${error}`);
+      setCloseTime(3);
     }
+    setTimeout(
+      () => {
+        window.opener?.location.reload();
+        window.close();
+      },
+      success ? 1000 : 3000,
+    );
   }, []);
   return (
     <Container>
       {message && (
-        <LoginSuccessMessage>{message},this page will close in 1 second</LoginSuccessMessage>
+        <LoginSuccessMessage>
+          {message},this page will close in {closeTime} second
+        </LoginSuccessMessage>
       )}
     </Container>
   );

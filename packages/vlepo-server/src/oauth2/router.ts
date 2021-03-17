@@ -1,5 +1,6 @@
 import debugInit from 'debug';
 import Router from 'koa-router';
+import { AbstractGrantType } from 'oauth2-server';
 import { match } from 'ts-pattern';
 
 import { OAuthProviders, User } from '@prisma/client';
@@ -141,6 +142,22 @@ router.get('/callback', async (ctx) => {
   }
 });
 
-router.post('/token', token());
+class ImplicitCsrfGrant extends AbstractGrantType {
+  handle(request: Request, client: Client) {
+    return Promise.resolve(null);
+  }
+}
+router.post(
+  '/token',
+  token({
+    requireClientAuthentication: {
+      password: false,
+      'urn:vlepo:implicit:csrf': false,
+    },
+    extendedGrantTypes: {
+      'urn:vlepo:implicit:csrf': ImplicitCsrfGrant,
+    },
+  }),
+);
 
 export default router;

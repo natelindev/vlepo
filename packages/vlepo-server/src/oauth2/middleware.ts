@@ -9,6 +9,7 @@ import OAuth2, {
   RefreshTokenModel,
   Request,
   Response,
+  TokenOptions,
   UnauthorizedRequestError,
 } from 'oauth2-server';
 
@@ -90,13 +91,13 @@ export const authorize = () => async (ctx: koa.DefaultContext, next: koa.Next) =
   return next();
 };
 
-export const token = () => async (ctx: koa.DefaultContext, next: koa.Next) => {
+export const token = (options: TokenOptions) => async (ctx: koa.DefaultContext, next: koa.Next) => {
   const request = new Request(ctx.request);
   const response = new Response(ctx.response);
 
   try {
     ctx.state.oauth = {
-      token: await oauth.token(request, response),
+      token: await oauth.token(request, response, options),
     };
 
     ctx.body = response.body;

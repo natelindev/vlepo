@@ -4,6 +4,7 @@
     "words": [
         "bodyparser",
         "codegen",
+        "csrf",
         "openid",
         "prebuild",
         "vlepo"

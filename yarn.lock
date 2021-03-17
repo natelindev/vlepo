@@ -2796,7 +2796,7 @@
   resolved "https://registry.npmjs.org/@types/http-assert/-/http-assert-1.5.1.tgz#d775e93630c2469c2f980fc27e3143240335db3b"
   integrity sha512-PGAK759pxyfXE78NbKxyfRcWYA/KwW17X290cNev/qAsn9eQIxkH4shoNBafH37wewhDG/0p1cHPbK6+SzZjWQ==
 
-"@types/http-errors@*":
+"@types/http-errors@*", "@types/http-errors@^1.6.3":
   version "1.8.0"
   resolved "https://registry.npmjs.org/@types/http-errors/-/http-errors-1.8.0.tgz#682477dbbbd07cd032731cb3b0e7eaee3d026b69"
   integrity sha512-2aoSC4UUbHDj2uCsCxcG/vRMXey/m17bC7UwitVm5hn22nI8O8Y9iDpA76Orc+DWkQ4zZrOKEshCqR/jSuXAHA==
@@ -4733,6 +4733,15 @@ crypto-browserify@3.12.0, crypto-browserify@^3.11.0:
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
     randomfill "^1.0.3"
+
+csrf@3.1.0, csrf@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npmjs.org/csrf/-/csrf-3.1.0.tgz#ec75e9656d004d674b8ef5ba47b41fbfd6cb9c30"
+  integrity sha512-uTqEnCvWRk042asU6JtapDTcJeeailFy4ydOQS28bj1hcLnYRiqi8SsD2jS412AY1I/4qdOwWZun774iqywf9w==
+  dependencies:
+    rndm "1.2.0"
+    tsscmp "1.0.6"
+    uid-safe "2.1.5"
 
 css.escape@1.5.1:
   version "1.5.1"
@@ -8442,6 +8451,17 @@ neo-async@^2.6.0:
   resolved "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
+next-csrf@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/next-csrf/-/next-csrf-0.1.1.tgz#f8b735fc82c7c0f933101b58047532dff81393a2"
+  integrity sha512-PQH0PM42i+0zK5X9O9edJwW2EVvz8zg7YjJeyqrnQgyPkqAYGiFOlE6vyf8wrfdFdwHNHGciouSjY5B0cMNp8w==
+  dependencies:
+    "@types/http-errors" "^1.6.3"
+    cookie "^0.4.1"
+    cookie-signature "^1.1.0"
+    csrf "^3.1.0"
+    querystring "^0.2.0"
+
 next-mdx-remote@2.1.3:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/next-mdx-remote/-/next-mdx-remote-2.1.3.tgz#a427d690691af081384770b464d3803350ada41f"
@@ -9837,6 +9857,11 @@ raf-schd@^4.0.2:
   resolved "https://registry.npmjs.org/raf-schd/-/raf-schd-4.0.2.tgz#bd44c708188f2e84c810bf55fcea9231bcaed8a0"
   integrity sha512-VhlMZmGy6A6hrkJWHLNTGl5gtgMUm+xfGza6wbwnE914yeQ5Ybm18vgM734RZhMgfw4tacUrWseGZlpUrrakEQ==
 
+random-bytes@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/random-bytes/-/random-bytes-1.0.0.tgz#4f68a1dc0ae58bd3fb95848c30324db75d64360b"
+  integrity sha1-T2ih3Arli9P7lYSMMDJNt11kNgs=
+
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   version "2.1.0"
   resolved "https://registry.npmjs.org/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"
@@ -10576,6 +10601,11 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^3.0.0"
     inherits "^2.0.1"
+
+rndm@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/rndm/-/rndm-1.2.0.tgz#f33fe9cfb52bbfd520aa18323bc65db110a1b76c"
+  integrity sha1-8z/pz7Urv9UgqhgyO8ZdsRCht2w=
 
 run-async@^2.4.0:
   version "2.4.1"
@@ -11785,6 +11815,13 @@ uid-number@0.0.6:
   version "0.0.6"
   resolved "https://registry.npmjs.org/uid-number/-/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
   integrity sha1-DqEOgDXo61uOREnwbaHHMGY7qoE=
+
+uid-safe@2.1.5:
+  version "2.1.5"
+  resolved "https://registry.npmjs.org/uid-safe/-/uid-safe-2.1.5.tgz#2b3d5c7240e8fc2e58f8aa269e5ee49c0857bd3a"
+  integrity sha512-KPHm4VL5dDXKz01UuEd88Df+KzynaohSL9fBh096KWAxSKZQDI2uBrVqtvRM4rwrIrRRKsdLNML/lnaaVSRioA==
+  dependencies:
+    random-bytes "~1.0.0"
 
 umask@^1.1.0:
   version "1.1.0"
