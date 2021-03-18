@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const nativeType = (value: string): unknown => {
   // number
@@ -22,30 +22,39 @@ const nativeType = (value: string): unknown => {
   }
 };
 
-export const useCookie = <T = unknown>(name: string, initValue: T) => {
-  const [cookieValue, setCookieValue] = useState<T | undefined>();
+export const getCookie = <T = unknown>(name: string, initValue: T) => {
+  const cookieValue = document.cookie
+    .split('; ')
+    .find((cookieValue: string) => cookieValue.split('=')[0] === name);
 
-  const setCookie = (value: T, options: { days?: number; path?: string }) => {
-    const { days = 7, path = '/' } = options;
+  const result = cookieValue ? decodeURIComponent(cookieValue) : undefined;
 
-    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  return result ? (nativeType(result) as T) : initValue;
+};
 
-    document.cookie = `${name}=${encodeURIComponent(
-      typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean'
-        ? value
-        : JSON.stringify(value),
-    )}; expires=${expires}; path=${path}`;
+const setCookie = <T = unknown>(value: T, name: string, options?: cookieOptions) => {
+  const { days = 7, path = '/' } = options || {};
+
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+
+  document.cookie = `${name}=${encodeURIComponent(
+    typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean'
+      ? value
+      : JSON.stringify(value),
+  )}; expires=${expires}; path=${path}`;
+};
+
+type cookieOptions = { days?: number; path?: string };
+
+export const useCookie = <T = unknown>(
+  name: string,
+  initValue: T,
+): [T, (value: T, options: cookieOptions) => void] => {
+  const [cookieValue, setCookieValue] = useState<T | undefined>(getCookie(name, initValue));
+
+  const setCookieAndState = (value: T, options: cookieOptions) => {
+    setCookie(value, name, options);
+    setCookieValue(value);
   };
-
-  useEffect(() => {
-    const cookieValue = document.cookie
-      .split('; ')
-      .find((cookieValue: string) => cookieValue.split('=')[0] === name);
-
-    const result = cookieValue ? decodeURIComponent(cookieValue) : undefined;
-
-    setCookieValue(result ? (nativeType(result) as T) : undefined);
-  }, [name]);
-
-  return [cookieValue ?? initValue, setCookie];
+  return [cookieValue ?? initValue, setCookieAndState];
 };

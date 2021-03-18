@@ -10,3 +10,4 @@ export type {
   RequireAtLeastOne,
 } from './utilTypes';
 export { OAuthConsts } from './consts';
+export type { UserSession } from './types';
