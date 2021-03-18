@@ -1,4 +1,5 @@
 import argon2 from 'argon2';
+import cryptoRandomString from 'crypto-random-string';
 import debugInit from 'debug';
 import { __, match, when } from 'ts-pattern';
 
@@ -15,101 +16,60 @@ import type { Await } from '@vlepo/shared';
 
 const prisma = new PrismaClient();
 const debug = debugInit('vlepo:oauth2:model');
+
+export const generateAccessToken = () => {
+  return cryptoRandomString.async({ length: 40, type: 'alphanumeric' });
+};
+
+export const generateRefreshToken = () => {
+  return cryptoRandomString.async({ length: 40, type: 'alphanumeric' });
+};
+
+export const generateAuthorizationCode = () => {
+  return cryptoRandomString.async({ length: 50, type: 'alphanumeric' });
+};
+
 // Performs a lookup on the provided string and returns a token object
-const getAccessToken = async (accessToken: string) => {
+export const getAccessToken = async (accessToken: string) => {
   debug(`Get access token ${accessToken}`);
-  const token = await prisma.oAuthAccessToken.findFirst({
+  return prisma.oAuthAccessToken.findFirst({
     where: {
       accessToken,
     },
-  });
-
-  if (!token) {
-    return undefined;
-  }
-
-  const user = await prisma.oAuthAccessToken
-    .findFirst({
-      where: {
-        accessToken,
-      },
-    })
-    .client()
-    .user();
-  return {
-    ...token,
-    user,
-    client: {
-      id: token?.clientId,
+    include: {
+      user: true,
     },
-  };
+  });
 };
 
 // Performs a lookup on the provided string and returns a token object
-const getRefreshToken = async (refreshToken: string) => {
+export const getRefreshToken = async (refreshToken: string) => {
   debug(`Get refresh token ${refreshToken}`);
-  const token = await prisma.oAuthRefreshToken.findFirst({
+  return prisma.oAuthRefreshToken.findFirst({
     where: {
       refreshToken,
     },
-  });
-
-  if (!token) {
-    return undefined;
-  }
-
-  const user = await prisma.oAuthRefreshToken
-    .findFirst({
-      where: {
-        refreshToken,
-      },
-    })
-    .client()
-    .user();
-
-  return {
-    ...token,
-    user,
-    client: {
-      id: token.clientId,
+    include: {
+      user: true,
     },
-  };
+  });
 };
 
 // Retrieves an authorization code
-const getAuthorizationCode = async (authorizationCode: string) => {
+export const getAuthorizationCode = async (authorizationCode: string) => {
   debug(`Retrieving authorization code ${authorizationCode}`);
-  const authorizationCodeOnly = await prisma.oAuthAuthorizationCode.findFirst({
+  return prisma.oAuthAuthorizationCode.findFirst({
     where: {
       authorizationCode,
     },
     include: {
       scopes: true,
+      user: true,
     },
   });
-  if (!authorizationCode) {
-    return undefined;
-  }
-  const user = await prisma.oAuthAuthorizationCode
-    .findFirst({
-      where: {
-        authorizationCode,
-      },
-    })
-    .client()
-    .user();
-
-  return {
-    ...authorizationCodeOnly,
-    scope: authorizationCodeOnly?.scopes.join(' '),
-    user,
-    client: {
-      id: authorizationCodeOnly?.clientId,
-    },
-  };
 };
 
-const getClient = async (id: string, secret: string | null) => {
+export const getClient = async (id: string, secret: string | null) => {
   debug(`Looking up client ${id}:${secret}`);
 
   return match(secret)
@@ -124,7 +84,7 @@ const getClient = async (id: string, secret: string | null) => {
     .otherwise(async () => prisma.oAuthClient.findFirst({ where: { id } }));
 };
 
-const getUser = async (email: string, password: string) => {
+export const getUser = async (email: string, password: string) => {
   debug(`Looking up user ${email}`);
 
   const user = await prisma.user.findFirst({
@@ -142,7 +102,7 @@ const getUser = async (email: string, password: string) => {
     : undefined;
 };
 
-const getUserFromClient = async (client: OAuthClient) => {
+export const getUserFromClient = async (client: OAuthClient) => {
   debug(`Looking up user for client ${client.id}`);
   return prisma.user.findFirst({
     where: {
@@ -164,7 +124,7 @@ type SaveTokenInput = {
 };
 
 // Saves the newly generated token object
-const saveToken = async (token: SaveTokenInput, client: OAuthClient, user: User) => {
+export const saveToken = async (token: SaveTokenInput, client: OAuthClient, user: User) => {
   debug(`Save token ${token.accessToken}`);
   const tokenOnly = await match<SaveTokenInput, Promise<SaveTokenInput>>(token)
     .with(
@@ -182,6 +142,11 @@ const saveToken = async (token: SaveTokenInput, client: OAuthClient, user: User)
                 id: client.id,
               },
             },
+            user: {
+              connect: {
+                id: user.id,
+              },
+            },
           },
         });
         const refreshToken = await prisma.oAuthRefreshToken.create({
@@ -191,6 +156,11 @@ const saveToken = async (token: SaveTokenInput, client: OAuthClient, user: User)
             client: {
               connect: {
                 id: client.id,
+              },
+            },
+            user: {
+              connect: {
+                id: user.id,
               },
             },
           },
@@ -211,6 +181,11 @@ const saveToken = async (token: SaveTokenInput, client: OAuthClient, user: User)
               id: client.id,
             },
           },
+          user: {
+            connect: {
+              id: user.id,
+            },
+          },
         },
       }),
     );
@@ -223,7 +198,7 @@ const saveToken = async (token: SaveTokenInput, client: OAuthClient, user: User)
 };
 
 // Saves the newly generated authorization code object
-const saveAuthorizationCode = async (
+export const saveAuthorizationCode = async (
   code: OAuthAuthorizationCode,
   client: OAuthClient,
   user: User,
@@ -238,6 +213,11 @@ const saveAuthorizationCode = async (
       client: {
         connect: { id: client.id },
       },
+      user: {
+        connect: {
+          id: user.id,
+        },
+      },
     },
   });
   return {
@@ -246,8 +226,8 @@ const saveAuthorizationCode = async (
   };
 };
 
-type revokeTokenInput = Exclude<Await<ReturnType<typeof getRefreshToken>>, undefined>;
-const revokeToken = async (token: revokeTokenInput) => {
+type revokeTokenInput = NonNullable<Exclude<Await<ReturnType<typeof getRefreshToken>>, undefined>>;
+export const revokeToken = async (token: revokeTokenInput) => {
   debug(`Revoke token ${token.refreshToken}`);
   return prisma.oAuthRefreshToken.delete({
     where: {
@@ -256,11 +236,10 @@ const revokeToken = async (token: revokeTokenInput) => {
   });
 };
 
-type revokeAuthorizationCodeInput = Exclude<
-  Await<ReturnType<typeof getAuthorizationCode>>,
-  undefined
+type revokeAuthorizationCodeInput = NonNullable<
+  Exclude<Await<ReturnType<typeof getAuthorizationCode>>, undefined>
 >;
-const revokeAuthorizationCode = async (code: revokeAuthorizationCodeInput) => {
+export const revokeAuthorizationCode = async (code: revokeAuthorizationCodeInput) => {
   debug(`Revoking authorization code ${code.authorizationCode}`);
   return prisma.oAuthAuthorizationCode.delete({
     where: {
@@ -282,7 +261,7 @@ const flattenScopes = (scopes: RecursiveOAuthScope): string[] =>
     [] as string[],
   );
 
-const validateScope = async (_user: User, client: OAuthClient, scope: string) => {
+export const validateScope = async (_user: User, client: OAuthClient, scope: string) => {
   debug(`Validating requested scope: ${scope}`);
 
   const clientScopes = (
@@ -350,6 +329,9 @@ export const verifyScope = async (token: OAuthAccessToken, scope: string | strin
 };
 
 export default {
+  generateAccessToken,
+  generateRefreshToken,
+  generateAuthorizationCode,
   getClient,
   getUser,
   getUserFromClient,

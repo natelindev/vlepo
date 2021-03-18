@@ -347,7 +347,7 @@ model OAuthClient {
   refreshTokens OAuthRefreshToken[]
 
   //user
-  user User @relation(fields: [userId], references: [id])
+  owner User @relation(fields: [onwerId], references: [id])
 
   //code
   authorizationCodes OAuthAuthorizationCode[]
@@ -355,7 +355,7 @@ model OAuthClient {
   //scope
   scopes OAuthScope[]
 
-  userId String
+  onwerId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

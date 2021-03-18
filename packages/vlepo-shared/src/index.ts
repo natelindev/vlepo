@@ -9,3 +9,4 @@ export type {
   RequireAndNotNullSome,
   RequireAtLeastOne,
 } from './utilTypes';
+export { OAuthConsts } from './consts';

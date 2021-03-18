@@ -23,6 +23,7 @@
     "@types/koa-graphql": "0.8.4",
     "@vlepo/shared": "1.0.0",
     "argon2": "0.27.1",
+    "crypto-random-string": "3.3.1",
     "csrf": "3.1.0",
     "date-fns": "2.19.0",
     "debug": "4.3.1",

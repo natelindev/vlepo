@@ -1,14 +1,14 @@
 import { add } from 'date-fns';
-/* eslint-disable class-methods-use-this */
 import debugInit from 'debug';
 import Router from 'koa-router';
-import { AbstractGrantType, Client, Request } from 'oauth2-server';
 import { match } from 'ts-pattern';
 
-import { OAuthProviders, User } from '@prisma/client';
+import { OAuthClient, OAuthProviders, User } from '@prisma/client';
+import { OAuthConsts } from '@vlepo/shared';
 
 import { ExtendedContext } from '../context';
 import { token } from './middleware';
+import { generateAccessToken, saveToken } from './model';
 
 const router = new Router<unknown, ExtendedContext>({
   prefix: '/api/oauth2',
@@ -82,11 +82,12 @@ router.get('/callback', async (ctx) => {
   debug(response);
   debug(provider);
 
-  if (response.access_token) {
-    ctx.redirect(`${process.env.CLIENT_URL}/oauth2-error&error=access_denied`);
+  if (!response.access_token) {
+    const { error } = response as GrantErrorResponse;
+    return ctx.redirect(`${process.env.CLIENT_URL}/oauth2-redirect&error=${error}`);
   }
 
-  const result = await match<OAuthProviders, Promise<User | undefined>>(provider)
+  const connectedUser = await match<OAuthProviders, Promise<User | undefined>>(provider)
     .with(OAuthProviders.google, async () => {
       const { profile } = response as GrantGoogleResponse;
       const existingUser = await ctx.prisma.user.findFirst({
@@ -113,7 +114,7 @@ router.get('/callback', async (ctx) => {
       const existingUser = await ctx.prisma.user.findFirst({
         where: {
           provider: OAuthProviders.github,
-          openid: profile.id.toString(),
+          openid: profile?.id.toString(),
         },
       });
       if (existingUser) {
@@ -132,39 +133,43 @@ router.get('/callback', async (ctx) => {
     })
     .otherwise(async () => undefined);
 
-  if (result) {
+  if (connectedUser) {
+    // create accessToken
+    const accessToken = await generateAccessToken();
+    await saveToken(
+      {
+        accessToken,
+        accessTokenExpiresAt: add(new Date(), { days: 1 }),
+        scope: OAuthConsts.scope.guest,
+      },
+      (await ctx.prisma.oAuthClient.findFirst({
+        where: {
+          id: OAuthConsts.DEFAULT_CLIENT_ID,
+        },
+      })) as OAuthClient,
+      connectedUser,
+    );
+
     if (ctx.session) {
       delete ctx.session.grant;
-      ctx.session.userId = result.id;
+      ctx.session.currentUser = {
+        id: connectedUser.id,
+        name: connectedUser.name,
+        profileImageUrl: connectedUser.profileImageUrl,
+        scope: OAuthConsts.scope.guest,
+      };
+      ctx.session.accessToken = accessToken;
     }
-    ctx.redirect(`${process.env.CLIENT_URL}/oauth2-redirect?success=true`);
-  } else {
-    const { error } = response as GrantErrorResponse;
-    ctx.redirect(`${process.env.CLIENT_URL}/oauth2-redirect?error=${error}`);
+    return ctx.redirect(`${process.env.CLIENT_URL}/oauth2-redirect?success=true`);
   }
+  return ctx.redirect(`${process.env.CLIENT_URL}/oauth2-redirect?error=invalid_provider`);
 });
-
-class ImplicitCsrfGrant extends AbstractGrantType {
-  handle(request: Request, client: Client) {
-    return Promise.resolve({
-      accessToken: 'abcd',
-      accessTokenExpiresAt: add(new Date(), { days: 7 }),
-      scope: ['comment:create', 'image:create', 'self'],
-      client,
-      user: request.body.id,
-    });
-  }
-}
 
 router.post(
   '/token',
   token({
     requireClientAuthentication: {
       password: false,
-      'urn:vlepo:implicit:csrf': false,
-    },
-    extendedGrantTypes: {
-      'urn:vlepo:implicit:csrf': ImplicitCsrfGrant,
     },
   }),
 );

@@ -20,7 +20,7 @@ const debug = debugInit('vlepo:oauth2:middleware');
 
 export type KoaOauth2Context = {
   authenticate: () => koa.Middleware;
-  authorize: (options: AuthorizeOptions) => koa.Middleware;
+  authorize: (options?: AuthorizeOptions) => koa.Middleware;
   token: () => koa.Middleware;
   scope: (requiredScope: string | string[]) => koa.Middleware;
 };
@@ -61,7 +61,7 @@ export const authenticate = () => async (ctx: koa.DefaultContext, next: koa.Next
   return next();
 };
 
-export const authorize = (options: AuthorizeOptions) => async (
+export const authorize = (options?: AuthorizeOptions) => async (
   ctx: koa.DefaultContext,
   next: koa.Next,
 ) => {
