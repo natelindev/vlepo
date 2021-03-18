@@ -20,16 +20,16 @@
     "watch": "lerna run watch --parallel"
   },
   "dependencies": {
-    "patch-package": "6.4.6",
+    "patch-package": "6.4.7",
     "postinstall-postinstall": "2.1.0"
   },
   "devDependencies": {
     "@types/eslint": "7.2.7",
-    "@types/node": "14.14.34",
+    "@types/node": "14.14.35",
     "@types/react": "17.0.3",
-    "@typescript-eslint/eslint-plugin": "4.17.0",
-    "@typescript-eslint/parser": "4.17.0",
-    "eslint": "7.21.0",
+    "@typescript-eslint/eslint-plugin": "4.18.0",
+    "@typescript-eslint/parser": "4.18.0",
+    "eslint": "7.22.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-import": "2.22.1",
@@ -40,7 +40,7 @@
     "lerna": "4.0.0",
     "prettier": "2.2.1",
     "react": "17.0.1",
-    "sort-package-json": "1.48.0",
+    "sort-package-json": "1.49.0",
     "typescript": "4.2.3"
   }
 }

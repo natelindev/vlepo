@@ -1,6 +1,8 @@
+import { add } from 'date-fns';
+/* eslint-disable class-methods-use-this */
 import debugInit from 'debug';
 import Router from 'koa-router';
-import { AbstractGrantType } from 'oauth2-server';
+import { AbstractGrantType, Client, Request } from 'oauth2-server';
 import { match } from 'ts-pattern';
 
 import { OAuthProviders, User } from '@prisma/client';
@@ -144,9 +146,16 @@ router.get('/callback', async (ctx) => {
 
 class ImplicitCsrfGrant extends AbstractGrantType {
   handle(request: Request, client: Client) {
-    return Promise.resolve(null);
+    return Promise.resolve({
+      accessToken: 'abcd',
+      accessTokenExpiresAt: add(new Date(), { days: 7 }),
+      scope: ['comment:create', 'image:create', 'self'],
+      client,
+      user: request.body.id,
+    });
   }
 }
+
 router.post(
   '/token',
   token({

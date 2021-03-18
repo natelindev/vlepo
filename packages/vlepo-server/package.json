@@ -6,8 +6,9 @@
   "scripts": {
     "build": "yarn -s clean && tsc --outDir ./build",
     "clean": "rm -rf ./build",
-    "db:migrate": "prisma migrate dev --preview-feature",
-    "db:new-migration": "prisma migrate dev --preview-feature --name",
+    "db:push": "prisma db push --preview-feature",
+    "db:migrate": "prisma migrate dev",
+    "db:new-migration": "prisma migrate dev --name",
     "db:seed": "ts-node prisma/seed.ts",
     "dev": "cross-env DEBUG=vlepo:* ts-node-dev --exit-child --tree-kill --respawn --transpile-only src/app.ts",
     "generate": "yarn -s generate:prisma && yarn -s generate:nexus",
@@ -17,7 +18,7 @@
   "dependencies": {
     "@devoxa/prisma-relay-cursor-connection": "1.1.1",
     "@koa/cors": "3.1.0",
-    "@prisma/client": "2.18.0",
+    "@prisma/client": "2.19.0",
     "@types/graphql-upload": "8.0.4",
     "@types/koa-graphql": "0.8.4",
     "@vlepo/shared": "1.0.0",
@@ -44,7 +45,7 @@
     "nexus-plugin-prisma": "0.32.0",
     "node-fetch": "2.6.1",
     "oauth2-server": "3.1.1",
-    "ts-pattern": "2.4.0"
+    "ts-pattern": "3.0.6"
   },
   "devDependencies": {
     "@types/debug": "4.1.5",
@@ -58,7 +59,7 @@
     "@types/koa-session": "5.10.3",
     "@types/koa-static": "4.0.1",
     "@types/koa__cors": "3.0.2",
-    "@types/node": "14.14.33",
+    "@types/node": "14.14.35",
     "@types/node-fetch": "2.5.8",
     "@types/oauth2-server": "3.0.12",
     "cross-env": "7.0.3",
@@ -68,7 +69,7 @@
     "eslint-plugin-react": "7.22.0",
     "eslint-plugin-react-hooks": "4.2.0",
     "faker": "5.4.0",
-    "prisma": "2.18.0",
+    "prisma": "2.19.0",
     "ts-node": "9.1.1",
     "ts-node-dev": "1.1.6",
     "typescript": "4.2.3"

@@ -3,6 +3,7 @@ import koa from 'koa';
 import OAuth2, {
   AccessDeniedError,
   AuthorizationCodeModel,
+  AuthorizeOptions,
   ClientCredentialsModel,
   ExtensionModel,
   PasswordModel,
@@ -19,7 +20,7 @@ const debug = debugInit('vlepo:oauth2:middleware');
 
 export type KoaOauth2Context = {
   authenticate: () => koa.Middleware;
-  authorize: () => koa.Middleware;
+  authorize: (options: AuthorizeOptions) => koa.Middleware;
   token: () => koa.Middleware;
   scope: (requiredScope: string | string[]) => koa.Middleware;
 };
@@ -60,13 +61,16 @@ export const authenticate = () => async (ctx: koa.DefaultContext, next: koa.Next
   return next();
 };
 
-export const authorize = () => async (ctx: koa.DefaultContext, next: koa.Next) => {
+export const authorize = (options: AuthorizeOptions) => async (
+  ctx: koa.DefaultContext,
+  next: koa.Next,
+) => {
   const request = new Request(ctx.request);
   const response = new Response(ctx.response);
 
   try {
     ctx.state.oauth = {
-      code: await oauth.authorize(request, response),
+      code: await oauth.authorize(request, response, options),
     };
 
     ctx.body = response.body;
