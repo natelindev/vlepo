@@ -10,6 +10,7 @@ import { useQuery } from 'relay-hooks';
 import HoverShare from 'src/components/HoverShare';
 import Layout from 'src/components/Layout';
 import * as components from 'src/components/MDXComponents';
+import PlaceHolder from 'src/components/PlaceHolder';
 import { initEnvironment } from 'src/relay';
 
 import styled from '@emotion/styled';
@@ -113,7 +114,7 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
   }, []);
 
   if (error) return <div>{error.message}</div>;
-  if (!data || !data.post) return <components.PlaceHolder />;
+  if (!data || !data.post || router.isFallback) return <PlaceHolder />;
 
   const { headerImageUrl, title, owner, tags } = data.post;
 
