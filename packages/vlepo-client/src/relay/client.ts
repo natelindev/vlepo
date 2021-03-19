@@ -44,7 +44,7 @@ export function createEnvironment(relayData: SSRCache): Environment {
       authMiddleware({
         token: getCookie<UserSession>('koa.sess', {
           accessToken: '',
-        }).accessToken,
+        })?.accessToken,
         allowEmptyToken: true,
       }),
       batchMiddleware({

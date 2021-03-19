@@ -29,7 +29,9 @@ export const generateAuthorizationCode = () => {
   return cryptoRandomString.async({ length: 50, type: 'alphanumeric' });
 };
 
-// Performs a lookup on the provided string and returns a token object
+/**
+ Performs a lookup on the provided string and returns a token object
+ */
 export const getAccessToken = async (accessToken: string) => {
   debug(`Get access token ${accessToken}`);
   return prisma.oAuthAccessToken.findFirst({
@@ -42,7 +44,9 @@ export const getAccessToken = async (accessToken: string) => {
   });
 };
 
-// Performs a lookup on the provided string and returns a token object
+/**
+  Performs a lookup on the provided string and returns a token object
+ */
 export const getRefreshToken = async (refreshToken: string) => {
   debug(`Get refresh token ${refreshToken}`);
   return prisma.oAuthRefreshToken.findFirst({
@@ -55,7 +59,9 @@ export const getRefreshToken = async (refreshToken: string) => {
   });
 };
 
-// Retrieves an authorization code
+/**
+ * Retrieves an authorization code
+ */
 export const getAuthorizationCode = async (authorizationCode: string) => {
   debug(`Retrieving authorization code ${authorizationCode}`);
   return prisma.oAuthAuthorizationCode.findFirst({
@@ -120,12 +126,17 @@ type SaveTokenInput = {
   accessTokenExpiresAt: Date;
   refreshToken?: string;
   refreshTokenExpiresAt?: Date;
-  scope?: string[];
+  scope?: string[] | string;
 };
 
-// Saves the newly generated token object
+/**
+ Saves the newly generated token object
+ must pass in validated scopes
+ */
 export const saveToken = async (token: SaveTokenInput, client: OAuthClient, user: User) => {
   debug(`Save token ${token.accessToken}`);
+
+  const processedScopes = Array.isArray(token.scope) ? token.scope : token.scope?.split(' ') ?? [];
   const tokenOnly = await match<SaveTokenInput, Promise<SaveTokenInput>>(token)
     .with(
       {
@@ -137,6 +148,11 @@ export const saveToken = async (token: SaveTokenInput, client: OAuthClient, user
           data: {
             accessToken: token.accessToken,
             accessTokenExpiresAt: token.accessTokenExpiresAt,
+            scopes: {
+              connect: processedScopes.map((s) => ({
+                value: s,
+              })),
+            },
             client: {
               connect: {
                 id: client.id,
@@ -197,7 +213,9 @@ export const saveToken = async (token: SaveTokenInput, client: OAuthClient, user
   };
 };
 
-// Saves the newly generated authorization code object
+/**
+ Saves the newly generated authorization code object
+ */
 export const saveAuthorizationCode = async (
   code: OAuthAuthorizationCode,
   client: OAuthClient,
@@ -254,7 +272,6 @@ type RecursiveOAuthScope = Array<
   }
 >;
 
-// flatten scopes
 const flattenScopes = (scopes: RecursiveOAuthScope): string[] =>
   scopes.reduce(
     (prev, curr) => [...prev, curr.value, ...flattenScopes(curr.childScopes)],

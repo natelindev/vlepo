@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import React from 'react';
 import { SSRCache } from 'react-relay-network-modern-ssr/node8/server';
 import { ToastProvider } from 'react-toast-notifications';
+import { RecoilRoot } from 'recoil';
 import { RelayEnvironmentProvider } from 'relay-hooks';
 import { Toast } from 'src/components/Toast';
 
@@ -19,15 +20,17 @@ function App({ Component, pageProps }: PageProps): React.ReactElement {
   return (
     <React.StrictMode>
       <RelayEnvironmentProvider environment={createEnvironment(pageProps.relayData)}>
-        <ToastProvider
-          components={{ Toast }}
-          autoDismiss
-          autoDismissTimeout={6000}
-          placement="top-right"
-        >
-          {globalStyles}
-          <Component {...pageProps} />
-        </ToastProvider>
+        <RecoilRoot>
+          <ToastProvider
+            components={{ Toast }}
+            autoDismiss
+            autoDismissTimeout={6000}
+            placement="top-right"
+          >
+            {globalStyles}
+            <Component {...pageProps} />
+          </ToastProvider>
+        </RecoilRoot>
       </RelayEnvironmentProvider>
     </React.StrictMode>
   );

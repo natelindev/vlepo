@@ -21,7 +21,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLElement> {
   href?: string;
 }
 
-const Card = styled(BaseCard)<{ width?: string; height?: string }>`
+const ConstrainedCard = styled(BaseCard)<{ width?: string; height?: string }>`
   max-width: ${(props) => props.width};
   min-height: ${(props) => props.height};
 `;
@@ -36,18 +36,21 @@ const OverlayLink = styled.a`
   z-index: ${ZIndex.CardLink};
 `;
 
-export default React.forwardRef((props: CardProps /* ref: React.Ref<HTMLDivElement | null> */) => {
+const Card = React.forwardRef((props: CardProps /* ref: React.Ref<HTMLDivElement | null> */) => {
   const { children, className, width, height, href, ...rest } = props;
   // const [isHovering, intentRef] = useHoverIntent<HTMLDivElement>({ ref });
 
   return (
-    <Card height={height} width={width} {...rest} className={className}>
+    <ConstrainedCard height={height} width={width} {...rest} className={className}>
       {children}
       {href ? (
         <Link href={href} passHref>
           <OverlayLink />
         </Link>
       ) : null}
-    </Card>
+    </ConstrainedCard>
   );
 });
+
+Card.displayName = 'Card';
+export default Card;

@@ -1,14 +1,17 @@
 ﻿import Link from 'next/link';
 import React, { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { currentUserState } from 'src/atoms/user';
 
 import styled from '@emotion/styled';
 
+import Avatar from './Avatar';
 import GradientButton from './GradientButton';
 import Logo from './Logo';
+import LoginModal from './Modals/LoginModal';
 import NavLink from './Navlink';
 import SearchBar from './SearchBar';
 import { ZIndex } from './ZIndex';
-import LoginModal from './Modals/LoginModal';
 
 const BaseNavbar = styled.nav`
   display: flex;
@@ -140,6 +143,7 @@ export const DropdownMenu = styled.div`
 
 const Navbar: React.FC = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const currentUser = useRecoilValue(currentUserState);
   return (
     <BaseNavbar>
       <NavLogo size="50px" />
@@ -173,9 +177,13 @@ const Navbar: React.FC = () => {
       <RightNavCollapse>
         <NavbarNav>
           <NavSearchBar />
-          <LoginButton onClick={() => setShowLoginModal(true)} colorA="#5CC6EE" colorB="#3232FF">
-            Login
-          </LoginButton>
+          {currentUser ? (
+            <Avatar size={32} imageUrl={currentUser.profileImageUrl} />
+          ) : (
+            <LoginButton onClick={() => setShowLoginModal(true)} colorA="#5CC6EE" colorB="#3232FF">
+              Login
+            </LoginButton>
+          )}
         </NavbarNav>
       </RightNavCollapse>
       {/* <NavbarToggler className="animated--toggler" /> */}

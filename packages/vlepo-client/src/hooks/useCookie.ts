@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
-const nativeType = (value: string): unknown => {
+import { isBrowser } from '@vlepo/shared';
+
+const nativeType = (value: string, decode: (s: string) => unknown): unknown => {
   // number
   const nValue = Number(value);
   if (!Number.isNaN(nValue)) {
@@ -15,46 +17,60 @@ const nativeType = (value: string): unknown => {
     return false;
   }
   try {
-    return JSON.parse(value);
+    return decode(value);
   } catch (err) {
     // string
     return value;
   }
 };
 
-export const getCookie = <T = unknown>(name: string, initValue: T) => {
-  const cookieValue = document.cookie
+type GetCookieOptions<T> = {
+  initValue?: T;
+  decode: (s: string) => T;
+};
+
+export const getCookie = <T = unknown>(name: string, options?: GetCookieOptions<T>) => {
+  const { initValue, decode = JSON.parse } = options ?? {};
+  if (!isBrowser) {
+    return undefined;
+  }
+
+  const cookieValue = window.document.cookie
     .split('; ')
     .find((cookieValue: string) => cookieValue.split('=')[0] === name);
 
   const result = cookieValue ? decodeURIComponent(cookieValue) : undefined;
 
-  return result ? (nativeType(result) as T) : initValue;
+  return result ? (nativeType(result, decode) as T) : initValue;
 };
 
-const setCookie = <T = unknown>(value: T, name: string, options?: cookieOptions) => {
-  const { days = 7, path = '/' } = options || {};
+type SetCookieOptions = {
+  days?: number;
+  path?: string;
+  encode: (o: unknown) => string;
+};
+
+const setCookie = <T = unknown>(value: T, name: string, options?: SetCookieOptions) => {
+  const { days = 7, path = '/', encode = JSON.stringify } = options || {};
 
   const expires = new Date(Date.now() + days * 864e5).toUTCString();
 
   document.cookie = `${name}=${encodeURIComponent(
     typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean'
       ? value
-      : JSON.stringify(value),
+      : encode(value),
   )}; expires=${expires}; path=${path}`;
 };
 
-type cookieOptions = { days?: number; path?: string };
-
 export const useCookie = <T = unknown>(
   name: string,
-  initValue: T,
-): [T, (value: T, options: cookieOptions) => void] => {
-  const [cookieValue, setCookieValue] = useState<T | undefined>(getCookie(name, initValue));
+  options?: GetCookieOptions<T>,
+): [T | undefined, (value: T, options: SetCookieOptions) => void] => {
+  const [cookieValue, setCookieValue] = useState<T | undefined>(getCookie(name, options));
 
-  const setCookieAndState = (value: T, options: cookieOptions) => {
+  const setCookieAndState = (value: T, options: SetCookieOptions) => {
     setCookie(value, name, options);
     setCookieValue(value);
   };
-  return [cookieValue ?? initValue, setCookieAndState];
+  return [cookieValue, setCookieAndState];
 };

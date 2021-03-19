@@ -140,7 +140,7 @@ router.get('/callback', async (ctx) => {
       {
         accessToken,
         accessTokenExpiresAt: add(new Date(), { days: 1 }),
-        scope: OAuthConsts.scope.guest,
+        scope: OAuthConsts.scope.guest.join(' '),
       },
       (await ctx.prisma.oAuthClient.findFirst({
         where: {
