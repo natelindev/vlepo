@@ -1,5 +1,6 @@
 import { add } from 'date-fns';
 import debugInit from 'debug';
+import jwt from 'jsonwebtoken';
 import Router from 'koa-router';
 import { match } from 'ts-pattern';
 
@@ -75,9 +76,10 @@ type GrantErrorResponse = {
 };
 
 router.get('/callback', async (ctx) => {
+  debug(ctx.response);
   const response: GrantGoogleResponse | GrantGithubResponse | GrantErrorResponse =
-    ctx.session?.grant.response;
-  const provider: OAuthProviders = ctx.session?.grant.provider;
+    ctx.session?.grant?.response;
+  const provider: OAuthProviders = ctx.session?.grant?.provider;
 
   debug(response);
   debug(provider);
@@ -152,14 +154,27 @@ router.get('/callback', async (ctx) => {
 
     if (ctx.session) {
       delete ctx.session.grant;
-      ctx.session.currentUser = {
-        id: connectedUser.id,
-        name: connectedUser.name,
-        profileImageUrl: connectedUser.profileImageUrl,
-        scope: OAuthConsts.scope.guest,
-      };
-      ctx.session.accessToken = accessToken;
     }
+
+    if (!process.env.SECRET_KEY) {
+      throw new Error('Cannot sign jwt, missing SECRET_KEY');
+    }
+    ctx.cookies.set(
+      'idToken',
+      jwt.sign(
+        {
+          currentUser: {
+            id: connectedUser.id,
+            name: connectedUser.name,
+            profileImageUrl: connectedUser.profileImageUrl,
+            scope: OAuthConsts.scope.guest,
+          },
+        },
+        process.env.SECRET_KEY,
+        { expiresIn: '8h' },
+      ),
+    );
+    ctx.cookies.set('accessToken', accessToken);
     return ctx.redirect(`${process.env.CLIENT_URL}/oauth2-redirect?success=true`);
   }
   return ctx.redirect(`${process.env.CLIENT_URL}/oauth2-redirect?error=invalid_provider`);
