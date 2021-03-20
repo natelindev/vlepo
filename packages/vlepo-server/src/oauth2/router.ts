@@ -162,14 +162,12 @@ router.get('/callback', async (ctx) => {
     ctx.cookies.set(
       'idToken',
       encode(
-        JSON.stringify(
-          JSON.stringify({
-            id: connectedUser.id,
-            name: connectedUser.name,
-            profileImageUrl: connectedUser.profileImageUrl,
-            scope: OAuthConsts.scope.guest.join(' '),
-          } as IdToken),
-        ),
+        JSON.stringify({
+          id: connectedUser.id,
+          name: connectedUser.name,
+          profileImageUrl: connectedUser.profileImageUrl,
+          scope: OAuthConsts.scope.guest.join(' '),
+        } as IdToken),
       ),
       {
         secure: process.env.NODE_ENV === 'production',

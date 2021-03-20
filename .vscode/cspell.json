@@ -5,6 +5,7 @@
         "bodyparser",
         "codegen",
         "csrf",
+        "googleusercontent",
         "openid",
         "prebuild",
         "vlepo"

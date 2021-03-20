@@ -142,6 +142,9 @@ export const DropdownMenu = styled.div`
 `;
 
 const NavbarAvatar = styled(Avatar)`
+  & > div {
+    border-radius: 50%;
+  }
   margin-top: 0.1rem;
   margin-left: 0.3rem;
   margin-right: 1rem;

@@ -4,7 +4,7 @@ import debugInit from 'debug';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { lorem, name } from 'faker';
 
-import { PostStatus, PrismaClient } from '@prisma/client';
+import { OAuthGrants, PostStatus, PrismaClient } from '@prisma/client';
 import { OAuthConsts } from '@vlepo/shared';
 
 const debug = debugInit('vlepo:db:seed');
@@ -113,6 +113,7 @@ const debug = debugInit('vlepo:db:seed');
             value: entity,
           })),
         },
+        grants: Object.values(OAuthGrants),
       },
     });
     debug(`seeded default oauth client`);

@@ -14,7 +14,7 @@ const BaseAvatar = styled.div<AvatarProps>`
 `;
 
 const Avatar = (props: { imageUrl: string; size: number }) => {
-  const { imageUrl, size, ...rest } = props;
+  const { imageUrl, size = 24, ...rest } = props;
 
   return (
     <BaseAvatar size={size} {...rest}>
