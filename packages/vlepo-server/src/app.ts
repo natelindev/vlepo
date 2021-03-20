@@ -67,16 +67,19 @@ const router = new Router();
 
 const customContext = createContext();
 
-const graphqlServer = graphqlHTTP({
+const graphqlServer = graphqlHTTP((_req, _res, ctx) => ({
   schema,
-  context: customContext,
+  context: {
+    ...customContext,
+    koaContext: ctx,
+  },
   validationRules: [depthLimit(10)],
   formatError: (error: Error) => ({
     // better errors for development. `stack` used in `gqErrors` middleware
     message: error.message,
-    stack: process.env.NODE_ENV === 'development' ? error.stack?.split('\n') : undefined,
+    stack: envDetect.isDev ? error.stack?.split('\n') : undefined,
   }),
-});
+}));
 
 router.all('/playground', koaPlayground({ endpoint: '/graphql' }));
 router.all('/graphql/batch', graphqlBatchHTTPWrapper(graphqlServer));

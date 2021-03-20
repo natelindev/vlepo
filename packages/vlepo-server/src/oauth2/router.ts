@@ -4,7 +4,7 @@ import debugInit from 'debug';
 import Router from 'koa-router';
 import { match } from 'ts-pattern';
 
-import { OAuthClient, OAuthProviders, User } from '@prisma/client';
+import { OAuthClient, OAuthProviders, User, UserRole } from '@prisma/client';
 import { envDetect, IdToken, OAuthConsts } from '@vlepo/shared';
 
 import { ExtendedContext } from '../context';
@@ -89,13 +89,19 @@ router.get('/callback', async (ctx) => {
     return ctx.redirect(`${process.env.CLIENT_URL}/oauth2-redirect&error=${error}`);
   }
 
-  const connectedUser = await match<OAuthProviders, Promise<User | undefined>>(provider)
+  const connectedUser = await match<
+    OAuthProviders,
+    Promise<(User & { roles: UserRole[] }) | undefined>
+  >(provider)
     .with(OAuthProviders.google, async () => {
       const { profile } = response as GrantGoogleResponse;
       const existingUser = await ctx.prisma.user.findFirst({
         where: {
           provider: OAuthProviders.google,
           openid: profile.sub,
+        },
+        include: {
+          roles: true,
         },
       });
       if (existingUser) {
@@ -106,8 +112,17 @@ router.get('/callback', async (ctx) => {
           email: profile.email,
           name: profile.name,
           openid: profile.sub,
+          roles: {
+            connectOrCreate: {
+              where: { value: 'guest' },
+              create: OAuthConsts.roles.guest,
+            },
+          },
           provider,
           profileImageUrl: profile.picture,
+        },
+        include: {
+          roles: true,
         },
       });
     })
@@ -118,6 +133,9 @@ router.get('/callback', async (ctx) => {
           provider: OAuthProviders.github,
           openid: profile?.id.toString(),
         },
+        include: {
+          roles: true,
+        },
       });
       if (existingUser) {
         return existingUser;
@@ -127,9 +145,18 @@ router.get('/callback', async (ctx) => {
           email: profile.email,
           name: profile.name,
           openid: profile.id.toString(),
+          roles: {
+            connectOrCreate: {
+              where: { value: 'guest' },
+              create: OAuthConsts.roles.guest,
+            },
+          },
           provider,
           website: profile.blog ?? profile.url,
           profileImageUrl: profile.avatar_url,
+        },
+        include: {
+          roles: true,
         },
       });
     })
@@ -165,6 +192,7 @@ router.get('/callback', async (ctx) => {
         JSON.stringify({
           id: connectedUser.id,
           name: connectedUser.name,
+          roles: connectedUser.roles.map((r) => r.value).join(' '),
           profileImageUrl: connectedUser.profileImageUrl,
           scope: OAuthConsts.scope.guest.join(' '),
         } as IdToken),

@@ -33,18 +33,17 @@ export function createEnvironment(relayData: SSRCache): Environment {
       }),
       urlMiddleware({
         url: () => {
-          if (!process.env.NEXT_PUBLIC_API_ENDPOINT) {
-            throw new Error('please add NEXT_PUBLIC_API_ENDPOINT in your .env file');
-          }
-          return `${process.env.NEXT_PUBLIC_API_ENDPOINT}/graphql`;
+          return '/graphql';
         },
+        credentials: 'include',
       }),
       authMiddleware({
         token: getCookie<string>('accessToken'),
         allowEmptyToken: true,
       }),
       batchMiddleware({
-        batchUrl: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/graphql/batch`,
+        batchUrl: '/graphql/batch',
+        credentials: 'include',
       }),
       errorMiddleware(),
       uploadMiddleware(),

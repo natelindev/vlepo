@@ -1,12 +1,13 @@
 ﻿import Link from 'next/link';
 import React, { useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { atomFactory } from 'src/atoms/atomFactory';
+import { useRecoilState } from 'recoil';
 import { currentUserState } from 'src/atoms/user';
 
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { OAuthConsts } from '@vlepo/shared';
 
+import { deleteCookie } from '../hooks/useCookie';
 import Avatar from './Avatar';
 import Dropdown from './Dropdown';
 import GradientButton from './GradientButton';
@@ -95,7 +96,7 @@ const NavbarAvatar = styled(Avatar)`
 
 const Navbar: React.FC = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const currentUser = useRecoilValue(currentUserState);
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
   return (
     <BaseNavbar>
       <NavLogo size="50px" />
@@ -117,13 +118,13 @@ const Navbar: React.FC = () => {
               <NavItem>Thoughts</NavItem>
             </NavLink>
             <NavLink href="/friends">
-              <NavItem>friends</NavItem>
+              <NavItem>Friends</NavItem>
             </NavLink>
             <NavLink href="/messageBoard">
               <NavItem>MessageBoard</NavItem>
             </NavLink>
-            <NavLink href="/timeline">
-              <NavItem>Timeline</NavItem>
+            <NavLink href="/tags">
+              <NavItem>Tags</NavItem>
             </NavLink>
           </Dropdown>
         </NavbarNav>
@@ -142,17 +143,30 @@ const Navbar: React.FC = () => {
                 size={32}
                 imageUrl={currentUser.profileImageUrl ?? '/images/avatar/bot.svg'}
               />
-              <NavLink href="/thoughts">
-                <NavItem>Thoughts</NavItem>
+              <NavLink href={`/${currentUser.id}/profile`}>
+                <NavItem>Profile</NavItem>
               </NavLink>
-              <NavLink href="/friends">
-                <NavItem>friends</NavItem>
+              <NavLink href={`/${currentUser.id}/settings`}>
+                <NavItem>Settings</NavItem>
               </NavLink>
-              <NavLink href="/messageBoard">
-                <NavItem>MessageBoard</NavItem>
+              {currentUser.roles.includes(OAuthConsts.roles.admin.value) && (
+                <NavLink href="/admin">
+                  <NavItem>Admin</NavItem>
+                </NavLink>
+              )}
+              <NavLink>
+                <NavItem>Theme</NavItem>
               </NavLink>
-              <NavLink href="/timeline">
-                <NavItem>Timeline</NavItem>
+              <NavLink
+                onClick={() => {
+                  deleteCookie('idToken');
+                  deleteCookie('accessToken');
+                  deleteCookie('idToken.sig');
+                  deleteCookie('accessToken.sig');
+                  setCurrentUser(undefined);
+                }}
+              >
+                <NavItem>Logout</NavItem>
               </NavLink>
             </Dropdown>
           ) : (

@@ -4,7 +4,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 type NavLinkProps = {
-  href: string;
+  href?: string;
   children: React.ReactNode;
 } & React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
 
@@ -17,7 +17,7 @@ const BaseNavLink = styled.a`
 `;
 
 export default function NavLink(props: NavLinkProps): React.ReactElement {
-  const { href, children, ...rest } = props;
+  const { href = '', children, ...rest } = props;
   return (
     <Link href={href} passHref>
       <BaseNavLink {...rest}>{children}</BaseNavLink>

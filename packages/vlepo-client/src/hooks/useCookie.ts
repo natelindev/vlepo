@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { envDetect } from '@vlepo/shared';
 
-const nativeType = (value: string, decode: (s: string) => unknown): unknown => {
+export const nativeType = (value: string, decode: (s: string) => unknown): unknown => {
   // number
   const nValue = Number(value);
   if (!Number.isNaN(nValue)) {
@@ -48,10 +48,13 @@ export const getCookie = <T = unknown>(name: string, options?: GetCookieOptions<
 type SetCookieOptions = {
   days?: number;
   path?: string;
-  encode: (o: unknown) => string;
+  encode?: (o: unknown) => string;
+};
+export const deleteCookie = (name: string) => {
+  setCookie('', name, { days: 0 });
 };
 
-const setCookie = <T = unknown>(value: T, name: string, options?: SetCookieOptions) => {
+export const setCookie = <T = unknown>(value: T, name: string, options?: SetCookieOptions) => {
   const { days = 7, path = '/', encode = JSON.stringify } = options || {};
 
   const expires = new Date(Date.now() + days * 864e5).toUTCString();

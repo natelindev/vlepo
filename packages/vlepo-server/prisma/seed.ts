@@ -1,7 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import argon2 from 'argon2';
 import cryptoRandomString from 'crypto-random-string';
 import debugInit from 'debug';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { lorem, name } from 'faker';
 import meow from 'meow';
 
@@ -36,10 +36,7 @@ const seedBD = async (prisma: PrismaClient) => {
         password: await argon2.hash('default-password'),
         name: `${name.firstName()} ${name.lastName()}`,
         roles: {
-          create: {
-            name: 'Administrator',
-            value: 'administrator',
-          },
+          create: OAuthConsts.roles.admin,
         },
         posts: {
           createMany: {
@@ -52,7 +49,7 @@ const seedBD = async (prisma: PrismaClient) => {
         },
       },
     });
-    debug(`seeded admin user`);
+    debug(`seeded admin user and posts`);
 
     await prisma.oAuthScope.create({
       data: {
@@ -167,9 +164,11 @@ const cli = meow(
   const prisma = new PrismaClient();
   if (cli.flags.seed || !cli.flags.clean) {
     await seedBD(prisma);
+    debug('db seed complete');
   }
   if (cli.flags.clean) {
     await cleanDB(prisma);
+    debug('db cleanup complete');
   }
   prisma.$disconnect();
 })();

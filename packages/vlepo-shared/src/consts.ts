@@ -19,6 +19,16 @@ const OAuthConsts = {
   scope: {
     guest: ['comment:create', 'image:create', 'self'] as const,
   },
+  roles: {
+    admin: {
+      name: 'Administrator',
+      value: 'administrator',
+    },
+    guest: {
+      name: 'Guest',
+      value: 'guest',
+    },
+  },
 };
 
 export { OAuthConsts };

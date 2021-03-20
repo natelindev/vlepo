@@ -1,20 +1,25 @@
+import { decode } from 'base-64';
 import Image from 'next/image';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { graphql } from 'react-relay';
 import { animated, AnimatedValue, ForwardedProps, useTransition } from 'react-spring';
 import { useToasts } from 'react-toast-notifications';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useMutation } from 'relay-hooks';
+import { currentUserState } from 'src/atoms/user';
 import { usePopupWindow } from 'src/hooks/usePopupWindow';
 import Modal, { StyledModalProps } from 'styled-modal';
 
 import styled from '@emotion/styled';
+import { IdToken } from '@vlepo/shared';
 
 import {
   LoginInput as LoginInputType,
   LoginModal_Mutation,
   LoginModal_MutationResponse,
 } from '../../__generated__/LoginModal_Mutation.graphql';
+import { getCookie } from '../../hooks/useCookie';
 import { Button } from '../base';
 import GradientButton from '../GradientButton';
 import { ZIndex } from '../ZIndex';
@@ -113,7 +118,8 @@ const OauthButton = styled(Button)`
 
 const LoginModal = (props: StyledModalProps): React.ReactElement => {
   const { open, onClose } = props;
-  const { register, handleSubmit, errors } = useForm<LoginInputType>();
+  const { register, handleSubmit, errors, reset } = useForm<LoginInputType>();
+  const setCurrentUser = useSetRecoilState(currentUserState);
 
   const onSubmit = (data: LoginInputType) =>
     mutate({
@@ -140,30 +146,34 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
       mutation LoginModal_Mutation($input: LoginInput!) {
         LoginMutation(LoginInput: $input) {
           ok
-          loggedInUserName
           error
         }
       }
     `,
     {
       onCompleted: ({ LoginMutation }: LoginModal_MutationResponse) => {
-        if (LoginMutation?.ok && LoginMutation.loggedInUserName) {
-          addToast(`Login succeed, ${LoginMutation?.loggedInUserName}`, {
+        if (LoginMutation?.ok) {
+          addToast(`Login succeed`, {
             appearance: 'success',
           });
           onClose?.();
+          setCurrentUser(
+            getCookie<IdToken>('idToken', { decode: (v: string) => JSON.parse(decode(v)) }),
+          );
         } else if (LoginMutation?.error) {
           addToast(`Login failed, ${LoginMutation?.error}`, {
             appearance: 'error',
           });
           onClose?.();
         }
+        reset();
       },
       onError: (error) => {
         addToast(`Login failed, ${error}`, {
           appearance: 'error',
         });
         onClose?.();
+        reset();
       },
     },
   );
@@ -188,7 +198,7 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
                     name="email"
                     ref={register({ required: true, pattern: /.+@.+/ })}
                   />
-                  {errors.email && <ErrorText>{errors.email}</ErrorText>}
+                  {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
                 </InputGroup>
                 <InputGroup>
                   <Label>Password</Label>
@@ -199,7 +209,7 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
                     ref={register({ required: true })}
                   />
                 </InputGroup>
-                {errors.password && <ErrorText>{errors.password}</ErrorText>}
+                {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
                 <OauthButtonSection>
                   {process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS &&
                     process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS.split(',').map((provider) => (

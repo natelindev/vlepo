@@ -4,7 +4,8 @@ import type { Context } from 'koa';
 
 export type ExtendedContext = {
   prisma: PrismaClient;
-} & Context;
+  koaContext: Context;
+};
 
 export const createContext = () => {
   const prisma = new PrismaClient();

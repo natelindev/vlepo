@@ -26,11 +26,16 @@ module.exports = {
     }
     return config;
   },
+  // Proxy to Backend
   async rewrites() {
     return [
       {
         source: '/api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/:path*`, // Proxy to Backend
+        destination: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/:path*`,
+      },
+      {
+        source: '/graphql/:path*',
+        destination: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/graphql/:path*`,
       },
     ];
   },
