@@ -3,15 +3,32 @@ import cryptoRandomString from 'crypto-random-string';
 import debugInit from 'debug';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { lorem, name } from 'faker';
+import meow from 'meow';
 
 import { OAuthGrants, PostStatus, PrismaClient } from '@prisma/client';
 import { OAuthConsts } from '@vlepo/shared';
 
 const debug = debugInit('vlepo:db:seed');
 
-(async () => {
-  const prisma = new PrismaClient();
+const cleanDB = async (prisma: PrismaClient) => {
+  await prisma.$executeRaw`
+  do
+  $$
+  declare
+    l_stmt text;
+  begin
+    select 'truncate ' || string_agg(format('%I.%I', schemaname, tablename), ',')
+      into l_stmt
+    from pg_tables
+    where schemaname in ('public');
 
+    execute l_stmt;
+  end;
+  $$
+  `;
+};
+
+const seedBD = async (prisma: PrismaClient) => {
   try {
     const admin = await prisma.user.create({
       data: {
@@ -119,13 +136,40 @@ const debug = debugInit('vlepo:db:seed');
     debug(`seeded default oauth client`);
   } catch (err) {
     debug(err);
-    await Promise.all([
-      prisma.user.deleteMany(),
-      prisma.userRole.deleteMany(),
-      prisma.post.deleteMany(),
-      prisma.oAuthScope.deleteMany(),
-      prisma.oAuthClient.deleteMany(),
-    ]);
+    await cleanDB(prisma);
   }
-  await prisma.$disconnect();
+};
+
+const cli = meow(
+  `
+	Usage
+	  $ db:seed <flags>
+
+	Options
+	  --seed  -s  seed the database
+    --clean -c  clean the database
+`,
+  {
+    flags: {
+      seed: {
+        type: 'boolean',
+        alias: 's',
+      },
+      clean: {
+        type: 'boolean',
+        alias: 'c',
+      },
+    },
+  },
+);
+
+(async () => {
+  const prisma = new PrismaClient();
+  if (cli.flags.seed || !cli.flags.clean) {
+    await seedBD(prisma);
+  }
+  if (cli.flags.clean) {
+    await cleanDB(prisma);
+  }
+  prisma.$disconnect();
 })();

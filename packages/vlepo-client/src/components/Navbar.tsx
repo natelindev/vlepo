@@ -1,11 +1,14 @@
 ﻿import Link from 'next/link';
 import React, { useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { atomFactory } from 'src/atoms/atomFactory';
 import { currentUserState } from 'src/atoms/user';
 
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import Avatar from './Avatar';
+import Dropdown from './Dropdown';
 import GradientButton from './GradientButton';
 import Logo from './Logo';
 import LoginModal from './Modals/LoginModal';
@@ -64,35 +67,6 @@ const NavItem = styled.li`
   text-decoration: none;
 `;
 
-const Dropdown = styled.div`
-  position: relative;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  color: #007bff;
-  background-color: transparent;
-  margin-top: auto;
-  margin-bottom: auto;
-`;
-
-const DropdownToggle = styled.div`
-  white-space: nowrap;
-
-  &::after {
-    display: inline-block;
-    margin-left: 0.255em;
-    vertical-align: 0.255em;
-    content: '';
-    border-top: 0.3em solid;
-    border-right: 0.3em solid transparent;
-    border-bottom: 0;
-    border-left: 0.3em solid transparent;
-  }
-
-  &:empty::after {
-    margin-left: 0;
-  }
-`;
-
 const NavLogo = styled(Logo)`
   margin-left: 1rem;
   margin-right: 0.3rem;
@@ -109,45 +83,14 @@ const LoginButton = styled(GradientButton)`
   height: 100%;
 `;
 
-export const DropdownMenu = styled.div`
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: ${ZIndex.DropDownMenu};
-  display: none;
-  float: left;
-  min-width: 10rem;
-  padding: 0.5rem 0;
-  margin: 0.125rem 0 0;
-  font-size: 1rem;
-  color: #212529;
-  text-align: left;
-  list-style: none;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 0.25rem;
-
-  &[x-placement^='top'],
-  &[x-placement^='right'],
-  &[x-placement^='bottom'],
-  &[x-placement^='left'] {
-    right: auto;
-    bottom: auto;
-  }
-
-  .show {
-    display: block;
-  }
-`;
-
 const NavbarAvatar = styled(Avatar)`
   & > div {
     border-radius: 50%;
   }
-  margin-top: 0.1rem;
-  margin-left: 0.3rem;
-  margin-right: 1rem;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 1.25rem;
+  margin-right: 1.75rem;
 `;
 
 const Navbar: React.FC = () => {
@@ -164,22 +107,24 @@ const Navbar: React.FC = () => {
           <NavLink href="/portfolio">Portfolio</NavLink>
           <NavLink href="/papers">Papers</NavLink>
           <NavLink href="/about">About</NavLink>
-          <Dropdown>
-            <DropdownToggle>More</DropdownToggle>
-            <DropdownMenu>
-              <Link href="/notes" passHref>
-                <NavItem>Notes</NavItem>
-              </Link>
-              <Link href="/friends">
-                <NavItem>friends</NavItem>
-              </Link>
-              <Link href="/messageBoard">
-                <NavItem>MessageBoard</NavItem>
-              </Link>
-              <Link href="/timeline">
-                <NavItem>Timeline</NavItem>
-              </Link>
-            </DropdownMenu>
+          <Dropdown
+            css={css`
+              margin-top: 8px;
+            `}
+          >
+            <NavLink href="">More</NavLink>
+            <NavLink href="/thoughts">
+              <NavItem>Thoughts</NavItem>
+            </NavLink>
+            <NavLink href="/friends">
+              <NavItem>friends</NavItem>
+            </NavLink>
+            <NavLink href="/messageBoard">
+              <NavItem>MessageBoard</NavItem>
+            </NavLink>
+            <NavLink href="/timeline">
+              <NavItem>Timeline</NavItem>
+            </NavLink>
           </Dropdown>
         </NavbarNav>
       </LeftNavCollapse>
@@ -187,10 +132,29 @@ const Navbar: React.FC = () => {
         <NavbarNav>
           <NavSearchBar />
           {currentUser ? (
-            <NavbarAvatar
-              size={32}
-              imageUrl={currentUser.profileImageUrl ?? '/images/avatar/default-1.svg'}
-            />
+            <Dropdown
+              position="right"
+              css={css`
+                margin-top: 12px;
+              `}
+            >
+              <NavbarAvatar
+                size={32}
+                imageUrl={currentUser.profileImageUrl ?? '/images/avatar/bot.svg'}
+              />
+              <NavLink href="/thoughts">
+                <NavItem>Thoughts</NavItem>
+              </NavLink>
+              <NavLink href="/friends">
+                <NavItem>friends</NavItem>
+              </NavLink>
+              <NavLink href="/messageBoard">
+                <NavItem>MessageBoard</NavItem>
+              </NavLink>
+              <NavLink href="/timeline">
+                <NavItem>Timeline</NavItem>
+              </NavLink>
+            </Dropdown>
           ) : (
             <LoginButton onClick={() => setShowLoginModal(true)} colorA="#5CC6EE" colorB="#3232FF">
               Login

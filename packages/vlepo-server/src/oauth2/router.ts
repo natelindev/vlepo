@@ -5,7 +5,7 @@ import Router from 'koa-router';
 import { match } from 'ts-pattern';
 
 import { OAuthClient, OAuthProviders, User } from '@prisma/client';
-import { IdToken, OAuthConsts } from '@vlepo/shared';
+import { envDetect, IdToken, OAuthConsts } from '@vlepo/shared';
 
 import { ExtendedContext } from '../context';
 import { token } from './middleware';
@@ -170,12 +170,12 @@ router.get('/callback', async (ctx) => {
         } as IdToken),
       ),
       {
-        secure: process.env.NODE_ENV === 'production',
+        secure: envDetect.isProd,
         httpOnly: false,
       },
     );
     ctx.cookies.set('accessToken', accessToken, {
-      secure: process.env.NODE_ENV === 'production',
+      secure: envDetect.isProd,
       httpOnly: false,
     });
     return ctx.redirect(`${process.env.CLIENT_URL}/oauth2-redirect?success=true`);

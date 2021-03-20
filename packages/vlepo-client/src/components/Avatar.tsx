@@ -3,17 +3,22 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-type AvatarProps = {
+type BaseAvatarProps = {
   size: number;
 };
 
-const BaseAvatar = styled.div<AvatarProps>`
+const BaseAvatar = styled.div<BaseAvatarProps>`
   display: flex;
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
 `;
 
-const Avatar = (props: { imageUrl: string; size: number }) => {
+type AvatarProps = { imageUrl: string; size: number } & React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+>;
+
+const Avatar = (props: AvatarProps) => {
   const { imageUrl, size = 24, ...rest } = props;
 
   return (
