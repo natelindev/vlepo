@@ -5,7 +5,7 @@ import type { Environment } from 'relay-runtime';
 import type { SSRCache } from 'react-relay-network-modern-ssr/node8/server';
 import RelaySSR from 'react-relay-network-modern-ssr/node8/server';
 
-import { isBrowser, isNode } from '@vlepo/shared';
+import { envDetect } from '@vlepo/shared';
 
 interface Env {
   relaySSR: RelaySSR;
@@ -15,11 +15,11 @@ interface Env {
 let initEnvironment: () => Env;
 let createEnvironment: (relayData: SSRCache) => Environment;
 
-if (isNode) {
+if (envDetect.isNode) {
   const server = require('./server');
   initEnvironment = server.initEnvironment;
   createEnvironment = server.createEnvironment;
-} else if (isBrowser) {
+} else if (envDetect.isBrowser) {
   const client = require('./client');
   createEnvironment = client.createEnvironment;
 }

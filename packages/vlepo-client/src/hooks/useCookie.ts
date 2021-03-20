@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { isBrowser } from '@vlepo/shared';
+import { envDetect } from '@vlepo/shared';
 
 const nativeType = (value: string, decode: (s: string) => unknown): unknown => {
   // number
@@ -31,13 +31,14 @@ type GetCookieOptions<T> = {
 
 export const getCookie = <T = unknown>(name: string, options?: GetCookieOptions<T>) => {
   const { initValue, decode = JSON.parse } = options ?? {};
-  if (!isBrowser) {
+  if (!envDetect.isBrowser) {
     return undefined;
   }
 
   const cookieValue = window.document.cookie
     .split('; ')
-    .find((cookieValue: string) => cookieValue.split('=')[0] === name);
+    .find((cookieValue: string) => cookieValue.split('=')[0] === name)
+    ?.split('=')[1];
 
   const result = cookieValue ? decodeURIComponent(cookieValue) : undefined;
 

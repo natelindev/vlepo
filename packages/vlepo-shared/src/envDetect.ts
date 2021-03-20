@@ -9,4 +9,8 @@ const isWebWorker =
 const isNode =
   typeof process !== 'undefined' && process.versions != null && process.versions.node != null;
 
-export { isBrowser, isWebWorker, isNode };
+const isProd = process.env.NODE_ENV === 'production';
+const isDev = process.env.NODE_ENV === 'development';
+const isTest = process.env.NODE_ENV === 'test';
+
+export { isBrowser, isWebWorker, isNode, isProd, isDev, isTest };

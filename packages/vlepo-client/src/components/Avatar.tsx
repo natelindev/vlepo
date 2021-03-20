@@ -9,16 +9,15 @@ type AvatarProps = {
 
 const BaseAvatar = styled.div<AvatarProps>`
   display: flex;
-  border-radius: 50%;
-  height: ${(props) => props.size};
-  width: ${(props) => props.size};
+  height: ${(props) => props.size}px;
+  width: ${(props) => props.size}px;
 `;
 
 const Avatar = (props: { imageUrl: string; size: number }) => {
-  const { imageUrl, size } = props;
+  const { imageUrl, size, ...rest } = props;
 
   return (
-    <BaseAvatar size={size}>
+    <BaseAvatar size={size} {...rest}>
       <Image src={imageUrl} layout="fixed" height={size} width={size} />
     </BaseAvatar>
   );

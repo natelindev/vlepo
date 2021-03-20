@@ -141,6 +141,12 @@ export const DropdownMenu = styled.div`
   }
 `;
 
+const NavbarAvatar = styled(Avatar)`
+  margin-top: 0.1rem;
+  margin-left: 0.3rem;
+  margin-right: 1rem;
+`;
+
 const Navbar: React.FC = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const currentUser = useRecoilValue(currentUserState);
@@ -178,7 +184,10 @@ const Navbar: React.FC = () => {
         <NavbarNav>
           <NavSearchBar />
           {currentUser ? (
-            <Avatar size={32} imageUrl={currentUser.profileImageUrl} />
+            <NavbarAvatar
+              size={32}
+              imageUrl={currentUser.profileImageUrl ?? '/images/avatar/default-1.svg'}
+            />
           ) : (
             <LoginButton onClick={() => setShowLoginModal(true)} colorA="#5CC6EE" colorB="#3232FF">
               Login

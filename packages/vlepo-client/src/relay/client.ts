@@ -11,8 +11,6 @@ import {
 import { Environment, RecordSource, Store } from 'relay-runtime';
 import { getCookie } from 'src/hooks/useCookie';
 
-import { UserSession } from '@vlepo/shared';
-
 import type { SSRCache } from 'react-relay-network-modern-ssr/node8/server';
 
 const source = new RecordSource();
@@ -42,9 +40,7 @@ export function createEnvironment(relayData: SSRCache): Environment {
         },
       }),
       authMiddleware({
-        token: getCookie<UserSession>('koa.sess', {
-          accessToken: '',
-        })?.accessToken,
+        token: getCookie<string>('accessToken'),
         allowEmptyToken: true,
       }),
       batchMiddleware({

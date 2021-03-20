@@ -1,9 +1,6 @@
-export type UserSession = {
-  currentUser?: {
-    id: string;
-    name: string;
-    profileImageUrl: string;
-    scope: string;
-  };
-  accessToken?: string;
+export type IdToken = {
+  id: string;
+  name: string;
+  profileImageUrl: string;
+  scope: string;
 };

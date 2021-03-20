@@ -1,12 +1,13 @@
 import base64 from 'base-64';
-import { atom } from 'recoil';
 import { getCookie } from 'src/hooks/useCookie';
 
-import { UserSession } from '@vlepo/shared';
+import { IdToken } from '@vlepo/shared';
 
-export const currentUserState = atom({
+import { memoizedAtom } from './memoizedAtom';
+
+export const currentUserState = memoizedAtom({
   key: 'currentUser',
-  default: getCookie<UserSession>('koa.sess', {
+  default: getCookie<IdToken>('idToken', {
     decode: (v: string) => JSON.parse(base64.decode(v)),
-  })?.currentUser,
+  }),
 });

@@ -12,6 +12,7 @@ import session from 'koa-session';
 
 import cors from '@koa/cors';
 import { PrismaClient } from '@prisma/client';
+import { envDetect } from '@vlepo/shared';
 
 import { createContext } from './context';
 import { Oauth2Config } from './oauth2/config';
@@ -33,13 +34,29 @@ app.context.prisma = prisma;
 
 app.use(bodyParser());
 app.use(
-  cors({
-    origin: '*',
-    allowMethods: ['GET', 'POST', 'OPTIONS'],
-    credentials: true,
-    allowHeaders:
-      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
-  }),
+  envDetect.isProd
+    ? (_ctx, next) => next()
+    : cors({
+        origin: '*',
+        allowMethods: ['GET', 'HEAD', 'POST', 'OPTIONS'],
+        credentials: true,
+        allowHeaders: [
+          'Access-Control-Allow-Headers',
+          'X-CSRF-Token',
+          'X-Requested-With',
+          'Origin',
+          'Authorization',
+          'Access-Control-Request-Method',
+          'Access-Control-Request-Headers',
+          'Accept',
+          'Accept-Version',
+          'Content-Length',
+          'Content-MD5',
+          'Content-Type',
+          'Date',
+          'X-Api-Version',
+        ],
+      }),
 );
 
 app.use(session(app));

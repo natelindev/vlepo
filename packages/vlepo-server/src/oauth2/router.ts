@@ -1,11 +1,11 @@
+import { encode } from 'base-64';
 import { add } from 'date-fns';
 import debugInit from 'debug';
-import jwt from 'jsonwebtoken';
 import Router from 'koa-router';
 import { match } from 'ts-pattern';
 
 import { OAuthClient, OAuthProviders, User } from '@prisma/client';
-import { OAuthConsts } from '@vlepo/shared';
+import { IdToken, OAuthConsts } from '@vlepo/shared';
 
 import { ExtendedContext } from '../context';
 import { token } from './middleware';
@@ -153,7 +153,7 @@ router.get('/callback', async (ctx) => {
     );
 
     if (ctx.session) {
-      delete ctx.session.grant;
+      ctx.session = null;
     }
 
     if (!process.env.SECRET_KEY) {
@@ -161,20 +161,25 @@ router.get('/callback', async (ctx) => {
     }
     ctx.cookies.set(
       'idToken',
-      jwt.sign(
-        {
-          currentUser: {
+      encode(
+        JSON.stringify(
+          JSON.stringify({
             id: connectedUser.id,
             name: connectedUser.name,
             profileImageUrl: connectedUser.profileImageUrl,
-            scope: OAuthConsts.scope.guest,
-          },
-        },
-        process.env.SECRET_KEY,
-        { expiresIn: '8h' },
+            scope: OAuthConsts.scope.guest.join(' '),
+          } as IdToken),
+        ),
       ),
+      {
+        secure: process.env.NODE_ENV === 'production',
+        httpOnly: false,
+      },
     );
-    ctx.cookies.set('accessToken', accessToken);
+    ctx.cookies.set('accessToken', accessToken, {
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: false,
+    });
     return ctx.redirect(`${process.env.CLIENT_URL}/oauth2-redirect?success=true`);
   }
   return ctx.redirect(`${process.env.CLIENT_URL}/oauth2-redirect?error=invalid_provider`);

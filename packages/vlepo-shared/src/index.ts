@@ -1,5 +1,5 @@
 export { rng, RngOption } from './randomGenerator';
-export { isBrowser, isWebWorker, isNode } from './envDetect';
+export * as envDetect from './envDetect';
 export type {
   Mutable,
   Optional,
@@ -10,4 +10,4 @@ export type {
   RequireAtLeastOne,
 } from './utilTypes';
 export { OAuthConsts } from './consts';
-export type { UserSession } from './types';
+export type { IdToken } from './types';

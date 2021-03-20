@@ -46,7 +46,7 @@ const ArticleCard = (props: ArticleCardProps) => {
           <AuthorSection>
             <AuthorProfileImageContainer>
               <AuthorProfileImage
-                src={owner.profileImageUrl ?? '/images/avatar.jpg'}
+                src={owner.profileImageUrl ?? '/images/avatar/host.svg'}
                 layout="fixed"
                 height="36"
                 width="36"
