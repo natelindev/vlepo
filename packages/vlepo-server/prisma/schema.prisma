@@ -8,6 +8,11 @@ generator client {
   previewFeatures = ["createMany"]
 }
 
+generator jsonSchema {
+  provider = "prisma-json-schema-generator"
+  output   = "../../vlepo-client/src/schema/"
+}
+
 enum Language {
   en
   zh

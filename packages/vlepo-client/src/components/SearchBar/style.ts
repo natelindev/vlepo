@@ -1,9 +1,6 @@
-import React from 'react';
-
-import { Search } from '@emotion-icons/material-outlined';
 import styled from '@emotion/styled';
 
-const InputGroup = styled.div`
+export const InputGroup = styled.div`
   position: relative;
   display: flex;
   align-items: stretch;
@@ -21,12 +18,12 @@ const InputGroup = styled.div`
   }
 `;
 
-const InputGroupAddon = styled.div`
+export const InputGroupAddon = styled.div`
   margin-right: -1px;
   display: flex;
 `;
 
-const InputGroupText = styled.span`
+export const InputGroupText = styled.span`
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 
@@ -49,7 +46,7 @@ const InputGroupText = styled.span`
   border-radius: 0.25rem;
 `;
 
-const Input = styled.input`
+export const Input = styled.input`
   border: none;
   background: none;
   border-top-left-radius: 0;
@@ -72,24 +69,3 @@ const Input = styled.input`
   font-family: inherit;
   outline: none;
 `;
-
-export interface SearchBarProps {
-  placeHolder?: string;
-  className?: string;
-}
-
-const SearchBar = (props: SearchBarProps): React.ReactElement => {
-  const { placeHolder = 'Search', className } = props;
-  return (
-    <InputGroup className={className}>
-      <InputGroupAddon>
-        <InputGroupText>
-          <Search height="24px" width="24px" />
-        </InputGroupText>
-      </InputGroupAddon>
-      <Input placeholder={placeHolder} />
-    </InputGroup>
-  );
-};
-
-export default SearchBar;

@@ -96,7 +96,7 @@ export const LoginMutation = mutationField('LoginMutation', {
       })
       .with({ password: not(__.string) }, async () => ({
         ok: false,
-        error: 'cannot login using password, please use third party login',
+        error: 'you cannot login using password, please use third party login',
       }))
       .run();
   },

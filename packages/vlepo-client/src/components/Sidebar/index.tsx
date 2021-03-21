@@ -17,6 +17,7 @@ const BaseSidebar = styled.div<SidebarProps>`
 
   overflow: scroll;
   width: ${(props) => (props.expand ? props.width : '1rem')};
+  min-width: ${(props) => (props.expand ? props.width : '1rem')};
 `;
 
 const SidebarGroup = styled.div`

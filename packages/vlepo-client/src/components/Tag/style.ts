@@ -1,11 +1,8 @@
-import Link from 'next/link';
-import React, { ReactElement } from 'react';
-
 import styled from '@emotion/styled';
 
-import { ZIndex } from './ZIndex';
+import { ZIndex } from '../ZIndex';
 
-const BaseTag = styled.a`
+export const BaseTag = styled.a`
   color: #f8f9fa;
 
   margin-bottom: auto;
@@ -50,19 +47,3 @@ const BaseTag = styled.a`
 
   z-index: ${ZIndex.Tags};
 `;
-
-type TagProps = {
-  name: string;
-  href: string;
-};
-
-const Tag = (props: TagProps): ReactElement => {
-  const { name, href } = props;
-  return (
-    <Link href={href} passHref>
-      <BaseTag>{name}</BaseTag>
-    </Link>
-  );
-};
-
-export default Tag;

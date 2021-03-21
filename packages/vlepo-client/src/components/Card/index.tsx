@@ -1,11 +1,9 @@
 import Link from 'next/link';
 import React from 'react';
 
-// import { useHoverIntent } from 'react-use-hoverintent';
-import styled from '@emotion/styled';
+import { ConstrainedCard, OverlayLink } from './style';
 
-import { Card as BaseCard } from './base';
-import { ZIndex } from './ZIndex';
+// import { useHoverIntent } from 'react-use-hoverintent';
 
 export interface CardProps extends React.HTMLAttributes<HTMLElement> {
   [key: string]: unknown;
@@ -20,21 +18,6 @@ export interface CardProps extends React.HTMLAttributes<HTMLElement> {
   colorB?: string;
   href?: string;
 }
-
-const ConstrainedCard = styled(BaseCard)<{ width?: string; height?: string }>`
-  max-width: ${(props) => props.width};
-  min-height: ${(props) => props.height};
-`;
-
-const OverlayLink = styled.a`
-  font-size: 0;
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  z-index: ${ZIndex.CardLink};
-`;
 
 const Card = React.forwardRef((props: CardProps /* ref: React.Ref<HTMLDivElement | null> */) => {
   const { children, className, width, height, href, ...rest } = props;

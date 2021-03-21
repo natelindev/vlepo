@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { fetchQuery, graphql } from 'react-relay';
 import { useQuery } from 'relay-hooks';
-import HoverShare from 'src/components/HoverShare';
+import HoverShare from 'src/components/HoverShare/HoverShare';
 import Layout from 'src/components/Layout';
 import * as components from 'src/components/MDXComponents';
 import PlaceHolder from 'src/components/PlaceHolder';

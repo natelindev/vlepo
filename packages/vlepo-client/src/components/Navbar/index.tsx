@@ -4,102 +4,25 @@ import { useRecoilState } from 'recoil';
 import { currentUserState } from 'src/atoms/user';
 
 import { css } from '@emotion/react';
-import styled from '@emotion/styled';
 import { OAuthConsts } from '@vlepo/shared';
 
-import { deleteCookie } from '../hooks/useCookie';
-import Avatar from './Avatar';
-import Dropdown from './Dropdown';
-import GradientButton from './GradientButton';
-import Logo from './Logo';
-import LoginModal from './Modals/LoginModal';
-import NavLink from './Navlink';
-import SearchBar from './SearchBar';
-import { ZIndex } from './ZIndex';
-
-const BaseNavbar = styled.nav`
-  display: flex;
-  position: fixed;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  flex-flow: row nowrap;
-  box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.2);
-  background-color: rgba(255, 255, 255, 0.6);
-  backdrop-filter: saturate(180%) blur(5px);
-  height: 3.5rem;
-  z-index: ${ZIndex.Navbar};
-`;
-
-const NavBrand = styled.a`
-  display: inline-block;
-  padding-top: 0.3125rem;
-  padding-bottom: 0.3125rem;
-  margin-right: 1rem;
-  font-size: 1.25rem;
-  line-height: inherit;
-  white-space: nowrap;
-  text-decoration: none;
-  color: rgba(0, 0, 0, 0.9);
-`;
-
-const NavbarCollapse = styled.div`
-  flex-basis: 100%;
-  flex-grow: 1;
-`;
-
-const LeftNavCollapse = styled(NavbarCollapse)`
-  flex-grow: 0;
-  flex-basis: auto;
-`;
-
-const RightNavCollapse = styled(NavbarCollapse)`
-  flex-grow: 0;
-`;
-
-const NavbarNav = styled.div`
-  display: flex;
-  padding-left: 0;
-  margin-bottom: 0;
-  list-style: none;
-`;
-
-const NavItem = styled.li`
-  text-decoration: none;
-`;
-
-const NavLogo = styled(Logo)`
-  margin-left: 1rem;
-  margin-right: 0.3rem;
-  margin-top: 0.3rem;
-`;
-
-const NavSearchBar = styled(SearchBar)`
-  margin-left: auto;
-  margin-right: 0.5rem;
-`;
-
-const LoginButton = styled(GradientButton)`
-  margin-right: 1rem;
-  height: 100%;
-`;
-
-const NavbarAvatar = styled(Avatar)`
-  & > div {
-    border-radius: 50%;
-  }
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-left: 1.25rem;
-  margin-right: 1.75rem;
-`;
-
-const GreyText = styled.h5`
-  color: #757575;
-  font-weight: 400;
-  padding: 0;
-  margin: 0;
-`;
+import { deleteCookie } from '../../hooks/useCookie';
+import Dropdown from '../Dropdown';
+import LoginModal from '../Modals/LoginModal';
+import NavLink from '../NavLink';
+import {
+  BaseNavbar,
+  GreyText,
+  LeftNavCollapse,
+  LoginButton,
+  NavbarAvatar,
+  NavbarNav,
+  NavBrand,
+  NavItem,
+  NavLogo,
+  NavSearchBar,
+  RightNavCollapse,
+} from './style';
 
 const Navbar: React.FC = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);

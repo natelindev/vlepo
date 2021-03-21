@@ -1,23 +1,17 @@
-import Link from 'next/link';
-import React from 'react';
-
 import styled from '@emotion/styled';
 
-import { Button } from './base';
-import { ZIndex } from './ZIndex';
+import { Button } from '../base';
+import { ZIndex } from '../ZIndex';
 
-export type GradientButtonProps = {
-  link?: string;
-  colorA: `#${string}`;
-  colorB: `#${string}`;
-} & React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
-
-const isBright = (hexColor: `#${string}`) => {
+export const isBright = (hexColor: `#${string}`) => {
   const [r, g, b] = [0, 2, 4].map((p) => parseInt(hexColor.substr(p, 2), 16));
   return (r * 299 + g * 587 + b * 114) / 1000 >= 128;
 };
 
-const BaseGradientButton = styled(Button)<{ colorA: `#${string}`; colorB: `#${string}` }>`
+export const BaseGradientButton = styled(Button)<{
+  colorA: `#${string}`;
+  colorB: `#${string}`;
+}>`
   position: relative;
   border: none;
   transition: opacity linear 0.3s;
@@ -58,7 +52,7 @@ const BaseGradientButton = styled(Button)<{ colorA: `#${string}`; colorB: `#${st
   }
 `;
 
-const GradientButtonContent = styled.div`
+export const GradientButtonContent = styled.div`
   position: relative;
   z-index: ${ZIndex.GradientButton};
   a {
@@ -66,16 +60,3 @@ const GradientButtonContent = styled.div`
     text-decoration: none;
   }
 `;
-
-const GradientButton: React.FC<GradientButtonProps> = (props: GradientButtonProps) => {
-  const { colorA, colorB, children, link, ...rest } = props;
-  return (
-    <BaseGradientButton colorA={colorA} colorB={colorB} {...rest}>
-      <GradientButtonContent>
-        {link ? <Link href={link}>{children}</Link> : children}
-      </GradientButtonContent>
-    </BaseGradientButton>
-  );
-};
-
-export default GradientButton;

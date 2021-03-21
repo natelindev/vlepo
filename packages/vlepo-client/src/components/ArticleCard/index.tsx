@@ -3,7 +3,7 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 
 import { CardBody, Column, Row } from '../base';
-import CardImg from '../CardImg';
+import CardImg from '../Card/CardImg';
 import Tag from '../Tag';
 import {
   Abstract,

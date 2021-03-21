@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CardImg as BaseCardImg, CardImgOverlay } from './base';
+import { CardImg as BaseCardImg, CardImgOverlay } from '../base';
 
 export interface CardImgProps extends React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode;
