@@ -8,8 +8,7 @@ const InputGroup = styled.div`
   display: flex;
   align-items: stretch;
 
-  background-color: #ffffff;
-  border: 1px solid #ced4da;
+  background-color: #f1f3f4;
   border-radius: 0.25rem;
 
   flex-grow: 0;

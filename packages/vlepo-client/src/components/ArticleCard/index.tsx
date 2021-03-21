@@ -24,7 +24,7 @@ export type ArticleCardProps = { relay: RelayProp; post: ArticleCard_post } & {
   width?: string;
 };
 
-const ArticleCard = (props: ArticleCardProps) => {
+const ArticleCard = (props: ArticleCardProps): React.ReactElement => {
   const { post, width } = props;
   const { title, headerImageUrl, content, createdAt, id, tags, owner, minuteRead } = post;
 
@@ -33,7 +33,9 @@ const ArticleCard = (props: ArticleCardProps) => {
     <BaseArticleCard href={`/posts/${id}`} width={width}>
       {headerImageUrl && (
         <CardImg src={headerImageUrl} alt={title} top>
-          {tags && tags.length && tags.map((t) => <Tag name={t.name} href={`/tags/${t.id}`} />)}
+          {tags &&
+            tags.length &&
+            tags.map((t) => <Tag name={t.name} key={t.id} href={`/tags/${t.id}`} />)}
         </CardImg>
       )}
       <CardBody>
@@ -46,7 +48,7 @@ const ArticleCard = (props: ArticleCardProps) => {
           <AuthorSection>
             <AuthorProfileImageContainer>
               <AuthorProfileImage
-                src={owner.profileImageUrl ?? '/images/avatar/host.svg'}
+                src={owner.profileImageUrl ?? '/images/avatar/bot.svg'}
                 layout="fixed"
                 height="36"
                 width="36"

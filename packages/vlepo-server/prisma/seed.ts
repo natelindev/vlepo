@@ -38,6 +38,7 @@ const seedBD = async (prisma: PrismaClient) => {
         roles: {
           create: OAuthConsts.roles.admin,
         },
+        profileImageUrl: '/images/avatar/host.svg',
         posts: {
           createMany: {
             data: Array(5).fill({

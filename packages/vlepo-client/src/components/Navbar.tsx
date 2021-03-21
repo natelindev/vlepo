@@ -94,6 +94,13 @@ const NavbarAvatar = styled(Avatar)`
   margin-right: 1.75rem;
 `;
 
+const GreyText = styled.h5`
+  color: #757575;
+  font-weight: 400;
+  padding: 0;
+  margin: 0;
+`;
+
 const Navbar: React.FC = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
@@ -110,7 +117,7 @@ const Navbar: React.FC = () => {
           <NavLink href="/about">About</NavLink>
           <Dropdown
             css={css`
-              margin-top: 8px;
+              margin-top: 4px;
             `}
           >
             <NavLink href="">More</NavLink>
@@ -119,9 +126,6 @@ const Navbar: React.FC = () => {
             </NavLink>
             <NavLink href="/friends">
               <NavItem>Friends</NavItem>
-            </NavLink>
-            <NavLink href="/messageBoard">
-              <NavItem>MessageBoard</NavItem>
             </NavLink>
             <NavLink href="/tags">
               <NavItem>Tags</NavItem>
@@ -143,15 +147,18 @@ const Navbar: React.FC = () => {
                 size={32}
                 imageUrl={currentUser.profileImageUrl ?? '/images/avatar/bot.svg'}
               />
-              <NavLink href={`/${currentUser.id}/profile`}>
-                <NavItem>Profile</NavItem>
+              <NavLink href={`/user/${currentUser.id}/profile`}>
+                <NavItem>
+                  {currentUser.name}
+                  <GreyText>{currentUser.roles}</GreyText>
+                </NavItem>
               </NavLink>
-              <NavLink href={`/${currentUser.id}/settings`}>
+              <NavLink href={`/user/${currentUser.id}/settings`}>
                 <NavItem>Settings</NavItem>
               </NavLink>
               {currentUser.roles.includes(OAuthConsts.roles.admin.value) && (
-                <NavLink href="/admin">
-                  <NavItem>Admin</NavItem>
+                <NavLink href="/dashboard">
+                  <NavItem>Dashboard</NavItem>
                 </NavLink>
               )}
               <NavLink>

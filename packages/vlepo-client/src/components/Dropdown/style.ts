@@ -16,7 +16,7 @@ export const BaseDropdownMenu = styled.div<BaseDropDownProps>`
   flex-direction: column;
   float: left;
   min-width: 10rem;
-  padding: 0.5rem 0;
+  padding: 0.3rem;
   margin: 0.125rem 0 0;
   font-size: 1rem;
   color: #212529;
@@ -29,6 +29,8 @@ export const BaseDropdownMenu = styled.div<BaseDropDownProps>`
   border-radius: 0.25rem;
 
   > *:hover {
+    border-radius: 0.4rem;
+    transition: 0.1s background-color ease-in;
     background-color: #f2f2f2;
   }
 `;

@@ -79,6 +79,7 @@ const Label = styled.label`
 `;
 
 const ErrorText = styled.span`
+  margin-left: 1rem;
   color: #ff4602;
 `;
 
@@ -196,7 +197,10 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
                   <LoginInput
                     autoComplete="email"
                     name="email"
-                    ref={register({ required: true, pattern: /.+@.+/ })}
+                    ref={register({
+                      required: 'email is required',
+                      pattern: /.+@.+/,
+                    })}
                   />
                   {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
                 </InputGroup>
@@ -206,7 +210,7 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
                     autoComplete="current-password"
                     type="password"
                     name="password"
-                    ref={register({ required: true })}
+                    ref={register({ required: 'password is required' })}
                   />
                 </InputGroup>
                 {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
