@@ -4,7 +4,6 @@ import Avatar from '../Avatar';
 import GradientButton from '../GradientButton';
 import Logo from '../Logo';
 import SearchBar from '../SearchBar';
-import { ZIndex } from '../ZIndex';
 
 export const BaseNavbar = styled.nav`
   display: flex;
@@ -17,7 +16,7 @@ export const BaseNavbar = styled.nav`
   background-color: rgba(255, 255, 255, 0.6);
   backdrop-filter: saturate(180%) blur(5px);
   height: 3.5rem;
-  z-index: ${ZIndex.Navbar};
+  z-index: ${(props) => props.theme.zIndices.Navbar};
 `;
 
 export const NavBrand = styled.a`

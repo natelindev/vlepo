@@ -13,7 +13,7 @@ export const InputGroup = styled.div`
   text-transform: none;
 
   &:focus-within {
-    box-shadow: 0 2px 0 0 #5cc6ee;
+    box-shadow: 0 2px 0 0 ${(props) => props.theme.colors.secondary};
     flex-grow: 1;
   }
 `;

@@ -8,15 +8,20 @@ import { RecoilRoot } from 'recoil';
 import { RelayEnvironmentProvider } from 'relay-hooks';
 import { Toast } from 'src/components/Toast';
 
+import { ThemeProvider } from '@emotion/react';
+
 import { createEnvironment } from '../relay';
 import { globalStyles } from '../shared/styles';
+import { defaultTheme } from '../shared/theme';
 
+// this is required since no other type fits
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface PageProps extends AppProps<any> {
   pageProps: {
     relayData: SSRCache;
   };
 }
-function App({ Component, pageProps }: PageProps): React.ReactElement {
+function App({ Component, pageProps }: PageProps) {
   return (
     <React.StrictMode>
       <RelayEnvironmentProvider environment={createEnvironment(pageProps.relayData)}>
@@ -27,8 +32,10 @@ function App({ Component, pageProps }: PageProps): React.ReactElement {
             autoDismissTimeout={6000}
             placement="top-right"
           >
-            {globalStyles}
-            <Component {...pageProps} />
+            <ThemeProvider theme={defaultTheme}>
+              {globalStyles}
+              <Component {...pageProps} />
+            </ThemeProvider>
           </ToastProvider>
         </RecoilRoot>
       </RelayEnvironmentProvider>

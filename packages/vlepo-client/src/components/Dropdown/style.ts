@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
 
-import { ZIndex } from '../ZIndex';
-
 export type BaseDropDownProps = {
   show?: boolean;
   position: 'left' | 'right';
@@ -11,7 +9,7 @@ export const BaseDropdownMenu = styled.div<BaseDropDownProps>`
   position: absolute;
   top: 100%;
   ${(props) => props.position}: 5px;
-  z-index: ${ZIndex.DropDownMenu};
+  z-index: ${(props) => props.theme.zIndices.DropDownMenu};
   display: ${(props) => (props.show ? 'flex' : 'none')};
   flex-direction: column;
   float: left;

@@ -8,7 +8,7 @@ export const BaseNavLink = styled.a<BaseNavLinkProps>`
   display: inline-block;
   padding: 0.75rem 1.25rem;
   text-decoration: none;
-  color: #007bff;
+  color: ${(props) => props.theme.colors.link};
   background-color: transparent;
   border-radius: ${(props) => (props.active ? '0px' : '0.4rem')};
   transition: 0.1s background-color ease-in;
@@ -16,7 +16,7 @@ export const BaseNavLink = styled.a<BaseNavLinkProps>`
     props.active
       ? ''
       : `&:hover {
-    background-color: #f2f2f2;
+    background-color: ${props.theme.colors.muted};
   }`}
-  box-shadow: ${(props) => (props.active ? '0 2px 0 0 #007bff' : 'none')};
+  box-shadow: ${(props) => (props.active ? `0 2px 0 0 ${props.theme.colors.link}` : 'none')};
 `;

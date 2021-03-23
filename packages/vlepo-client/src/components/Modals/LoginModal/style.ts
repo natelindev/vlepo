@@ -1,7 +1,6 @@
 import { animated, AnimatedValue, ForwardedProps } from 'react-spring';
-import { Button } from 'src/components/base';
+import { Button } from 'src/components/Button';
 import GradientButton from 'src/components/GradientButton';
-import { ZIndex } from 'src/components/ZIndex';
 import { Modal, StyledModalProps } from 'styled-modal';
 
 import styled from '@emotion/styled';
@@ -92,7 +91,7 @@ export const OauthButton = styled(Button)`
   box-shadow: 0 0 1px rgba(51, 51, 51, 0.3);
   align-items: center;
   justify-content: center;
-  z-index: ${ZIndex.GradientButton};
+  z-index: ${(props) => props.theme.zIndices.GradientButton};
 
   &:hover {
     box-shadow: 0 0 7px rgba(51, 51, 51, 0.3);

@@ -1,12 +1,10 @@
 /* eslint-disable no-nested-ternary */
-import React from 'react';
 
 import { KeyboardArrowUp } from '@emotion-icons/material-outlined';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { useScrollPosition } from '../../hooks/useScrollPosition';
-import { ZIndex } from '../ZIndex';
 
 const animation = css`
   @keyframes fadeOutRight {
@@ -53,7 +51,7 @@ const BaseScrollToTop = styled.div<ScrollTopProps>`
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
 
-  z-index: ${ZIndex.ScrollToTop};
+  z-index: ${(props) => props.theme.zIndices.ScrollToTop};
   transition: background-color 0.3s ease-in-out;
   opacity: ${(props) => (props.show ? 1 : 0)};
   animation: ${(props) => (props.show ? 'fadeInRight' : props.up ? 'fadeOutRight' : 'none')} 1s 1

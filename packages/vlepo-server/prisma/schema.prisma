@@ -8,11 +8,6 @@ generator client {
   previewFeatures = ["createMany"]
 }
 
-generator jsonSchema {
-  provider = "prisma-json-schema-generator"
-  output   = "../../vlepo-client/src/schema/"
-}
-
 enum Language {
   en
   zh
@@ -133,16 +128,17 @@ model Comment {
 }
 
 model Image {
-  id             String   @id @default(uuid())
-  owner          User     @relation(fields: [onwerId], references: [id])
+  id             String  @id @default(uuid())
+  owner          User    @relation(fields: [onwerId], references: [id])
   onwerId        String
   mainColor      String
   secondaryColor String?
   url            String
   height         Int
   width          Int
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   thought   Thought? @relation(fields: [thoughtId], references: [id])
   thoughtId String?
@@ -157,40 +153,46 @@ model Image {
 }
 
 model Link {
-  id        String   @id @default(uuid())
-  url       String
-  iconUrl   String?
+  id      String  @id @default(uuid())
+  url     String
+  iconUrl String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Thought {
-  id        String       @id @default(uuid())
-  content   String
-  onwer     User         @relation(fields: [ownerId], references: [id])
-  status    ToughtStatus @default(DRAFT)
+  id      String       @id @default(uuid())
+  content String
+  onwer   User         @relation(fields: [ownerId], references: [id])
+  ownerId String
+  status  ToughtStatus @default(DRAFT)
+
+  editedAt  DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
   images    Image[]
   comments  Comment[]
   reactions Reaction[]
   shares    ShareCount[]
-  editedAt  DateTime?
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
   tags      Tag[]        @relation(fields: [tagId], references: [id])
   tagId     String?
-  ownerId   String
+
 }
 
 model Reaction {
-  id        String   @id @default(uuid())
-  name      String   @unique
-  iconUrl   String?
+  id      String  @id @default(uuid())
+  name    String  @unique
+  iconUrl String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   post      Post?    @relation(fields: [postId], references: [id])
   postId    String?
   thought   Thought? @relation(fields: [thoughtId], references: [id])
   thoughtId String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   project   Project? @relation(fields: [projectId], references: [id])
   projectId String?
   paper     Paper?   @relation(fields: [paperId], references: [id])
@@ -198,11 +200,12 @@ model Reaction {
 }
 
 model Rating {
-  id        String   @id @default(uuid())
-  score     Int
-  comment   String?
-  post      Post?    @relation(fields: [postId], references: [id])
-  postId    String?
+  id      String  @id @default(uuid())
+  score   Int
+  comment String?
+  post    Post?   @relation(fields: [postId], references: [id])
+  postId  String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -225,27 +228,30 @@ enum ShareType {
 }
 
 model ShareCount {
-  id        String    @id @default(uuid())
-  targetId  String
-  count     Int
-  source    ShareType
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  post      Post?     @relation(fields: [postId], references: [id])
+  id       String    @id @default(uuid())
+  targetId String
+  count    Int
+  source   ShareType
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  post      Post?    @relation(fields: [postId], references: [id])
   postId    String?
-  thought   Thought?  @relation(fields: [thoughtId], references: [id])
+  thought   Thought? @relation(fields: [thoughtId], references: [id])
   thoughtId String?
 }
 
 model Translation {
-  id        String          @id @default(uuid())
-  targetId  String
-  type      TranslationType
-  language  Language
-  content   Json
+  id       String          @id @default(uuid())
+  targetId String
+  type     TranslationType
+  language Language
+  content  Json
+
   editedAt  DateTime?
-  createdAt DateTime        @default(now())
-  updatedAt DateTime        @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Project {
@@ -256,8 +262,9 @@ model Project {
   tags      Tag[]
   images    Image[]
   reactions Reaction[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Paper {
@@ -268,8 +275,9 @@ model Paper {
   tags      Tag[]
   images    Image[]
   reactions Reaction[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model OAuthScope {
@@ -291,6 +299,9 @@ model OAuthScope {
 
   //client
   clients OAuthClient[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([value])
 }
@@ -382,4 +393,6 @@ model OAuthAuthorizationCode {
 
   user   User   @relation(fields: [userId], references: [id])
   userId String
+
+  createdAt DateTime @default(now())
 }

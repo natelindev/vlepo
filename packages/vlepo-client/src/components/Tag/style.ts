@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
 
-import { ZIndex } from '../ZIndex';
-
 export const BaseTag = styled.a`
   color: #f8f9fa;
 
@@ -45,5 +43,5 @@ export const BaseTag = styled.a`
     box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);
   }
 
-  z-index: ${ZIndex.Tags};
+  z-index: ${(props) => props.theme.zIndices.Tags};
 `;

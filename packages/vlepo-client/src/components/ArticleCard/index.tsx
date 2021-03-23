@@ -1,9 +1,9 @@
 import { format, parseISO } from 'date-fns';
-import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
+import CardImg from 'src/components/Card/CardImage';
+import { CardBody } from 'src/components/Card/style';
+import { Column, Row } from 'src/components/Layout/style';
 
-import { CardBody, Column, Row } from '../base';
-import CardImg from '../Card/CardImg';
 import Tag from '../Tag';
 import {
   Abstract,
@@ -24,7 +24,7 @@ export type ArticleCardProps = { relay: RelayProp; post: ArticleCard_post } & {
   width?: string;
 };
 
-const ArticleCard = (props: ArticleCardProps): React.ReactElement => {
+const ArticleCard = (props: ArticleCardProps) => {
   const { post, width } = props;
   const { title, headerImageUrl, content, createdAt, id, tags, owner, minuteRead } = post;
 

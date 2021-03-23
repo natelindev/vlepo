@@ -6,7 +6,6 @@
     "noEmit": true,
     "typeRoots": ["node_modules/@types", "src/types"],
     "jsxImportSource": "@emotion/react",
-    "resolveJsonModule": true,
     "jsx": "preserve",
     "baseUrl": ".",
     "plugins": [

@@ -79,7 +79,7 @@ const MasonryCard: React.FC<MasonryCardProps> = (props: MasonryCardProps) => {
   return <ArticleCard width={`${width}px`} post={data} />;
 };
 
-export default function Home(): React.ReactElement {
+export default function Home() {
   const { error, data } = useQuery<pages_indexQuery>(IndexQuery);
 
   if (error) return <div>{error.message}</div>;

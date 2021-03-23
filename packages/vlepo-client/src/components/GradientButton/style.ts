@@ -1,7 +1,6 @@
-import styled from '@emotion/styled';
+import { Button } from 'src/components/Button';
 
-import { Button } from '../base';
-import { ZIndex } from '../ZIndex';
+import styled from '@emotion/styled';
 
 export const isBright = (hexColor: `#${string}`) => {
   const [r, g, b] = [0, 2, 4].map((p) => parseInt(hexColor.substr(p, 2), 16));
@@ -15,7 +14,7 @@ export const BaseGradientButton = styled(Button)<{
   position: relative;
   border: none;
   transition: opacity linear 0.3s;
-  z-index: ${ZIndex.GradientButton};
+  z-index: ${(props) => props.theme.zIndices.GradientButton};
 
   &::before {
     border-radius: inherit;
@@ -54,7 +53,7 @@ export const BaseGradientButton = styled(Button)<{
 
 export const GradientButtonContent = styled.div`
   position: relative;
-  z-index: ${ZIndex.GradientButton};
+  z-index: ${(props) => props.theme.zIndices.GradientButton};
   a {
     color: inherit;
     text-decoration: none;

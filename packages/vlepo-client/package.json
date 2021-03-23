@@ -3,22 +3,23 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "prebuild": "yarn get-schema && yarn generate",
+    "prebuild": "yarn typecheck && yarn lint && yarn get-schema && yarn generate",
     "build": "next build",
     "debug": "NODE_OPTIONS='--inspect=5009' next dev",
     "dev": "cross-env DEBUG=vlepo:* next dev",
     "generate": "yarn relay",
     "get-schema": "graphql-codegen -r dotenv/config --config .graphqlrc.yml",
+    "lint": "eslint src --ext .ts,.tsx",
     "relay": "relay-compiler --src ./src --exclude '**/.next/**' '**/node_modules/**' '**/test/**'  '**/__generated__/**' --exclude '**/schema/**' --schema ./src/schema/schema.graphql --language typescript --customScalars.DateTime=String --artifactDirectory ./src/__generated__",
     "relay:watch": "yarn relay --watch",
     "start": "next start",
+    "typecheck": "tsc --noEmit",
     "watch": "yarn relay:watch"
   },
   "dependencies": {
     "@emotion-icons/material-outlined": "3.8.0",
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.1.5",
-    "@types/react-table": "7.0.29",
     "@vlepo/shared": "1.0.0",
     "base-64": "1.0.0",
     "date-fns": "2.19.0",
@@ -38,7 +39,6 @@
     "react-relay-network-modern-ssr": "1.4.0",
     "react-share": "4.4.0",
     "react-spring": "8.0.27",
-    "react-table": "7.6.3",
     "react-toast-notifications": "2.4.3",
     "react-typist": "2.0.5",
     "react-use-hoverintent": "1.2.3",
@@ -49,8 +49,8 @@
     "remark-emoji": "2.1.0",
     "remark-images": "2.0.0",
     "styled-modal": "7.1.4",
-    "ts-pattern": "3.0.6",
-    "vscode-apollo-relay": "1.5.1"
+    "styled-system": "5.1.5",
+    "ts-pattern": "3.0.6"
   },
   "devDependencies": {
     "@graphql-cli/codegen": "1.17.22",
@@ -64,6 +64,7 @@
     "@types/react-relay": "11.0.0",
     "@types/react-typist": "2.0.1",
     "@types/relay-runtime": "10.1.10",
+    "@types/styled-system": "5.1.10",
     "@typescript-eslint/eslint-plugin": "4.18.0",
     "@typescript-eslint/parser": "4.18.0",
     "babel-plugin-relay": "11.0.0",
@@ -75,6 +76,7 @@
     "relay-compiler-language-typescript": "13.0.6",
     "relay-config": "11.0.0",
     "typescript": "4.2.3",
-    "typescript-styled-plugin": "0.15.0"
+    "typescript-styled-plugin": "0.15.0",
+    "vscode-apollo-relay": "1.5.1"
   }
 }

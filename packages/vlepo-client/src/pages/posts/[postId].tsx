@@ -4,7 +4,7 @@ import hydrate from 'next-mdx-remote/hydrate';
 import renderToString from 'next-mdx-remote/render-to-string';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchQuery, graphql } from 'react-relay';
 import { useQuery } from 'relay-hooks';
 import HoverShare from 'src/components/HoverShare/HoverShare';

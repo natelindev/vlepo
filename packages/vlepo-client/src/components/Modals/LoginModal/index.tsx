@@ -101,6 +101,7 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
         ({ item, key, props: styles }) =>
           item && (
             <BaseModal
+              // @ts-expect-error inaccurate typing, fix later
               modalComponent={BaseAnimatedContainer}
               key={key}
               style={styles}

@@ -1,21 +1,10 @@
 import '@emotion/react';
 
+import { defaultTheme } from 'src/shared/theme';
+
+type ThemeType = typeof defaultTheme;
 declare module '@emotion/react' {
-  export interface Theme {
-    primaryColor: string;
-    secondaryColor: string;
-    primaryFontFamily: string;
-    secondaryFontFamily: string;
-    borderWidth: BorderWidth;
-    ZIndex: ZIndex;
-  }
-
-  export interface BorderWidth {
-    button: string;
-    card: string;
-  }
-
-  export interface ZIndex {
-    button: string;
-  }
+  // needed for interface merging
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  export interface Theme extends ThemeType {}
 }

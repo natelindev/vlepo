@@ -1,11 +1,22 @@
+import { height, HeightProps, width, WidthProps } from 'styled-system';
+
 import styled from '@emotion/styled';
 
-import { Card as BaseCard } from '../base';
-import { ZIndex } from '../ZIndex';
+type BaseCardProps = { direction?: string };
+export const BaseCard = styled.div<BaseCardProps>`
+  display: flex;
+  flex-direction: ${(props) => (props.direction === 'lr' ? 'row' : 'column')};
+`;
 
-export const ConstrainedCard = styled(BaseCard)<{ width?: string; height?: string }>`
-  max-width: ${(props) => props.width};
-  min-height: ${(props) => props.height};
+export const CardBody = styled.div`
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1.25rem;
+`;
+
+export const ConstrainedCard = styled(BaseCard)<WidthProps & HeightProps>`
+  ${width}
+  ${height}
 `;
 
 export const OverlayLink = styled.a`
@@ -15,5 +26,5 @@ export const OverlayLink = styled.a`
   right: 0;
   left: 0;
   bottom: 0;
-  z-index: ${ZIndex.CardLink};
+  z-index: ${(props) => props.theme.zIndices.CardLink};
 `;

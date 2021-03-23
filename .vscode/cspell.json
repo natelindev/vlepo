@@ -5,12 +5,14 @@
         "bodyparser",
         "codegen",
         "csrf",
+        "Footbar",
         "googleusercontent",
         "nowrap",
         "openid",
         "prebuild",
         "schemaname",
         "tablename",
+        "typecheck",
         "vlepo"
     ]
 }

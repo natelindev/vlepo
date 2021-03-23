@@ -1,8 +1,8 @@
 import Image from 'next/image';
+import { Row } from 'src/components/Layout/style';
 
 import styled from '@emotion/styled';
 
-import { Row } from '../base';
 import Card from '../Card';
 
 export const Abstract = styled.div`
