@@ -13,6 +13,7 @@ export const lightTheme = {
     secondary: '#5CC6EE',
     text: '#050505',
     link: '#007bff',
+    navbar: 'rgba(255,255,255,0.8)',
   },
   fonts: {
     content:

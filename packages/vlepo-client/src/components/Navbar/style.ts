@@ -11,7 +11,7 @@ export const BaseNavbar = styled.nav`
   width: 100%;
   flex-flow: row nowrap;
   box-shadow: ${(props) => props.theme.shadows.Navbar};
-  background-color: ${(props) => props.theme.colors.backgroundSecondary};
+  background-color: ${(props) => props.theme.colors.navbar};
   backdrop-filter: saturate(180%) blur(5px);
   height: 3.5rem;
   z-index: ${(props) => props.theme.zIndices.Navbar};

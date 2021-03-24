@@ -13,6 +13,7 @@ export const darkTheme = {
     secondary: '#5CC6EE',
     text: '#E5E6EB',
     link: '#007bff',
+    navbar: 'rgba(36,38,38,0.8)',
   },
   fonts: {
     content:
