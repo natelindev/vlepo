@@ -1,18 +1,22 @@
 import { animated, AnimatedValue, ForwardedProps } from 'react-spring';
 import { Button } from 'src/components/Button';
 import GradientButton from 'src/components/GradientButton';
-import { Modal, StyledModalProps } from 'styled-modal';
+import StyledModal, { StyledModalProps } from 'styled-modal';
 
 import styled from '@emotion/styled';
 
-export const BaseModal = styled(Modal)<{
+export const BaseModal = styled(StyledModal)<{
   style: AnimatedValue<ForwardedProps<ForwardedProps<React.CSSProperties>>>;
 }>`
   border-radius: 0.5rem;
+  background-color: ${(props) => props.theme.colors.backgroundSecondary};
 `;
 
 export const BaseAnimatedContainer = styled(animated.div)<StyledModalProps>`
-  background-color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  background-color: inherit;
   backdrop-filter: saturate(180%) blur(5px);
 `;
 
@@ -30,25 +34,26 @@ export const LoginInput = styled.input`
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
+  color: ${(props) => props.theme.colors.muted};
+  background-color: ${(props) => props.theme.colors.backgroundMuted};
   background-clip: padding-box;
-  border: 1px solid #ced4da;
+  border: 1px solid ${(props) => props.theme.colors.muted};
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   padding: 1rem;
 
   transition: all 0.3s ease-in-out;
   &:focus {
-    box-shadow: 0 0 7px rgba(50, 50, 255, 0.3);
+    box-shadow: ${(props) => props.theme.shadows.Input};
   }
 `;
 
 export const InputGroup = styled.div`
   display: flex;
-  flex-direction: column;
+
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+  flex-direction: column;
 `;
 
 export const Label = styled.label`
@@ -56,12 +61,12 @@ export const Label = styled.label`
   margin-left: 0.2rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
-  color: #000;
+  color: ${(props) => props.theme.colors.text};
 `;
 
 export const ErrorText = styled.span`
   margin-left: 1rem;
-  color: #ff4602;
+  color: ${(props) => props.theme.colors.error};
 `;
 
 export const LoginButton = styled(GradientButton)`
@@ -85,15 +90,15 @@ export const OauthButton = styled(Button)`
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   margin-left: 0.5rem;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.colors.backgroundMuted};
   border-radius: 0.25rem;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0 0 1px rgba(51, 51, 51, 0.3);
+  box-shadow: ${(props) => props.theme.shadows.Card};
   align-items: center;
   justify-content: center;
   z-index: ${(props) => props.theme.zIndices.GradientButton};
 
   &:hover {
-    box-shadow: 0 0 7px rgba(51, 51, 51, 0.3);
+    box-shadow: ${(props) => props.theme.shadows.OauthButton};
   }
 `;

@@ -43,7 +43,8 @@ export const defaultTheme = {
   shadows: {
     Navbar: '0 0.1rem 0.1rem hsla(0,0%,100%,0.1)',
     Card: '0 0 5px hsla(0,0%,100%,0.1)',
-    Input: '0 0 5px rgba(50, 50, 255, 0.3)',
+    OauthButton: '0 0 7px hsla(0,0%,100%,0.1)',
+    Input: '0 0 7px rgba(50, 50, 255, 0.3)',
   },
   text: {
     heading: {

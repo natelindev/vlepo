@@ -20,16 +20,15 @@ export const BaseDropdownMenu = styled.div<BaseDropDownProps>`
   color: #212529;
   text-align: left;
   list-style: none;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.colors.backgroundSecondary};
   background-clip: padding-box;
-  box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
   border-radius: 0.25rem;
 
   > *:hover {
     border-radius: 0.4rem;
     transition: 0.1s background-color ease-in;
-    background-color: #f2f2f2;
+    background-color: ${(props) => props.theme.colors.backgroundMuted};
   }
 `;
 

@@ -9,7 +9,6 @@ import { useSetRecoilState } from 'recoil';
 import { useMutation } from 'relay-hooks';
 import { currentUserState } from 'src/atoms/user';
 import { LoginButton } from 'src/components/Navbar/style';
-import { InputGroup } from 'src/components/SearchBar/style';
 import { usePopupWindow } from 'src/hooks/usePopupWindow';
 import { StyledModalProps } from 'styled-modal';
 
@@ -25,6 +24,7 @@ import {
   BaseAnimatedContainer,
   BaseModal,
   ErrorText,
+  InputGroup,
   Label,
   LoginForm,
   LoginInput,
@@ -101,7 +101,6 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
         ({ item, key, props: styles }) =>
           item && (
             <BaseModal
-              // @ts-expect-error inaccurate typing, fix later
               modalComponent={BaseAnimatedContainer}
               key={key}
               style={styles}

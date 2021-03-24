@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 export const globalStyles = (
   <Global
-    styles={css`
+    styles={(theme) => css`
       html,
       body {
         margin: 0;
@@ -11,11 +11,10 @@ export const globalStyles = (
         font-size: 1rem;
         font-weight: 400;
         line-height: 1.5;
-        color: #212529;
+        background-color: ${theme.colors.background};
+        color: ${theme.colors.text};
         text-align: left;
-        font-family: Titillium, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-          'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-          'Segoe UI Symbol', 'Noto Color Emoji';
+        font-family: ${theme.fonts.content};
       }
       *,
       ::after,
