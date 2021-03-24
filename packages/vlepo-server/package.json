@@ -48,7 +48,7 @@
     "koa-session": "6.1.0",
     "koa-static": "5.0.0",
     "nexus": "1.0.0",
-    "nexus-plugin-prisma": "0.32.0",
+    "nexus-plugin-prisma": "0.33.0",
     "node-fetch": "2.6.1",
     "oauth2-server": "3.1.1",
     "ts-pattern": "3.0.6"
