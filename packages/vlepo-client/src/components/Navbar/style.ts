@@ -12,8 +12,8 @@ export const BaseNavbar = styled.nav`
   justify-content: space-between;
   width: 100%;
   flex-flow: row nowrap;
-  box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.2);
-  background-color: rgba(255, 255, 255, 0.6);
+  box-shadow: ${(props) => props.theme.shadows.Navbar};
+  background-color: ${(props) => props.theme.colors.background};
   backdrop-filter: saturate(180%) blur(5px);
   height: 3.5rem;
   z-index: ${(props) => props.theme.zIndices.Navbar};
@@ -28,7 +28,7 @@ export const NavBrand = styled.a`
   line-height: inherit;
   white-space: nowrap;
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.9);
+  color: ${(props) => props.theme.colors.text};
 `;
 
 export const NavbarCollapse = styled.div`
@@ -68,6 +68,7 @@ export const NavSearchBar = styled(SearchBar)`
 `;
 
 export const LoginButton = styled(GradientButton)`
+  border-radius: ${(props) => props.theme.radii.default};
   margin-right: 1rem;
   height: 100%;
 `;
@@ -83,7 +84,7 @@ export const NavbarAvatar = styled(Avatar)`
 `;
 
 export const GreyText = styled.h5`
-  color: #757575;
+  color: ${(props) => props.theme.colors.muted};
   font-weight: 400;
   padding: 0;
   margin: 0;

@@ -19,5 +19,5 @@ export const LoveIcon = styled.div`
 `;
 
 export const BottomText = styled.div`
-  color: #6c757d;
+  color: ${(props) => props.theme.colors.muted};
 `;

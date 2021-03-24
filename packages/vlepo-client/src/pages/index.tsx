@@ -45,6 +45,7 @@ const IndexSlogan = styled(Typist)`
   margin-left: auto;
   margin-right: auto;
   font-size: 1.75rem;
+  color: ${(props) => props.theme.colors.text};
 `;
 
 const IndexQuery = graphql`

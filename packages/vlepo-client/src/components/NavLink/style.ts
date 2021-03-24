@@ -16,7 +16,7 @@ export const BaseNavLink = styled.a<BaseNavLinkProps>`
     props.active
       ? ''
       : `&:hover {
-    background-color: ${props.theme.colors.muted};
+    background-color: ${props.theme.colors.backgroundMuted};
   }`}
   box-shadow: ${(props) => (props.active ? `0 2px 0 0 ${props.theme.colors.link}` : 'none')};
 `;

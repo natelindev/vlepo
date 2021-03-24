@@ -5,7 +5,7 @@ export const InputGroup = styled.div`
   display: flex;
   align-items: stretch;
 
-  background-color: #f1f3f4;
+  background-color: ${(props) => props.theme.colors.backgroundSecondary};
   border-radius: 0.25rem;
 
   flex-grow: 0;

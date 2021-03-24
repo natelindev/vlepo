@@ -19,7 +19,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLElement> {
   href?: string;
 }
 
-const Card = React.forwardRef((props: CardProps /* ref: React.Ref<HTMLDivElement | null> */) => {
+const Card = React.forwardRef((props: CardProps, _ref: React.Ref<HTMLDivElement | null>) => {
   const { children, className, width, height, href, ...rest } = props;
   // const [isHovering, intentRef] = useHoverIntent<HTMLDivElement>({ ref });
 

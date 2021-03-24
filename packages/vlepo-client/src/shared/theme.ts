@@ -1,15 +1,17 @@
 export const defaultTheme = {
   breakpoints: ['40em', '52em', '64em'],
   colors: {
-    accent: '',
-    background: '#111111',
-    error: '#ff4602',
-    highlight: '',
-    muted: '#222222',
+    accent: '#9932ff',
+    background: '#000000',
+    backgroundSecondary: '#111111',
+    backgroundMuted: '#333333',
+    error: '#ff3232',
+    highlight: '#4B4C53',
+    muted: '#f2f2f2',
     primary: '#3232FF',
     secondary: '#5CC6EE',
-    text: '#000000',
-    link: '#007bff',
+    text: '#ffffff',
+    link: '#3299ff',
   },
   fonts: {
     content:
@@ -36,9 +38,10 @@ export const defaultTheme = {
     heading: 1.125,
   },
   radii: {
-    default: 4,
+    default: '4px',
   },
   shadows: {
+    Navbar: 'inset 0 -1px 0 0 hsla(0,0%,100%,0.1)',
     Card: '0 0 5px rgba(0, 0, 0, .125)',
     Input: '0 0 5px rgba(50, 50, 255, 0.3)',
   },

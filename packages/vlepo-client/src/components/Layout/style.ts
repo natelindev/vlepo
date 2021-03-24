@@ -16,6 +16,8 @@ export const Main = styled.main`
 
 export const Footer = styled.footer`
   flex: none;
+  border-top: 1px solid ${(props) => props.theme.colors.backgroundMuted};
+  background-color: ${(props) => props.theme.colors.backgroundSecondary};
 `;
 
 export const Row = styled.div`
