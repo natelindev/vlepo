@@ -6,13 +6,10 @@ import { SSRCache } from 'react-relay-network-modern-ssr/node8/server';
 import { ToastProvider } from 'react-toast-notifications';
 import { RecoilRoot } from 'recoil';
 import { RelayEnvironmentProvider } from 'relay-hooks';
+import AppWithTheme from 'src/components/AppWithTheme';
 import { Toast } from 'src/components/Toast';
 
-import { ThemeProvider } from '@emotion/react';
-
 import { createEnvironment } from '../relay';
-import { globalStyles } from '../shared/styles';
-import { defaultTheme } from '../shared/theme';
 
 // this is required since no other type fits
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,10 +29,9 @@ function App({ Component, pageProps }: PageProps) {
             autoDismissTimeout={6000}
             placement="top-right"
           >
-            <ThemeProvider theme={defaultTheme}>
-              {globalStyles}
+            <AppWithTheme>
               <Component {...pageProps} />
-            </ThemeProvider>
+            </AppWithTheme>
           </ToastProvider>
         </RecoilRoot>
       </RelayEnvironmentProvider>

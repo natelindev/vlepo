@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 type BaseNavLinkProps = {
-  active: boolean;
+  active?: boolean;
 };
 
 export const BaseNavLink = styled.a<BaseNavLinkProps>`
@@ -12,6 +12,7 @@ export const BaseNavLink = styled.a<BaseNavLinkProps>`
   background-color: transparent;
   border-radius: ${(props) => (props.active ? '0px' : '0.4rem')};
   transition: 0.1s background-color ease-in;
+  cursor: ${(props) => (props.active ? 'default' : 'pointer')};
   ${(props) =>
     props.active
       ? ''

@@ -1,9 +1,12 @@
-import { height, HeightProps, width, WidthProps } from 'styled-system';
+import { height, HeightProps, margin, width, WidthProps } from 'styled-system';
 
 import styled from '@emotion/styled';
 
 type BaseCardProps = { direction?: string };
 export const BaseCard = styled.div<BaseCardProps>`
+  background-color: ${(props) => props.theme.colors.backgroundSecondary};
+  border-radius: ${(props) => props.theme.radii.default};
+  box-shadow: ${(props) => props.theme.shadows.Card};
   display: flex;
   flex-direction: ${(props) => (props.direction === 'lr' ? 'row' : 'column')};
 `;
@@ -17,6 +20,7 @@ export const CardBody = styled.div`
 export const ConstrainedCard = styled(BaseCard)<WidthProps & HeightProps>`
   ${width}
   ${height}
+  ${margin}
 `;
 
 export const OverlayLink = styled.a`

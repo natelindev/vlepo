@@ -48,6 +48,10 @@ const IndexSlogan = styled(Typist)`
   color: ${(props) => props.theme.colors.text};
 `;
 
+const Slogan = styled.h1`
+  color: ${(props) => props.theme.colors.text};
+`;
+
 const IndexQuery = graphql`
   query pages_indexQuery {
     posts {
@@ -89,7 +93,7 @@ export default function Home() {
   return (
     <Layout>
       <IndexSlogan cursor={{ show: false }}>
-        <h1>I code, Therefore I am</h1>
+        <Slogan>I code, Therefore I am</Slogan>
       </IndexSlogan>
       <IndexRow>
         <IndexMasonry<PostItem>

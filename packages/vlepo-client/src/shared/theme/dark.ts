@@ -1,4 +1,5 @@
-export const defaultTheme = {
+export const darkTheme = {
+  name: 'dark',
   breakpoints: ['40em', '52em', '64em'],
   colors: {
     accent: '#9932ff',

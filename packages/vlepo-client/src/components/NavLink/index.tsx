@@ -7,19 +7,20 @@ import { BaseNavLink } from './style';
 type NavLinkProps = {
   href?: string;
   children: React.ReactNode;
+  active?: boolean;
 } & React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
 
 export default function NavLink(props: NavLinkProps): React.ReactElement {
-  const { href, children, ...rest } = props;
   const router = useRouter();
+  const { href, children, active = router.pathname === href, ...rest } = props;
   return href ? (
     <Link href={href} passHref>
-      <BaseNavLink active={router.pathname === href} {...rest}>
+      <BaseNavLink active={active} {...rest}>
         {children}
       </BaseNavLink>
     </Link>
   ) : (
-    <BaseNavLink active={router.pathname === href} {...rest}>
+    <BaseNavLink active={active} {...rest}>
       {children}
     </BaseNavLink>
   );

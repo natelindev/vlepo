@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 import { css } from '@emotion/react';
@@ -31,7 +33,7 @@ const SidebarHeader = styled.h2`
   margin: 0;
 `;
 
-const SidebarItem = styled.div`
+const SidebarItem = styled.div<{ active?: boolean }>`
   display: flex;
   border-radius: 0.4rem;
   margin-left: 0.4rem;
@@ -39,14 +41,20 @@ const SidebarItem = styled.div`
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   padding-right: 0.75rem;
+  color: ${(props) => (props.active ? props.theme.colors.link : props.theme.colors.muted)};
   transition: 0.1s background-color ease-in;
-  &:hover {
-    background-color: ${(props) => props.theme.colors.backgroundMuted};
-  }
+  cursor: ${(props) => (props.active ? 'default' : 'pointer')};
+  ${(props) =>
+    props.active
+      ? ''
+      : `&:hover {
+    background-color: ${props.theme.colors.backgroundMuted};
+  }`}
 `;
 
 const Sidebar = (props: SidebarProps): React.ReactElement => {
   const { width = '14rem', expand = true, className } = props;
+  const router = useRouter();
   return (
     <BaseSidebar width={width} expand={expand} className={className}>
       <SidebarItem
@@ -59,10 +67,12 @@ const Sidebar = (props: SidebarProps): React.ReactElement => {
 
       <SidebarGroup>
         {OAuthConsts.entities.map((e) => (
-          <SidebarItem key={e}>
-            {e.charAt(0).toUpperCase()}
-            {e.slice(1)}
-          </SidebarItem>
+          <Link key={e} href={`/dashboard/${e}`} passHref>
+            <SidebarItem active={router.pathname === `/dashboard/${e}`}>
+              {e.charAt(0).toUpperCase()}
+              {e.slice(1)}
+            </SidebarItem>
+          </Link>
         ))}
       </SidebarGroup>
     </BaseSidebar>

@@ -30,12 +30,6 @@ export const BaseDropdownMenu = styled.div<BaseDropDownProps>`
   > ${BaseNavLink} {
     box-shadow: none;
   }
-
-  > *:hover {
-    border-radius: 0.4rem;
-    transition: 0.1s background-color ease-in;
-    background-color: ${(props) => props.theme.colors.backgroundMuted};
-  }
 `;
 
 export const BaseDropdown = styled.div`
