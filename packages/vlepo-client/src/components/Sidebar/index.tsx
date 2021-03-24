@@ -41,7 +41,7 @@ const SidebarItem = styled.div`
   padding-right: 0.75rem;
   transition: 0.1s background-color ease-in;
   &:hover {
-    background-color: ${(props) => props.theme.colors.muted};
+    background-color: ${(props) => props.theme.colors.backgroundMuted};
   }
 `;
 

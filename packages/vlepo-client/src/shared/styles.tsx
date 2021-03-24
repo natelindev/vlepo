@@ -30,6 +30,20 @@ export const globalStyles = (
         min-height: 100vh;
         width: 100%;
       }
+
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus,
+      textarea:-webkit-autofill,
+      textarea:-webkit-autofill:hover,
+      textarea:-webkit-autofill:focus,
+      select:-webkit-autofill,
+      select:-webkit-autofill:hover,
+      select:-webkit-autofill:focus {
+        appearance: none;
+        color: ${theme.colors.background} !important;
+        background-color: ${theme.colors.background} !important;
+      }
     `}
   />
 );

@@ -43,6 +43,7 @@ export const LoginInput = styled.input`
   padding: 1rem;
 
   transition: all 0.3s ease-in-out;
+
   &:focus {
     box-shadow: ${(props) => props.theme.shadows.Input};
   }
@@ -50,7 +51,6 @@ export const LoginInput = styled.input`
 
 export const InputGroup = styled.div`
   display: flex;
-
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   flex-direction: column;

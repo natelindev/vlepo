@@ -1,21 +1,15 @@
-﻿import Link from 'next/link';
+﻿import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import React, { useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { currentUserState } from 'src/atoms/user';
+import Dropdown from 'src/components/Dropdown';
 
 import { css } from '@emotion/react';
-import { OAuthConsts } from '@vlepo/shared';
 
-import { deleteCookie } from '../../hooks/useCookie';
-import Dropdown from '../Dropdown';
 import LoginModal from '../Modals/LoginModal';
 import NavLink from '../NavLink';
 import {
   BaseNavbar,
-  GreyText,
   LeftNavCollapse,
-  LoginButton,
-  NavbarAvatar,
   NavbarNav,
   NavBrand,
   NavItem,
@@ -24,9 +18,13 @@ import {
   RightNavCollapse,
 } from './style';
 
+const UserSection = dynamic(() => import('src/components/UserSection'), {
+  ssr: false,
+});
+
 const Navbar: React.FC = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+
   return (
     <BaseNavbar>
       <NavLogo size="50px" />
@@ -59,51 +57,7 @@ const Navbar: React.FC = () => {
       <RightNavCollapse>
         <NavbarNav>
           <NavSearchBar />
-          {currentUser ? (
-            <Dropdown
-              position="right"
-              css={css`
-                margin-top: 12px;
-              `}
-            >
-              <NavbarAvatar
-                size={32}
-                imageUrl={currentUser.profileImageUrl ?? '/images/avatar/bot.svg'}
-              />
-              <NavLink href={`/user/${currentUser.id}/profile`}>
-                <NavItem>
-                  {currentUser.name}
-                  <GreyText>{currentUser.roles}</GreyText>
-                </NavItem>
-              </NavLink>
-              <NavLink href={`/user/${currentUser.id}/settings`}>
-                <NavItem>Settings</NavItem>
-              </NavLink>
-              {currentUser.roles.includes(OAuthConsts.roles.admin.value) && (
-                <NavLink href="/dashboard">
-                  <NavItem>Dashboard</NavItem>
-                </NavLink>
-              )}
-              <NavLink>
-                <NavItem>Theme</NavItem>
-              </NavLink>
-              <NavLink
-                onClick={() => {
-                  deleteCookie('idToken');
-                  deleteCookie('accessToken');
-                  deleteCookie('idToken.sig');
-                  deleteCookie('accessToken.sig');
-                  setCurrentUser(undefined);
-                }}
-              >
-                <NavItem>Logout</NavItem>
-              </NavLink>
-            </Dropdown>
-          ) : (
-            <LoginButton onClick={() => setShowLoginModal(true)} colorA="#5CC6EE" colorB="#3232FF">
-              Login
-            </LoginButton>
-          )}
+          <UserSection setShowLoginModal={setShowLoginModal} />
         </NavbarNav>
       </RightNavCollapse>
       {/* <NavbarToggler className="animated--toggler" /> */}

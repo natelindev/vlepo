@@ -8,7 +8,7 @@ import { useToasts } from 'react-toast-notifications';
 import { useSetRecoilState } from 'recoil';
 import { useMutation } from 'relay-hooks';
 import { currentUserState } from 'src/atoms/user';
-import { LoginButton } from 'src/components/Navbar/style';
+import { LoginButton } from 'src/components/UserSection/style';
 import { usePopupWindow } from 'src/hooks/usePopupWindow';
 import { StyledModalProps } from 'styled-modal';
 

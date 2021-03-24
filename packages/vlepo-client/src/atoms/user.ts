@@ -4,9 +4,16 @@ import { getCookie } from 'src/hooks/useCookie';
 
 import { IdToken } from '@vlepo/shared';
 
-export const currentUserState = atom({
+export const currentUserState = atom<IdToken | undefined>({
   key: 'currentUser',
-  default: getCookie<IdToken>('idToken', {
-    decode: (v: string) => JSON.parse(base64.decode(v)),
-  }),
+  default: undefined,
+  effects_UNSTABLE: [
+    ({ setSelf }) => {
+      setSelf(
+        getCookie<IdToken>('idToken', {
+          decode: (v: string) => JSON.parse(base64.decode(v)),
+        }),
+      );
+    },
+  ],
 });

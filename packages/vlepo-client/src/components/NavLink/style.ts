@@ -8,7 +8,7 @@ export const BaseNavLink = styled.a<BaseNavLinkProps>`
   display: inline-block;
   padding: 0.75rem 1.25rem;
   text-decoration: none;
-  color: ${(props) => props.theme.colors.link};
+  color: ${(props) => (props.active ? props.theme.colors.link : props.theme.colors.muted)};
   background-color: transparent;
   border-radius: ${(props) => (props.active ? '0px' : '0.4rem')};
   transition: 0.1s background-color ease-in;

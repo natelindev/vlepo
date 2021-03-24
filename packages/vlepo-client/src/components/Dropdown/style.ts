@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { BaseNavLink } from '../NavLink/style';
+
 export type BaseDropDownProps = {
   show?: boolean;
   position: 'left' | 'right';
@@ -17,13 +19,17 @@ export const BaseDropdownMenu = styled.div<BaseDropDownProps>`
   padding: 0.3rem;
   margin: 0.125rem 0 0;
   font-size: 1rem;
-  color: #212529;
+  color: ${(props) => props.theme.colors.backgroundSecondary};
   text-align: left;
   list-style: none;
   background-color: ${(props) => props.theme.colors.backgroundSecondary};
   background-clip: padding-box;
-  box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: ${(props) => props.theme.shadows.Dropdown};
   border-radius: 0.25rem;
+
+  > ${BaseNavLink} {
+    box-shadow: none;
+  }
 
   > *:hover {
     border-radius: 0.4rem;
