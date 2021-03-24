@@ -19,9 +19,7 @@ export const ArticleCardTitle = styled.h1`
   margin-block-start: 0;
   margin-block-end: 0.5rem;
   font-weight: 400;
-  font-family: Economica, Titillium, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol', 'Noto Color Emoji';
+  font-family: ${(props) => props.theme.fonts.heading};
 `;
 
 export const ArticleDate = styled.div`
@@ -30,7 +28,6 @@ export const ArticleDate = styled.div`
 
 export const ArticleCardFooter = styled.div`
   display: flex;
-  font-family: 'Economica, Titillium';
   align-self: center;
   justify-content: space-between;
 `;
@@ -55,6 +52,7 @@ export const AuthorSection = styled(Row)`
 `;
 
 export const BaseArticleCard = styled(Card)`
-  border-radius: 0.5rem;
-  border: 1px solid black;
+  border-radius: ${(props) => props.theme.radii.default};
+  box-shadow: ${(props) => props.theme.shadows.Card};
+  color: ${(props) => props.theme.colors.text};
 `;

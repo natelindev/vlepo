@@ -8,6 +8,7 @@ export const FootbarContainer = styled.div`
 `;
 
 export const CenteredText = styled.div`
+  color: ${(props) => props.theme.colors.muted};
   display: flex;
   margin-left: auto;
   margin-right: auto;

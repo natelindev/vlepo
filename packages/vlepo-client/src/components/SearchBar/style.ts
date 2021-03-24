@@ -40,7 +40,7 @@ export const InputGroupText = styled.span`
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #495057;
+  color: ${(props) => props.theme.colors.muted};
   text-align: center;
   white-space: nowrap;
   border-radius: 0.25rem;
@@ -61,7 +61,7 @@ export const Input = styled.input`
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #495057;
+  color: ${(props) => props.theme.colors.muted};
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   overflow: visible;

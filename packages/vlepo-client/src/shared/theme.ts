@@ -2,16 +2,16 @@ export const defaultTheme = {
   breakpoints: ['40em', '52em', '64em'],
   colors: {
     accent: '#9932ff',
-    background: '#000000',
-    backgroundSecondary: '#111111',
-    backgroundMuted: '#333333',
+    background: '#18191A',
+    backgroundSecondary: '#242526',
+    backgroundMuted: '#303031',
     error: '#ff3232',
-    highlight: '#4B4C53',
-    muted: '#f2f2f2',
+    highlight: '#454546',
+    muted: '#B1B3B8',
     primary: '#3232FF',
     secondary: '#5CC6EE',
-    text: '#ffffff',
-    link: '#3299ff',
+    text: '#E5E6EB',
+    link: '#007bff',
   },
   fonts: {
     content:
@@ -41,8 +41,8 @@ export const defaultTheme = {
     default: '4px',
   },
   shadows: {
-    Navbar: 'inset 0 -1px 0 0 hsla(0,0%,100%,0.1)',
-    Card: '0 0 5px rgba(0, 0, 0, .125)',
+    Navbar: '0 0.1rem 0.1rem hsla(0,0%,100%,0.1)',
+    Card: '0 0 5px hsla(0,0%,100%,0.1)',
     Input: '0 0 5px rgba(50, 50, 255, 0.3)',
   },
   text: {
