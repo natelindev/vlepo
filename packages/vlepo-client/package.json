@@ -25,7 +25,6 @@
     "date-fns": "2.19.0",
     "debug": "4.3.1",
     "dotenv": "8.2.0",
-    "fast-memoize": "2.5.2",
     "graphql": "15.5.0",
     "masonic": "3.4.1",
     "next": "10.0.9",
