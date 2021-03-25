@@ -4,7 +4,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "build": "yarn -s clean && tsc --outDir ./build",
+    "build": "yarn prisma migrate deploy && yarn -s clean && tsc --outDir ./build",
     "clean": "rm -rf ./build",
     "db:clean": "cross-env DEBUG=vlepo:* ts-node prisma/seed.ts -c",
     "db:migrate": "prisma migrate dev",

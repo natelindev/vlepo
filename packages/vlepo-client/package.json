@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "prebuild": "yarn typecheck && yarn lint && yarn get-schema && yarn generate",
+    "prebuild": "yarn generate",
     "build": "next build",
     "debug": "NODE_OPTIONS='--inspect=5009' next dev",
     "dev": "cross-env DEBUG=vlepo:* next dev",
