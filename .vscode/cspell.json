@@ -4,6 +4,7 @@
     "words": [
         "bodyparser",
         "codegen",
+        "Consts",
         "csrf",
         "Footbar",
         "googleusercontent",

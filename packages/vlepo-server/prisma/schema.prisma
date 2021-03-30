@@ -343,7 +343,7 @@ model OAuthRefreshToken {
 
 }
 
-enum OAuthGrants {
+enum OAuthGrant {
   authorization_code
   client_credentials
   refresh_token
@@ -351,9 +351,9 @@ enum OAuthGrants {
 }
 
 model OAuthClient {
-  id                   String        @id
-  secret               String        @unique
-  grants               OAuthGrants[]
+  id                   String       @id
+  secret               String       @unique
+  grants               OAuthGrant[]
   redirectUris         String[]
   accessTokenLifetime  Int?
   refreshTokenLifetime Int?

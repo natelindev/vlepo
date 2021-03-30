@@ -5,7 +5,7 @@ import debugInit from 'debug';
 import { lorem, name } from 'faker';
 import meow from 'meow';
 
-import { OAuthGrants, PostStatus, PrismaClient } from '@prisma/client';
+import { OAuthGrant, PostStatus, PrismaClient } from '@prisma/client';
 import { OAuthConsts } from '@vlepo/shared';
 
 const debug = debugInit('vlepo:db:seed');
@@ -128,7 +128,7 @@ const seedBD = async (prisma: PrismaClient) => {
             value: entity,
           })),
         },
-        grants: Object.values(OAuthGrants),
+        grants: Object.values(OAuthGrant),
       },
     });
     debug(`seeded default oauth client`);
