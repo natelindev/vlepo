@@ -26,9 +26,8 @@ export type ArticleCardProps = { relay: RelayProp; post: ArticleCard_post } & {
 
 const ArticleCard = (props: ArticleCardProps) => {
   const { post, width } = props;
-  const { title, headerImageUrl, content, createdAt, id, tags, owner, minuteRead } = post;
+  const { title, headerImageUrl, abstract, createdAt, id, tags, owner, minuteRead } = post;
 
-  const abstract = content && content.length > 150 ? content.slice(0, 150) : content;
   return (
     <BaseArticleCard href={`/posts/${id}`} width={width}>
       {headerImageUrl && (
@@ -85,7 +84,7 @@ export default createFragmentContainer(ArticleCard, {
     fragment ArticleCard_post on Post {
       id
       title
-      content
+      abstract
       headerImageUrl
       createdAt
       minuteRead

@@ -28,6 +28,30 @@ export const Post = objectType({
     t.model.editedAt();
     t.model.createdAt();
     t.model.updatedAt();
+    t.model.viewCount();
+    t.int('reactionCount', {
+      async resolve({ id }, _args, ctx) {
+        return ctx.prisma.reaction.count({
+          where: {
+            postId: id,
+          },
+        });
+      },
+    });
+    t.int('commentCount', {
+      async resolve({ id }, _args, ctx) {
+        return ctx.prisma.comment.count({
+          where: {
+            postId: id,
+          },
+        });
+      },
+    });
+    t.string('abstract', {
+      resolve({ content }) {
+        return content ? content.slice(0, 150) : null;
+      },
+    });
     t.connectionField('commentsConnection', {
       type: Comment,
       async resolve(_root, args, ctx) {

@@ -1,4 +1,4 @@
-import { height, HeightProps, margin, width, WidthProps } from 'styled-system';
+import { height, HeightProps, margin, MarginProps, width, WidthProps } from 'styled-system';
 
 import styled from '@emotion/styled';
 
@@ -17,7 +17,7 @@ export const CardBody = styled.div`
   padding: 1.25rem;
 `;
 
-export const ConstrainedCard = styled(BaseCard)<WidthProps & HeightProps>`
+export const ConstrainedCard = styled(BaseCard)<WidthProps & HeightProps & MarginProps>`
   ${width}
   ${height}
   ${margin}

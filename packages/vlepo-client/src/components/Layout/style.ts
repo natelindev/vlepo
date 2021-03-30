@@ -1,3 +1,5 @@
+import { margin, MarginProps, width, WidthProps } from 'styled-system';
+
 import styled from '@emotion/styled';
 
 export const Header = styled.header`
@@ -20,7 +22,9 @@ export const Footer = styled.footer`
   background-color: ${(props) => props.theme.colors.backgroundSecondary};
 `;
 
-export const Row = styled.div`
+export const Row = styled.div<WidthProps & MarginProps>`
+  ${width}
+  ${margin}
   display: flex;
 `;
 
