@@ -137,7 +137,7 @@ export const saveToken = async (token: SaveTokenInput, client: OAuthClient, user
   debug(`Save token ${token.accessToken}`);
 
   const processedScopes = Array.isArray(token.scope) ? token.scope : token.scope?.split(' ') ?? [];
-  const tokenOnly = await match<SaveTokenInput, Promise<SaveTokenInput>>(token)
+  const tokenOnly = await match(token)
     .with(
       {
         refreshToken: __.string,

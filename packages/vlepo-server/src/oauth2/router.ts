@@ -4,7 +4,7 @@ import debugInit from 'debug';
 import Router from 'koa-router';
 import { match } from 'ts-pattern';
 
-import { OAuthClient, OAuthProviders, User, UserRole } from '@prisma/client';
+import { OAuthClient, OAuthProviders } from '@prisma/client';
 import { envDetect, IdToken, OAuthConsts } from '@vlepo/shared';
 
 import { ExtendedContext } from '../context';
@@ -89,10 +89,7 @@ router.get('/callback', async (ctx) => {
     return ctx.redirect(`${process.env.CLIENT_URL}/oauth2-redirect&error=${error}`);
   }
 
-  const connectedUser = await match<
-    OAuthProviders,
-    Promise<(User & { roles: UserRole[] }) | undefined>
-  >(provider)
+  const connectedUser = await match(provider)
     .with(OAuthProviders.google, async () => {
       const { profile } = response as GrantGoogleResponse;
       const existingUser = await ctx.prisma.user.findFirst({

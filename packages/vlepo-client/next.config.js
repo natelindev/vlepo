@@ -17,15 +17,10 @@ module.exports = {
       'lh9.googleusercontent.com',
     ],
   },
-  pageExtensions: ['tsx'],
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.node = {
-        fs: 'empty',
-      };
-    }
-    return config;
+  future: {
+    webpack5: true
   },
+  pageExtensions: ['tsx'],
   // Proxy to Backend
   async rewrites() {
     return [
