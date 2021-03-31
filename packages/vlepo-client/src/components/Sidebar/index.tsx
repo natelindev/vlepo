@@ -4,7 +4,8 @@ import React from 'react';
 
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { OAuthConsts } from '@vlepo/shared';
+
+// import { OAuthConsts } from '@vlepo/shared';
 
 type SidebarProps = {
   expand?: boolean;
@@ -66,14 +67,17 @@ const Sidebar = (props: SidebarProps): React.ReactElement => {
       </SidebarItem>
 
       <SidebarGroup>
-        {OAuthConsts.entities.map((e) => (
-          <Link key={e} href={`/dashboard/${e}`} passHref>
-            <SidebarItem active={router.pathname === `/dashboard/${e}`}>
-              {e.charAt(0).toUpperCase()}
-              {e.slice(1)}
-            </SidebarItem>
-          </Link>
-        ))}
+        {
+          // OAuthConsts.entities
+          ['blog', 'post'].map((e) => (
+            <Link key={e} href={`/dashboard/${e}`} passHref>
+              <SidebarItem active={router.pathname === `/dashboard/${e}`}>
+                {e.charAt(0).toUpperCase()}
+                {e.slice(1)}
+              </SidebarItem>
+            </Link>
+          ))
+        }
       </SidebarGroup>
     </BaseSidebar>
   );

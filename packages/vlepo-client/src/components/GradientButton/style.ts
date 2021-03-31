@@ -2,14 +2,14 @@ import { Button } from 'src/components/Button';
 
 import styled from '@emotion/styled';
 
-export const isBright = (hexColor: `#${string}`) => {
+export const isBright = (hexColor: string) => {
   const [r, g, b] = [0, 2, 4].map((p) => parseInt(hexColor.substr(p, 2), 16));
   return (r * 299 + g * 587 + b * 114) / 1000 >= 128;
 };
 
 export const BaseGradientButton = styled(Button)<{
-  colorA: `#${string}`;
-  colorB: `#${string}`;
+  colorA: string;
+  colorB: string;
 }>`
   position: relative;
   border: none;

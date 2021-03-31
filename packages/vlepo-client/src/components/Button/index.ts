@@ -29,7 +29,7 @@ const variants = variant({
 
 export type ButtonBaseProps = {
   variant?: 'small' | 'medium' | 'large';
-  children?: React.ReactChild;
+  children?: React.ReactChild | React.ReactChild[];
 } & ColorProps &
   FontSizeProps &
   WidthProps &
@@ -46,6 +46,7 @@ export const Button = styled.button<ButtonBaseProps>`
   border: none;
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
+  border-radius: ${(props) => props.theme.radii.default};
   line-height: ${(props) => props.theme.lineHeights.content};
 
   &:hover {

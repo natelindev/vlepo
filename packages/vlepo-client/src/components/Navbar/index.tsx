@@ -1,12 +1,18 @@
-﻿import dynamic from 'next/dynamic';
-import Link from 'next/link';
+﻿import Link from 'next/link';
 import React, { useState } from 'react';
+import { animated, useTransition } from 'react-spring';
+import { useRecoilState } from 'recoil';
+import { themeState } from 'src/atoms/theme';
 import Dropdown from 'src/components/Dropdown';
+import { darkTheme, lightTheme } from 'src/shared/theme';
 
+import { DarkMode, LightMode } from '@emotion-icons/material-outlined';
 import { css } from '@emotion/react';
 
+import ClientOnly from '../ClientOnly';
 import LoginModal from '../Modals/LoginModal';
 import NavLink from '../NavLink';
+import UserSection from '../UserSection';
 import {
   BaseNavbar,
   LeftNavCollapse,
@@ -18,12 +24,15 @@ import {
   RightNavCollapse,
 } from './style';
 
-const UserSection = dynamic(() => import('src/components/UserSection'), {
-  ssr: false,
-});
-
 const Navbar: React.FC = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [theme, setTheme] = useRecoilState(themeState);
+
+  const transitions = useTransition(theme.name === 'dark', null, {
+    from: { position: 'absolute', opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  });
 
   return (
     <BaseNavbar>
@@ -57,7 +66,27 @@ const Navbar: React.FC = () => {
       <RightNavCollapse>
         <NavbarNav>
           <NavSearchBar />
-          <UserSection setShowLoginModal={setShowLoginModal} />
+          <NavItem
+            width="1.5rem"
+            mt="7px"
+            mx="1.2rem"
+            onClick={() => setTheme(theme.name === 'dark' ? lightTheme : darkTheme)}
+          >
+            {transitions.map(({ item, props }) =>
+              item ? (
+                <animated.div style={props}>
+                  <DarkMode size={24} />
+                </animated.div>
+              ) : (
+                <animated.div style={props}>
+                  <LightMode size={24} />
+                </animated.div>
+              ),
+            )}
+          </NavItem>
+          <ClientOnly>
+            <UserSection setShowLoginModal={setShowLoginModal} />
+          </ClientOnly>
         </NavbarNav>
       </RightNavCollapse>
       {/* <NavbarToggler className="animated--toggler" /> */}

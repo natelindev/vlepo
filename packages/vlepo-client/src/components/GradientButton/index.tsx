@@ -1,16 +1,26 @@
 import Link from 'next/link';
 import React from 'react';
 
+import { useTheme } from '@emotion/react';
+
+import { Button } from '../Button';
 import { BaseGradientButton, GradientButtonContent } from './style';
 
 export type GradientButtonProps = {
   link?: string;
-  colorA: `#${string}`;
-  colorB: `#${string}`;
-} & React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+  colorA?: string;
+  colorB?: string;
+} & React.ComponentProps<typeof Button>;
 
-const GradientButton: React.FC<GradientButtonProps> = (props: GradientButtonProps) => {
-  const { colorA, colorB, children, link, ...rest } = props;
+const GradientButton = (props: GradientButtonProps) => {
+  const theme = useTheme();
+  const {
+    colorA = theme.colors.primary,
+    colorB = theme.colors.secondary,
+    children,
+    link,
+    ...rest
+  } = props;
   return (
     <BaseGradientButton colorA={colorA} colorB={colorB} {...rest}>
       <GradientButtonContent>

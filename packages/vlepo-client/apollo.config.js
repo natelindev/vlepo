@@ -6,6 +6,7 @@ const {
   config,
   directivesFile,
   includesGlobPattern,
+  // eslint-disable-next-line import/no-extraneous-dependencies
 } = require('vscode-apollo-relay').generateConfig();
 
 module.exports = {

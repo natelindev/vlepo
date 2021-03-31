@@ -15,7 +15,7 @@ export type CardProps = {
   colorA?: string;
   colorB?: string;
   href?: string;
-} & typeof ConstrainedCard;
+} & React.ComponentProps<typeof ConstrainedCard>;
 
 const Card = React.forwardRef((props: CardProps, _ref: React.Ref<HTMLDivElement | null>) => {
   const { children, className, href, ...rest } = props;

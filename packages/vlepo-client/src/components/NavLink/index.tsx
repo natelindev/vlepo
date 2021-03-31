@@ -8,7 +8,7 @@ type NavLinkProps = {
   href?: string;
   children: React.ReactNode;
   active?: boolean;
-} & React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
+} & React.ComponentProps<typeof BaseNavLink>;
 
 export default function NavLink(props: NavLinkProps): React.ReactElement {
   const router = useRouter();

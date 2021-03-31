@@ -6,7 +6,7 @@ import { lorem, name } from 'faker';
 import meow from 'meow';
 
 import { OAuthGrant, PostStatus, PrismaClient } from '@prisma/client';
-import { OAuthConsts } from '@vlepo/shared';
+import { DEFAULT_BLOG_ID, OAuthConsts } from '@vlepo/shared';
 
 const debug = debugInit('vlepo:db:seed');
 
@@ -132,6 +132,15 @@ const seedBD = async (prisma: PrismaClient) => {
       },
     });
     debug(`seeded default oauth client`);
+
+    await prisma.blog.create({
+      data: {
+        id: DEFAULT_BLOG_ID,
+        name: "Nathaniel's Blog",
+        visitorCount: 0,
+      },
+    });
+    debug(`seeded base blog`);
   } catch (err) {
     debug(err);
     await cleanDB(prisma);

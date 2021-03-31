@@ -13,10 +13,7 @@ const BaseAvatar = styled.div<BaseAvatarProps>`
   width: ${(props) => props.size}px;
 `;
 
-type AvatarProps = { imageUrl: string; size: number } & React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
->;
+type AvatarProps = { imageUrl: string; size: number } & React.ComponentProps<typeof BaseAvatar>;
 
 const Avatar = (props: AvatarProps) => {
   const { imageUrl, size = 24, ...rest } = props;

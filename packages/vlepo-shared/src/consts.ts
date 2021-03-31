@@ -31,4 +31,5 @@ const OAuthConsts = {
   },
 };
 
-export { OAuthConsts };
+const DEFAULT_BLOG_ID = 'cdb78306-e62e-442d-8728-19d825c1388d';
+export { OAuthConsts, DEFAULT_BLOG_ID };

@@ -25,9 +25,3 @@ export const GreyText = styled.h5`
   padding: 0;
   margin: 0;
 `;
-
-export const Text = styled(GreyText)`
-  font-size: inherit;
-  font-weight: 400;
-  margin-left: 1.75rem;
-`;

@@ -1,3 +1,5 @@
+import { margin, MarginProps, width, WidthProps } from 'styled-system';
+
 import styled from '@emotion/styled';
 
 import Logo from '../Logo';
@@ -50,7 +52,10 @@ export const NavbarNav = styled.div`
   list-style: none;
 `;
 
-export const NavItem = styled.li`
+export const NavItem = styled.li<WidthProps & MarginProps>`
+  cursor: pointer;
+  ${width}
+  ${margin}
   text-decoration: none;
 `;
 
