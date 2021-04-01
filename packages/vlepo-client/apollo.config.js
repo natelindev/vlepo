@@ -17,6 +17,6 @@ module.exports = {
       localSchemaFile: './src/schema/schema.graphql',
     },
     includes: [directivesFile, path.join('./src', includesGlobPattern(['ts', 'tsx']))],
-    excludes: ['**/*.graphql'],
+    excludes: ['**/schema.graphql'],
   },
 };

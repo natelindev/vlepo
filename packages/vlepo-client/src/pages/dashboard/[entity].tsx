@@ -1,15 +1,8 @@
 /* eslint-disable react/destructuring-assignment */
 import { useRouter } from 'next/router';
 import { graphql } from 'react-relay';
-import { useQuery } from 'relay-hooks';
-import {
-  Entity_blogSectionQuery,
-  Entity_blogSectionQueryResponse,
-} from 'src/__generated__/Entity_blogSectionQuery.graphql';
-import {
-  Entity_postSectionQuery,
-  Entity_postSectionQueryResponse,
-} from 'src/__generated__/Entity_postSectionQuery.graphql';
+import { usePagination, useQuery } from 'relay-hooks';
+import { Entity_blogSectionQuery } from 'src/__generated__/Entity_blogSectionQuery.graphql';
 import ClientOnly from 'src/components/ClientOnly';
 import PostCard from 'src/components/Dashboard/PostCard';
 import GradientButton from 'src/components/GradientButton';
@@ -19,21 +12,19 @@ import PlaceHolder from 'src/components/PlaceHolder';
 import Sidebar from 'src/components/Sidebar';
 import { match } from 'ts-pattern';
 
-import { DEFAULT_BLOG_ID } from '@vlepo/shared';
+import { defaultIds } from '@vlepo/shared';
 
 import { Container, DashboardCard, DashboardMain, Numbers, NumbersLabel } from './style';
 
-const postSectionQuery = graphql`
-  query Entity_postSectionQuery {
-    PostsConnection(first: 5) @connection(key: "Entity_PostsConnection") {
+const fragmentSpec = graphql`
+  fragment Entity_user on User
+  @argumentDefinitions(count: { type: "Int", defaultValue: 5 }, cursor: { type: "String" })
+  @refetchable(queryName: "PostRefetchQuery") {
+    postsConnection(first: $count, after: $cursor) @connection(key: "UserPosts") {
       edges {
         node {
           ...PostCard_post
         }
-      }
-      pageInfo {
-        hasPreviousPage
-        hasNextPage
       }
     }
   }
@@ -50,34 +41,22 @@ const blogSectionQuery = graphql`
   }
 `;
 
-const entityQueryMap = {
-  blog: blogSectionQuery,
-  post: postSectionQuery,
-};
-
-type entityQueryTypeMap = {
-  blog: Entity_blogSectionQuery;
-  post: Entity_postSectionQuery;
-};
-
-type entityQueryResponseMap = {
-  blog: Entity_blogSectionQueryResponse;
-  post: Entity_postSectionQueryResponse;
-};
-
-type entityType = keyof entityQueryTypeMap;
-
-type BlogSectionProps = Entity_blogSectionQueryResponse;
-
 export async function getServerSideProps() {
   return {
     props: {},
   };
 }
 
-const BlogSection = (props: BlogSectionProps) => {
-  const { postViewCount, postReactionCount, postCommentCount, userCount } = props.blog
-    ? props.blog
+const BlogSection = () => {
+  const { error, data } = useQuery<Entity_blogSectionQuery>(blogSectionQuery, {
+    id: defaultIds.blog,
+  });
+
+  if (error) return <div>{error.message}</div>;
+  if (!data) return <PlaceHolder />;
+
+  const { postViewCount, postReactionCount, postCommentCount, userCount } = data.blog
+    ? data.blog
     : { postViewCount: 0, postReactionCount: 0, postCommentCount: 0, userCount: 0 };
 
   return (
@@ -105,15 +84,26 @@ const BlogSection = (props: BlogSectionProps) => {
   );
 };
 
+const PostSection = () => {
+  const { data, isLoadingNext, hasNext, loadNext } = usePagination(fragmentSpec, props);
+
+  return (
+    <>
+      <Row>
+        <GradientButton width="5rem" ml="auto" mr="1rem">
+          Create
+        </GradientButton>
+      </Row>
+      {/* {
+            e?.node && <PostCard key={((e.node as unknown) as { id: string }).id} post={e.node} />,
+        } */}
+    </>
+  );
+};
+
 const Dashboard = () => {
   const router = useRouter();
-  const entity = router.query.entity as entityType;
-  const { error, data } = useQuery<entityQueryTypeMap[typeof entity]>(entityQueryMap[entity], {
-    id: DEFAULT_BLOG_ID,
-  });
-
-  if (error) return <div>{error.message}</div>;
-  if (!data || router.isFallback) return <PlaceHolder />;
+  const entity = router.query.entity as string;
 
   return (
     <Layout>
@@ -122,26 +112,8 @@ const Dashboard = () => {
         <ClientOnly>
           <DashboardMain>
             {match(entity)
-              .with('blog', (e) => {
-                const { blog } = data as entityQueryResponseMap[typeof e];
-                return <BlogSection blog={blog} />;
-              })
-              .with('post', (e) => {
-                const { PostsConnection } = data as entityQueryResponseMap[typeof e];
-                return (
-                  <>
-                    <Row>
-                      <GradientButton width="5rem" ml="auto" mr="1rem">
-                        Create
-                      </GradientButton>
-                    </Row>
-                    {PostsConnection?.edges?.map((e) => (
-                      // @ts-expect-error relay-ts-compiler-limitation
-                      <PostCard key={e?.node?.id} post={e?.node} />
-                    ))}
-                  </>
-                );
-              })
+              .with('blog', () => <BlogSection />)
+              .with('post', () => <PostSection />)
               .run()}
           </DashboardMain>
         </ClientOnly>

@@ -9,7 +9,9 @@ import { Tag } from './Tag';
 export const Project = objectType({
   name: 'Project',
   definition(t) {
-    t.model.id();
+    t.nonNull.id('id', {
+      resolve: (root) => root.id,
+    });
     t.model.name();
     t.model.content();
     t.model.url();

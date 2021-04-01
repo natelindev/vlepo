@@ -3,7 +3,9 @@ import { objectType } from 'nexus';
 export const Image = objectType({
   name: 'Image',
   definition(t) {
-    t.model.id();
+    t.nonNull.id('id', {
+      resolve: (root) => root.id,
+    });
     t.model.owner();
     t.model.mainColor();
     t.model.secondaryColor();

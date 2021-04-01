@@ -6,7 +6,7 @@ import { lorem, name } from 'faker';
 import meow from 'meow';
 
 import { OAuthGrant, PostStatus, PrismaClient } from '@prisma/client';
-import { DEFAULT_BLOG_ID, OAuthConsts } from '@vlepo/shared';
+import { defaultIds, OAuthConsts } from '@vlepo/shared';
 
 const debug = debugInit('vlepo:db:seed');
 
@@ -32,6 +32,7 @@ const seedBD = async (prisma: PrismaClient) => {
   try {
     const admin = await prisma.user.create({
       data: {
+        id: defaultIds.admin,
         email: 'admin@admin.com',
         password: await argon2.hash('default-password'),
         name: `${name.firstName()} ${name.lastName()}`,
@@ -135,7 +136,7 @@ const seedBD = async (prisma: PrismaClient) => {
 
     await prisma.blog.create({
       data: {
-        id: DEFAULT_BLOG_ID,
+        id: defaultIds.blog,
         name: "Nathaniel's Blog",
         visitorCount: 0,
       },

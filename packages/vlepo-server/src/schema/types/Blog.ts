@@ -3,7 +3,9 @@ import { objectType } from 'nexus';
 export const Blog = objectType({
   name: 'Blog',
   definition(t) {
-    t.model.id();
+    t.nonNull.id('id', {
+      resolve: (root) => root.id,
+    });
     t.model.name();
     t.int('postViewCount', {
       async resolve(_source, _args, ctx) {

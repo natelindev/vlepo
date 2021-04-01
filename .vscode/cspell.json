@@ -12,6 +12,7 @@
         "nowrap",
         "openid",
         "prebuild",
+        "refetchable",
         "schemaname",
         "tablename",
         "typecheck",

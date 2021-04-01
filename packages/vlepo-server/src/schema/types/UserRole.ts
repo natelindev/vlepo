@@ -7,7 +7,9 @@ import { User } from './User';
 export const UserRole = objectType({
   name: 'UserRole',
   definition(t) {
-    t.model.id();
+    t.nonNull.id('id', {
+      resolve: (root) => root.id,
+    });
     t.model.name();
     t.model.value();
     t.model.users();

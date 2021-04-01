@@ -12,7 +12,9 @@ import { Tag } from './Tag';
 export const Post = objectType({
   name: 'Post',
   definition(t) {
-    t.model.id();
+    t.nonNull.id('id', {
+      resolve: (root) => root.id,
+    });
     t.model.owner();
     t.model.title();
     t.model.content();

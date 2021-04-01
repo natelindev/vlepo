@@ -11,7 +11,10 @@ import { Thought } from './Thought';
 export const User = objectType({
   name: 'User',
   definition(t) {
-    t.model.id();
+    t.implements('Node');
+    t.nonNull.id('id', {
+      resolve: (root) => root.id,
+    });
     t.model.name();
     t.model.email({ resolve: OAuthCheckScope('user:email') });
     t.model.website();

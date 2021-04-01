@@ -7,7 +7,9 @@ import { Image } from './Image';
 export const Comment = objectType({
   name: 'Comment',
   definition(t) {
-    t.model.id();
+    t.nonNull.id('id', {
+      resolve: (root) => root.id,
+    });
     t.model.owner();
     t.model.parent();
     t.model.childComments();

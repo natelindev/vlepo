@@ -1,6 +1,10 @@
+import { margin, MarginProps, width, WidthProps } from 'styled-system';
+
 import styled from '@emotion/styled';
 
-const PlaceHolder = styled.div<{ width?: string; height?: string }>`
+const PlaceHolder = styled.div<WidthProps & MarginProps>`
+  ${width}
+  ${margin}
   @keyframes placeHolderShimmer {
     0% {
       background-position: 0 0;
@@ -13,8 +17,6 @@ const PlaceHolder = styled.div<{ width?: string; height?: string }>`
   animation: placeHolderShimmer 1.5s ease infinite;
   background: linear-gradient(90deg, #f6f7f8, #d4d6d8, #f6f7f8);
   background-size: 200%;
-  width: ${(props) => props.width ?? '100%'};
-  height: ${(props) => props.height ?? '100%'};
   position: relative;
   overflow: hidden;
 `;

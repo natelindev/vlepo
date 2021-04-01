@@ -2,6 +2,8 @@ import * as NexusSchema from 'nexus';
 import { nexusPrisma } from 'nexus-plugin-prisma';
 import * as path from 'path';
 
+import { relayNodeInterfacePlugin } from '@jcm/nexus-plugin-relay-node-interface';
+
 import * as types from './types';
 
 export default NexusSchema.makeSchema({
@@ -10,8 +12,14 @@ export default NexusSchema.makeSchema({
     nexusPrisma({
       experimentalCRUD: true,
     }),
-    NexusSchema.connectionPlugin(),
+    NexusSchema.connectionPlugin({ includeNodesField: true }),
     NexusSchema.fieldAuthorizePlugin(),
+    // relayNodeInterfacePlugin({
+    //   idFetcher: (val, ctx: ExtendedContext, info) => {
+    //     return ctx.prisma;
+    //   },
+    //   resolveType: (object) => object.__typename,
+    // }),
   ],
   outputs: {
     schema: path.join(__dirname, '../../../vlepo-client/src/schema/schema.graphql'),

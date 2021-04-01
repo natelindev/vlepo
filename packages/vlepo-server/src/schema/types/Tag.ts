@@ -10,7 +10,9 @@ import { Thought } from './Thought';
 export const Tag = objectType({
   name: 'Tag',
   definition(t) {
-    t.model.id();
+    t.nonNull.id('id', {
+      resolve: (root) => root.id,
+    });
     t.model.name();
     t.model.posts();
     t.model.thoughts();

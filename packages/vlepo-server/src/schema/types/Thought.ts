@@ -11,7 +11,9 @@ import { Tag } from './Tag';
 export const Thought = objectType({
   name: 'Thought',
   definition(t) {
-    t.model.id();
+    t.nonNull.id('id', {
+      resolve: (root) => root.id,
+    });
     t.model.content();
     t.model.status();
     t.model.images();
