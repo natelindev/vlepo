@@ -153,7 +153,7 @@ const Dashboard = () => {
             {match(entity)
               .with('blog', () => <BlogSection />)
               .with('post', () => data.viewer && <PostSection user={data.viewer} />)
-              .run()}
+              .otherwise(() => null)}
           </DashboardMain>
         </ClientOnly>
       </Container>
