@@ -4,6 +4,7 @@ import { graphql } from 'react-relay';
 import { usePagination, useQuery } from 'relay-hooks';
 import { Entity_blogSectionQuery } from 'src/__generated__/Entity_blogSectionQuery.graphql';
 import { Entity_user$key } from 'src/__generated__/Entity_user.graphql';
+import { Entity_viewQuery } from 'src/__generated__/Entity_viewQuery.graphql';
 import { PostRefetchQuery } from 'src/__generated__/PostRefetchQuery.graphql';
 import ClientOnly from 'src/components/ClientOnly';
 import PostCard from 'src/components/Dashboard/PostCard';
@@ -20,7 +21,7 @@ import { Container, DashboardCard, DashboardMain, Numbers, NumbersLabel } from '
 
 const fragmentSpec = graphql`
   fragment Entity_user on User
-  @argumentDefinitions(count: { type: "Int", defaultValue: 5 }, cursor: { type: "String" })
+  @argumentDefinitions(count: { type: "Int", defaultValue: 2 }, cursor: { type: "String" })
   @refetchable(queryName: "PostRefetchQuery") {
     postsConnection(first: $count, after: $cursor) @connection(key: "Entity_postsConnection") {
       edges {
@@ -39,6 +40,14 @@ const blogSectionQuery = graphql`
       postReactionCount
       postCommentCount
       userCount
+    }
+  }
+`;
+
+const viewQuery = graphql`
+  query Entity_viewQuery {
+    viewer {
+      ...Entity_user
     }
   }
 `;
@@ -103,9 +112,20 @@ const PostSection = (props: PostSectionProps) => {
           Create
         </GradientButton>
       </Row>
-      {/* {
-            ?.node && <PostCard key={((e.node as unknown) as { id: string }).id} post={e.node} />,
-        } */}
+      {user &&
+        user.postsConnection?.edges?.length &&
+        user.postsConnection.edges.map(
+          (e) =>
+            e &&
+            e.node && <PostCard key={((e.node as unknown) as { id: string }).id} post={e.node} />,
+        )}
+      {hasNext && (
+        <Row>
+          <GradientButton width="100%" mx="3rem" onClick={() => loadNext(2)}>
+            Load More
+          </GradientButton>
+        </Row>
+      )}
     </>
   );
 };
@@ -113,6 +133,16 @@ const PostSection = (props: PostSectionProps) => {
 const Dashboard = () => {
   const router = useRouter();
   const entity = router.query.entity as string;
+
+  const { error, data } = useQuery<Entity_viewQuery>(viewQuery, {});
+
+  if (error) {
+    return router.replace('/401');
+  }
+
+  if (!data || !data.viewer) {
+    return <PlaceHolder />;
+  }
 
   return (
     <Layout>
@@ -122,7 +152,7 @@ const Dashboard = () => {
           <DashboardMain>
             {match(entity)
               .with('blog', () => <BlogSection />)
-              .with('post', () => <PostSection />)
+              .with('post', () => data.viewer && <PostSection user={data.viewer} />)
               .run()}
           </DashboardMain>
         </ClientOnly>

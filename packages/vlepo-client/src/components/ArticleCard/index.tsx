@@ -88,10 +88,6 @@ export default createFragmentContainer(ArticleCard, {
       headerImageUrl
       createdAt
       minuteRead
-      tags {
-        id
-        name
-      }
       owner {
         name
         profileImageUrl

@@ -85,5 +85,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     // support for __typename
     'no-underscore-dangle': 'off',
+    // support for relay connection
+    '@typescript-eslint/no-non-null-assertion': 'off',
   },
 };

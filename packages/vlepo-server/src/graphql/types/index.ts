@@ -17,3 +17,4 @@ export * as Query from './Query';
 export * as Mutation from './Mutation';
 export * as Login from './Login';
 export * as Node from './Node';
+export * as Viewer from './Viewer';

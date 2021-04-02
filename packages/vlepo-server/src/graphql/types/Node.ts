@@ -22,7 +22,7 @@ export const node = queryField((t) => {
     },
     description: 'Fetches an object given its global ID',
     resolve: async (_obj, { id }, ctx) => {
-      const result = await Promise.race(
+      const result = await Promise.all(
         entities.map((et) =>
           // @ts-expect-error prisma client workaround
           ctx.prisma[et].findFirst({
@@ -32,7 +32,7 @@ export const node = queryField((t) => {
           }),
         ),
       );
-      return result;
+      return result.find((r) => r !== null);
     },
   });
 });
@@ -53,7 +53,7 @@ export const nodes = queryField((t) => {
     },
     description: 'Fetches objects given their global IDs',
     resolve: async (_obj, { ids }, ctx) => {
-      const result = await Promise.race(
+      const result = await Promise.all(
         entities.map((et) =>
           // @ts-expect-error prisma client workaround
           ctx.prisma[et].findMany({
@@ -65,7 +65,7 @@ export const nodes = queryField((t) => {
           }),
         ),
       );
-      return result;
+      return result.find((r) => r.length > 0);
     },
   });
 });
