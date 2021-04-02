@@ -7,11 +7,10 @@ import { match } from 'ts-pattern';
 import { OAuthClient, OAuthProviders } from '@prisma/client';
 import { envDetect, IdToken, OAuthConsts } from '@vlepo/shared';
 
-import { ExtendedContext } from '../context';
 import { token } from './middleware';
 import { generateAccessToken, saveToken } from './model';
 
-const router = new Router<unknown, ExtendedContext>({
+const router = new Router({
   prefix: '/api/oauth2',
 });
 
@@ -104,7 +103,7 @@ router.get('/callback', async (ctx) => {
       if (existingUser) {
         return existingUser;
       }
-      return ctx.prisma?.user.create({
+      return ctx.prisma.user.create({
         data: {
           email: profile.email,
           name: profile.name,

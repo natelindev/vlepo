@@ -3,6 +3,7 @@ import { objectType } from 'nexus';
 export const Blog = objectType({
   name: 'Blog',
   definition(t) {
+    t.implements('Node');
     t.nonNull.id('id', {
       resolve: (root) => root.id,
     });

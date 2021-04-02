@@ -9,5 +9,5 @@ export type {
   RequireAndNotNullSome,
   RequireAtLeastOne,
 } from './utilTypes';
-export { OAuthConsts, defaultIds } from './consts';
+export { OAuthConsts, defaultIds, entities } from './consts';
 export type { IdToken } from './types';

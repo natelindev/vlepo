@@ -9,6 +9,7 @@ import { Tag } from './Tag';
 export const Project = objectType({
   name: 'Project',
   definition(t) {
+    t.implements('Node');
     t.nonNull.id('id', {
       resolve: (root) => root.id,
     });

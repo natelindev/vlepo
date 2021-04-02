@@ -3,7 +3,7 @@ import grant from 'grant';
 import depthLimit from 'graphql-depth-limit';
 import koaPlayground from 'graphql-playground-middleware-koa';
 import { graphqlUploadKoa } from 'graphql-upload';
-import Koa from 'koa';
+import Koa, { Context } from 'koa';
 import bodyParser from 'koa-bodyparser';
 import graphqlHTTP from 'koa-graphql';
 import graphqlBatchHTTPWrapper from 'koa-graphql-batch';
@@ -11,19 +11,24 @@ import Router from 'koa-router';
 import session from 'koa-session';
 
 import cors from '@koa/cors';
-import { PrismaClient } from '@prisma/client';
 import { envDetect } from '@vlepo/shared';
 
-import { createContext } from './context';
+import prisma from './db';
+import schema from './graphql';
 import { Oauth2Config } from './oauth2/config';
 import { authenticate, authorize } from './oauth2/middleware';
 import authRouter from './oauth2/router';
-import schema from './schema';
+
+import type { PrismaClient } from '@prisma/client';
 
 const debug = debugInit('vlepo:app');
-const prisma = new PrismaClient();
 
-const app = new Koa<Koa.DefaultState, Koa.DefaultContext>();
+export type ExtendedContext = {
+  prisma: PrismaClient;
+  koaContext: Context;
+};
+
+const app = new Koa();
 
 if (!process.env.SECRET_KEY) {
   throw new Error('You need SECRET_KEY env variable in order to run');
@@ -65,12 +70,10 @@ app.use(authRouter.routes());
 
 const router = new Router();
 
-const customContext = createContext();
-
 const graphqlServer = graphqlHTTP((_req, _res, ctx) => ({
   schema,
   context: {
-    ...customContext,
+    prisma,
     koaContext: ctx,
   },
   validationRules: [depthLimit(10)],

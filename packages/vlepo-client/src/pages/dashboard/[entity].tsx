@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import { graphql } from 'react-relay';
 import { usePagination, useQuery } from 'relay-hooks';
 import { Entity_blogSectionQuery } from 'src/__generated__/Entity_blogSectionQuery.graphql';
+import { Entity_user$key } from 'src/__generated__/Entity_user.graphql';
+import { PostRefetchQuery } from 'src/__generated__/PostRefetchQuery.graphql';
 import ClientOnly from 'src/components/ClientOnly';
 import PostCard from 'src/components/Dashboard/PostCard';
 import GradientButton from 'src/components/GradientButton';
@@ -20,7 +22,7 @@ const fragmentSpec = graphql`
   fragment Entity_user on User
   @argumentDefinitions(count: { type: "Int", defaultValue: 5 }, cursor: { type: "String" })
   @refetchable(queryName: "PostRefetchQuery") {
-    postsConnection(first: $count, after: $cursor) @connection(key: "UserPosts") {
+    postsConnection(first: $count, after: $cursor) @connection(key: "Entity_postsConnection") {
       edges {
         node {
           ...PostCard_post
@@ -84,8 +86,15 @@ const BlogSection = () => {
   );
 };
 
-const PostSection = () => {
-  const { data, isLoadingNext, hasNext, loadNext } = usePagination(fragmentSpec, props);
+type PostSectionProps = {
+  user: Entity_user$key;
+};
+
+const PostSection = (props: PostSectionProps) => {
+  const { data: user, isLoadingNext, hasNext, loadNext } = usePagination<
+    PostRefetchQuery,
+    Entity_user$key
+  >(fragmentSpec, props.user);
 
   return (
     <>
@@ -95,7 +104,7 @@ const PostSection = () => {
         </GradientButton>
       </Row>
       {/* {
-            e?.node && <PostCard key={((e.node as unknown) as { id: string }).id} post={e.node} />,
+            ?.node && <PostCard key={((e.node as unknown) as { id: string }).id} post={e.node} />,
         } */}
     </>
   );

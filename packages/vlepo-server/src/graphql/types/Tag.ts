@@ -10,6 +10,7 @@ import { Thought } from './Thought';
 export const Tag = objectType({
   name: 'Tag',
   definition(t) {
+    t.implements('Node');
     t.nonNull.id('id', {
       resolve: (root) => root.id,
     });

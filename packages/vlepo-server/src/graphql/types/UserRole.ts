@@ -7,6 +7,7 @@ import { User } from './User';
 export const UserRole = objectType({
   name: 'UserRole',
   definition(t) {
+    t.implements('Node');
     t.nonNull.id('id', {
       resolve: (root) => root.id,
     });

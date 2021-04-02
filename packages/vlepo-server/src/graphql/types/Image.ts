@@ -1,13 +1,18 @@
 import { objectType } from 'nexus';
 
-export const Link = objectType({
-  name: 'Link',
+export const Image = objectType({
+  name: 'Image',
   definition(t) {
+    t.implements('Node');
     t.nonNull.id('id', {
       resolve: (root) => root.id,
     });
+    t.model.owner();
+    t.model.mainColor();
+    t.model.secondaryColor();
     t.model.url();
-    t.model.iconUrl();
+    t.model.height();
+    t.model.width();
     t.model.createdAt();
     t.model.updatedAt();
   },

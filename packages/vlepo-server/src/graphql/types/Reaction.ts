@@ -3,6 +3,7 @@ import { objectType } from 'nexus';
 export const Reaction = objectType({
   name: 'Reaction',
   definition(t) {
+    t.implements('Node');
     t.nonNull.id('id', {
       resolve: (root) => root.id,
     });

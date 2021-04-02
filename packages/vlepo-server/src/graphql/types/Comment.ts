@@ -7,6 +7,7 @@ import { Image } from './Image';
 export const Comment = objectType({
   name: 'Comment',
   definition(t) {
+    t.implements('Node');
     t.nonNull.id('id', {
       resolve: (root) => root.id,
     });

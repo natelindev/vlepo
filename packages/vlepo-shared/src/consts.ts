@@ -35,4 +35,21 @@ const defaultIds = {
   blog: 'cdb78306-e62e-442d-8728-19d825c1388d',
   admin: '2bfc749a-5aef-4d3a-ae38-d9c0368fd674',
 };
-export { OAuthConsts, defaultIds };
+
+const entities = [
+  'blog',
+  'comment',
+  'image',
+  'link',
+  'paper',
+  'post',
+  'project',
+  'rating',
+  'reaction',
+  'tag',
+  'thought',
+  'translation',
+  'user',
+  'userRole',
+] as const;
+export { OAuthConsts, defaultIds, entities };

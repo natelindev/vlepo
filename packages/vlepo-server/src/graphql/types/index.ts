@@ -16,4 +16,4 @@ export * as Image from './Image';
 export * as Query from './Query';
 export * as Mutation from './Mutation';
 export * as Login from './Login';
-export * as Interfaces from './Interfaces';
+export * as Node from './Node';

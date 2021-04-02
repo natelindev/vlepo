@@ -83,5 +83,7 @@ module.exports = {
     // react 17 no longer need imports
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
+    // support for __typename
+    'no-underscore-dangle': 'off',
   },
 };
