@@ -1,6 +1,6 @@
 ﻿import Link from 'next/link';
 import React, { useState } from 'react';
-import { animated, useTransition } from 'react-spring';
+import { a, useTransition } from 'react-spring';
 import { useRecoilState } from 'recoil';
 import { themeState } from 'src/atoms/theme';
 import Dropdown from 'src/components/Dropdown';
@@ -28,8 +28,8 @@ const Navbar: React.FC = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [theme, setTheme] = useRecoilState(themeState);
 
-  const transitions = useTransition(theme.name === 'dark', null, {
-    from: { position: 'absolute', opacity: 0 },
+  const transition = useTransition(theme.name === 'dark', {
+    from: { position: 'absolute' as const, opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
   });
@@ -72,15 +72,15 @@ const Navbar: React.FC = () => {
             mx="1.2rem"
             onClick={() => setTheme(theme.name === 'dark' ? lightTheme : darkTheme)}
           >
-            {transitions.map(({ item, props }) =>
+            {transition((style, item) =>
               item ? (
-                <animated.div style={props}>
+                <a.div style={style}>
                   <DarkMode size={24} />
-                </animated.div>
+                </a.div>
               ) : (
-                <animated.div style={props}>
+                <a.div style={style}>
                   <LightMode size={24} />
-                </animated.div>
+                </a.div>
               ),
             )}
           </NavItem>

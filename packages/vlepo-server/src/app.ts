@@ -3,7 +3,7 @@ import grant from 'grant';
 import depthLimit from 'graphql-depth-limit';
 import koaPlayground from 'graphql-playground-middleware-koa';
 import { graphqlUploadKoa } from 'graphql-upload';
-import Koa, { Context } from 'koa';
+import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import graphqlHTTP from 'koa-graphql';
 import graphqlBatchHTTPWrapper from 'koa-graphql-batch';
@@ -26,7 +26,7 @@ const debug = debugInit('vlepo:app');
 export type ExtendedContext = {
   prisma: PrismaClient;
   oauth: typeof oauth;
-} & Context;
+} & Koa.Context;
 
 const app = new Koa();
 

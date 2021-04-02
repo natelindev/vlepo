@@ -33,8 +33,14 @@ export default NexusSchema.makeSchema({
     }),
   ],
   outputs: {
-    schema: path.join(__dirname, '../../../vlepo-client/src/schema/schema.graphql'),
-    typegen: path.join(__dirname, '../../node_modules/@types/nexus-typegen/index.d.ts'),
+    schema: path.join(
+      __dirname,
+      '../../../vlepo-client/src/schema/schema.graphql'
+    ),
+    typegen: path.join(
+      __dirname,
+      '../../node_modules/@types/nexus-typegen/index.d.ts'
+    ),
   },
   contextType: {
     module: require.resolve('../app'),

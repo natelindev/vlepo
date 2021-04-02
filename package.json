@@ -8,7 +8,7 @@
     "packages/*"
   ],
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna bootstrap --scope=@vlepo/shared",
     "prebuild": "patch-package && yarn generate && lerna link && rm -rf node_modules/@types/react-relay/node_modules",
     "build": "lerna run build --parallel",
     "dev": "lerna run dev --parallel",

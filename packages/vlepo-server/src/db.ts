@@ -1,4 +1,4 @@
-import { match } from 'ts-pattern';
+import { __, match } from 'ts-pattern';
 
 import { PrismaClient } from '@prisma/client';
 
@@ -10,18 +10,24 @@ prisma.$use(async (params, next) => {
 
   return match(params.action)
     .with('findFirst', 'findUnique', () =>
-      result
-        ? {
-            ...result,
+      match(result)
+        .with([__], () =>
+          result.map((r: any) => ({
+            ...r,
             __typename: params.model,
-          }
-        : result,
+          }))
+        )
+        .with(null, () => null)
+        .otherwise(() => ({
+          ...result,
+          __typename: params.model,
+        }))
     )
     .with('findMany', () =>
       result.map((r: Record<string, unknown>) => ({
         ...r,
         __typename: params.model,
-      })),
+      }))
     )
     .otherwise(() => result);
 });
