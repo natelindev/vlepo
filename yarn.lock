@@ -1716,6 +1716,11 @@
   resolved "https://registry.npmjs.org/@iarna/toml/-/toml-2.2.5.tgz#b32366c89b43c6f8cefbdefac778b9c828e3ba8c"
   integrity sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==
 
+"@jcm/nexus-plugin-field-authentication@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@jcm/nexus-plugin-field-authentication/-/nexus-plugin-field-authentication-0.2.0.tgz#5f3e90b5454ce50cf5d4f29f99dfa03aad0c6d15"
+  integrity sha512-irCHOd9yNLYHsJ2doMOubtbrwmxZFjXKGPWO/7/C5XrOu6k6EWV8crk5h1pFOgOfpyEJS4XMLMMd7yYp7iad7g==
+
 "@koa/cors@3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@koa/cors/-/cors-3.1.0.tgz#618bb073438cfdbd3ebd0e648a76e33b84f3a3b2"

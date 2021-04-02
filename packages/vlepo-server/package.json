@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@devoxa/prisma-relay-cursor-connection": "1.1.1",
+    "@jcm/nexus-plugin-field-authentication": "0.2.0",
     "@koa/cors": "3.1.0",
     "@prisma/client": "2.20.1",
     "@vlepo/shared": "1.0.0",

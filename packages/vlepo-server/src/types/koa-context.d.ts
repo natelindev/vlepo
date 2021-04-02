@@ -1,7 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+import { ExtendedContext } from '../app';
 
 declare module 'koa' {
-  export interface BaseContext {
-    prisma: PrismaClient;
-  }
+  export interface BaseContext extends ExtendedContext {}
 }

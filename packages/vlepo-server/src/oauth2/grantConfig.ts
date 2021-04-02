@@ -1,6 +1,6 @@
 import { GrantConfig } from 'grant';
 
-export const Oauth2Config: GrantConfig = {
+export const grantConfig: GrantConfig = {
   defaults: {
     origin: process.env.API_URL,
     transport: 'session',

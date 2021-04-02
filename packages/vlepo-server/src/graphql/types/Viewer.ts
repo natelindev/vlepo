@@ -7,11 +7,15 @@ export const node = queryField((t) => {
     type: 'User',
     description: 'Current logged in user',
     resolve: async (_root, _args, ctx) => {
-      return ctx.prisma.user.findFirst({
+      const user = await ctx.prisma.user.findFirst({
         where: {
           id: defaultIds.admin,
         },
       });
+      if (user) {
+        user.password = null;
+      }
+      return user;
     },
   });
 });

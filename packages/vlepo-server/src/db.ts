@@ -9,10 +9,14 @@ prisma.$use(async (params, next) => {
   const result = await next(params);
 
   return match(params.action)
-    .with('findFirst', 'findUnique', () => ({
-      ...result,
-      __typename: params.model,
-    }))
+    .with('findFirst', 'findUnique', () =>
+      result
+        ? {
+            ...result,
+            __typename: params.model,
+          }
+        : result,
+    )
     .with('findMany', () =>
       result.map((r: Record<string, unknown>) => ({
         ...r,

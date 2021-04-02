@@ -12,7 +12,7 @@ export const Thought = objectType({
   name: 'Thought',
   definition(t) {
     t.implements('Node');
-    t.nonNull.id('id', {
+    t.id('id', {
       resolve: (root) => root.id,
     });
     t.model.content();

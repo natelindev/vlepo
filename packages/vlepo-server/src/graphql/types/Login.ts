@@ -65,7 +65,7 @@ export const LoginMutation = mutationField('LoginMutation', {
             })) as OAuthClient,
             u,
           );
-          ctx.koaContext.cookies.set(
+          ctx.cookies.set(
             'idToken',
             encode(
               JSON.stringify({
@@ -81,7 +81,7 @@ export const LoginMutation = mutationField('LoginMutation', {
               httpOnly: false,
             },
           );
-          ctx.koaContext.cookies.set('accessToken', accessToken, {
+          ctx.cookies.set('accessToken', accessToken, {
             secure: envDetect.isProd,
             httpOnly: false,
           });

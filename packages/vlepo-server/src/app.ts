@@ -15,8 +15,8 @@ import { envDetect } from '@vlepo/shared';
 
 import prisma from './db';
 import schema from './graphql';
-import { Oauth2Config } from './oauth2/config';
-import { authenticate, authorize } from './oauth2/middleware';
+import { grantConfig } from './oauth2/grantConfig';
+import * as oauth from './oauth2/model';
 import authRouter from './oauth2/router';
 
 import type { PrismaClient } from '@prisma/client';
@@ -25,8 +25,8 @@ const debug = debugInit('vlepo:app');
 
 export type ExtendedContext = {
   prisma: PrismaClient;
-  koaContext: Context;
-};
+  oauth: typeof oauth;
+} & Context;
 
 const app = new Koa();
 
@@ -36,6 +36,7 @@ if (!process.env.SECRET_KEY) {
 
 app.keys = [process.env.SECRET_KEY];
 app.context.prisma = prisma;
+app.context.oauth = oauth;
 
 app.use(bodyParser());
 app.use(
@@ -65,17 +66,14 @@ app.use(
 );
 
 app.use(session(app));
-app.use(grant.koa()(Oauth2Config));
+app.use(grant.koa()(grantConfig));
 app.use(authRouter.routes());
 
 const router = new Router();
 
 const graphqlServer = graphqlHTTP((_req, _res, ctx) => ({
   schema,
-  context: {
-    prisma,
-    koaContext: ctx,
-  },
+  context: ctx,
   validationRules: [depthLimit(10)],
   formatError: (error: Error) => ({
     // better errors for development. `stack` used in `gqErrors` middleware
@@ -87,14 +85,6 @@ const graphqlServer = graphqlHTTP((_req, _res, ctx) => ({
 router.all('/playground', koaPlayground({ endpoint: '/graphql' }));
 router.all('/graphql/batch', graphqlBatchHTTPWrapper(graphqlServer));
 router.all('/graphql', graphqlServer);
-
-router.get('/secret', authenticate(), async (ctx) => {
-  ctx.body = 'secret message';
-});
-
-router.get('/super-secret', authorize(), async (ctx) => {
-  ctx.body = 'super secret message';
-});
 
 app.use(graphqlUploadKoa({ maxFileSize: 100000000, maxFiles: 5 }));
 app.use(router.routes());

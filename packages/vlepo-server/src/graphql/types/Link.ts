@@ -4,7 +4,7 @@ export const Link = objectType({
   name: 'Link',
   definition(t) {
     t.implements('Node');
-    t.nonNull.id('id', {
+    t.id('id', {
       resolve: (root) => root.id,
     });
     t.model.url();

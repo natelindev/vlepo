@@ -13,7 +13,7 @@ export const Post = objectType({
   name: 'Post',
   definition(t) {
     t.implements('Node');
-    t.nonNull.id('id', {
+    t.id('id', {
       resolve: (root) => root.id,
     });
     t.model.owner();

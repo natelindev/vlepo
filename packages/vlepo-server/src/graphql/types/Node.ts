@@ -5,7 +5,7 @@ import { entities } from '@vlepo/shared';
 export const NodeInterface = interfaceType({
   name: 'Node',
   definition(t) {
-    t.nonNull.id('id', { description: 'UUID for a resource' });
+    t.id('id', { description: 'UUID for a resource' });
   },
 });
 

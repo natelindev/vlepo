@@ -1,91 +1,93 @@
 module.exports = {
   root: true,
-  parser: '@typescript-eslint/parser',
-  plugins: ['prettier', '@typescript-eslint'],
+  parser: "@typescript-eslint/parser",
+  plugins: ["prettier", "@typescript-eslint"],
   extends: [
-    'airbnb',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-    'prettier',
+    "airbnb",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "prettier"
   ],
   settings: {
-    'import/resolver': {
+    "import/resolver": {
       node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      },
-    },
+        extensions: [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
   },
   rules: {
-    'prettier/prettier': [
-      'error',
+    "prettier/prettier": [
+      "error",
       {
-        arrowParens: 'always',
+        arrowParens: "always",
         bracketSpacing: true,
         jsxBracketSameLine: false,
         printWidth: 100,
-        proseWrap: 'preserve',
+        proseWrap: "preserve",
         requirePragma: false,
         semi: true,
         singleQuote: true,
         tabWidth: 2,
-        trailingComma: 'all',
+        trailingComma: "all",
         useTabs: false,
-        endOfLine: 'auto',
+        endOfLine: "auto"
       },
       {
-        usePrettierrc: false,
-      },
+        usePrettierrc: false
+      }
     ],
     quotes: [
       1,
-      'single',
+      "single",
       {
         allowTemplateLiterals: true,
-        avoidEscape: true,
-      },
+        avoidEscape: true
+      }
     ],
-    'react/require-default-props': 'off',
+    "react/require-default-props": "off",
     // Disabling because this rule is extremely slow.
-    'import/no-cycle': 'off',
+    "import/no-cycle": "off",
     // Disabling because this rule is slow and not a common violation.
-    'import/no-named-as-default': 'off',
+    "import/no-named-as-default": "off",
     // Disabling because this rule is slow and not a common violation.
-    'import/no-named-as-default-member': 'off',
+    "import/no-named-as-default-member": "off",
     // This rule is already covered by the TypeScript compiler.
-    'import/default': 'off',
+    "import/default": "off",
     // This rule is already covered by the TypeScript compiler.
-    'import/no-unresolved': 'off',
+    "import/no-unresolved": "off",
     // This rule is already covered by vscode import-sorter
-    'import/order': 'off',
-    'operator-linebreak': 'off',
-    'no-shadow': 'off',
-    indent: 'off',
-    'arrow-parens': 'off',
-    'no-confusing-arrow': 'off',
-    'no-use-before-define': 'off',
-    'object-curly-newline': 'off',
-    'function-paren-newline': 'off',
-    'import/prefer-default-export': 'off',
-    'max-classes-per-file': 'off',
-    'react/jsx-filename-extension': 'off',
-    'react/jsx-props-no-spreading': 'off',
+    "import/order": "off",
+    "operator-linebreak": "off",
+    "no-shadow": "off",
+    indent: "off",
+    "arrow-parens": "off",
+    "no-confusing-arrow": "off",
+    "no-use-before-define": "off",
+    "object-curly-newline": "off",
+    "function-paren-newline": "off",
+    "import/prefer-default-export": "off",
+    "max-classes-per-file": "off",
+    "react/jsx-filename-extension": "off",
+    "react/jsx-props-no-spreading": "off",
     // conflict with prettier
-    'react/jsx-curly-newline': 'off',
-    'import/extensions': 'off',
-    'implicit-arrow-linebreak': 'off',
-    camelcase: 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-empty-function': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
+    "react/jsx-curly-newline": "off",
+    "import/extensions": "off",
+    "implicit-arrow-linebreak": "off",
+    camelcase: "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
     // react 17 no longer need imports
-    'react/jsx-uses-react': 'off',
-    'react/react-in-jsx-scope': 'off',
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
     // support for __typename
-    'no-underscore-dangle': 'off',
+    "no-underscore-dangle": "off",
     // support for relay connection
-    '@typescript-eslint/no-non-null-assertion': 'off',
-  },
+    "@typescript-eslint/no-non-null-assertion": "off"
+    // needed for interface merging
+    "@typescript-eslint/no-empty-interface": "off",
+  }
 };

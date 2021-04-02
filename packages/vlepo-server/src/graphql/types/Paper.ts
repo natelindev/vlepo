@@ -10,7 +10,7 @@ export const Paper = objectType({
   name: 'Paper',
   definition(t) {
     t.implements('Node');
-    t.nonNull.id('id', {
+    t.id('id', {
       resolve: (root) => root.id,
     });
     t.model.name();

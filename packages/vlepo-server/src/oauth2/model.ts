@@ -1,5 +1,6 @@
 import argon2 from 'argon2';
 import cryptoRandomString from 'crypto-random-string';
+import { compareAsc } from 'date-fns';
 import debugInit from 'debug';
 import { __, match, when } from 'ts-pattern';
 
@@ -343,6 +344,33 @@ export const verifyScope = async (token: OAuthAccessToken, scope: string | strin
   const flattenedScopes = flattenScopes(accessTokenScopes as RecursiveOAuthScope);
 
   return scopes.every((s) => flattenedScopes.includes(s));
+};
+
+// not used for oauth2-server model, utility function
+export const verifyAccessToken = async (
+  accessToken: string | OAuthAccessToken | null | undefined,
+  options?: {
+    user?: User;
+    client?: OAuthClient;
+  },
+) => {
+  if (accessToken) {
+    const accessTokenObject =
+      typeof accessToken === 'string' ? await getAccessToken(accessToken) : accessToken;
+    if (accessTokenObject && compareAsc(accessTokenObject.accessTokenExpiresAt, new Date()) === 1) {
+      // optionally verify user
+      if (options?.user?.id && accessTokenObject.userId !== options.user.id) {
+        return false;
+      }
+      // optionally verify client
+      if (options?.client?.id && accessTokenObject.clientId !== options.client.id) {
+        return false;
+      }
+      return true;
+    }
+  }
+
+  return false;
 };
 
 export default {
