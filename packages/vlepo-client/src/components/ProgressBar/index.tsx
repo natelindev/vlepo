@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+import { a, useSpring } from 'react-spring';
 import { margin, MarginProps, width, WidthProps } from 'styled-system';
 
 import { useTheme } from '@emotion/react';
@@ -8,17 +10,20 @@ type BaseProgressBarProps = {
   colorB: string;
 };
 
-const ProgressBarContainer = styled.div`
+type ProgressBarContainerProps = {
+  top: string;
+};
+
+const ProgressBarContainer = styled.div<ProgressBarContainerProps>`
   background: transparent;
   position: fixed;
   width: 100%;
-  top: 3.5rem;
+  top: ${(props) => props.top};
   left: 0;
   z-index: ${(props) => props.theme.zIndices.ProgressBar};
 `;
 
-const BaseProgressBar = styled.div<BaseProgressBarProps & WidthProps & MarginProps>`
-  ${width}
+const BaseProgressBar = styled(a.div)<BaseProgressBarProps & MarginProps>`
   ${margin}
   height: 0.2rem;
   background-image: ${(props) =>
@@ -26,17 +31,36 @@ const BaseProgressBar = styled.div<BaseProgressBarProps & WidthProps & MarginPro
 `;
 
 export type ProgressBarProps = {
-  width: WidthProps['width'];
+  width: number;
   colorA?: string;
   colorB?: string;
+  top?: string;
 };
 
 const ProgressBar = (props: ProgressBarProps) => {
   const theme = useTheme();
-  const { colorA = theme.colors.primary, colorB = theme.colors.secondary, width } = props;
+  const {
+    colorA = theme.colors.primary,
+    colorB = theme.colors.secondary,
+    width = 0,
+    top = '0',
+  } = props;
+
+  const prevWidthRef = useRef(width);
+
+  useEffect(() => {
+    prevWidthRef.current = width;
+  });
+
+  const style = useSpring({
+    from: { width: `${prevWidthRef.current}%` },
+    to: {
+      width: `${width}%`,
+    },
+  });
   return (
-    <ProgressBarContainer>
-      <BaseProgressBar colorA={colorA} colorB={colorB} width={width} />
+    <ProgressBarContainer top={top}>
+      <BaseProgressBar colorA={colorA} colorB={colorB} style={style} />
     </ProgressBarContainer>
   );
 };

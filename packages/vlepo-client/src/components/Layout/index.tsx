@@ -15,7 +15,8 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = (props: LayoutProps) => {
   const { children, title } = props;
-  const width = useProgressBar({ loading: true });
+  const widthLoading = useProgressBar({ loading: true });
+  // const widthScrolling = useProgressBar({ scrolling: true });
   return (
     <>
       <Head>
@@ -23,7 +24,8 @@ const Layout: React.FC<LayoutProps> = (props: LayoutProps) => {
       </Head>
       <Header>
         <Navbar />
-        <ProgressBar width={width} />
+        {widthLoading !== 101 && <ProgressBar width={widthLoading} />}
+        {/* <ProgressBar width={widthScrolling} top="3.5rem" /> */}
       </Header>
       <Main>
         {children}

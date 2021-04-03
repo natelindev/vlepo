@@ -16,13 +16,13 @@ export const useProgressBar = (options: useProgressBarOptions) => {
       const progressObservable = new Observable<number>((observer) => {
         let timer: number | undefined;
         let done = false;
-        for (let i = 0; i < 1; i += 0.001) {
+        for (let i = 0; i < 100; i += 10) {
           if (done) {
             break;
           }
           timer = window.setTimeout(() => {
             observer.next(i);
-          }, 5);
+          }, 100);
         }
         return () => {
           clearTimeout(timer);
@@ -40,9 +40,9 @@ export const useProgressBar = (options: useProgressBarOptions) => {
         if (progressSubscription) {
           progressSubscription.unsubscribe();
         }
-        setWidth(1);
+        setWidth(100);
         setTimeout(() => {
-          setWidth(0);
+          setWidth(101);
         }, 300);
       };
 
