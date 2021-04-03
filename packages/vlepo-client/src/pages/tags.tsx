@@ -1,4 +1,2 @@
-import Layout from 'src/components/Layout';
-
-const Tags = () => <Layout />;
+const Tags = () => <></>;
 export default Tags;

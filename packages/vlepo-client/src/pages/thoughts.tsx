@@ -1,4 +1,2 @@
-import Layout from 'src/components/Layout';
-
-const Thoughts = () => <Layout />;
+const Thoughts = () => <></>;
 export default Thoughts;

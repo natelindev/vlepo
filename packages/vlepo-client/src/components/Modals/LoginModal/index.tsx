@@ -50,7 +50,7 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
     });
 
   const transition = useTransition(open, {
-    from: { position: 'absolute', transform: 'translate3d(0,-30px,0)', opacity: 0 },
+    from: { position: 'absolute' as const, transform: 'translate3d(0,-30px,0)', opacity: 0 },
     enter: { transform: 'translate3d(0,0px,0)', opacity: 1 },
     leave: { transform: 'translate3d(0,-30px,0)', opacity: 0 },
     config: {
@@ -105,18 +105,12 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
       {transition(
         (style, item) =>
           item && (
-            <BaseModal
-              modalComponent={BaseAnimatedContainer}
-              style={style}
-              onClose={onClose}
-            >
+            <BaseModal modalComponent={BaseAnimatedContainer} style={style} onClose={onClose}>
               <LoginForm onSubmit={handleSubmit(onSubmit)}>
                 <InputGroup>
                   <Label>Email</Label>
                   <LoginInput autoComplete="email" {...register('email')} />
-                  {errors.email && (
-                    <ErrorText>{errors.email.message}</ErrorText>
-                  )}
+                  {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
                 </InputGroup>
                 <InputGroup>
                   <Label>Password</Label>
@@ -126,14 +120,10 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
                     {...register('password')}
                   />
                 </InputGroup>
-                {errors.password && (
-                  <ErrorText>{errors.password.message}</ErrorText>
-                )}
+                {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
                 <OauthButtonSection>
                   {process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS &&
-                    process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS.split(
-                      ','
-                    ).map((provider) => (
+                    process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS.split(',').map((provider) => (
                       <OauthButton
                         key={provider}
                         type="button"
@@ -142,7 +132,7 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
                             `/api/connect/${provider}`,
                             `User Oauth`,
                             provider === 'reddit' ? 1000 : 400,
-                            600
+                            600,
                           )
                         }
                       >
@@ -160,7 +150,7 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
                 </LoginButton>
               </LoginForm>
             </BaseModal>
-          )
+          ),
       )}
     </>
   );

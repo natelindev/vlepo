@@ -49,11 +49,13 @@
     "remark-images": "2.0.0",
     "styled-modal": "7.1.4",
     "styled-system": "5.1.5",
-    "ts-pattern": "3.1.1"
+    "ts-pattern": "3.1.1",
+    "zen-observable": "0.8.15"
   },
   "devDependencies": {
     "@graphql-cli/codegen": "1.17.22",
     "@graphql-codegen/schema-ast": "1.18.1",
+    "@next/bundle-analyzer": "10.1.3",
     "@types/base-64": "0.1.3",
     "@types/debug": "4.1.5",
     "@types/eslint": "7.2.8",
@@ -64,6 +66,7 @@
     "@types/react-typist": "2.0.1",
     "@types/relay-runtime": "10.1.10",
     "@types/styled-system": "5.1.10",
+    "@types/zen-observable": "0.8.2",
     "@typescript-eslint/eslint-plugin": "4.20.0",
     "@typescript-eslint/parser": "4.20.0",
     "babel-plugin-relay": "11.0.1",

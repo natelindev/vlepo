@@ -1,6 +1,9 @@
 /* eslint-disable */
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
 
-module.exports = {
+module.exports = withBundleAnalyzer({
   images: {
     domains: [
       'placeholder.pics',
@@ -18,7 +21,7 @@ module.exports = {
     ],
   },
   future: {
-    webpack5: true
+    webpack5: true,
   },
   pageExtensions: ['tsx'],
   // Proxy to Backend
@@ -34,4 +37,4 @@ module.exports = {
       },
     ];
   },
-};
+});

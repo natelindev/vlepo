@@ -119,7 +119,7 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
   const { headerImageUrl, title, owner, tags } = data.post;
 
   return (
-    <Layout>
+    <>
       {headerImageUrl && (
         <Header>
           <FullWidthImage layout="responsive" src={headerImageUrl} width="16" height="5" />
@@ -133,7 +133,7 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
           <Content>{mdxContent}</Content>
         </ArticleBody>
       </Body>
-    </Layout>
+    </>
   );
 };
 

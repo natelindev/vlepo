@@ -119,7 +119,8 @@ const PostSection = (props: PostSectionProps) => {
             e &&
             e.node && <PostCard key={((e.node as unknown) as { id: string }).id} post={e.node} />,
         )}
-      {hasNext && (
+      {isLoadingNext && <PlaceHolder width="100%" />}
+      {hasNext && !isLoadingNext && (
         <Row>
           <GradientButton width="100%" mx="3rem" onClick={() => loadNext(2)}>
             Load More
@@ -145,7 +146,7 @@ const Dashboard = () => {
   }
 
   return (
-    <Layout>
+    <>
       <Container>
         <Sidebar />
         <ClientOnly>
@@ -157,7 +158,7 @@ const Dashboard = () => {
           </DashboardMain>
         </ClientOnly>
       </Container>
-    </Layout>
+    </>
   );
 };
 

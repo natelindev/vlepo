@@ -1,4 +1,2 @@
-import Layout from 'src/components/Layout';
-
-const Friends = () => <Layout />;
+const Friends = () => <></>;
 export default Friends;

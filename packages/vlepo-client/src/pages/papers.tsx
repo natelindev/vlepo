@@ -1,4 +1,2 @@
-import Layout from 'src/components/Layout';
-
-const Papers = () => <Layout />;
+const Papers = () => <></>;
 export default Papers;

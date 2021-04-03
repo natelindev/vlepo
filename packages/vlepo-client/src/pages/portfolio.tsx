@@ -1,4 +1,2 @@
-import Layout from 'src/components/Layout';
-
-const Portfolio = () => <Layout />;
+const Portfolio = () => <></>;
 export default Portfolio;

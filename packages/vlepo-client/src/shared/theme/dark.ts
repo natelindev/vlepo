@@ -114,11 +114,12 @@ export const darkTheme = {
   },
   zIndices: {
     CardLink: 1,
-    DropDownMenu: 4,
     GradientButton: 1,
-    ModalContainer: 5000,
-    Navbar: 3,
     ScrollToTop: 1,
     Tags: 2,
+    Navbar: 3,
+    ProgressBar: 4,
+    DropDownMenu: 4,
+    ModalContainer: 5000,
   },
 };

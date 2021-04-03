@@ -1,4 +1,2 @@
-import Layout from 'src/components/Layout';
-
-const Profile = () => <Layout />;
+const Profile = () => <></>;
 export default Profile;

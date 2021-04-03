@@ -1,4 +1,2 @@
-import Layout from 'src/components/Layout';
-
-const Settings = () => <Layout />;
+const Settings = () => <></>;
 export default Settings;

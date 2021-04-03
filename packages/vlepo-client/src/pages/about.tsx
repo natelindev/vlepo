@@ -1,4 +1,2 @@
-import Layout from 'src/components/Layout';
-
-const About = () => <Layout />;
+const About = () => <></>;
 export default About;

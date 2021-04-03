@@ -1,13 +1,12 @@
-import { animated, AnimatedValue, ForwardedProps } from 'react-spring';
+import React from 'react';
+import { animated } from 'react-spring';
 import { Button } from 'src/components/Button';
 import GradientButton from 'src/components/GradientButton';
 import StyledModal, { StyledModalProps } from 'styled-modal';
 
 import styled from '@emotion/styled';
 
-export const BaseModal = styled(StyledModal)<{
-  style: AnimatedValue<ForwardedProps<ForwardedProps<React.CSSProperties>>>;
-}>`
+export const BaseModal = styled(StyledModal)<React.ComponentProps<typeof animated.div>>`
   border-radius: 0.5rem;
   background-color: ${(props) => props.theme.colors.backgroundSecondary};
 `;

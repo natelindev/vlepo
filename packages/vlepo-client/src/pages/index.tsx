@@ -5,7 +5,6 @@ import { fetchQuery, graphql } from 'react-relay';
 import Typist from 'react-typist';
 import { useQuery } from 'relay-hooks';
 import ArticleCard from 'src/components/ArticleCard';
-import Layout from 'src/components/Layout';
 import PlaceHolder from 'src/components/PlaceHolder';
 import { initEnvironment } from 'src/relay';
 
@@ -91,7 +90,7 @@ export default function Home() {
   if (!data) return <PlaceHolder />;
 
   return (
-    <Layout>
+    <>
       <IndexSlogan cursor={{ show: false }}>
         <Slogan>I code, Therefore I am</Slogan>
       </IndexSlogan>
@@ -104,6 +103,6 @@ export default function Home() {
           render={MasonryCard}
         />
       </IndexRow>
-    </Layout>
+    </>
   );
 }
