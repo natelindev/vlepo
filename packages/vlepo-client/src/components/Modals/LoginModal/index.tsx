@@ -1,16 +1,13 @@
 import { decode } from 'base-64';
 import Image from 'next/image';
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { graphql } from 'react-relay';
-import { useTransition } from 'react-spring';
 import { useToasts } from 'react-toast-notifications';
 import { useSetRecoilState } from 'recoil';
 import { useMutation } from 'relay-hooks';
 import { currentUserState } from 'src/atoms/user';
 import { LoginButton } from 'src/components/UserSection/style';
 import { usePopupWindow } from 'src/hooks/usePopupWindow';
-import { StyledModalProps } from 'styled-modal';
 
 import { IdToken } from '@vlepo/shared';
 
@@ -20,9 +17,8 @@ import {
   LoginModal_MutationResponse,
 } from '../../../__generated__/LoginModal_Mutation.graphql';
 import { getCookie } from '../../../hooks/useCookie';
+import BaseModal, { BaseModalProps } from '../BaseModal';
 import {
-  BaseAnimatedContainer,
-  BaseModal,
   ErrorText,
   InputGroup,
   Label,
@@ -32,8 +28,9 @@ import {
   OauthButtonSection,
 } from './style';
 
-const LoginModal = (props: StyledModalProps): React.ReactElement => {
-  const { open, onClose } = props;
+type LoginModalProps = BaseModalProps;
+const LoginModal = (props: LoginModalProps) => {
+  const { onClose } = props;
   const {
     register,
     handleSubmit,
@@ -48,17 +45,6 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
         input: data,
       },
     });
-
-  const transition = useTransition(open, {
-    from: { position: 'absolute' as const, transform: 'translate3d(0,-30px,0)', opacity: 0 },
-    enter: { transform: 'translate3d(0,0px,0)', opacity: 1 },
-    leave: { transform: 'translate3d(0,-30px,0)', opacity: 0 },
-    config: {
-      duration: 200,
-      tension: 300,
-      mass: 0.5,
-    },
-  });
 
   const { addToast } = useToasts();
 
@@ -79,7 +65,9 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
           });
           onClose?.();
           setCurrentUser(
-            getCookie<IdToken>('idToken', { decode: (v: string) => JSON.parse(decode(v)) }),
+            getCookie<IdToken>('idToken', {
+              decode: (v: string) => JSON.parse(decode(v)),
+            }),
           );
         } else if (LoginMutation?.error) {
           addToast(`Login failed, ${LoginMutation?.error}`, {
@@ -101,58 +89,40 @@ const LoginModal = (props: StyledModalProps): React.ReactElement => {
 
   const { createWindow: openOauthWindow } = usePopupWindow();
   return (
-    <>
-      {transition(
-        (style, item) =>
-          item && (
-            <BaseModal modalComponent={BaseAnimatedContainer} style={style} onClose={onClose}>
-              <LoginForm onSubmit={handleSubmit(onSubmit)}>
-                <InputGroup>
-                  <Label>Email</Label>
-                  <LoginInput autoComplete="email" {...register('email')} />
-                  {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
-                </InputGroup>
-                <InputGroup>
-                  <Label>Password</Label>
-                  <LoginInput
-                    autoComplete="current-password"
-                    type="password"
-                    {...register('password')}
-                  />
-                </InputGroup>
-                {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
-                <OauthButtonSection>
-                  {process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS &&
-                    process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS.split(',').map((provider) => (
-                      <OauthButton
-                        key={provider}
-                        type="button"
-                        onClick={() =>
-                          openOauthWindow(
-                            `/api/connect/${provider}`,
-                            `User Oauth`,
-                            provider === 'reddit' ? 1000 : 400,
-                            600,
-                          )
-                        }
-                      >
-                        <Image
-                          src={`/images/logo/${provider}.svg`}
-                          height={24}
-                          width={24}
-                          layout="fixed"
-                        />
-                      </OauthButton>
-                    ))}
-                </OauthButtonSection>
-                <LoginButton colorA="#5CC6EE" colorB="#3232FF" type="submit">
-                  {loading ? 'Login...' : 'Login'}
-                </LoginButton>
-              </LoginForm>
-            </BaseModal>
-          ),
-      )}
-    </>
+    <BaseModal onClose={onClose}>
+      <LoginForm onSubmit={handleSubmit(onSubmit)}>
+        <InputGroup>
+          <Label>Email</Label>
+          <LoginInput autoComplete="email" {...register('email')} />
+          {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
+        </InputGroup>
+        <InputGroup>
+          <Label>Password</Label>
+          <LoginInput autoComplete="current-password" type="password" {...register('password')} />
+        </InputGroup>
+        {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
+        <OauthButtonSection>
+          {process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS &&
+            process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS.split(',').map((provider) => (
+              <OauthButton
+                key={provider}
+                type="button"
+                onClick={() =>
+                  openOauthWindow(
+                    `/api/connect/${provider}`,
+                    `User Oauth`,
+                    provider === 'reddit' ? 1000 : 400,
+                    600,
+                  )
+                }
+              >
+                <Image src={`/images/logo/${provider}.svg`} height={24} width={24} layout="fixed" />
+              </OauthButton>
+            ))}
+        </OauthButtonSection>
+        <LoginButton type="submit">{loading ? 'Login...' : 'Login'}</LoginButton>
+      </LoginForm>
+    </BaseModal>
   );
 };
 

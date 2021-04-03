@@ -2,6 +2,7 @@ import argon2 from 'argon2';
 import cryptoRandomString from 'crypto-random-string';
 import { compareAsc } from 'date-fns';
 import debugInit from 'debug';
+import { ExtendedContext } from 'src/app';
 import { __, match, when } from 'ts-pattern';
 
 import {
@@ -371,6 +372,22 @@ export const verifyAccessToken = async (
   }
 
   return false;
+};
+
+interface extractAccessToken {
+  (ctx: ExtendedContext, toTokenObject: true): ReturnType<typeof getAccessToken>;
+  (ctx: ExtendedContext, toTokenObject?: false): string | undefined;
+}
+export const extractAccessToken: extractAccessToken = (
+  ctx: ExtendedContext,
+  toTokenObject?: boolean,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): any => {
+  const tokenString = ctx.header.authorization?.replace('Bearer ', '');
+  if (tokenString && toTokenObject) {
+    return getAccessToken(tokenString);
+  }
+  return tokenString;
 };
 
 export default {

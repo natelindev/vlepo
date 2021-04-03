@@ -1,13 +1,14 @@
-import { objectType } from 'nexus';
+import { enumType, inputObjectType, list, mutationField, nonNull, objectType } from 'nexus';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
+import { PostStatus as DBPostStatus, prisma, User } from '@prisma/client';
 
 import { Comment } from './Comment';
-import { Image } from './Image';
+import { createImageInput, Image } from './Image';
 import { Rating } from './Rating';
 import { Reaction } from './Reaction';
 import { ShareCount } from './ShareCount';
-import { Tag } from './Tag';
+import { createTagInput, Tag } from './Tag';
 
 export const Post = objectType({
   name: 'Post',
@@ -121,5 +122,96 @@ export const Post = objectType({
         return result;
       },
     });
+  },
+});
+
+export const PostStatus = enumType({
+  name: 'PostStatus',
+  members: Object.values(DBPostStatus),
+});
+
+export const createPostInput = inputObjectType({
+  name: 'createPostInput',
+  definition(t) {
+    t.string('headerImageUrl');
+    t.nonNull.string('title');
+    t.field('tags', { type: list(nonNull(createTagInput)) });
+    t.field('images', { type: list(nonNull(createImageInput)) });
+    t.nonNull.string('content');
+    t.nonNull.field('status', { type: PostStatus });
+  },
+});
+
+export const creatPostResponse = objectType({
+  name: 'creatPostResponse',
+  definition(t) {
+    t.nonNull.boolean('ok');
+    t.string('error');
+  },
+});
+
+export const creatPostMutation = mutationField('creatPostMutation', {
+  type: creatPostResponse,
+  args: {
+    createPostInput: nonNull(createPostInput.asArg()),
+  },
+  authentication: true,
+  authorize: async (_root, _args, ctx) => {
+    const token = await ctx.oauth.extractAccessToken(ctx, true);
+    if (token) {
+      return ctx.oauth.verifyScope(token, ['post:create']);
+    }
+    return false;
+  },
+  resolve: async (_root, { createPostInput }, ctx) => {
+    // passing the auth, therefor user must exist
+    const currentUser = (await ctx.oauth.extractAccessToken(ctx, true))?.user as User;
+
+    try {
+      await ctx.knex.transaction(async (trx) => {
+        const postIds = await trx('Post')
+          .insert({
+            ownerId: currentUser.id,
+            title: createPostInput.title,
+            content: createPostInput.content,
+            headerImageUrl: createPostInput.headerImageUrl,
+          })
+          .returning('id');
+
+        if (createPostInput.tags && createPostInput.tags.length > 0) {
+          const tagIds = await trx('Tag').insert(createPostInput.tags).returning('id');
+
+          await trx('_PostToTag').insert(
+            tagIds.map((tid) => ({
+              A: postIds[0],
+              B: tid,
+            })),
+          );
+        }
+
+        if (createPostInput.images && createPostInput.images.length > 0) {
+          await trx('Image')
+            .insert(
+              createPostInput.images.map((img) => ({
+                url: img.url,
+                mainColor: '#fff',
+                height: 0,
+                width: 0,
+                postId: postIds[0],
+              })),
+            )
+            .returning('id');
+        }
+      });
+    } catch (err) {
+      return {
+        ok: false,
+        error: err.stack,
+      };
+    }
+
+    return {
+      ok: true,
+    };
   },
 });

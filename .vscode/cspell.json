@@ -3,6 +3,7 @@
     "language": "en",
     "words": [
         "bodyparser",
+        "camelcase",
         "codegen",
         "Consts",
         "csrf",

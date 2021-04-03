@@ -1,23 +1,7 @@
-import React from 'react';
-import { animated } from 'react-spring';
 import { Button } from 'src/components/Button';
 import GradientButton from 'src/components/GradientButton';
-import StyledModal, { StyledModalProps } from 'styled-modal';
 
 import styled from '@emotion/styled';
-
-export const BaseModal = styled(StyledModal)<React.ComponentProps<typeof animated.div>>`
-  border-radius: 0.5rem;
-  background-color: ${(props) => props.theme.colors.backgroundSecondary};
-`;
-
-export const BaseAnimatedContainer = styled(animated.div)<StyledModalProps>`
-  display: flex;
-  flex-direction: column;
-  height: auto;
-  background-color: inherit;
-  backdrop-filter: saturate(180%) blur(5px);
-`;
 
 export const LoginForm = styled.form`
   display: flex;

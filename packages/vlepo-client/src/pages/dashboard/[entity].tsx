@@ -9,7 +9,6 @@ import { PostRefetchQuery } from 'src/__generated__/PostRefetchQuery.graphql';
 import ClientOnly from 'src/components/ClientOnly';
 import PostCard from 'src/components/Dashboard/PostCard';
 import GradientButton from 'src/components/GradientButton';
-import Layout from 'src/components/Layout';
 import { Row } from 'src/components/Layout/style';
 import PlaceHolder from 'src/components/PlaceHolder';
 import Sidebar from 'src/components/Sidebar';

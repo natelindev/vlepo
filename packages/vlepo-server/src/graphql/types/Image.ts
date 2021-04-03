@@ -1,4 +1,4 @@
-import { objectType } from 'nexus';
+import { inputObjectType, objectType } from 'nexus';
 
 export const Image = objectType({
   name: 'Image',
@@ -15,5 +15,12 @@ export const Image = objectType({
     t.model.width();
     t.model.createdAt();
     t.model.updatedAt();
+  },
+});
+
+export const createImageInput = inputObjectType({
+  name: 'createImageInput',
+  definition(t) {
+    t.nonNull.string('url');
   },
 });

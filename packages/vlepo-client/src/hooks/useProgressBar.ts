@@ -43,7 +43,7 @@ export const useProgressBar = (options: useProgressBarOptions) => {
         setWidth(100);
         setTimeout(() => {
           setWidth(101);
-        }, 100);
+        }, 200);
       };
 
       router.events.on('routeChangeStart', routeChangeStart);

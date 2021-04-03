@@ -10,19 +10,15 @@
   "scripts": {
     "bootstrap": "lerna bootstrap --scope=@vlepo/shared",
     "prebuild": "patch-package && yarn generate && lerna link && rm -rf node_modules/@types/react-relay/node_modules",
-    "build": "lerna run build --parallel",
+    "build": "lerna run build",
     "dev": "lerna run dev --parallel",
     "generate": "lerna run generate",
-    "postinstall": "patch-package",
+    "postinstall": "rm -rf node_modules/@types/react-relay/node_modules",
     "lint": "lerna run lint --parallel",
     "publish": "yarn lerna publish from-package --dist-tag canary --yes --no-verify-access",
     "start": "pm2 start ./pm2.yml",
     "typecheck": "lerna run typecheck --parallel",
     "watch": "lerna run watch --parallel"
-  },
-  "dependencies": {
-    "patch-package": "6.4.7",
-    "postinstall-postinstall": "2.1.0"
   },
   "devDependencies": {
     "@types/eslint": "7.2.7",
@@ -40,7 +36,6 @@
     "eslint-plugin-react-hooks": "4.2.0",
     "lerna": "4.0.0",
     "prettier": "2.2.1",
-    "react": "17.0.1",
     "sort-package-json": "1.48.0",
     "typescript": "4.2.3"
   }

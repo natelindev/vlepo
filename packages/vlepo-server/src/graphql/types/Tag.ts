@@ -1,4 +1,4 @@
-import { objectType } from 'nexus';
+import { inputObjectType, objectType } from 'nexus';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 
@@ -65,5 +65,12 @@ export const Tag = objectType({
         return result;
       },
     });
+  },
+});
+
+export const createTagInput = inputObjectType({
+  name: 'createTagInput',
+  definition(t) {
+    t.nonNull.string('name');
   },
 });

@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import { fetchQuery, graphql } from 'react-relay';
 import { useQuery } from 'relay-hooks';
 import HoverShare from 'src/components/HoverShare/HoverShare';
-import Layout from 'src/components/Layout';
 import * as components from 'src/components/MDXComponents';
 import PlaceHolder from 'src/components/PlaceHolder';
 import { initEnvironment } from 'src/relay';
@@ -38,6 +37,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   return {
     props: {
+      // @ts-expect-error relay-network-modern incorrect typing
       relayData: relayData ? [[queryString, queryPayload.json]] : null,
       renderedMDX,
     },

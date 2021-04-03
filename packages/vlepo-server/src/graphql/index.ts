@@ -23,24 +23,13 @@ export default NexusSchema.makeSchema({
     NexusSchema.fieldAuthorizePlugin(),
     fieldAuthenticationPlugin({
       isLogged: async (_root, _args, ctx) => {
-        const authHeader = ctx.get('Authorization');
-        if (!authHeader) {
-          return false;
-        }
-        const accessToken = authHeader.replace('Bearer ', '');
-        return ctx.oauth.verifyAccessToken(accessToken);
+        return ctx.oauth.verifyAccessToken(ctx.oauth.extractAccessToken(ctx));
       },
     }),
   ],
   outputs: {
-    schema: path.join(
-      __dirname,
-      '../../../vlepo-client/src/schema/schema.graphql'
-    ),
-    typegen: path.join(
-      __dirname,
-      '../../node_modules/@types/nexus-typegen/index.d.ts'
-    ),
+    schema: path.join(__dirname, '../../../vlepo-client/src/schema/schema.graphql'),
+    typegen: path.join(__dirname, '../../node_modules/@types/nexus-typegen/index.d.ts'),
   },
   contextType: {
     module: require.resolve('../app'),

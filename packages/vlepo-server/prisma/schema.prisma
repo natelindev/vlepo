@@ -95,17 +95,17 @@ enum ToughtStatus {
 }
 
 model Tag {
-  id           String    @id @default(uuid())
-  name         String    @unique
-  posts        Post[]
-  thoughts     Thought[]
-  headerImgUrl String
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  projects     Project[] @relation(fields: [projectId], references: [id])
-  projectId    String?
-  papers       Paper[]   @relation(fields: [paperId], references: [id])
-  paperId      String?
+  id           String  @id @default(uuid())
+  name         String  @unique
+  headerImgUrl String?
+
+  posts    Post[]
+  thoughts Thought[]
+  projects Project[]
+  papers   Paper[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Comment {
@@ -129,8 +129,8 @@ model Comment {
 
 model Image {
   id             String  @id @default(uuid())
-  owner          User    @relation(fields: [onwerId], references: [id])
-  onwerId        String
+  owner          User    @relation(fields: [ownerId], references: [id])
+  ownerId        String
   mainColor      String
   secondaryColor String?
   url            String
@@ -164,7 +164,7 @@ model Link {
 model Thought {
   id      String       @id @default(uuid())
   content String
-  onwer   User         @relation(fields: [ownerId], references: [id])
+  owner   User         @relation(fields: [ownerId], references: [id])
   ownerId String
   status  ToughtStatus @default(DRAFT)
 
@@ -176,9 +176,7 @@ model Thought {
   comments  Comment[]
   reactions Reaction[]
   shares    ShareCount[]
-  tags      Tag[]        @relation(fields: [tagId], references: [id])
-  tagId     String?
-
+  tags      Tag[]
 }
 
 model Reaction {
@@ -363,7 +361,7 @@ model OAuthClient {
   refreshTokens OAuthRefreshToken[]
 
   //user
-  owner User @relation(fields: [onwerId], references: [id])
+  owner User @relation(fields: [ownerId], references: [id])
 
   //code
   authorizationCodes OAuthAuthorizationCode[]
@@ -371,7 +369,7 @@ model OAuthClient {
   //scope
   scopes OAuthScope[]
 
-  onwerId String
+  ownerId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

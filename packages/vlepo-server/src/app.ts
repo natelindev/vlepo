@@ -13,19 +13,21 @@ import session from 'koa-session';
 import cors from '@koa/cors';
 import { envDetect } from '@vlepo/shared';
 
-import prisma from './db';
+import db from './db';
 import schema from './graphql';
 import { grantConfig } from './oauth2/grantConfig';
 import * as oauth from './oauth2/model';
 import authRouter from './oauth2/router';
 
 import type { PrismaClient } from '@prisma/client';
+import type { Knex } from 'knex';
 
 const debug = debugInit('vlepo:app');
 
 export type ExtendedContext = {
   prisma: PrismaClient;
   oauth: typeof oauth;
+  knex: Knex;
 } & Koa.Context;
 
 const app = new Koa();
@@ -35,8 +37,9 @@ if (!process.env.SECRET_KEY) {
 }
 
 app.keys = [process.env.SECRET_KEY];
-app.context.prisma = prisma;
+app.context.prisma = db.prisma;
 app.context.oauth = oauth;
+app.context.knex = db.knexConnection;
 
 app.use(bodyParser());
 app.use(
@@ -96,5 +99,6 @@ app
     debug(err.stack);
   })
   .on('close', () => {
-    prisma.$disconnect();
+    db.prisma.$disconnect();
+    db.knexConnection.destroy();
   });

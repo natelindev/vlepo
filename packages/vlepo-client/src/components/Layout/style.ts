@@ -1,4 +1,4 @@
-import { margin, MarginProps, width, WidthProps } from 'styled-system';
+import { flexbox, FlexboxProps, margin, MarginProps, width, WidthProps } from 'styled-system';
 
 import styled from '@emotion/styled';
 
@@ -31,4 +31,11 @@ export const Row = styled.div<WidthProps & MarginProps>`
 export const Column = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+export const Section = styled.div<MarginProps & WidthProps & FlexboxProps>`
+  ${margin}
+  ${width}
+  ${flexbox}
+  display: flex;
 `;
