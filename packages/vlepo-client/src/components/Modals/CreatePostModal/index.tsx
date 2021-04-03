@@ -1,10 +1,10 @@
 import BaseModal, { BaseModalProps } from '../BaseModal';
 
-type createPostModalProps = BaseModalProps;
-const createPostModal = (props: createPostModalProps) => {
+type CreatePostModalProps = BaseModalProps;
+const CreatePostModal = (props: CreatePostModalProps) => {
   const { onClose } = props;
 
   return <BaseModal onClose={onClose} />;
 };
 
-export default createPostModal;
+export default CreatePostModal;
