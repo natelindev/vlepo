@@ -16,13 +16,13 @@ export const useProgressBar = (options: useProgressBarOptions) => {
       const progressObservable = new Observable<number>((observer) => {
         let timer: number | undefined;
         let done = false;
-        for (let i = 0; i < 100; i += 10) {
+        for (let i = 0; i < 100; i += 5) {
           if (done) {
             break;
           }
           timer = window.setTimeout(() => {
             observer.next(i);
-          }, 100);
+          }, (i / 5) * 200);
         }
         return () => {
           clearTimeout(timer);
@@ -43,7 +43,7 @@ export const useProgressBar = (options: useProgressBarOptions) => {
         setWidth(100);
         setTimeout(() => {
           setWidth(101);
-        }, 300);
+        }, 100);
       };
 
       router.events.on('routeChangeStart', routeChangeStart);
