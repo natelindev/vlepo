@@ -1,5 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { graphql } from 'react-relay';
 import { usePagination, useQuery } from 'relay-hooks';
 import { Entity_blogSectionQuery } from 'src/__generated__/Entity_blogSectionQuery.graphql';
@@ -10,6 +11,7 @@ import ClientOnly from 'src/components/ClientOnly';
 import PostCard from 'src/components/Dashboard/PostCard';
 import GradientButton from 'src/components/GradientButton';
 import { Row } from 'src/components/Layout/style';
+import CreatePostModal from 'src/components/Modals/CreatePostModal';
 import PlaceHolder from 'src/components/PlaceHolder';
 import Sidebar from 'src/components/Sidebar';
 import { match } from 'ts-pattern';
@@ -103,11 +105,18 @@ const PostSection = (props: PostSectionProps) => {
     PostRefetchQuery,
     Entity_user$key
   >(fragmentSpec, props.user);
+  const [showCreatePostModal, setShowCreatePostModal] = useState(false);
 
   return (
     <>
+      <CreatePostModal open={showCreatePostModal} onClose={() => setShowCreatePostModal(false)} />
       <Row>
-        <GradientButton width="5rem" ml="auto" mr="1rem">
+        <GradientButton
+          width="5rem"
+          ml="auto"
+          mr="1rem"
+          onClick={() => setShowCreatePostModal(true)}
+        >
           Create
         </GradientButton>
       </Row>

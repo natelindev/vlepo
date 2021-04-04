@@ -5,7 +5,7 @@ import { BaseAnimatedContainer, BaseBaseModal } from './style';
 
 export type BaseModalProps = StyledModalProps;
 const BaseModal = (props: BaseModalProps) => {
-  const { open, onClose, children } = props;
+  const { open, onClose, children, ...rest } = props;
 
   const transition = useTransition(open, {
     from: {
@@ -27,7 +27,12 @@ const BaseModal = (props: BaseModalProps) => {
       {transition(
         (style, item) =>
           item && (
-            <BaseBaseModal modalComponent={BaseAnimatedContainer} style={style} onClose={onClose}>
+            <BaseBaseModal
+              modalComponent={BaseAnimatedContainer}
+              style={style}
+              onClose={onClose}
+              {...rest}
+            >
               {children}
             </BaseBaseModal>
           ),

@@ -30,7 +30,7 @@ import {
 
 type LoginModalProps = BaseModalProps;
 const LoginModal = (props: LoginModalProps) => {
-  const { onClose } = props;
+  const { open, onClose } = props;
   const {
     register,
     handleSubmit,
@@ -89,7 +89,7 @@ const LoginModal = (props: LoginModalProps) => {
 
   const { createWindow: openOauthWindow } = usePopupWindow();
   return (
-    <BaseModal onClose={onClose}>
+    <BaseModal open={open} onClose={onClose}>
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <InputGroup>
           <Label>Email</Label>

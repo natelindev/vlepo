@@ -74,9 +74,7 @@ const UserSection = (props: UserSectionProps) => {
           </NavLink>
         </Dropdown>
       ) : (
-        <LoginButton onClick={() => setShowLoginModal(true)} colorA="#5CC6EE" colorB="#3232FF">
-          Login
-        </LoginButton>
+        <LoginButton onClick={() => setShowLoginModal(true)}>Login</LoginButton>
       )}
     </>
   );

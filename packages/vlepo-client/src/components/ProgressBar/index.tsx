@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { a, useSpring } from 'react-spring';
-import { margin, MarginProps, width, WidthProps } from 'styled-system';
+import { margin, MarginProps } from 'styled-system';
 
 import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
