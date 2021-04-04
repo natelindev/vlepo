@@ -40,18 +40,34 @@ const seedBD = async (prisma: PrismaClient) => {
           create: OAuthConsts.roles.admin,
         },
         profileImageUrl: '/images/avatar/host.svg',
-        posts: {
-          createMany: {
-            data: Array(5).fill({
-              title: name.title(),
-              content: lorem.paragraphs(5),
-              status: PostStatus.PUBLISHED,
-            }),
-          },
-        },
       },
     });
-    debug(`seeded admin user and posts`);
+    debug(`seeded admin user`);
+
+    const defaultBlog = await prisma.blog.create({
+      data: {
+        id: defaultIds.blog,
+        owner: {
+          connect: {
+            id: admin.id,
+          },
+        },
+        name: "Nathaniel's Blog",
+        visitorCount: 0,
+      },
+    });
+    debug(`seeded default blog`);
+
+    await prisma.post.createMany({
+      data: Array(5).fill({
+        title: name.title(),
+        content: lorem.paragraphs(5),
+        status: PostStatus.PUBLISHED,
+        ownerId: admin.id,
+        blogId: defaultBlog.id,
+      }),
+    });
+    debug(`seeded default posts`);
 
     await prisma.oAuthScope.create({
       data: {
@@ -133,15 +149,6 @@ const seedBD = async (prisma: PrismaClient) => {
       },
     });
     debug(`seeded default oauth client`);
-
-    await prisma.blog.create({
-      data: {
-        id: defaultIds.blog,
-        name: "Nathaniel's Blog",
-        visitorCount: 0,
-      },
-    });
-    debug(`seeded base blog`);
   } catch (err) {
     debug(err);
     await cleanDB(prisma);

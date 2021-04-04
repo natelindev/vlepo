@@ -1,5 +1,13 @@
 import { objectType } from 'nexus';
 
+import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
+
+import { Paper } from './Paper';
+import { Post } from './Post';
+import { Project } from './Project';
+import { Tag } from './Tag';
+import { Thought } from './Thought';
+
 export const Blog = objectType({
   name: 'Blog',
   definition(t) {
@@ -46,5 +54,68 @@ export const Blog = objectType({
     t.model.visitorCount();
     t.model.createdAt();
     t.model.updatedAt();
+
+    t.model.posts();
+    t.model.thoughts();
+    t.model.tags();
+    t.model.links();
+    t.model.papers();
+    t.model.projects();
+
+    t.connectionField('postsConnection', {
+      type: Post,
+      async resolve(_root, args, ctx) {
+        const result = await findManyCursorConnection(
+          (args) => ctx.prisma.post.findMany(args),
+          () => ctx.prisma.post.count(),
+          args,
+        );
+        return result;
+      },
+    });
+    t.connectionField('thoughtsConnection', {
+      type: Thought,
+      async resolve(_root, args, ctx) {
+        const result = await findManyCursorConnection(
+          (args) => ctx.prisma.thought.findMany(args),
+          () => ctx.prisma.thought.count(),
+          args,
+        );
+        return result;
+      },
+    });
+    t.connectionField('tagsConnection', {
+      type: Tag,
+      async resolve(_root, args, ctx) {
+        const result = await findManyCursorConnection(
+          (args) => ctx.prisma.tag.findMany(args),
+          () => ctx.prisma.tag.count(),
+          args,
+        );
+        return result;
+      },
+    });
+    t.connectionField('papersConnection', {
+      type: Paper,
+      async resolve(_root, args, ctx) {
+        const result = await findManyCursorConnection(
+          (args) => ctx.prisma.paper.findMany(args),
+          () => ctx.prisma.paper.count(),
+          args,
+        );
+        return result;
+      },
+    });
+    t.connectionField('projectsConnection', {
+      type: Project,
+      async resolve(_root, args, ctx) {
+        const result = await findManyCursorConnection(
+          (args) => ctx.prisma.project.findMany(args),
+          () => ctx.prisma.project.count(),
+          args,
+        );
+        return result;
+      },
+    });
   },
 });

@@ -1,21 +1,16 @@
 import { queryField } from 'nexus';
 
-import { defaultIds } from '@vlepo/shared';
-
 export const node = queryField((t) => {
   t.nullable.field('viewer', {
     type: 'User',
     description: 'Current logged in user',
     resolve: async (_root, _args, ctx) => {
-      const user = await ctx.prisma.user.findFirst({
-        where: {
-          id: defaultIds.admin,
-        },
-      });
+      const user = (await ctx.oauth.extractAccessToken(ctx, true))?.user;
+      // remove password hash
       if (user) {
         user.password = null;
       }
-      return user;
+      return user || null;
     },
   });
 });

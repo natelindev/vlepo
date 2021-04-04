@@ -2,6 +2,7 @@ import { queryField } from 'nexus';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 
+import { Blog } from './Blog';
 import { Comment } from './Comment';
 import { Image } from './Image';
 import { Link } from './Link';
@@ -47,6 +48,19 @@ export const Query = queryField((t) => {
   t.crud.thoughts();
   t.crud.translations();
   t.crud.userRoles();
+
+  t.connectionField('BlogsConnection', {
+    type: Blog,
+    async resolve(_root, args, ctx) {
+      const result = await findManyCursorConnection(
+        (args) => ctx.prisma.blog.findMany(args),
+        () => ctx.prisma.blog.count(),
+        args,
+      );
+      return result;
+    },
+  });
+
   t.connectionField('PostsConnection', {
     type: Post,
     async resolve(_root, args, ctx) {

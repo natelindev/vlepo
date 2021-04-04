@@ -14,11 +14,23 @@ enum Language {
 }
 
 model Blog {
-  id           String   @id @default(uuid())
-  name         String?
-  visitorCount Int      @default(0)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id   String  @id @default(uuid())
+  name String?
+
+  owner   User   @relation(fields: [ownerId], references: [id])
+  ownerId String
+
+  visitorCount Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  posts    Post[]
+  thoughts Thought[]
+  projects Project[]
+  papers   Paper[]
+  tags     Tag[]
+  links    Link[]
 }
 
 model UserRole {
@@ -37,23 +49,24 @@ enum OAuthProviders {
 }
 
 model User {
-  id              String          @id @default(uuid())
+  id              String  @id @default(uuid())
   name            String?
   password        String?
   email           String?
   website         String?
   profileImageUrl String?
   description     String?
-  posts           Post[]
-  roles           UserRole[]
-  comments        Comment[]
-  images          Image[]
-  thoughts        Thought[]
-  provider        OAuthProviders?
-  openid          String?
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
 
+  blogs     Blog[]
+  posts     Post[]
+  roles     UserRole[]
+  comments  Comment[]
+  images    Image[]
+  thoughts  Thought[]
+  provider  OAuthProviders?
+  openid    String?
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
 
   accessTokens            OAuthAccessToken[]
   refreshTokens           OAuthRefreshToken[]
@@ -62,24 +75,27 @@ model User {
 }
 
 model Post {
-  id             String       @id @default(uuid())
-  ownerId        String?
+  id             String     @id @default(uuid())
+  ownerId        String
   content        String?
-  status         PostStatus   @default(DRAFT)
+  status         PostStatus @default(DRAFT)
   title          String
   headerImageUrl String?
-  owner          User?        @relation(fields: [ownerId], references: [id])
+  owner          User       @relation(fields: [ownerId], references: [id])
   comments       Comment[]
-  viewCount      Int          @default(0)
-  ratings        Rating[]
-  reactions      Reaction[]
-  minuteRead     Int?
-  tags           Tag[]
-  images         Image[]
-  shares         ShareCount[]
-  editedAt       DateTime?
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  viewCount      Int        @default(0)
+
+  ratings    Rating[]
+  reactions  Reaction[]
+  minuteRead Int?
+  tags       Tag[]
+  images     Image[]
+  shares     ShareCount[]
+  editedAt   DateTime?
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  blog       Blog         @relation(fields: [blogId], references: [id])
+  blogId     String
 }
 
 enum PostStatus {
@@ -94,6 +110,18 @@ enum ToughtStatus {
   PUBLISHED
 }
 
+enum ProjectStatus {
+  DRAFT
+  PRIVATE
+  PUBLISHED
+}
+
+enum PaperStatus {
+  DRAFT
+  PRIVATE
+  PUBLISHED
+}
+
 model Tag {
   id           String  @id @default(uuid())
   name         String  @unique
@@ -103,9 +131,12 @@ model Tag {
   thoughts Thought[]
   projects Project[]
   papers   Paper[]
+  blog     Blog      @relation(fields: [blogId], references: [id])
+  blogId   String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
 }
 
 model Comment {
@@ -128,14 +159,15 @@ model Comment {
 }
 
 model Image {
-  id             String  @id @default(uuid())
-  owner          User    @relation(fields: [ownerId], references: [id])
-  ownerId        String
-  mainColor      String
+  id      String @id @default(uuid())
+  owner   User   @relation(fields: [ownerId], references: [id])
+  ownerId String
+  url     String
+
+  mainColor      String?
   secondaryColor String?
-  url            String
-  height         Int
-  width          Int
+  height         Int?
+  width          Int?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -157,8 +189,12 @@ model Link {
   url     String
   iconUrl String?
 
+  blog   Blog   @relation(fields: [blogId], references: [id])
+  blogId String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
 }
 
 model Thought {
@@ -177,6 +213,8 @@ model Thought {
   reactions Reaction[]
   shares    ShareCount[]
   tags      Tag[]
+  blog      Blog         @relation(fields: [blogId], references: [id])
+  blogId    String
 }
 
 model Reaction {
@@ -206,6 +244,10 @@ model Rating {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  paper     Paper?   @relation(fields: [paperId], references: [id])
+  paperId   String?
+  project   Project? @relation(fields: [projectId], references: [id])
+  projectId String?
 }
 
 enum TranslationType {
@@ -226,10 +268,10 @@ enum ShareType {
 }
 
 model ShareCount {
-  id       String    @id @default(uuid())
-  targetId String
-  count    Int
-  source   ShareType
+  id        String    @id @default(uuid())
+  targetId  String
+  count     Int
+  shareType ShareType
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -253,26 +295,38 @@ model Translation {
 }
 
 model Project {
-  id        String     @id @default(uuid())
+  id        String        @id @default(uuid())
   name      String
   content   String
+  status    ProjectStatus @default(DRAFT)
   url       String?
   tags      Tag[]
   images    Image[]
   reactions Reaction[]
+  ratings   Rating[]
+
+  blog   Blog?   @relation(fields: [blogId], references: [id])
+  blogId String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Paper {
-  id        String     @id @default(uuid())
-  name      String
-  content   String
-  url       String?
-  tags      Tag[]
+  id             String      @id @default(uuid())
+  name           String
+  content        String
+  status         PaperStatus @default(DRAFT)
+  url            String?
+  tags           Tag[]
+  headerImageUrl String?
+
   images    Image[]
   reactions Reaction[]
+  ratings   Rating[]
+
+  blog   Blog?   @relation(fields: [blogId], references: [id])
+  blogId String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
