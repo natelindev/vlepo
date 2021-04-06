@@ -1,9 +1,10 @@
+import React from 'react';
 import { useTransition } from 'react-spring';
-import { StyledModalProps } from 'styled-modal';
+import { Row } from 'src/components/Layout/style';
 
-import { BaseAnimatedContainer, BaseBaseModal } from './style';
+import { BaseAnimatedContainer, BaseBaseModal, CloseIcon } from './style';
 
-export type BaseModalProps = StyledModalProps;
+export type BaseModalProps = React.ComponentProps<typeof BaseBaseModal>;
 const BaseModal = (props: BaseModalProps) => {
   const { open, onClose, children, ...rest } = props;
 
@@ -33,6 +34,9 @@ const BaseModal = (props: BaseModalProps) => {
               onClose={onClose}
               {...rest}
             >
+              <Row>
+                <CloseIcon onClick={() => onClose?.()} size={24} />
+              </Row>
               {children}
             </BaseBaseModal>
           ),

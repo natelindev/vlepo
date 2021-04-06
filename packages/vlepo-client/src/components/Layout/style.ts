@@ -22,9 +22,10 @@ export const Footer = styled.footer`
   background-color: ${(props) => props.theme.colors.backgroundSecondary};
 `;
 
-export const Row = styled.div<WidthProps & MarginProps>`
+export const Row = styled.div<WidthProps & MarginProps & FlexboxProps>`
   ${width}
   ${margin}
+  ${flexbox}
   display: flex;
 `;
 

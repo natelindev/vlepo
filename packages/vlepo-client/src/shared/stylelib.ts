@@ -6778,8 +6778,8 @@ export {};
 //   }
 
 //   textarea&${isValid} {
-//     padding-right: calc(1.5em + 0.75rem);
-//     background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);
+// padding-right: calc(1.5em + 0.75rem);
+// background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);
 //   }
 
 //   &${isInvalid} {

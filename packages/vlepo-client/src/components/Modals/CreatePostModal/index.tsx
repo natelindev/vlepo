@@ -3,13 +3,15 @@ import { useToasts } from 'react-toast-notifications';
 import { useMutation } from 'relay-hooks';
 import { graphql } from 'relay-runtime';
 import {
-  createPostInput as createPostInputType,
+  createPostInput,
   CreatePostModal_Mutation,
   CreatePostModal_MutationResponse,
 } from 'src/__generated__/CreatePostModal_Mutation.graphql';
+import GradientButton from 'src/components/GradientButton';
+import { ErrorText, Form, Input, InputGroup, Label, TextArea } from 'src/components/Input';
+import { Row } from 'src/components/Layout/style';
 
 import BaseModal, { BaseModalProps } from '../BaseModal';
-import { CreatePostForm } from './style';
 
 type CreatePostModalProps = BaseModalProps;
 const CreatePostModal = (props: CreatePostModalProps) => {
@@ -21,14 +23,19 @@ const CreatePostModal = (props: CreatePostModalProps) => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<createPostInputType>();
+  } = useForm<createPostInput>();
 
-  const onSubmit = (data: createPostInputType) =>
+  const onSubmit = (data: createPostInput) =>
     mutate({
       variables: {
         input: data,
       },
     });
+
+  const onModalClose = () => {
+    onClose?.();
+    reset();
+  };
 
   const [mutate, { loading }] = useMutation<CreatePostModal_Mutation>(
     graphql`
@@ -45,28 +52,56 @@ const CreatePostModal = (props: CreatePostModalProps) => {
           addToast(`create post succeed`, {
             appearance: 'success',
           });
-          onClose?.();
         } else if (creatPostMutation?.error) {
           addToast(`create post failed, ${creatPostMutation?.error}`, {
             appearance: 'error',
           });
-          onClose?.();
         }
-        reset();
+        onModalClose();
       },
       onError: (error) => {
-        addToast(`Login failed, ${error}`, {
+        addToast(`create post failed, ${error}`, {
           appearance: 'error',
         });
-        onClose?.();
-        reset();
+        onModalClose();
       },
     },
   );
 
   return (
-    <BaseModal open={open} onClose={onClose} closeOnOutsideClick={false}>
-      <CreatePostForm />
+    <BaseModal width={[0.9, 0.5]} open={open} onClose={onModalClose} closeOnOutsideClick={false}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <InputGroup>
+          <Label>Title</Label>
+          <Input autoComplete="title" {...register('title')} />
+          {errors.title && <ErrorText>{errors.title.message}</ErrorText>}
+        </InputGroup>
+        <Row justifyContent="space-between">
+          <InputGroup>
+            <Label>Status</Label>
+            <Input autoComplete="status" {...register('status')} />
+            {errors.status && <ErrorText>{errors.status.message}</ErrorText>}
+          </InputGroup>
+          <InputGroup mx="1rem">
+            <Label>Header Image</Label>
+            <Input autoComplete="headerImageUrl" {...register('headerImageUrl')} />
+            {errors.headerImageUrl && <ErrorText>{errors.headerImageUrl.message}</ErrorText>}
+          </InputGroup>
+          <InputGroup>
+            <Label>Tags</Label>
+            <Input autoComplete="tags" {...register('tags')} />
+            {errors.tags && <ErrorText>{errors.tags.message}</ErrorText>}
+          </InputGroup>
+        </Row>
+        <InputGroup>
+          <Label>Content</Label>
+          <TextArea height="20rem" autoComplete="content" {...register('content')} />
+          {errors.content && <ErrorText>{errors.content.message}</ErrorText>}
+        </InputGroup>
+        <GradientButton my="0.5rem" type="submit">
+          {loading ? 'Create...' : 'Create'}
+        </GradientButton>
+      </Form>
     </BaseModal>
   );
 };

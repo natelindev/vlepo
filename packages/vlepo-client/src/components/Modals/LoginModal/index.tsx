@@ -6,7 +6,8 @@ import { useToasts } from 'react-toast-notifications';
 import { useSetRecoilState } from 'recoil';
 import { useMutation } from 'relay-hooks';
 import { currentUserState } from 'src/atoms/user';
-import { LoginButton } from 'src/components/UserSection/style';
+import GradientButton from 'src/components/GradientButton';
+import { ErrorText, Form, Input, InputGroup, Label } from 'src/components/Input';
 import { usePopupWindow } from 'src/hooks/usePopupWindow';
 
 import { IdToken } from '@vlepo/shared';
@@ -18,15 +19,7 @@ import {
 } from '../../../__generated__/LoginModal_Mutation.graphql';
 import { getCookie } from '../../../hooks/useCookie';
 import BaseModal, { BaseModalProps } from '../BaseModal';
-import {
-  ErrorText,
-  InputGroup,
-  Label,
-  LoginForm,
-  LoginInput,
-  OauthButton,
-  OauthButtonSection,
-} from './style';
+import { OauthButton, OauthButtonSection } from './style';
 
 type LoginModalProps = BaseModalProps;
 const LoginModal = (props: LoginModalProps) => {
@@ -46,6 +39,11 @@ const LoginModal = (props: LoginModalProps) => {
       },
     });
 
+  const onModalClose = () => {
+    onClose?.();
+    reset();
+  };
+
   const { addToast } = useToasts();
 
   const [mutate, { loading }] = useMutation<LoginModal_Mutation>(
@@ -63,7 +61,6 @@ const LoginModal = (props: LoginModalProps) => {
           addToast(`Login succeed`, {
             appearance: 'success',
           });
-          onClose?.();
           setCurrentUser(
             getCookie<IdToken>('idToken', {
               decode: (v: string) => JSON.parse(decode(v)),
@@ -73,9 +70,8 @@ const LoginModal = (props: LoginModalProps) => {
           addToast(`Login failed, ${LoginMutation?.error}`, {
             appearance: 'error',
           });
-          onClose?.();
         }
-        reset();
+        onModalClose();
       },
       onError: (error) => {
         addToast(`Login failed, ${error}`, {
@@ -89,16 +85,16 @@ const LoginModal = (props: LoginModalProps) => {
 
   const { createWindow: openOauthWindow } = usePopupWindow();
   return (
-    <BaseModal open={open} onClose={onClose}>
-      <LoginForm onSubmit={handleSubmit(onSubmit)}>
+    <BaseModal width={[0.9, 0.5, 0.25]} open={open} onClose={onModalClose}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <InputGroup>
           <Label>Email</Label>
-          <LoginInput autoComplete="email" {...register('email')} />
+          <Input autoComplete="email" {...register('email')} />
           {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
         </InputGroup>
         <InputGroup>
           <Label>Password</Label>
-          <LoginInput autoComplete="current-password" type="password" {...register('password')} />
+          <Input autoComplete="current-password" type="password" {...register('password')} />
         </InputGroup>
         {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
         <OauthButtonSection>
@@ -120,8 +116,10 @@ const LoginModal = (props: LoginModalProps) => {
               </OauthButton>
             ))}
         </OauthButtonSection>
-        <LoginButton type="submit">{loading ? 'Login...' : 'Login'}</LoginButton>
-      </LoginForm>
+        <GradientButton my="0.5rem" type="submit">
+          {loading ? 'Login...' : 'Login'}
+        </GradientButton>
+      </Form>
     </BaseModal>
   );
 };
