@@ -2,8 +2,7 @@ import * as NexusSchema from 'nexus';
 import { nexusPrisma } from 'nexus-plugin-prisma';
 import * as path from 'path';
 
-import { fieldAuthenticationPlugin } from '@jcm/nexus-plugin-field-authentication';
-
+import { fieldAuthenticationPlugin } from './plugins/authentication';
 import * as types from './types';
 
 export default NexusSchema.makeSchema({
@@ -22,8 +21,11 @@ export default NexusSchema.makeSchema({
     NexusSchema.connectionPlugin({ includeNodesField: true }),
     NexusSchema.fieldAuthorizePlugin(),
     fieldAuthenticationPlugin({
-      isLogged: async (_root, _args, ctx) => {
+      isLoggedIn: async (_root, _args, ctx) => {
         return ctx.oauth.verifyAccessToken(ctx.oauth.extractAccessToken(ctx));
+      },
+      onFailedAuthentication: (_root, _args, ctx) => {
+        ctx.response.status = 401;
       },
     }),
   ],

@@ -29,7 +29,7 @@ export function createEnvironment(relayData: SSRCache): Environment {
         ttl: 60 * 1000,
       }),
       new RelaySSR(relayData).getMiddleware({
-        lookup: false,
+        lookup: true,
       }),
       urlMiddleware({
         url: () => {
@@ -39,6 +39,7 @@ export function createEnvironment(relayData: SSRCache): Environment {
       }),
       authMiddleware({
         token: getCookie<string>('accessToken'),
+        // tokenRefreshPromise: async () => getCookie<string>('accessToken') ?? '',
         allowEmptyToken: true,
       }),
       batchMiddleware({

@@ -1,5 +1,4 @@
 import { Masonry } from 'masonic';
-import { GetServerSideProps } from 'next';
 import React from 'react';
 import { fetchQuery, graphql } from 'react-relay';
 import Typist from 'react-typist';
@@ -15,6 +14,8 @@ import {
   pages_indexQuery,
   pages_indexQueryResponse,
 } from '../__generated__/pages_indexQuery.graphql';
+
+import type { GetServerSideProps } from 'next';
 
 const IndexMasonry = styled(Masonry)`
   width: 100%;
@@ -70,6 +71,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
 
   return {
     props: {
+      // @ts-expect-error relay network modern inaccurate typing
       relayData: relayData ? [[queryString, queryPayload.json]] : null,
     },
   };

@@ -28,7 +28,8 @@ export type ExtendedContext = {
   prisma: PrismaClient;
   oauth: typeof oauth;
   knex: Knex;
-} & Koa.Context;
+} & Koa.Context &
+  Koa.BaseContext;
 
 const app = new Koa();
 

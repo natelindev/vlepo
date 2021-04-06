@@ -2,6 +2,7 @@ import { encode } from 'base-64';
 import { add } from 'date-fns';
 import debugInit from 'debug';
 import Router from 'koa-router';
+import { ExtendedContext } from 'src/app';
 import { match } from 'ts-pattern';
 
 import { OAuthClient, OAuthProviders } from '@prisma/client';
@@ -10,7 +11,9 @@ import { envDetect, IdToken, OAuthConsts } from '@vlepo/shared';
 import { token } from './middleware';
 import { generateAccessToken, saveToken } from './model';
 
-const router = new Router({
+import type { DefaultState } from 'koa';
+
+const router = new Router<DefaultState, ExtendedContext>({
   prefix: '/api/oauth2',
 });
 

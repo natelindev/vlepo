@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@devoxa/prisma-relay-cursor-connection": "1.1.1",
-    "@jcm/nexus-plugin-field-authentication": "0.2.0",
     "@koa/cors": "3.1.0",
     "@prisma/client": "2.20.1",
     "@vlepo/shared": "1.0.0",
@@ -52,7 +51,7 @@
     "node-fetch": "2.6.1",
     "oauth2-server": "3.1.1",
     "pg": "8.5.1",
-    "ts-pattern": "3.1.1"
+    "ts-pattern": "3.1.2"
   },
   "devDependencies": {
     "@types/base-64": "0.1.3",
