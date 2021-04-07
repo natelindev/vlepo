@@ -8,7 +8,6 @@ export const ShareCount = objectType({
       resolve: (root) => root.id,
     });
     t.model.count();
-    t.model.source();
     t.model.createdAt();
     t.model.updatedAt();
   },

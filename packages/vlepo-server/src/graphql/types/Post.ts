@@ -1,7 +1,7 @@
 import { enumType, inputObjectType, list, mutationField, nonNull, objectType } from 'nexus';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
-import { PostStatus as DBPostStatus, prisma, User } from '@prisma/client';
+import { PostStatus as DBPostStatus, User } from '@prisma/client';
 
 import { Comment } from './Comment';
 import { createImageInput, Image } from './Image';

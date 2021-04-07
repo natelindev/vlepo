@@ -9,11 +9,10 @@
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap --scope=@vlepo/shared",
-    "prebuild": "patch-package && yarn generate && lerna link && rm -rf node_modules/@types/react-relay/node_modules",
+    "prebuild": "patch-package && yarn generate && lerna link",
     "build": "lerna run build",
     "dev": "lerna run dev --parallel",
     "generate": "lerna run generate",
-    "postinstall": "rm -rf node_modules/@types/react-relay/node_modules",
     "lint": "lerna run lint --parallel",
     "publish": "yarn lerna publish from-package --dist-tag canary --yes --no-verify-access",
     "start": "pm2 start ./pm2.yml",

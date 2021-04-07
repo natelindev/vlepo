@@ -40,7 +40,9 @@ export default NexusSchema.makeSchema({
   sourceTypes: {
     modules: [
       {
-        module: require.resolve('../../node_modules/.prisma/client/index.d.ts'),
+        module: require.resolve(
+          path.join(__dirname, '../../../../node_modules/.prisma/client/index.d.ts'),
+        ),
         alias: 'prisma',
       },
     ],

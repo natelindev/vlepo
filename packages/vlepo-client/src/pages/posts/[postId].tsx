@@ -2,7 +2,6 @@ import debugInit from 'debug';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import hydrate from 'next-mdx-remote/hydrate';
 import renderToString from 'next-mdx-remote/render-to-string';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { fetchQuery, graphql } from 'react-relay';
@@ -12,9 +11,8 @@ import * as components from 'src/components/MDXComponents';
 import PlaceHolder from 'src/components/PlaceHolder';
 import { initEnvironment } from 'src/relay';
 
-import styled from '@emotion/styled';
-
 import { PostIdQuery } from '../../__generated__/PostIdQuery.graphql';
+import { ArticleBody, Author, Body, Content, FullWidthImage, Header, Title } from './style';
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const debug = debugInit('vlepo:postId');
@@ -37,46 +35,12 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   return {
     props: {
-      // @ts-expect-error relay-network-modern incorrect typing
+      // @ts-expect-error relay-network-modern inaccurate typing
       relayData: relayData ? [[queryString, queryPayload.json]] : null,
       renderedMDX,
     },
   };
 };
-
-const Header = styled.div`
-  max-height: 30rem;
-  width: 100%;
-  > div {
-    max-height: 30rem;
-  }
-`;
-
-const FullWidthImage = styled(Image)`
-  object-fit: cover;
-`;
-
-const Title = styled.h1`
-  font-size: 2.75rem;
-`;
-
-const ArticleBody = styled.article`
-  margin-left: 10rem;
-  margin-right: 10rem;
-`;
-
-const Body = styled.div`
-  display: flex;
-`;
-
-const Author = styled.div`
-  font-size: 1.5rem;
-`;
-
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 
 const postIdQuery = graphql`
   query PostIdQuery($id: String!) {
