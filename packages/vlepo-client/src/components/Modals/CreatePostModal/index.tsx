@@ -17,21 +17,25 @@ type CreatePostModalProps = BaseModalProps;
 const CreatePostModal = (props: CreatePostModalProps) => {
   const { open, onClose } = props;
   const { addToast } = useToasts();
-
+  type createPostInputType = Omit<createPostInput, 'tags' | 'images'> & {
+    tags: string;
+    images: string;
+  };
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<createPostInput>();
+  } = useForm<createPostInputType>();
 
-  const onSubmit = (data: createPostInput) => {
-    const { tags, ...rest } = data;
+  const onSubmit = (data: createPostInputType) => {
+    const { tags, images, ...rest } = data;
     mutate({
       variables: {
         input: {
           ...rest,
-          tags: JSON.parse((tags as unknown) as string),
+          images: images.split(',').map((i) => ({ url: i })),
+          tags: tags.split(',').map((t) => ({ name: t })),
         },
       },
     });
