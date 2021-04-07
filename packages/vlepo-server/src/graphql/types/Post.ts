@@ -194,9 +194,6 @@ export const creatPostMutation = mutationField('creatPostMutation', {
             .insert(
               createPostInput.images.map((img) => ({
                 url: img.url,
-                mainColor: '#fff',
-                height: 0,
-                width: 0,
                 postId: postIds[0],
               })),
             )

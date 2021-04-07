@@ -4,7 +4,7 @@ import { core, plugin } from 'nexus';
 // Most of this code is inspired on the authorize plugin from nexus
 
 const fieldAuthenticationPluginResolverImport = core.printedGenTypingImport({
-  module: '@jcm/nexus-plugin-field-authentication',
+  module: 'nexus-plugin-field-authentication',
   bindings: ['FieldAuthenticationResolver', 'FieldAuthenticationResolverReturnValue'],
 });
 
