@@ -56,7 +56,7 @@ export const LoginMutation = mutationField('LoginMutation', {
             {
               accessToken,
               accessTokenExpiresAt: add(new Date(), { days: 1 }),
-              scope: OAuthConsts.scope.guest.join(' '),
+              scope: OAuthConsts.scope.admin.join(' '),
             },
             (await ctx.prisma.oAuthClient.findFirst({
               where: {

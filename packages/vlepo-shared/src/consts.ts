@@ -17,6 +17,22 @@ const OAuthConsts = {
     'user_role',
   ] as const,
   scope: {
+    admin: [
+      'blog',
+      'comment',
+      'image',
+      'link',
+      'paper',
+      'post',
+      'project',
+      'rating',
+      'reaction',
+      'tag',
+      'thought',
+      'translation',
+      'user',
+      'user_role',
+    ] as const,
     guest: ['comment:create', 'image:create', 'self'] as const,
   },
   roles: {

@@ -1,7 +1,10 @@
+import debugInit from 'debug';
 import { enumType, inputObjectType, list, mutationField, nonNull, objectType } from 'nexus';
+import uuid from 'uuid';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { PostStatus as DBPostStatus, User } from '@prisma/client';
+import { defaultIds } from '@vlepo/shared';
 
 import { Comment } from './Comment';
 import { createImageInput, Image } from './Image';
@@ -9,6 +12,8 @@ import { Rating } from './Rating';
 import { Reaction } from './Reaction';
 import { ShareCount } from './ShareCount';
 import { createTagInput, Tag } from './Tag';
+
+const debug = debugInit('vlepo:Post');
 
 export const Post = objectType({
   name: 'Post',
@@ -171,15 +176,29 @@ export const creatPostMutation = mutationField('creatPostMutation', {
       await ctx.knex.transaction(async (trx) => {
         const postIds = await trx('Post')
           .insert({
+            id: uuid.v4(),
+            blogId: defaultIds.blog,
             ownerId: currentUser.id,
             title: createPostInput.title,
             content: createPostInput.content,
             headerImageUrl: createPostInput.headerImageUrl,
+            createdAt: new Date(),
+            updatedAt: new Date(),
           })
           .returning('id');
 
         if (createPostInput.tags && createPostInput.tags.length > 0) {
-          const tagIds = await trx('Tag').insert(createPostInput.tags).returning('id');
+          const tagIds = await trx('Tag')
+            .insert(
+              createPostInput.tags.map((t) => ({
+                id: uuid.v4(),
+                blogId: defaultIds.blog,
+                ...t,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+              })),
+            )
+            .returning('id');
 
           await trx('_PostToTag').insert(
             tagIds.map((tid) => ({
@@ -193,6 +212,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
           await trx('Image')
             .insert(
               createPostInput.images.map((img) => ({
+                id: uuid.v4(),
                 url: img.url,
                 postId: postIds[0],
               })),
@@ -201,6 +221,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
         }
       });
     } catch (err) {
+      debug(err);
       return {
         ok: false,
         error: err.stack,

@@ -25,12 +25,17 @@ const CreatePostModal = (props: CreatePostModalProps) => {
     reset,
   } = useForm<createPostInput>();
 
-  const onSubmit = (data: createPostInput) =>
+  const onSubmit = (data: createPostInput) => {
+    const { tags, ...rest } = data;
     mutate({
       variables: {
-        input: data,
+        input: {
+          ...rest,
+          tags: JSON.parse((tags as unknown) as string),
+        },
       },
     });
+  };
 
   const onModalClose = () => {
     onClose?.();

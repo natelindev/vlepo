@@ -51,7 +51,8 @@
     "node-fetch": "2.6.1",
     "oauth2-server": "3.1.1",
     "pg": "8.5.1",
-    "ts-pattern": "3.1.2"
+    "ts-pattern": "3.1.2",
+    "uuid": "8.3.2"
   },
   "devDependencies": {
     "@types/base-64": "0.1.3",
@@ -70,6 +71,7 @@
     "@types/node": "14.14.37",
     "@types/node-fetch": "2.5.9",
     "@types/oauth2-server": "3.0.12",
+    "@types/uuid": "8.3.0",
     "cross-env": "7.0.3",
     "dotenv": "8.2.0",
     "eslint-config-prettier": "8.1.0",

@@ -171,6 +171,11 @@ export const saveToken = async (token: SaveTokenInput, client: OAuthClient, user
           data: {
             refreshToken: t.refreshToken,
             refreshTokenExpiresAt: t.refreshTokenExpiresAt,
+            scopes: {
+              connect: processedScopes.map((s) => ({
+                value: s,
+              })),
+            },
             client: {
               connect: {
                 id: client.id,
@@ -194,6 +199,11 @@ export const saveToken = async (token: SaveTokenInput, client: OAuthClient, user
         data: {
           accessToken: token.accessToken,
           accessTokenExpiresAt: token.accessTokenExpiresAt,
+          scopes: {
+            connect: processedScopes.map((s) => ({
+              value: s,
+            })),
+          },
           client: {
             connect: {
               id: client.id,

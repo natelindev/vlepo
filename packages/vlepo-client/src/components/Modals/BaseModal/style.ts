@@ -20,6 +20,9 @@ export const BaseAnimatedContainer = styled(a.div)<WidthProps>`
   height: auto;
   background-color: inherit;
   backdrop-filter: saturate(180%) blur(5px);
+  margin-top: auto;
+  margin-bottom: auto;
+  overflow-y: scroll;
   ${width}
 `;
 
