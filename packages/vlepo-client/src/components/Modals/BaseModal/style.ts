@@ -13,7 +13,9 @@ export const BaseBaseModal = styled(StyledModal)<
   background-color: ${(props) => props.theme.colors.backgroundSecondary};
 `;
 
-export const BaseAnimatedContainer = styled(a.div)<WidthProps>`
+export const BaseAnimatedContainer = styled(a.div, {
+  shouldForwardProp: (propName) => propName !== 'isToggled' && propName !== 'isClientSide',
+})<WidthProps>`
   padding: 2.5rem;
   display: flex;
   flex-direction: column;

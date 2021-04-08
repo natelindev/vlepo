@@ -79,11 +79,14 @@ const graphqlServer = graphqlHTTP((_req, _res, ctx) => ({
   schema,
   context: ctx,
   validationRules: [depthLimit(10)],
-  formatError: (error: Error) => ({
-    // better errors for development. `stack` used in `gqErrors` middleware
-    message: error.message,
-    stack: envDetect.isDev ? error.stack?.split('\n') : undefined,
-  }),
+  formatError: (error: Error) => {
+    debug(error.stack);
+    return {
+      // better errors for development. `stack` used in `gqErrors` middleware
+      message: error.message,
+      stack: envDetect.isDev ? error.stack?.split('\n') : undefined,
+    };
+  },
 }));
 
 router.all('/playground', koaPlayground({ endpoint: '/graphql' }));

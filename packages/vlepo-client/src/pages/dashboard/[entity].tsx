@@ -125,7 +125,9 @@ const PostSection = (props: PostSectionProps) => {
         user.postsConnection.edges.map(
           (e) =>
             e &&
-            e.node && <PostCard key={((e.node as unknown) as { id: string }).id} post={e.node} />,
+            e.node && (
+              <PostCard key={((e.node as unknown) as { __id: string }).__id} post={e.node} />
+            ),
         )}
       {isLoadingNext && <PlaceHolder width="100%" />}
       {hasNext && !isLoadingNext && (

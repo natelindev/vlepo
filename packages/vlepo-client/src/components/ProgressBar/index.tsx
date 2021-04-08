@@ -23,9 +23,9 @@ const ProgressBarContainer = styled.div<ProgressBarContainerProps>`
   z-index: ${(props) => props.theme.zIndices.ProgressBar};
 `;
 
-const BaseProgressBar = styled(a.div, {
-  shouldForwardProp: (propName) => propName !== 'colorA' && propName !== 'colorB',
-})<BaseProgressBarProps & MarginProps>`
+const BaseProgressBar = styled(a.div, { shouldForwardProp: (propName) => propName === 'style' })<
+  BaseProgressBarProps & MarginProps
+>`
   ${margin}
   height: 0.2rem;
   background-image: ${(props) =>
