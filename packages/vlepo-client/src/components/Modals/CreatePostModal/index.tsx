@@ -18,8 +18,8 @@ const CreatePostModal = (props: CreatePostModalProps) => {
   const { open, onClose } = props;
   const { addToast } = useToasts();
   type createPostInputType = Omit<createPostInput, 'tags' | 'images'> & {
-    tags: string;
-    images: string;
+    tags?: string;
+    images?: string;
   };
   const {
     register,
@@ -34,8 +34,8 @@ const CreatePostModal = (props: CreatePostModalProps) => {
       variables: {
         input: {
           ...rest,
-          images: images.split(',').map((i) => ({ url: i })),
-          tags: tags.split(',').map((t) => ({ name: t })),
+          images: images?.split(',').map((i) => ({ url: i })),
+          tags: tags?.split(',').map((t) => ({ name: t })),
         },
       },
     });
