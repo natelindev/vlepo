@@ -28,7 +28,7 @@
     "base-64": "1.0.0",
     "crypto-random-string": "3.3.1",
     "csrf": "3.1.0",
-    "date-fns": "2.19.0",
+    "date-fns": "2.20.0",
     "debug": "4.3.1",
     "grant": "5.4.12",
     "graphql": "15.5.0",
@@ -57,7 +57,7 @@
   "devDependencies": {
     "@types/base-64": "0.1.3",
     "@types/debug": "4.1.5",
-    "@types/faker": "5.5.0",
+    "@types/faker": "5.5.1",
     "@types/graphql-depth-limit": "1.1.2",
     "@types/graphql-upload": "8.0.4",
     "@types/koa": "2.13.1",
@@ -69,20 +69,20 @@
     "@types/koa-static": "4.0.1",
     "@types/koa__cors": "3.0.2",
     "@types/node": "14.14.37",
-    "@types/node-fetch": "2.5.9",
+    "@types/node-fetch": "2.5.10",
     "@types/oauth2-server": "3.0.12",
     "@types/uuid": "8.3.0",
     "cross-env": "7.0.3",
     "dotenv": "8.2.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-prettier": "3.3.1",
-    "eslint-plugin-react": "7.23.1",
+    "eslint-plugin-react": "7.23.2",
     "eslint-plugin-react-hooks": "4.2.0",
-    "faker": "5.5.2",
+    "faker": "5.5.3",
     "meow": "9.0.0",
     "prisma": "2.20.1",
     "ts-node": "9.1.1",
     "ts-node-dev": "1.1.6",
-    "typescript": "4.2.3"
+    "typescript": "4.2.4"
   }
 }

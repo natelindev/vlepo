@@ -1,6 +1,6 @@
 import debugInit from 'debug';
 import { enumType, inputObjectType, list, mutationField, nonNull, objectType } from 'nexus';
-import uuid from 'uuid';
+import { v4 } from 'uuid';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { PostStatus as DBPostStatus, User } from '@prisma/client';
@@ -176,7 +176,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
       await ctx.knex.transaction(async (trx) => {
         const postIds = await trx('Post')
           .insert({
-            id: uuid.v4(),
+            id: v4(),
             blogId: defaultIds.blog,
             ownerId: currentUser.id,
             title: createPostInput.title,
@@ -191,7 +191,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
           const tagIds = await trx('Tag')
             .insert(
               createPostInput.tags.map((t) => ({
-                id: uuid.v4(),
+                id: v4(),
                 blogId: defaultIds.blog,
                 ...t,
                 createdAt: new Date(),
@@ -212,7 +212,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
           await trx('Image')
             .insert(
               createPostInput.images.map((img) => ({
-                id: uuid.v4(),
+                id: v4(),
                 url: img.url,
                 postId: postIds[0],
               })),
