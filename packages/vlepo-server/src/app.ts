@@ -19,7 +19,7 @@ import { grantConfig } from './oauth2/grantConfig';
 import * as oauth from './oauth2/model';
 import authRouter from './oauth2/router';
 
-import type { PrismaClient } from '@prisma/client';
+import type { PrismaClient, User } from '@prisma/client';
 import type { Knex } from 'knex';
 
 const debug = debugInit('vlepo:app');
@@ -28,6 +28,7 @@ export type ExtendedContext = {
   prisma: PrismaClient;
   oauth: typeof oauth;
   knex: Knex;
+  currentUser?: User;
 } & Koa.Context &
   Koa.BaseContext;
 

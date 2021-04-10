@@ -1,16 +1,13 @@
-import type { Context } from 'koa';
-import { verifyScope } from './model';
+import type { ExtendedContext } from 'src/app';
 
 export const OAuthCheckScope = (scope: string | string[]) => async (
-  root: unknown,
-  args: unknown,
-  ctx: Context,
-  info: unknown,
-  originalResolve: (root: unknown, args: unknown, ctx: Context, info: unknown) => unknown,
+  _root: unknown,
+  _args: unknown,
+  ctx: ExtendedContext,
 ) => {
-  const authorized = await verifyScope(ctx.state.oauth.token, scope);
-  if (authorized) {
-    return originalResolve(root, args, ctx, info);
+  const token = await ctx.oauth.extractAccessToken(ctx, true);
+  if (token) {
+    return ctx.oauth.verifyScope(token, scope);
   }
-  throw Error('UnAuthorized');
+  return false;
 };

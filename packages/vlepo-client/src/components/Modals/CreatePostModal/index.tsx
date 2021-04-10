@@ -11,6 +11,7 @@ import { currentUserState } from 'src/atoms/user';
 import GradientButton from 'src/components/GradientButton';
 import { ErrorText, Form, Input, InputGroup, Label, TextArea } from 'src/components/Input';
 import { Row } from 'src/components/Layout/style';
+import Upload from 'src/components/Upload';
 
 import { defaultIds } from '@vlepo/shared';
 
@@ -109,6 +110,7 @@ const CreatePostModal = (props: CreatePostModalProps) => {
           </InputGroup>
           <InputGroup mx="1rem">
             <Label>Header Image</Label>
+            <Upload />
             <Input autoComplete="headerImageUrl" {...register('headerImageUrl')} />
             {errors.headerImageUrl && <ErrorText>{errors.headerImageUrl.message}</ErrorText>}
           </InputGroup>

@@ -6,6 +6,7 @@ import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection
 import { PostStatus as DBPostStatus, User } from '@prisma/client';
 import { defaultIds } from '@vlepo/shared';
 
+import { OAuthCheckScope } from '../../oauth2/nexus';
 import { Comment } from './Comment';
 import { createImageInput, Image } from './Image';
 import { Rating } from './Rating';
@@ -158,17 +159,9 @@ export const creatPostMutation = mutationField('creatPostMutation', {
     createPostInput: nonNull(createPostInput.asArg()),
   },
   authentication: true,
-  authorize: async (_root, _args, ctx) => {
-    const token = await ctx.oauth.extractAccessToken(ctx, true);
-    if (token) {
-      return ctx.oauth.verifyScope(token, ['post:create']);
-    }
-    return false;
-  },
+  authorize: OAuthCheckScope('post:create'),
   resolve: async (_root, { createPostInput }, ctx) => {
-    // passing the auth, therefor user must exist
-    const currentUser = (await ctx.oauth.extractAccessToken(ctx, true))?.user as User;
-
+    const currentUser = ctx.currentUser!;
     return ctx.knex.transaction(async (trx) => {
       const post = (
         await trx('Post')

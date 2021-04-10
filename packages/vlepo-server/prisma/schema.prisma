@@ -159,10 +159,11 @@ model Comment {
 }
 
 model Image {
-  id      String @id @default(uuid())
-  owner   User   @relation(fields: [ownerId], references: [id])
+  id      String  @id @default(uuid())
+  owner   User    @relation(fields: [ownerId], references: [id])
   ownerId String
   url     String
+  alt     String?
 
   mainColor      String?
   secondaryColor String?

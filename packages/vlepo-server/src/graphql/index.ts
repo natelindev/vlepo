@@ -22,7 +22,9 @@ export default NexusSchema.makeSchema({
     NexusSchema.fieldAuthorizePlugin(),
     fieldAuthenticationPlugin({
       isLoggedIn: async (_root, _args, ctx) => {
-        return ctx.oauth.verifyAccessToken(ctx.oauth.extractAccessToken(ctx));
+        const accessToken = await ctx.oauth.extractAccessToken(ctx, true);
+        ctx.currentUser = accessToken?.user;
+        return ctx.oauth.verifyAccessToken(accessToken?.accessToken);
       },
       onFailedAuthentication: (_root, _args, ctx) => {
         ctx.response.status = 401;
