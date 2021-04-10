@@ -51,6 +51,7 @@
     "node-fetch": "2.6.1",
     "oauth2-server": "3.1.1",
     "pg": "8.5.1",
+    "reading-time": "1.3.0",
     "ts-pattern": "3.1.2",
     "uuid": "8.3.2"
   },

@@ -1,5 +1,5 @@
-import debugInit from 'debug';
 import { enumType, inputObjectType, list, mutationField, nonNull, objectType } from 'nexus';
+import readingTime from 'reading-time';
 import { v4 } from 'uuid';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
@@ -12,8 +12,6 @@ import { Rating } from './Rating';
 import { Reaction } from './Reaction';
 import { ShareCount } from './ShareCount';
 import { createTagInput, Tag } from './Tag';
-
-const debug = debugInit('vlepo:Post');
 
 export const Post = objectType({
   name: 'Post',
@@ -181,6 +179,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
             title: createPostInput.title,
             content: createPostInput.content,
             headerImageUrl: createPostInput.headerImageUrl,
+            minuteRead: readingTime(createPostInput.content).minutes,
             createdAt: new Date(),
             updatedAt: new Date(),
           })
