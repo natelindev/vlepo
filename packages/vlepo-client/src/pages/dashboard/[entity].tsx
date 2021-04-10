@@ -22,7 +22,7 @@ import { Container, DashboardCard, DashboardMain, Numbers, NumbersLabel } from '
 
 const fragmentSpec = graphql`
   fragment Entity_user on User
-  @argumentDefinitions(count: { type: "Int", defaultValue: 2 }, cursor: { type: "String" })
+  @argumentDefinitions(count: { type: "Int", defaultValue: 5 }, cursor: { type: "String" })
   @refetchable(queryName: "PostRefetchQuery") {
     postsConnection(first: $count, after: $cursor) @connection(key: "Entity_postsConnection") {
       edges {
@@ -132,7 +132,7 @@ const PostSection = (props: PostSectionProps) => {
       {isLoadingNext && <PlaceHolder width="100%" />}
       {hasNext && !isLoadingNext && (
         <Row>
-          <GradientButton width="100%" mx="3rem" onClick={() => loadNext(2)}>
+          <GradientButton width="100%" mx="3rem" onClick={() => loadNext(5)}>
             Load More
           </GradientButton>
         </Row>

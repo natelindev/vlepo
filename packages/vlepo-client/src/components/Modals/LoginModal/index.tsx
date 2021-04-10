@@ -1,5 +1,6 @@
 import { decode } from 'base-64';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { graphql } from 'react-relay';
 import { useToasts } from 'react-toast-notifications';
@@ -30,6 +31,7 @@ const LoginModal = (props: LoginModalProps) => {
     formState: { errors },
     reset,
   } = useForm<LoginInputType>();
+  const router = useRouter();
   const setCurrentUser = useSetRecoilState(currentUserState);
 
   const onSubmit = (data: LoginInputType) =>
@@ -72,6 +74,7 @@ const LoginModal = (props: LoginModalProps) => {
           });
         }
         onModalClose();
+        router.reload();
       },
       onError: (error) => {
         addToast(`Login failed, ${error}`, {

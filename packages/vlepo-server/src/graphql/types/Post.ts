@@ -150,8 +150,7 @@ export const createPostInput = inputObjectType({
 export const creatPostResponse = objectType({
   name: 'creatPostResponse',
   definition(t) {
-    t.nonNull.boolean('ok');
-    t.string('error');
+    t.nonNull.field('createPostEdge', { type: 'PostEdge' });
   },
 });
 
@@ -172,9 +171,9 @@ export const creatPostMutation = mutationField('creatPostMutation', {
     // passing the auth, therefor user must exist
     const currentUser = (await ctx.oauth.extractAccessToken(ctx, true))?.user as User;
 
-    try {
-      await ctx.knex.transaction(async (trx) => {
-        const postIds = await trx('Post')
+    return ctx.knex.transaction(async (trx) => {
+      const post = (
+        await trx('Post')
           .insert({
             id: v4(),
             blogId: defaultIds.blog,
@@ -185,51 +184,63 @@ export const creatPostMutation = mutationField('creatPostMutation', {
             createdAt: new Date(),
             updatedAt: new Date(),
           })
-          .returning('id');
+          .returning('*')
+      )[0];
 
-        if (createPostInput.tags && createPostInput.tags.length > 0) {
-          const tagIds = await trx('Tag')
-            .insert(
-              createPostInput.tags.map((t) => ({
-                id: v4(),
-                blogId: defaultIds.blog,
-                ...t,
-                createdAt: new Date(),
-                updatedAt: new Date(),
-              })),
-            )
-            .returning('id');
+      if (createPostInput.tags && createPostInput.tags.length > 0) {
+        const existingTags = await trx('Tag')
+          .whereIn(
+            'name',
+            createPostInput.tags.map((t) => t.name),
+          )
+          .returning(['id', 'name']);
 
-          await trx('_PostToTag').insert(
-            tagIds.map((tid) => ({
-              A: postIds[0],
-              B: tid,
+        const newTags = createPostInput.tags.filter((t) =>
+          existingTags.every((et) => et.name !== t.name),
+        );
+
+        const newTagIds =
+          newTags.length > 0
+            ? await trx('Tag')
+                .insert(
+                  newTags.map((t) => ({
+                    id: v4(),
+                    blogId: defaultIds.blog,
+                    name: t.name,
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
+                  })),
+                )
+                .returning('id')
+            : [];
+
+        const tagIds = [...existingTags.map((t) => t.id), ...newTagIds];
+
+        await trx('_PostToTag').insert(
+          tagIds.map((tid) => ({
+            A: post.id,
+            B: tid,
+          })),
+        );
+      }
+
+      if (createPostInput.images && createPostInput.images.length > 0) {
+        await trx('Image')
+          .insert(
+            createPostInput.images.map((img) => ({
+              id: v4(),
+              url: img.url,
+              postId: post.id,
             })),
-          );
-        }
-
-        if (createPostInput.images && createPostInput.images.length > 0) {
-          await trx('Image')
-            .insert(
-              createPostInput.images.map((img) => ({
-                id: v4(),
-                url: img.url,
-                postId: postIds[0],
-              })),
-            )
-            .returning('id');
-        }
-      });
-    } catch (err) {
-      debug(err);
+          )
+          .returning('id');
+      }
       return {
-        ok: false,
-        error: err.stack,
+        createPostEdge: {
+          cursor: post.id,
+          node: { ...post, __typename: 'Post' },
+        },
       };
-    }
-
-    return {
-      ok: true,
-    };
+    });
   },
 });

@@ -66,6 +66,7 @@ const UserSection = (props: UserSectionProps) => {
               deleteCookie('idToken.sig');
               deleteCookie('accessToken.sig');
               setCurrentUser(undefined);
+              router.reload();
             }}
           >
             <NavItem>

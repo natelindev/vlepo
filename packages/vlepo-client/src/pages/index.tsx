@@ -1,21 +1,22 @@
 import { Masonry } from 'masonic';
 import React from 'react';
-import { fetchQuery, graphql } from 'react-relay';
+import { graphql } from 'react-relay';
 import Typist from 'react-typist';
-import { useQuery } from 'relay-hooks';
+import { usePagination, useQuery } from 'relay-hooks';
+import { fetchQuery, FragmentRefs } from 'relay-runtime';
+import { IndexPostRefetchQuery } from 'src/__generated__/IndexPostRefetchQuery.graphql';
+import { pages_Index_BlogQuery } from 'src/__generated__/pages_Index_BlogQuery.graphql';
+import { pages_Index_Posts$key } from 'src/__generated__/pages_Index_Posts.graphql';
 import ArticleCard from 'src/components/ArticleCard';
+import GradientButton from 'src/components/GradientButton';
+import { Row } from 'src/components/Layout/style';
 import PlaceHolder from 'src/components/PlaceHolder';
 import { initEnvironment } from 'src/relay';
 
 import styled from '@emotion/styled';
-import { Mutable } from '@vlepo/shared';
+import { defaultIds } from '@vlepo/shared';
 
-import {
-  pages_indexQuery,
-  pages_indexQueryResponse,
-} from '../__generated__/pages_indexQuery.graphql';
-
-import type { GetServerSideProps } from 'next';
+import type { GetServerSidePropsContext } from 'next';
 
 const IndexMasonry = styled(Masonry)`
   width: 100%;
@@ -34,7 +35,6 @@ const IndexRow = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 3rem;
-  margin-bottom: 2rem;
 `;
 
 const IndexSlogan = styled(Typist)`
@@ -52,18 +52,34 @@ const Slogan = styled.h1`
   color: ${(props) => props.theme.colors.text};
 `;
 
-const IndexQuery = graphql`
-  query pages_indexQuery {
-    posts {
-      ...ArticleCard_post
+const indexFragmentSpec = graphql`
+  fragment pages_Index_Posts on Blog
+  @argumentDefinitions(count: { type: "Int", defaultValue: 10 }, cursor: { type: "String" })
+  @refetchable(queryName: "IndexPostRefetchQuery") {
+    postsConnection(first: $count, after: $cursor) @connection(key: "Index_postsConnection") {
+      edges {
+        node {
+          ...ArticleCard_post
+        }
+      }
     }
   }
 `;
 
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+const blogQuery = graphql`
+  query pages_Index_BlogQuery($id: String!) {
+    blog(where: { id: $id }) {
+      ...pages_Index_Posts
+    }
+  }
+`;
+
+export const getServerSideProps = async ({ res }: GetServerSidePropsContext) => {
   const { environment, relaySSR } = initEnvironment();
 
-  await fetchQuery(environment, IndexQuery, {});
+  await fetchQuery(environment, blogQuery, {
+    id: defaultIds.blog,
+  }).toPromise();
   const [relayData] = await relaySSR.getCache();
   const [queryString, queryPayload] = relayData ?? [];
 
@@ -77,7 +93,10 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   };
 };
 
-type PostItem = Mutable<pages_indexQueryResponse['posts'][number]>;
+type PostItem = {
+  readonly ' $fragmentRefs': FragmentRefs<'ArticleCard_post'>;
+};
+
 type MasonryCardProps = { data: PostItem; width: number };
 
 const MasonryCard: React.FC<MasonryCardProps> = (props: MasonryCardProps) => {
@@ -86,7 +105,14 @@ const MasonryCard: React.FC<MasonryCardProps> = (props: MasonryCardProps) => {
 };
 
 export default function Home() {
-  const { error, data } = useQuery<pages_indexQuery>(IndexQuery);
+  const { error, data: blogData } = useQuery<pages_Index_BlogQuery>(blogQuery, {
+    id: defaultIds.blog,
+  });
+
+  const { data, isLoadingNext, hasNext, loadNext } = usePagination<
+    IndexPostRefetchQuery,
+    pages_Index_Posts$key
+  >(indexFragmentSpec, blogData!.blog!);
 
   if (error) return <div>{error.message}</div>;
   if (!data) return <PlaceHolder />;
@@ -99,12 +125,20 @@ export default function Home() {
       <IndexRow>
         <IndexMasonry<PostItem>
           columnWidth={350}
-          items={data.posts as PostItem[]}
+          items={data.postsConnection?.edges?.map((e) => e?.node) as PostItem[]}
           columnGutter={20}
           overscanBy={2}
           render={MasonryCard}
         />
       </IndexRow>
+      {isLoadingNext && <PlaceHolder width="100%" />}
+      {hasNext && !isLoadingNext && (
+        <Row>
+          <GradientButton width="100%" mx="6rem" mb="2rem" onClick={() => loadNext(5)}>
+            Load More
+          </GradientButton>
+        </Row>
+      )}
     </>
   );
 }

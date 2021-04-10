@@ -1,15 +1,18 @@
 import { useForm } from 'react-hook-form';
 import { useToasts } from 'react-toast-notifications';
+import { useRecoilValue } from 'recoil';
 import { useMutation } from 'relay-hooks';
-import { graphql } from 'relay-runtime';
+import { ConnectionHandler, graphql } from 'relay-runtime';
 import {
   createPostInput,
   CreatePostModal_Mutation,
-  CreatePostModal_MutationResponse,
 } from 'src/__generated__/CreatePostModal_Mutation.graphql';
+import { currentUserState } from 'src/atoms/user';
 import GradientButton from 'src/components/GradientButton';
 import { ErrorText, Form, Input, InputGroup, Label, TextArea } from 'src/components/Input';
 import { Row } from 'src/components/Layout/style';
+
+import { defaultIds } from '@vlepo/shared';
 
 import BaseModal, { BaseModalProps } from '../BaseModal';
 
@@ -28,10 +31,23 @@ const CreatePostModal = (props: CreatePostModalProps) => {
     reset,
   } = useForm<createPostInputType>();
 
+  const currentUser = useRecoilValue(currentUserState);
+
+  const dashboard_postConnectionId = ConnectionHandler.getConnectionID(
+    currentUser!.id,
+    'Entity_postsConnection',
+  );
+
+  const index_postConnectionId = ConnectionHandler.getConnectionID(
+    defaultIds.blog,
+    'Index_postsConnection',
+  );
+
   const onSubmit = (data: createPostInputType) => {
     const { tags, images, ...rest } = data;
     mutate({
       variables: {
+        connections: [dashboard_postConnectionId, index_postConnectionId],
         input: {
           ...rest,
           images: images?.split(',').map((i) => ({ url: i })),
@@ -48,24 +64,24 @@ const CreatePostModal = (props: CreatePostModalProps) => {
 
   const [mutate, { loading }] = useMutation<CreatePostModal_Mutation>(
     graphql`
-      mutation CreatePostModal_Mutation($input: createPostInput!) {
+      mutation CreatePostModal_Mutation($connections: [ID!]!, $input: createPostInput!) {
         creatPostMutation(createPostInput: $input) {
-          ok
-          error
+          createPostEdge @prependEdge(connections: $connections) {
+            cursor
+            node {
+              id
+              ...PostCard_post
+              ...ArticleCard_post
+            }
+          }
         }
       }
     `,
     {
-      onCompleted: ({ creatPostMutation }: CreatePostModal_MutationResponse) => {
-        if (creatPostMutation?.ok) {
-          addToast(`create post succeed`, {
-            appearance: 'success',
-          });
-        } else if (creatPostMutation?.error) {
-          addToast(`create post failed, ${creatPostMutation?.error}`, {
-            appearance: 'error',
-          });
-        }
+      onCompleted: () => {
+        addToast(`create post succeed`, {
+          appearance: 'success',
+        });
         onModalClose();
       },
       onError: (error) => {

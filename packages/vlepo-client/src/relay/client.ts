@@ -39,7 +39,6 @@ export function createEnvironment(relayData: SSRCache): Environment {
       }),
       authMiddleware({
         token: getCookie<string>('accessToken'),
-        // tokenRefreshPromise: async () => getCookie<string>('accessToken') ?? '',
         allowEmptyToken: true,
       }),
       batchMiddleware({
