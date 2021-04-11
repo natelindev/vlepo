@@ -109,35 +109,29 @@ const MasonryCard: React.FC<MasonryCardProps> = (props: MasonryCardProps) => {
   return <ArticleCard width={`${width}px`} post={data} />;
 };
 
-export default function Home() {
-  const { error, data: blogData } = useQuery<pages_Index_BlogQuery>(blogQuery, {
-    id: defaultIds.blog,
-  });
-
+type PostSectionProps = {
+  blog: pages_Index_Posts$key;
+};
+const PostsSection = (props: PostSectionProps) => {
+  const { blog } = props;
   const { data, isLoadingNext, hasNext, loadNext } = usePagination<
     IndexPostRefetchQuery,
     pages_Index_Posts$key
-  >(indexFragmentSpec, blogData!.blog!);
+  >(indexFragmentSpec, blog!);
 
-  if (error) return <div>{error.message}</div>;
   if (!data) return <PlaceHolder />;
 
   return (
-    <>
-      <IndexSlogan cursor={{ show: false }}>
-        <Slogan>I code, Therefore I am</Slogan>
-      </IndexSlogan>
-      <IndexRow>
-        <IndexMasonry<PostItem>
-          columnWidth={350}
-          items={data.postsConnection?.edges?.map((e) => e?.node) as PostItem[]}
-          columnGutter={20}
-          overscanBy={2}
-          ssrWidth={1920}
-          ssrHeight={1080}
-          render={MasonryCard}
-        />
-      </IndexRow>
+    <IndexRow>
+      <IndexMasonry<PostItem>
+        columnWidth={350}
+        items={data.postsConnection?.edges?.map((e) => e?.node) as PostItem[]}
+        columnGutter={20}
+        overscanBy={2}
+        ssrWidth={1920}
+        ssrHeight={1080}
+        render={MasonryCard}
+      />
       {isLoadingNext && <PlaceHolder width="100%" />}
       {hasNext && !isLoadingNext && (
         <Row>
@@ -146,6 +140,23 @@ export default function Home() {
           </GradientButton>
         </Row>
       )}
+    </IndexRow>
+  );
+};
+
+export default function Home() {
+  const { error, data } = useQuery<pages_Index_BlogQuery>(blogQuery, {
+    id: defaultIds.blog,
+  });
+
+  if (error) return <div>{error.message}</div>;
+
+  return (
+    <>
+      <IndexSlogan cursor={{ show: false }}>
+        <Slogan>I code, Therefore I am</Slogan>
+      </IndexSlogan>
+      {data && <PostsSection blog={data.blog!} />}
     </>
   );
 }
