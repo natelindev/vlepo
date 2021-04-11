@@ -33,8 +33,8 @@ const ArticleCard = (props: ArticleCardProps) => {
   return (
     <BaseArticleCard href={`/posts/${id}`} width={width}>
       {compareAsc(new Date(), addDays(createDate, 1)) === -1 && (
-        <Row>
-          <Badge variant="accent" mt="-0.5rem" ml="auto" mr="-0.5rem">
+        <Row height="0">
+          <Badge height="1.2rem" variant="accent" mt="-0.5rem" ml="auto" mr="-0.5rem">
             new
           </Badge>
         </Row>

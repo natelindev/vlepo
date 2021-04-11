@@ -18,6 +18,7 @@ module.exports = withBundleAnalyzer({
       'lh7.googleusercontent.com',
       'lh8.googleusercontent.com',
       'lh9.googleusercontent.com',
+      'localhost',
     ],
   },
   future: {
@@ -34,6 +35,10 @@ module.exports = withBundleAnalyzer({
       {
         source: '/graphql/:path*',
         destination: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/graphql/:path*`,
+      },
+      {
+        source: '/images/user-upload/:path*',
+        destination: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/images/user-upload/:path*`,
       },
     ];
   },

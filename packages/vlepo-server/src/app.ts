@@ -7,8 +7,10 @@ import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import graphqlHTTP from 'koa-graphql';
 import graphqlBatchHTTPWrapper from 'koa-graphql-batch';
+import mount from 'koa-mount';
 import Router from 'koa-router';
 import session from 'koa-session';
+import serve from 'koa-static';
 
 import cors from '@koa/cors';
 import { envDetect } from '@vlepo/shared';
@@ -36,6 +38,9 @@ const app = new Koa();
 
 if (!process.env.SECRET_KEY) {
   throw new Error('You need SECRET_KEY env variable in order to run');
+}
+if (!process.env.IMAGE_PATH) {
+  throw new Error('You need IMAGE_PATH env variable in order to run');
 }
 
 app.keys = [process.env.SECRET_KEY];
@@ -96,6 +101,7 @@ router.all('/graphql', graphqlServer);
 
 app.use(graphqlUploadKoa({ maxFileSize: 100000000, maxFiles: 5 }));
 app.use(router.routes());
+app.use(mount('/images/user-upload/', serve(process.env.IMAGE_PATH, { brotli: true })));
 
 app
   .listen(3001)

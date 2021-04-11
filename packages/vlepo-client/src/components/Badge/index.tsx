@@ -1,4 +1,12 @@
-import { margin, MarginProps, variant, width, WidthProps } from 'styled-system';
+import {
+  height,
+  HeightProps,
+  margin,
+  MarginProps,
+  variant,
+  width,
+  WidthProps,
+} from 'styled-system';
 
 import styled from '@emotion/styled';
 
@@ -6,7 +14,7 @@ type BadgeProp = MarginProps & {
   variant: 'primary' | 'secondary' | 'accent';
 };
 
-const Badge = styled.div<BadgeProp & WidthProps>`
+const Badge = styled.div<BadgeProp & HeightProps & WidthProps>`
   display: inline-block;
   padding: 0.25em 0.4em;
   height: auto;
@@ -20,9 +28,12 @@ const Badge = styled.div<BadgeProp & WidthProps>`
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  z-index: ${(props) => props.theme.zIndices.Badge};
   ${margin}
   ${width}
-  ${variant({
+  ${height}
+    ${variant({
     variants: {
       primary: {
         bg: 'primary',
@@ -34,7 +45,7 @@ const Badge = styled.div<BadgeProp & WidthProps>`
         bg: 'accent',
       },
     },
-  })}
+  })};
 `;
 
 export default Badge;

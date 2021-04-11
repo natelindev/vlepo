@@ -3,6 +3,7 @@
     "language": "en",
     "words": [
         "bodyparser",
+        "brotli",
         "camelcase",
         "codegen",
         "Consts",

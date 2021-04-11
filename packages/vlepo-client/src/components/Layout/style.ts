@@ -1,4 +1,13 @@
-import { flexbox, FlexboxProps, margin, MarginProps, width, WidthProps } from 'styled-system';
+import {
+  flexbox,
+  FlexboxProps,
+  height,
+  HeightProps,
+  margin,
+  MarginProps,
+  width,
+  WidthProps,
+} from 'styled-system';
 
 import styled from '@emotion/styled';
 
@@ -22,15 +31,17 @@ export const Footer = styled.footer`
   background-color: ${(props) => props.theme.colors.backgroundSecondary};
 `;
 
-export const Row = styled.div<WidthProps & MarginProps & FlexboxProps>`
+export const Row = styled.div<WidthProps & HeightProps & MarginProps & FlexboxProps>`
   ${width}
+  ${height}
   ${margin}
   ${flexbox}
   display: flex;
 `;
 
-export const Column = styled.div<WidthProps & MarginProps & FlexboxProps>`
+export const Column = styled.div<WidthProps & HeightProps & MarginProps & FlexboxProps>`
   ${width}
+  ${height}
   ${margin}
   ${flexbox}
   display: flex;

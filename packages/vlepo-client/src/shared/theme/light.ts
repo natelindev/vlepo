@@ -117,10 +117,11 @@ export const lightTheme = {
     CardLink: 1,
     GradientButton: 1,
     ScrollToTop: 1,
+    Badge: 1,
     Tags: 2,
     Navbar: 3,
     ProgressBar: 4,
     DropDownMenu: 4,
-    ModalContainer: 5000,
+    ModalContainer: 9000,
   },
 };

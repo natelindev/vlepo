@@ -173,7 +173,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
             title: createPostInput.title,
             content: createPostInput.content,
             headerImageUrl: createPostInput.headerImageUrl,
-            minuteRead: Math.floor(readingTime(createPostInput.content).minutes),
+            minuteRead: Math.ceil(readingTime(createPostInput.content).minutes),
             createdAt: new Date(),
             updatedAt: new Date(),
           })

@@ -1,16 +1,27 @@
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useRef } from 'react';
 import { graphql } from 'react-relay';
 import { useToasts } from 'react-toast-notifications';
 import { useMutation } from 'relay-hooks';
 import { Upload_Mutation } from 'src/__generated__/Upload_Mutation.graphql';
 import GradientButton from 'src/components/GradientButton';
 
-import { H5 } from '../Typography';
 import { FileInput } from './style';
 
-const Upload = () => {
+type UploadProps = {
+  multiple?: boolean;
+  accept?: string;
+  onImageUploadSuccess?: (image: UploadImageResponseType) => void;
+};
+
+export type UploadImageResponseType = {
+  readonly id: string | null;
+  readonly url: string;
+  readonly alt: string | null;
+};
+
+const ImageUpload = (props: UploadProps) => {
+  const { onImageUploadSuccess, multiple, accept = '.png, .jpg, .jpeg, .gif, .svg' } = props;
   const { addToast } = useToasts();
-  const [urls, setUrls] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [mutate, { loading }] = useMutation<Upload_Mutation>(
     graphql`
@@ -18,6 +29,7 @@ const Upload = () => {
         uploadImage(file: $file) {
           id
           url
+          alt
         }
       }
     `,
@@ -26,9 +38,7 @@ const Upload = () => {
         addToast(`upload image succeed`, {
           appearance: 'success',
         });
-        setUrls(
-          `${urls ? `${urls},${response.uploadImage?.url}` : `${response.uploadImage?.url}`}`,
-        );
+        onImageUploadSuccess?.(response.uploadImage!);
       },
       onError: (error) => {
         addToast(`upload image failed, ${error}`, {
@@ -55,19 +65,18 @@ const Upload = () => {
 
   return (
     <>
-      <H5>{urls}</H5>
       <FileInput
         ref={fileInputRef}
         type="file"
-        id="file"
-        accept=".png, .jpg, .jpeg, .gif, .svg"
+        multiple={multiple}
+        accept={accept}
         onChange={onFileChange}
       />
       <GradientButton type="button" onClick={selectImage}>
-        Upload
+        Upload{loading ? `ing...` : ''}
       </GradientButton>
     </>
   );
 };
 
-export default Upload;
+export default ImageUpload;

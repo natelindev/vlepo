@@ -22,6 +22,7 @@ export const Image = objectType({
     t.model.owner();
     t.model.mainColor();
     t.model.secondaryColor();
+    t.model.alt();
     t.model.url();
     t.model.height();
     t.model.width();
@@ -80,7 +81,7 @@ export const uploadImage = mutationField('uploadImage', {
           height: size.height,
           mainColor: pallette.Vibrant?.hex,
           secondaryColor: pallette.Muted?.hex,
-          url: `/images/${imageId}.${extname}`,
+          url: `${process.env.API_URL}/images/user-upload/${imageId}.${extname}`,
         },
       });
     }
