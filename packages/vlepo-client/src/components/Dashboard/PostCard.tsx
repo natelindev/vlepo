@@ -24,37 +24,41 @@ const PostCard = (props: PostCardProps) => {
   } = props;
   return (
     <BasePostCard>
-      <Section mr="auto" my="auto" flexDirection="column" justifyContent="center">
-        <Link href={`/posts/${id}`} passHref>
-          <Title>{title}</Title>
-        </Link>
-        <Row mt="auto">
-          <Time>Published: {format(parseISO(createdAt), 'MMM d')}</Time>
-          {editedAt && <Time>Edited: {format(parseISO(editedAt), 'MMM d')}</Time>}
-        </Row>
-      </Section>
-      <Section mr="12rem" my="auto" width="8rem" justifyContent="space-between">
-        <FavoriteBorder size={24} />
-        {reactionCount}
-        <ModeComment size={24} />
-        {commentCount}
-        <Visibility size={24} />
-        {viewCount}
-      </Section>
-      <Section my="auto" width="3rem" justifyContent="space-between">
-        <Create size={24} />
-        <Delete size={24} />
-      </Section>
-      {status === 'DRAFT' && (
-        <Badge variant="secondary" mt="-2rem" mb="auto" mr="-2.5rem">
-          Draft
-        </Badge>
-      )}
-      {status === 'PRIVATE' && (
-        <Badge variant="accent" mt="-2rem" mb="auto" mr="-2.5rem">
-          Private
-        </Badge>
-      )}
+      <Row mb="auto">
+        {status === 'DRAFT' && (
+          <Badge variant="secondary" ml="auto" mr="-2.5rem" mt="-2rem" mb="auto">
+            Draft
+          </Badge>
+        )}
+        {status === 'PRIVATE' && (
+          <Badge variant="accent" ml="auto" mr="-2.5rem" mt="-2rem" mb="auto">
+            Private
+          </Badge>
+        )}
+      </Row>
+      <Row>
+        <Section mr="auto" my="auto" flexDirection="column" justifyContent="center">
+          <Link href={`/posts/${id}`} passHref>
+            <Title>{title}</Title>
+          </Link>
+          <Row mt="auto">
+            <Time>Published: {format(parseISO(createdAt), 'MMM d')}</Time>
+            {editedAt && <Time>Edited: {format(parseISO(editedAt), 'MMM d')}</Time>}
+          </Row>
+        </Section>
+        <Section mr="12rem" my="auto" width="8rem" justifyContent="space-between">
+          <FavoriteBorder size={24} />
+          {reactionCount}
+          <ModeComment size={24} />
+          {commentCount}
+          <Visibility size={24} />
+          {viewCount}
+        </Section>
+        <Section my="auto" width="3rem" justifyContent="space-between">
+          <Create size={24} />
+          <Delete size={24} />
+        </Section>
+      </Row>
     </BasePostCard>
   );
 };

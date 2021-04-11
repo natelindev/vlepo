@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 
 export const BasePostCard = styled.div<WidthProps>`
   display: flex;
+  flex-direction: column;
   ${width}
   margin-left: 1rem;
   margin-right: 1rem;

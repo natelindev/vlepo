@@ -11,6 +11,7 @@ import { currentUserState } from 'src/atoms/user';
 import GradientButton from 'src/components/GradientButton';
 import { ErrorText, Form, Input, InputGroup, Label, TextArea } from 'src/components/Input';
 import { Row } from 'src/components/Layout/style';
+import Select from 'src/components/Select';
 import Upload from 'src/components/Upload';
 
 import { defaultIds } from '@vlepo/shared';
@@ -105,7 +106,10 @@ const CreatePostModal = (props: CreatePostModalProps) => {
         <Row justifyContent="space-between">
           <InputGroup>
             <Label>Status</Label>
-            <Input autoComplete="status" {...register('status')} />
+            <Select
+              {...register('status')}
+              options={['DRAFT', 'PUBLISHED', 'PRIVATE'].map((v) => ({ key: v, value: v }))}
+            />
             {errors.status && <ErrorText>{errors.status.message}</ErrorText>}
           </InputGroup>
           <InputGroup mx="1rem">
