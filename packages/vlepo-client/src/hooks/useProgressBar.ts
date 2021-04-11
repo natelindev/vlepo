@@ -33,6 +33,9 @@ export const useProgressBar = (options: useProgressBarOptions) => {
       let progressSubscription: ZenObservable.Subscription | undefined;
 
       const routeChangeStart = () => {
+        if (progressSubscription) {
+          progressSubscription.unsubscribe();
+        }
         progressSubscription = progressObservable.subscribe((x) => setWidth(x));
       };
 

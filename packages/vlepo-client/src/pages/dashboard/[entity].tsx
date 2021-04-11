@@ -5,7 +5,7 @@ import { graphql } from 'react-relay';
 import { usePagination, useQuery } from 'relay-hooks';
 import { Entity_blogSectionQuery } from 'src/__generated__/Entity_blogSectionQuery.graphql';
 import { Entity_user$key } from 'src/__generated__/Entity_user.graphql';
-import { Entity_viewQuery } from 'src/__generated__/Entity_viewQuery.graphql';
+import { Entity_viewerQuery } from 'src/__generated__/Entity_viewerQuery.graphql';
 import { PostRefetchQuery } from 'src/__generated__/PostRefetchQuery.graphql';
 import ClientOnly from 'src/components/ClientOnly';
 import PostCard from 'src/components/Dashboard/PostCard';
@@ -45,27 +45,27 @@ const blogSectionQuery = graphql`
   }
 `;
 
-const viewQuery = graphql`
-  query Entity_viewQuery {
+const viewerQuery = graphql`
+  query Entity_viewerQuery {
     viewer {
       ...Entity_user
     }
   }
 `;
 
-export async function getServerSideProps() {
+export const getServerSideProps = () => {
   return {
     props: {},
   };
-}
+};
 
 const BlogSection = () => {
-  const { error, data } = useQuery<Entity_blogSectionQuery>(blogSectionQuery, {
+  const { error, data, isLoading } = useQuery<Entity_blogSectionQuery>(blogSectionQuery, {
     id: defaultIds.blog,
   });
 
   if (error) return <div>{error.message}</div>;
-  if (!data) return <PlaceHolder />;
+  if (!data || isLoading) return <PlaceHolder />;
 
   const { postViewCount, postReactionCount, postCommentCount, userCount } = data.blog
     ? data.blog
@@ -145,13 +145,13 @@ const Dashboard = () => {
   const router = useRouter();
   const entity = router.query.entity as string;
 
-  const { error, data } = useQuery<Entity_viewQuery>(viewQuery, {});
+  const { error, data, isLoading } = useQuery<Entity_viewerQuery>(viewerQuery, {});
 
   if (error) {
-    return router.replace('/401');
+    router.replace('/401');
   }
 
-  if (!data || !data.viewer) {
+  if (!data || isLoading || !data.viewer) {
     return <PlaceHolder />;
   }
 
