@@ -57,8 +57,8 @@ const CreatePostModal = (props: CreatePostModalProps) => {
         connections: [dashboard_postConnectionId, index_postConnectionId],
         input: {
           ...rest,
-          images: images?.split(',').map((i) => ({ url: i })),
-          tags: tags?.split(',').map((t) => ({ name: t })),
+          images: images && images.length > 0 ? images.split(',').map((i) => ({ url: i })) : [],
+          tags: tags && tags.length > 0 ? tags.split(',').map((t) => ({ name: t })) : [],
         },
       },
     });

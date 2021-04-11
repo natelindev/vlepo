@@ -10,12 +10,12 @@ type SelectProps<T> = {
 const Select = <T extends string | number | readonly string[] | undefined>(
   props: SelectProps<T>,
 ) => {
-  const { options, innerRef } = props;
+  const { options, innerRef, ...rest } = props;
 
   const [selectedValue, setSelectedValue] = useState<T>();
 
   return (
-    <BaseSelect ref={innerRef}>
+    <BaseSelect ref={innerRef} {...rest}>
       {options.map((o) => (
         <Option
           key={o.key}
