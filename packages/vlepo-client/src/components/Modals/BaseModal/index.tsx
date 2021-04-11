@@ -2,15 +2,24 @@ import React from 'react';
 import { useTransition } from 'react-spring';
 import { Row } from 'src/components/Layout/style';
 
-import { BaseAnimatedContainer, BaseBaseModal, CloseIcon } from './style';
+import { useTheme } from '@emotion/react';
 
-export type BaseModalProps = React.ComponentProps<typeof BaseBaseModal>;
+import {
+  BaseAnimatedModal,
+  BaseStyledModal,
+  CloseIcon,
+  ModalContainer,
+  ModalOverScroll,
+} from './style';
+
+export type BaseModalProps = React.ComponentProps<typeof BaseStyledModal>;
 const BaseModal = (props: BaseModalProps) => {
   const { open, onClose, children, ...rest } = props;
 
+  const theme = useTheme();
   const transition = useTransition(open, {
     from: {
-      position: 'absolute' as const,
+      position: 'relative' as const,
       transform: 'translate3d(0,-30px,0)',
       opacity: 0,
     },
@@ -28,17 +37,20 @@ const BaseModal = (props: BaseModalProps) => {
       {transition(
         (style, item) =>
           item && (
-            <BaseBaseModal
-              modalComponent={BaseAnimatedContainer}
+            <BaseStyledModal
+              containerComponent={ModalContainer}
+              modalComponent={BaseAnimatedModal}
+              overscrollComponent={ModalOverScroll}
               style={style}
               onClose={onClose}
+              theme={theme}
               {...rest}
             >
               <Row>
                 <CloseIcon onClick={() => onClose?.()} size={24} />
               </Row>
               {children}
-            </BaseBaseModal>
+            </BaseStyledModal>
           ),
       )}
     </>
