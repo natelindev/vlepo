@@ -1,15 +1,20 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useFragment } from 'react-relay';
 import { useToasts } from 'react-toast-notifications';
 import { useRecoilValue } from 'recoil';
 import { useMutation } from 'relay-hooks';
 import { ConnectionHandler, graphql } from 'relay-runtime';
+import { CreatePostModal_image$key } from 'src/__generated__/CreatePostModal_image.graphql';
 import {
   createPostInput,
   CreatePostModal_Mutation,
 } from 'src/__generated__/CreatePostModal_Mutation.graphql';
+import { ImageUpload_MutationResponse } from 'src/__generated__/ImageUpload_Mutation.graphql';
 import { currentUserState } from 'src/atoms/user';
 import GradientButton from 'src/components/GradientButton';
-import ImageUpload, { UploadImageResponseType } from 'src/components/ImageUpload';
+import ImageGrid from 'src/components/ImageGrid';
+import ImageUpload from 'src/components/ImageUpload';
 import { ErrorText, Form, Input, InputGroup, Label, TextArea } from 'src/components/Input';
 import { Row } from 'src/components/Layout/style';
 import Select from 'src/components/Select';
@@ -18,6 +23,14 @@ import { defaultIds } from '@vlepo/shared';
 
 import BaseModal, { BaseModalProps } from '../BaseModal';
 import { HeaderImage } from './style';
+
+const fragmentSpec = graphql`
+  fragment CreatePostModal_image on Image {
+    id
+    url
+    alt
+  }
+`;
 
 type CreatePostModalProps = BaseModalProps;
 const CreatePostModal = (props: CreatePostModalProps) => {
@@ -33,10 +46,13 @@ const CreatePostModal = (props: CreatePostModalProps) => {
     formState: { errors },
     reset,
     setValue,
-    watch,
   } = useForm<createPostInputType>();
 
-  const headerImageUrl = watch('headerImageUrl');
+  const [headerImageKey, setHeaderImage] = useState<CreatePostModal_image$key | null>(null);
+
+  const headerImage = useFragment(fragmentSpec, headerImageKey);
+
+  const [images, setImages] = useState<ImageUpload_MutationResponse['uploadImages']>([]);
 
   const currentUser = useRecoilValue(currentUserState);
 
@@ -100,22 +116,30 @@ const CreatePostModal = (props: CreatePostModalProps) => {
     },
   );
 
-  const onImageUploadSuccess = (uploadedImage: UploadImageResponseType) => {
-    if (navigator && navigator.clipboard && uploadedImage) {
-      navigator.clipboard.writeText(`![${uploadedImage.alt}](${uploadedImage.url})`);
+  const onImagesUploadSuccess = (uploadedImages: ImageUpload_MutationResponse['uploadImages']) => {
+    if (uploadedImages && uploadedImages.length > 0) {
+      setImages([...images, ...uploadedImages.filter((i) => i !== null)]);
     }
   };
 
-  const onHeaderImageUploadSuccess = (uploadedImage: UploadImageResponseType) => {
-    setValue('headerImageUrl', uploadedImage.url);
+  const onHeaderImageUploadSuccess = (
+    uploadedImages: ImageUpload_MutationResponse['uploadImages'],
+  ) => {
+    if (uploadedImages && uploadedImages.length > 0) {
+      setHeaderImage(uploadedImages[0]);
+      setValue('headerImageUrl', headerImage?.url);
+    }
   };
 
   const { ref, ...statusRest } = register('status');
+
+  type ImagesType = typeof images;
+  type ImageItemType = ImagesType[number];
   return (
     <BaseModal width={[0.9, 0.5]} open={open} onClose={onModalClose} closeOnOutsideClick={false}>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        {headerImageUrl && (
-          <HeaderImage src={`${headerImageUrl}`} layout="responsive" width={2} height={1} />
+        {headerImage && (
+          <HeaderImage src={`${headerImage.url}`} layout="responsive" width={2} height={1} />
         )}
         <InputGroup>
           <Label>Title</Label>
@@ -134,7 +158,7 @@ const CreatePostModal = (props: CreatePostModalProps) => {
           </InputGroup>
           <InputGroup mx="1rem">
             <Label>Header Image</Label>
-            <ImageUpload onImageUploadSuccess={onHeaderImageUploadSuccess} />
+            <ImageUpload onImagesUploadSuccess={onHeaderImageUploadSuccess} />
             <Input type="hidden" autoComplete="headerImageUrl" {...register('headerImageUrl')} />
             {errors.headerImageUrl && <ErrorText>{errors.headerImageUrl.message}</ErrorText>}
           </InputGroup>
@@ -147,10 +171,15 @@ const CreatePostModal = (props: CreatePostModalProps) => {
         <Row>
           <InputGroup>
             <Label>Images</Label>
-            <ImageUpload multiple onImageUploadSuccess={onImageUploadSuccess} />
+            <ImageUpload multiple onImagesUploadSuccess={onImagesUploadSuccess} />
             {errors.tags && <ErrorText>{errors.tags.message}</ErrorText>}
           </InputGroup>
         </Row>
+        {images && (
+          <ImageGrid<ReadonlyArray<NonNullable<ImageItemType>>>
+            images={images.filter((i): i is NonNullable<ImageItemType> => i !== null)}
+          />
+        )}
         <InputGroup>
           <Label>Content</Label>
           <TextArea height="20rem" autoComplete="content" {...register('content')} />

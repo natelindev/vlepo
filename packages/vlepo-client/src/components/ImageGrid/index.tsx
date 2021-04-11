@@ -1,48 +1,33 @@
-import { graphql, useFragment } from 'react-relay';
-import { ImageGrid_user$key } from 'src/__generated__/ImageGrid_user.graphql';
+import { ImageCell_image$key } from 'src/__generated__/ImageCell_image.graphql';
 
 import styled from '@emotion/styled';
 
 import ImageCell from './ImageCell';
 
-type ImageGridProps = {
-  user: ImageGrid_user$key;
+type ImageGridProps<T> = {
+  images: T;
 };
 
 const BaseImageGrid = styled.div`
-  display: inline-grid;
+  display: grid;
   grid-auto-columns: repeat(4, minmax(0, 1fr));
-  row-gap: 10px;
+  grid-gap: 1rem;
   align-items: center;
   grid-auto-flow: column;
 `;
 
-const fragmentSpec = graphql`
-  fragment ImageGrid_user on User {
-    imagesConnection(first: 2147483647) @connection(key: "ImageGrid_imagesConnection") {
-      edges {
-        node {
-          id
-          ...ImageCell_image
-        }
-      }
-    }
-  }
-`;
-
-const ImageGrid = (props: ImageGridProps) => {
-  const { user: fullUser } = props;
-
-  const user = useFragment(fragmentSpec, fullUser);
+const ImageGrid = <T extends ReadonlyArray<ImageCell_image$key>>(props: ImageGridProps<T>) => {
+  const { images } = props;
 
   return (
     <BaseImageGrid>
-      {user.imagesConnection &&
-        user.imagesConnection.edges &&
-        user.imagesConnection.edges.map(
-          (edge, idx) =>
-            edge && edge.node && <ImageCell key={edge.node.id} image={edge.node} idx={idx} />,
-        )}
+      {images.map((image, idx) => (
+        <ImageCell
+          key={(image as ImageCell_image$key & { __id: string }).__id}
+          image={image}
+          idx={idx}
+        />
+      ))}
     </BaseImageGrid>
   );
 };

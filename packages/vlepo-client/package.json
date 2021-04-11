@@ -10,7 +10,7 @@
     "generate": "yarn relay",
     "get-schema": "graphql-codegen -r dotenv/config --config .graphqlrc.yml",
     "lint": "eslint src --ext .ts,.tsx",
-    "relay": "relay-compiler --src ./src --exclude '**/.next/**' '**/node_modules/**' '**/test/**'  '**/__generated__/**' '**/schema/**' --schema ./src/schema/schema.graphql --language typescript --customScalars.DateTime=String --artifactDirectory ./src/__generated__",
+    "relay": "relay-compiler --src ./src --exclude '**/.next/**' '**/node_modules/**' '**/test/**'  '**/__generated__/**' '**/schema/**' --schema ./src/schema/schema.graphql --language typescript --customScalars.DateTime=String --customScalars.Upload=File --artifactDirectory ./src/__generated__",
     "relay:watch": "yarn relay --watch",
     "start": "next start",
     "typecheck": "tsc --noEmit",

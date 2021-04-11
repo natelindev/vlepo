@@ -2,7 +2,10 @@ import { ChangeEvent, useRef } from 'react';
 import { graphql } from 'react-relay';
 import { useToasts } from 'react-toast-notifications';
 import { useMutation } from 'relay-hooks';
-import { ImageUpload_Mutation } from 'src/__generated__/ImageUpload_Mutation.graphql';
+import {
+  ImageUpload_Mutation,
+  ImageUpload_MutationResponse,
+} from 'src/__generated__/ImageUpload_Mutation.graphql';
 import GradientButton from 'src/components/GradientButton';
 
 import { FileInput } from './style';
@@ -10,26 +13,19 @@ import { FileInput } from './style';
 type UploadProps = {
   multiple?: boolean;
   accept?: string;
-  onImageUploadSuccess?: (image: UploadImageResponseType) => void;
-};
-
-export type UploadImageResponseType = {
-  readonly id: string | null;
-  readonly url: string;
-  readonly alt: string | null;
+  onImagesUploadSuccess?: (image: ImageUpload_MutationResponse['uploadImages']) => void;
 };
 
 const ImageUpload = (props: UploadProps) => {
-  const { onImageUploadSuccess, multiple, accept = '.png, .jpg, .jpeg, .gif, .svg' } = props;
+  const { onImagesUploadSuccess, multiple, accept = '.png, .jpg, .jpeg, .gif, .svg' } = props;
   const { addToast } = useToasts();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [mutate, { loading }] = useMutation<ImageUpload_Mutation>(
     graphql`
-      mutation ImageUpload_Mutation($file: Upload) {
-        uploadImage(file: $file) {
-          id
-          url
-          alt
+      mutation ImageUpload_Mutation($files: [Upload!]!) {
+        uploadImages(files: $files) {
+          ...ImageCell_image
+          ...CreatePostModal_image
         }
       }
     `,
@@ -38,7 +34,7 @@ const ImageUpload = (props: UploadProps) => {
         addToast(`upload image succeed`, {
           appearance: 'success',
         });
-        onImageUploadSuccess?.(response.uploadImage!);
+        onImagesUploadSuccess?.(response.uploadImages!);
       },
       onError: (error) => {
         addToast(`upload image failed, ${error}`, {
@@ -49,11 +45,11 @@ const ImageUpload = (props: UploadProps) => {
   );
 
   const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.currentTarget?.files?.[0];
-    if (file) {
+    const files = e.currentTarget?.files;
+    if (files) {
       mutate({
         variables: {
-          file,
+          files: Array.from(files),
         },
       });
     }

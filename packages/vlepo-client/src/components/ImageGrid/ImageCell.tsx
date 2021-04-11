@@ -1,15 +1,16 @@
 import Image from 'next/image';
 import { useCallback } from 'react';
 import { graphql, useFragment } from 'react-relay';
-import { ImageCell_image, ImageCell_image$key } from 'src/__generated__/ImageCell_image.graphql';
+import { ImageCell_image$key } from 'src/__generated__/ImageCell_image.graphql';
 
 import styled from '@emotion/styled';
 
 type BaseImageCellProps = { idx: number } & React.ComponentProps<typeof Image>;
 const BaseImageCell = styled(Image)<BaseImageCellProps>`
-  object-fit: contain;
+  object-fit: cover;
   grid-column: ${(props) => props.idx % 4};
   grid-row: ${(props) => props.idx / 4};
+  border-radius: ${(props) => props.theme.radii.default};
 `;
 
 type ImageCellProps = { image: ImageCell_image$key; idx: number };
@@ -36,9 +37,9 @@ const ImageCell = (props: ImageCellProps) => {
   return (
     <BaseImageCell
       onClick={copyImageMarkdown}
-      layout="responsive"
-      width="1"
-      height="1"
+      layout="fixed"
+      width="130px"
+      height="130px"
       idx={idx}
       src={image.url}
     />
