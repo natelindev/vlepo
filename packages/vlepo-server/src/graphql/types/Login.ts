@@ -52,10 +52,12 @@ export const LoginMutation = mutationField('LoginMutation', {
 
         if (validPassword) {
           const accessToken = await generateAccessToken();
+          const expiresAt = add(new Date(), { days: 1 });
+
           await saveToken(
             {
               accessToken,
-              accessTokenExpiresAt: add(new Date(), { days: 1 }),
+              accessTokenExpiresAt: expiresAt,
               scope: OAuthConsts.scope.admin.join(' '),
             },
             (await ctx.prisma.oAuthClient.findFirst({
@@ -79,11 +81,13 @@ export const LoginMutation = mutationField('LoginMutation', {
             {
               secure: envDetect.isProd,
               httpOnly: false,
+              expires: expiresAt,
             },
           );
           ctx.cookies.set('accessToken', accessToken, {
             secure: envDetect.isProd,
             httpOnly: false,
+            expires: expiresAt,
           });
         }
 

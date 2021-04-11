@@ -12,6 +12,7 @@
         "googleusercontent",
         "nowrap",
         "openid",
+        "overscan",
         "prebuild",
         "refetchable",
         "schemaname",
