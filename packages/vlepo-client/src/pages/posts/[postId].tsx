@@ -19,9 +19,15 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const { query, res } = context;
   const { environment, relaySSR } = initEnvironment();
   const PostId = query.postId as string;
-  await fetchQuery<PostIdQuery>(environment, postIdQuery, {
-    id: PostId,
-  }).toPromise();
+
+  await new Promise((resolve, reject) => {
+    fetchQuery<PostIdQuery>(environment, postIdQuery, {
+      id: PostId,
+    }).subscribe({
+      complete: () => resolve(undefined),
+      error: (err: Error) => reject(err),
+    });
+  });
 
   const [relayData] = await relaySSR.getCache();
   const [queryString, queryPayload] = relayData ?? [];

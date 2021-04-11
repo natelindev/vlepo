@@ -1,9 +1,12 @@
-import { margin, MarginProps, width, WidthProps } from 'styled-system';
+import { height, HeightProps, margin, MarginProps, width, WidthProps } from 'styled-system';
 
 import styled from '@emotion/styled';
 
-const PlaceHolder = styled.div<WidthProps & MarginProps>`
+const PlaceHolder = styled.div<WidthProps & HeightProps & MarginProps>`
+  width: 100%;
+  height: 100%;
   ${width}
+  ${height}
   ${margin}
   @keyframes placeHolderShimmer {
     0% {

@@ -77,9 +77,14 @@ const blogQuery = graphql`
 export const getServerSideProps = async ({ res }: GetServerSidePropsContext) => {
   const { environment, relaySSR } = initEnvironment();
 
-  await fetchQuery(environment, blogQuery, {
-    id: defaultIds.blog,
-  }).toPromise();
+  await new Promise((resolve, reject) => {
+    fetchQuery(environment, blogQuery, {
+      id: defaultIds.blog,
+    }).subscribe({
+      complete: () => resolve(undefined),
+      error: (err: Error) => reject(err),
+    });
+  });
   const [relayData] = await relaySSR.getCache();
   const [queryString, queryPayload] = relayData ?? [];
 
@@ -128,6 +133,8 @@ export default function Home() {
           items={data.postsConnection?.edges?.map((e) => e?.node) as PostItem[]}
           columnGutter={20}
           overscanBy={2}
+          ssrWidth={1920}
+          ssrHeight={1080}
           render={MasonryCard}
         />
       </IndexRow>

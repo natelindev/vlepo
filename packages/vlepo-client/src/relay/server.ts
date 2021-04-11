@@ -32,7 +32,6 @@ export function createEnvironment(relayData: SSRCache): Environment {
 
   return new Environment({
     store,
-    // TODO: fix the typing
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     network: Network.create(() => (relayData?.[0][1] as any) || Promise.resolve()),
   });

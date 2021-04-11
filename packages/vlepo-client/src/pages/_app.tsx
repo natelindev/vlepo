@@ -8,8 +8,7 @@ import { RelayEnvironmentProvider } from 'relay-hooks';
 import AppWithTheme from 'src/components/AppWithTheme';
 import Layout from 'src/components/Layout';
 import { Toast } from 'src/components/Toast';
-
-import { createEnvironment } from '../relay';
+import { createEnvironment } from 'src/relay';
 
 import type { AppProps } from 'next/app';
 // this is required since no other type fits
