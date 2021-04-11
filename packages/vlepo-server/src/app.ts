@@ -9,7 +9,6 @@ import graphqlHTTP from 'koa-graphql';
 import graphqlBatchHTTPWrapper from 'koa-graphql-batch';
 import mount from 'koa-mount';
 import Router from 'koa-router';
-import session from 'koa-session';
 import serve from 'koa-static';
 
 import cors from '@koa/cors';
@@ -75,7 +74,6 @@ app.use(
       }),
 );
 
-app.use(session(app));
 app.use(grant.koa()(grantConfig));
 app.use(authRouter.routes());
 

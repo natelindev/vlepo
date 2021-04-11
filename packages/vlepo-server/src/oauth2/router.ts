@@ -80,8 +80,8 @@ type GrantErrorResponse = {
 router.get('/callback', async (ctx) => {
   debug(ctx.response);
   const response: GrantGoogleResponse | GrantGithubResponse | GrantErrorResponse =
-    ctx.session?.grant?.response;
-  const provider: OAuthProviders = ctx.session?.grant?.provider;
+    ctx.state?.grant?.response;
+  const provider: OAuthProviders = ctx.state?.grant?.provider;
 
   debug(response);
   debug(provider);
