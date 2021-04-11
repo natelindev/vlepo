@@ -30,9 +30,14 @@ export const User = objectType({
     t.connectionField('postsConnection', {
       type: Post,
       async resolve(_root, args, ctx) {
+        const sortArgs = {
+          orderBy: {
+            createdAt: 'desc' as const,
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.post.findMany(args),
-          () => ctx.prisma.post.count(),
+          (args) => ctx.prisma.post.findMany({ ...args, ...sortArgs }),
+          () => ctx.prisma.post.count(sortArgs),
           args,
         );
         return result;

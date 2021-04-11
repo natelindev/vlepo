@@ -29,7 +29,10 @@ export const Row = styled.div<WidthProps & MarginProps & FlexboxProps>`
   display: flex;
 `;
 
-export const Column = styled.div`
+export const Column = styled.div<WidthProps & MarginProps & FlexboxProps>`
+  ${width}
+  ${margin}
+  ${flexbox}
   display: flex;
   flex-direction: column;
 `;

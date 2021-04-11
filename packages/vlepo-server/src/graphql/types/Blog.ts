@@ -65,9 +65,17 @@ export const Blog = objectType({
     t.connectionField('postsConnection', {
       type: Post,
       async resolve(_root, args, ctx) {
+        const postFilterArgs = {
+          where: {
+            status: 'PUBLISHED' as const,
+          },
+          orderBy: {
+            createdAt: 'desc' as const,
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.post.findMany(args),
-          () => ctx.prisma.post.count(),
+          (args) => ctx.prisma.post.findMany({ ...args, ...postFilterArgs }),
+          () => ctx.prisma.post.count(postFilterArgs),
           args,
         );
         return result;

@@ -10,11 +10,16 @@ export const BasePostCard = styled.div<WidthProps>`
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   padding: 1.5rem 2rem;
+
   border-radius: ${(props) => props.theme.radii.default};
-  border: 1px solid ${(props) => props.theme.colors.text};
+  box-shadow: ${(props) => props.theme.shadows.Card};
+  color: ${(props) => props.theme.colors.text};
+  background-color: ${(props) => props.theme.colors.backgroundSecondary};
 `;
 
-export const Title = styled.h1`
+export const Title = styled.a`
+  text-decoration: none;
+  font-weight: ${(props) => props.theme.fontWeights.semiBold};
   margin: 0;
   padding: 0;
   color: ${(props) => props.theme.colors.link};

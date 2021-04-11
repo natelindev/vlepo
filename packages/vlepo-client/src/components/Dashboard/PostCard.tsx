@@ -1,7 +1,9 @@
 import { format, parseISO } from 'date-fns';
+import Link from 'next/link';
 import { createFragmentContainer, RelayProp } from 'react-relay';
 import { graphql } from 'relay-runtime';
 import { PostCard_post } from 'src/__generated__/PostCard_post.graphql';
+import Badge from 'src/components/Badge';
 import { Row, Section } from 'src/components/Layout/style';
 
 import {
@@ -18,18 +20,20 @@ export type PostCardProps = { relay: RelayProp; post: PostCard_post };
 
 const PostCard = (props: PostCardProps) => {
   const {
-    post: { title, reactionCount, commentCount, viewCount, createdAt, editedAt },
+    post: { id, title, status, reactionCount, commentCount, viewCount, createdAt, editedAt },
   } = props;
   return (
     <BasePostCard>
       <Section mr="auto" my="auto" flexDirection="column" justifyContent="center">
-        <Title>{title}</Title>
+        <Link href={`/posts/${id}`} passHref>
+          <Title>{title}</Title>
+        </Link>
         <Row mt="auto">
           <Time>Published: {format(parseISO(createdAt), 'MMM d')}</Time>
           {editedAt && <Time>Edited: {format(parseISO(editedAt), 'MMM d')}</Time>}
         </Row>
       </Section>
-      <Section mx="auto" my="auto" width="10rem" justifyContent="space-between">
+      <Section mr="12rem" my="auto" width="8rem" justifyContent="space-between">
         <FavoriteBorder size={24} />
         {reactionCount}
         <ModeComment size={24} />
@@ -37,10 +41,20 @@ const PostCard = (props: PostCardProps) => {
         <Visibility size={24} />
         {viewCount}
       </Section>
-      <Section ml="auto" my="auto" width="3rem" justifyContent="space-between">
+      <Section my="auto" width="3rem" justifyContent="space-between">
         <Create size={24} />
         <Delete size={24} />
       </Section>
+      {status === 'DRAFT' && (
+        <Badge variant="secondary" mt="-2rem" mb="auto" mr="-2.5rem">
+          Draft
+        </Badge>
+      )}
+      {status === 'PRIVATE' && (
+        <Badge variant="accent" mt="-2rem" mb="auto" mr="-2.5rem">
+          Private
+        </Badge>
+      )}
     </BasePostCard>
   );
 };
@@ -50,6 +64,7 @@ export default createFragmentContainer(PostCard, {
     fragment PostCard_post on Post {
       id
       title
+      status
       createdAt
       editedAt
       viewCount

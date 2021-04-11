@@ -15,6 +15,7 @@ export const DashboardMain = styled.div`
   flex-direction: column;
   overflow-y: hidden;
   width: 100%;
+  margin-right: 1rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
 `;

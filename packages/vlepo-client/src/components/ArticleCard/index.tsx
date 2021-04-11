@@ -1,5 +1,6 @@
-import { format, parseISO } from 'date-fns';
+import { addDays, compareAsc, format, parseISO } from 'date-fns';
 import { createFragmentContainer, graphql } from 'react-relay';
+import Badge from 'src/components/Badge';
 import CardImg from 'src/components/Card/CardImage';
 import { CardBody } from 'src/components/Card/style';
 import { Column, Row } from 'src/components/Layout/style';
@@ -28,8 +29,16 @@ const ArticleCard = (props: ArticleCardProps) => {
   const { post, width } = props;
   const { title, headerImageUrl, abstract, createdAt, id, tags, owner, minuteRead } = post;
 
+  const createDate = parseISO(createdAt);
   return (
     <BaseArticleCard href={`/posts/${id}`} width={width}>
+      {compareAsc(new Date(), addDays(createDate, 1)) === -1 && (
+        <Row>
+          <Badge variant="accent" mt="-0.5rem" ml="auto" mr="-0.5rem">
+            new
+          </Badge>
+        </Row>
+      )}
       {headerImageUrl && (
         <CardImg src={headerImageUrl} alt={title} top>
           {tags &&
@@ -58,7 +67,7 @@ const ArticleCard = (props: ArticleCardProps) => {
               <AuthorName>
                 {createdAt && (
                   <ArticleDate>
-                    {format(parseISO(createdAt), 'MMM d, yyyy')}
+                    {format(createDate, 'MMM d, yyyy')}
                     {' • '}
                     {`${minuteRead ?? 1} min read`}
                   </ArticleDate>
@@ -70,7 +79,7 @@ const ArticleCard = (props: ArticleCardProps) => {
         {abstract && (
           <Abstract>
             {abstract}
-            ...
+            {abstract.length > 150 ? '...' : null}
           </Abstract>
         )}
       </CardBody>

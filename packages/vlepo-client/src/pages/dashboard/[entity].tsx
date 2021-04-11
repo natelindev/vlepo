@@ -10,7 +10,7 @@ import { PostRefetchQuery } from 'src/__generated__/PostRefetchQuery.graphql';
 import ClientOnly from 'src/components/ClientOnly';
 import PostCard from 'src/components/Dashboard/PostCard';
 import GradientButton from 'src/components/GradientButton';
-import { Row } from 'src/components/Layout/style';
+import { Column, Row } from 'src/components/Layout/style';
 import CreatePostModal from 'src/components/Modals/CreatePostModal';
 import PlaceHolder from 'src/components/PlaceHolder';
 import Sidebar from 'src/components/Sidebar';
@@ -120,19 +120,21 @@ const PostSection = (props: PostSectionProps) => {
           Create
         </GradientButton>
       </Row>
-      {user &&
-        user.postsConnection?.edges?.length &&
-        user.postsConnection.edges.map(
-          (e) =>
-            e &&
-            e.node && (
-              <PostCard key={((e.node as unknown) as { __id: string }).__id} post={e.node} />
-            ),
-        )}
+      <Column mt="1rem">
+        {user &&
+          user.postsConnection?.edges?.length &&
+          user.postsConnection.edges.map(
+            (e) =>
+              e &&
+              e.node && (
+                <PostCard key={((e.node as unknown) as { __id: string }).__id} post={e.node} />
+              ),
+          )}
+      </Column>
       {isLoadingNext && <PlaceHolder width="100%" />}
       {hasNext && !isLoadingNext && (
         <Row>
-          <GradientButton width="100%" mx="3rem" onClick={() => loadNext(5)}>
+          <GradientButton width="100%" mt="0.5rem" mx="1rem" onClick={() => loadNext(5)}>
             Load More
           </GradientButton>
         </Row>

@@ -9,11 +9,12 @@ export const lightTheme = {
     error: '#ff3232',
     highlight: '#e4e6ea',
     muted: '#65676b',
-    primary: '#3232FF',
-    secondary: '#5CC6EE',
+    primary: '#3232ff',
+    secondary: '#5cc6ee',
     text: '#050505',
     link: '#007bff',
     navbar: 'rgba(255,255,255,0.8)',
+    whiteText: '#fff',
   },
   fonts: {
     content:

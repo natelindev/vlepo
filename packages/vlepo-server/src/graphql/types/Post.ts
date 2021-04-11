@@ -3,7 +3,7 @@ import readingTime from 'reading-time';
 import { v4 } from 'uuid';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
-import { PostStatus as DBPostStatus, User } from '@prisma/client';
+import { PostStatus as DBPostStatus } from '@prisma/client';
 import { defaultIds } from '@vlepo/shared';
 
 import { OAuthCheckScope } from '../../oauth2/nexus';
@@ -169,6 +169,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
             id: v4(),
             blogId: defaultIds.blog,
             ownerId: currentUser.id,
+            status: createPostInput.status,
             title: createPostInput.title,
             content: createPostInput.content,
             headerImageUrl: createPostInput.headerImageUrl,
