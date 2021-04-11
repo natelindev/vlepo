@@ -3,9 +3,10 @@ import { GrantConfig } from 'grant';
 export const grantConfig: GrantConfig = {
   defaults: {
     origin: process.env.API_URL,
-    transport: 'state',
+    transport: 'session',
     nonce: true,
     prefix: '/api/connect',
+    callback: '/api/oauth2/callback',
     pkce: true,
   },
   google: {
