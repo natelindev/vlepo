@@ -1,8 +1,8 @@
 import { format, parseISO } from 'date-fns';
 import Link from 'next/link';
-import { createFragmentContainer, RelayProp } from 'react-relay';
-import { graphql } from 'relay-runtime';
-import { PostCard_post } from 'src/__generated__/PostCard_post.graphql';
+import { graphql } from 'react-relay';
+import { useFragment } from 'relay-hooks';
+import { PostCard_post$key } from 'src/__generated__/PostCard_post.graphql';
 import Badge from 'src/components/Badge';
 import { Row, Section } from 'src/components/Layout/style';
 
@@ -16,12 +16,26 @@ import {
 
 import { BasePostCard, Time, Title } from './style';
 
-export type PostCardProps = { relay: RelayProp; post: PostCard_post };
+export type PostCardProps = { post: PostCard_post$key };
 
+const fragmentSpec = graphql`
+  fragment PostCard_post on Post {
+    id
+    title
+    status
+    createdAt
+    editedAt
+    viewCount
+    reactionCount
+    commentCount
+    viewCount
+  }
+`;
 const PostCard = (props: PostCardProps) => {
-  const {
-    post: { id, title, status, reactionCount, commentCount, viewCount, createdAt, editedAt },
-  } = props;
+  const { post: fullPost } = props;
+
+  const post = useFragment(fragmentSpec, fullPost);
+  const { id, title, status, reactionCount, commentCount, viewCount, createdAt, editedAt } = post;
   return (
     <BasePostCard>
       <Row mb="auto">
@@ -63,18 +77,4 @@ const PostCard = (props: PostCardProps) => {
   );
 };
 
-export default createFragmentContainer(PostCard, {
-  post: graphql`
-    fragment PostCard_post on Post {
-      id
-      title
-      status
-      createdAt
-      editedAt
-      viewCount
-      reactionCount
-      commentCount
-      viewCount
-    }
-  `,
-});
+export default PostCard;

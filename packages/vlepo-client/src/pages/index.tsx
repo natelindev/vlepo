@@ -3,7 +3,8 @@ import React from 'react';
 import { graphql } from 'react-relay';
 import Typist from 'react-typist';
 import { usePagination, useQuery } from 'relay-hooks';
-import { fetchQuery, FragmentRefs } from 'relay-runtime';
+import { fetchQuery } from 'relay-runtime';
+import { ArticleCard_post$key } from 'src/__generated__/ArticleCard_post.graphql';
 import { IndexPostRefetchQuery } from 'src/__generated__/IndexPostRefetchQuery.graphql';
 import { pages_Index_BlogQuery } from 'src/__generated__/pages_Index_BlogQuery.graphql';
 import { pages_Index_Posts$key } from 'src/__generated__/pages_Index_Posts.graphql';
@@ -98,11 +99,7 @@ export const getServerSideProps = async ({ res }: GetServerSidePropsContext) => 
   };
 };
 
-type PostItem = {
-  readonly ' $fragmentRefs': FragmentRefs<'ArticleCard_post'>;
-};
-
-type MasonryCardProps = { data: PostItem; width: number };
+type MasonryCardProps = { data: ArticleCard_post$key; width: number };
 
 const MasonryCard: React.FC<MasonryCardProps> = (props: MasonryCardProps) => {
   const { data, width } = props;
@@ -123,9 +120,15 @@ const PostsSection = (props: PostSectionProps) => {
 
   return (
     <IndexRow>
-      <IndexMasonry<PostItem>
+      <IndexMasonry<ArticleCard_post$key>
         columnWidth={350}
-        items={data.postsConnection?.edges?.map((e) => e?.node) as PostItem[]}
+        items={
+          data && data.postsConnection && data.postsConnection.edges
+            ? data.postsConnection.edges
+                .filter((e) => e !== null && e.node !== null)
+                .map((e) => e!.node!)
+            : []
+        }
         columnGutter={20}
         overscanBy={2}
         ssrWidth={1920}

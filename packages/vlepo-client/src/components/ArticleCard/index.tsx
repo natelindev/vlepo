@@ -1,5 +1,5 @@
 import { addDays, compareAsc, format, parseISO } from 'date-fns';
-import { createFragmentContainer, graphql } from 'react-relay';
+import { graphql, useFragment } from 'react-relay';
 import Badge from 'src/components/Badge';
 import CardImg from 'src/components/Card/CardImage';
 import { CardBody } from 'src/components/Card/style';
@@ -18,18 +18,35 @@ import {
   BaseArticleCard,
 } from './style';
 
-import type { RelayProp } from 'react-relay';
-import type { ArticleCard_post } from '../../__generated__/ArticleCard_post.graphql';
+import type { ArticleCard_post$key } from '../../__generated__/ArticleCard_post.graphql';
 
-export type ArticleCardProps = { relay: RelayProp; post: ArticleCard_post } & {
-  width?: string;
-};
+export type ArticleCardProps = { post: ArticleCard_post$key; width?: string };
+
+const fragmentSpec = graphql`
+  fragment ArticleCard_post on Post {
+    id
+    title
+    abstract
+    headerImageUrl
+    createdAt
+    minuteRead
+    tags {
+      id
+      name
+    }
+    owner {
+      name
+      profileImageUrl
+    }
+  }
+`;
 
 const ArticleCard = (props: ArticleCardProps) => {
-  const { post, width } = props;
+  const { post: fullPost, width } = props;
+  const post = useFragment(fragmentSpec, fullPost);
   const { title, headerImageUrl, abstract, createdAt, id, tags, owner, minuteRead } = post;
-
   const createDate = parseISO(createdAt);
+
   return (
     <BaseArticleCard href={`/posts/${id}`} width={width}>
       {compareAsc(new Date(), addDays(createDate, 1)) === -1 && (
@@ -88,23 +105,4 @@ const ArticleCard = (props: ArticleCardProps) => {
   );
 };
 
-export default createFragmentContainer(ArticleCard, {
-  post: graphql`
-    fragment ArticleCard_post on Post {
-      id
-      title
-      abstract
-      headerImageUrl
-      createdAt
-      minuteRead
-      tags {
-        id
-        name
-      }
-      owner {
-        name
-        profileImageUrl
-      }
-    }
-  `,
-});
+export default ArticleCard;

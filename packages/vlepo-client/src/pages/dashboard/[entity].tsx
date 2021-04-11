@@ -27,6 +27,7 @@ const fragmentSpec = graphql`
     postsConnection(first: $count, after: $cursor) @connection(key: "Entity_postsConnection") {
       edges {
         node {
+          id
           ...PostCard_post
         }
       }
@@ -48,6 +49,7 @@ const blogSectionQuery = graphql`
 const viewerQuery = graphql`
   query Entity_viewerQuery {
     viewer {
+      id
       ...Entity_user
     }
   }
@@ -124,11 +126,7 @@ const PostSection = (props: PostSectionProps) => {
         {user &&
           user.postsConnection?.edges?.length &&
           user.postsConnection.edges.map(
-            (e) =>
-              e &&
-              e.node && (
-                <PostCard key={((e.node as unknown) as { __id: string }).__id} post={e.node} />
-              ),
+            (e) => e && e.node && <PostCard key={e.node.id} post={e.node} />,
           )}
       </Column>
       {isLoadingNext && <PlaceHolder width="100%" />}

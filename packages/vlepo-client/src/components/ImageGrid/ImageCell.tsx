@@ -1,0 +1,48 @@
+import Image from 'next/image';
+import { useCallback } from 'react';
+import { graphql, useFragment } from 'react-relay';
+import { ImageCell_image, ImageCell_image$key } from 'src/__generated__/ImageCell_image.graphql';
+
+import styled from '@emotion/styled';
+
+type BaseImageCellProps = { idx: number } & React.ComponentProps<typeof Image>;
+const BaseImageCell = styled(Image)<BaseImageCellProps>`
+  object-fit: contain;
+  grid-column: ${(props) => props.idx % 4};
+  grid-row: ${(props) => props.idx / 4};
+`;
+
+type ImageCellProps = { image: ImageCell_image$key; idx: number };
+
+const fragmentSpec = graphql`
+  fragment ImageCell_image on Image {
+    id
+    alt
+    url
+  }
+`;
+
+const ImageCell = (props: ImageCellProps) => {
+  const { image: fullImage, idx } = props;
+
+  const image = useFragment(fragmentSpec, fullImage);
+
+  const copyImageMarkdown = useCallback(() => {
+    if (navigator.clipboard && image) {
+      navigator.clipboard.writeText(`![${image.alt}](${image.url})`);
+    }
+  }, [image]);
+
+  return (
+    <BaseImageCell
+      onClick={copyImageMarkdown}
+      layout="responsive"
+      width="1"
+      height="1"
+      idx={idx}
+      src={image.url}
+    />
+  );
+};
+
+export default ImageCell;
