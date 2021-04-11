@@ -2,7 +2,7 @@ import { ChangeEvent, useRef } from 'react';
 import { graphql } from 'react-relay';
 import { useToasts } from 'react-toast-notifications';
 import { useMutation } from 'relay-hooks';
-import { Upload_Mutation } from 'src/__generated__/Upload_Mutation.graphql';
+import { ImageUpload_Mutation } from 'src/__generated__/ImageUpload_Mutation.graphql';
 import GradientButton from 'src/components/GradientButton';
 
 import { FileInput } from './style';
@@ -23,9 +23,9 @@ const ImageUpload = (props: UploadProps) => {
   const { onImageUploadSuccess, multiple, accept = '.png, .jpg, .jpeg, .gif, .svg' } = props;
   const { addToast } = useToasts();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [mutate, { loading }] = useMutation<Upload_Mutation>(
+  const [mutate, { loading }] = useMutation<ImageUpload_Mutation>(
     graphql`
-      mutation Upload_Mutation($file: Upload) {
+      mutation ImageUpload_Mutation($file: Upload) {
         uploadImage(file: $file) {
           id
           url

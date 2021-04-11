@@ -13,16 +13,7 @@ export interface CardImgProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const CardImg: React.FC<CardImgProps> = (props: CardImgProps) => {
-  const {
-    children,
-    className,
-    top = true,
-    bottom = false,
-    left = false,
-    right = false,
-    src,
-    alt,
-  } = props;
+  const { children, className, top = true, bottom, left, right, src, alt } = props;
   return (
     <>
       <BaseCardImg
