@@ -20,7 +20,6 @@ export const ModalContainer = styled.div`
   position: fixed;
   z-index: 9000;
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: saturate(180%) blur(2px);
 `;
 
 export const ModalOverScroll = styled.div`

@@ -18,11 +18,7 @@ const BaseModal = (props: BaseModalProps) => {
 
   const theme = useTheme();
   const transition = useTransition(open, {
-    from: {
-      position: 'relative' as const,
-      transform: 'translate3d(0,-30px,0)',
-      opacity: 0,
-    },
+    from: { transform: 'translate3d(0,-30px,0)', opacity: 0 },
     enter: { transform: 'translate3d(0,0px,0)', opacity: 1 },
     leave: { transform: 'translate3d(0,-30px,0)', opacity: 0 },
     config: {
