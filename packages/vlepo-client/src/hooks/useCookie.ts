@@ -24,7 +24,7 @@ export const nativeType = (value: string, decode: (s: string) => unknown): unkno
   }
 };
 
-type GetCookieOptions<T> = {
+export type GetCookieOptions<T> = {
   initValue?: T;
   decode: (s: string) => T;
 };
@@ -45,11 +45,12 @@ export const getCookie = <T = unknown>(name: string, options?: GetCookieOptions<
   return result ? (nativeType(result, decode) as T) : initValue;
 };
 
-type SetCookieOptions = {
+export type SetCookieOptions = {
   days?: number;
   path?: string;
   encode?: (o: unknown) => string;
 };
+
 export const deleteCookie = (name: string) => {
   setCookie('', name, { days: 0 });
 };

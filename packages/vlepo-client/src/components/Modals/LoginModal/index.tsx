@@ -1,24 +1,18 @@
-import { decode } from 'base-64';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { graphql } from 'react-relay';
 import { useToasts } from 'react-toast-notifications';
-import { useSetRecoilState } from 'recoil';
 import { useMutation } from 'relay-hooks';
-import { currentUserState } from 'src/atoms/user';
 import GradientButton from 'src/components/GradientButton';
 import { ErrorText, Form, Input, InputGroup, Label } from 'src/components/Input';
 import { usePopupWindow } from 'src/hooks/usePopupWindow';
-
-import { IdToken } from '@vlepo/shared';
 
 import {
   LoginInput as LoginInputType,
   LoginModal_Mutation,
   LoginModal_MutationResponse,
 } from '../../../__generated__/LoginModal_Mutation.graphql';
-import { getCookie } from '../../../hooks/useCookie';
 import BaseModal, { BaseModalProps } from '../BaseModal';
 import { OauthButton, OauthButtonSection } from './style';
 
@@ -32,7 +26,6 @@ const LoginModal = (props: LoginModalProps) => {
     reset,
   } = useForm<LoginInputType>();
   const router = useRouter();
-  const setCurrentUser = useSetRecoilState(currentUserState);
 
   const onSubmit = (data: LoginInputType) =>
     mutate({
@@ -63,11 +56,6 @@ const LoginModal = (props: LoginModalProps) => {
           addToast(`Login succeed`, {
             appearance: 'success',
           });
-          setCurrentUser(
-            getCookie<IdToken>('idToken', {
-              decode: (v: string) => JSON.parse(decode(v)),
-            }),
-          );
         } else if (LoginMutation?.error) {
           addToast(`Login failed, ${LoginMutation?.error}`, {
             appearance: 'error',

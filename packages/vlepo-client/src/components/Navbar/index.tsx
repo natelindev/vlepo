@@ -1,9 +1,8 @@
 ﻿import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { a, useTransition } from 'react-spring';
-import { useRecoilState } from 'recoil';
-import { themeState } from 'src/atoms/theme';
 import Dropdown from 'src/components/Dropdown';
+import { ThemeContext } from 'src/pages/_app';
 import { darkTheme, lightTheme } from 'src/shared/theme';
 
 import { DarkMode, LightMode } from '@emotion-icons/material-outlined';
@@ -26,9 +25,9 @@ import {
 
 const Navbar: React.FC = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [theme, setTheme] = useRecoilState(themeState);
+  const { theme, setTheme } = useContext(ThemeContext);
 
-  const transition = useTransition(theme.name === 'dark', {
+  const transition = useTransition(theme?.name === 'dark', {
     from: { position: 'absolute' as const, opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
@@ -70,7 +69,7 @@ const Navbar: React.FC = () => {
             width="1.5rem"
             mt="7px"
             mx="1.2rem"
-            onClick={() => setTheme(theme.name === 'dark' ? lightTheme : darkTheme)}
+            onClick={() => setTheme?.(theme.name === 'dark' ? lightTheme : darkTheme)}
           >
             {transition((style, item) =>
               item ? (

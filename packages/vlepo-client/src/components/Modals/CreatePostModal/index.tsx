@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useFragment } from 'react-relay';
 import { useToasts } from 'react-toast-notifications';
-import { useRecoilValue } from 'recoil';
 import { useMutation } from 'relay-hooks';
 import { ConnectionHandler, graphql } from 'relay-runtime';
 import { CreatePostModal_image$key } from 'src/__generated__/CreatePostModal_image.graphql';
@@ -11,13 +10,13 @@ import {
   CreatePostModal_Mutation,
 } from 'src/__generated__/CreatePostModal_Mutation.graphql';
 import { ImageUpload_MutationResponse } from 'src/__generated__/ImageUpload_Mutation.graphql';
-import { currentUserState } from 'src/atoms/user';
 import GradientButton from 'src/components/GradientButton';
 import ImageGrid from 'src/components/ImageGrid';
 import ImageUpload from 'src/components/ImageUpload';
 import { ErrorText, Form, Input, InputGroup, Label, TextArea } from 'src/components/Input';
 import { Row } from 'src/components/Layout/style';
 import Select from 'src/components/Select';
+import { CurrentUserContext } from 'src/pages/_app';
 
 import { defaultIds } from '@vlepo/shared';
 
@@ -54,7 +53,7 @@ const CreatePostModal = (props: CreatePostModalProps) => {
 
   const [images, setImages] = useState<ImageUpload_MutationResponse['uploadImages']>([]);
 
-  const currentUser = useRecoilValue(currentUserState);
+  const { currentUser } = useContext(CurrentUserContext);
 
   const dashboard_postConnectionId = ConnectionHandler.getConnectionID(
     currentUser!.id,

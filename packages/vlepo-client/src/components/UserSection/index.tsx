@@ -1,16 +1,14 @@
 import { useRouter } from 'next/router';
-import React from 'react';
-import { useRecoilState } from 'recoil';
-import { currentUserState } from 'src/atoms/user';
+import React, { useContext } from 'react';
 import Dropdown from 'src/components/Dropdown';
 import { NavItem } from 'src/components/Navbar/style';
 import NavLink from 'src/components/NavLink';
+import { CurrentUserContext } from 'src/pages/_app';
 
 import { Dashboard, Logout, Settings } from '@emotion-icons/material-outlined';
 import { css } from '@emotion/react';
 import { OAuthConsts } from '@vlepo/shared';
 
-import { deleteCookie } from '../../hooks/useCookie';
 import { GreyText, LoginButton, NavbarAvatar } from './style';
 
 type UserSectionProps = {
@@ -18,7 +16,7 @@ type UserSectionProps = {
 };
 
 const UserSection = (props: UserSectionProps) => {
-  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+  const { currentUser, setCurrentUserCookie } = useContext(CurrentUserContext);
   const { setShowLoginModal } = props;
   const router = useRouter();
 
@@ -61,11 +59,7 @@ const UserSection = (props: UserSectionProps) => {
           )}
           <NavLink
             onClick={() => {
-              deleteCookie('idToken');
-              deleteCookie('accessToken');
-              deleteCookie('idToken.sig');
-              deleteCookie('accessToken.sig');
-              setCurrentUser(undefined);
+              setCurrentUserCookie?.(undefined, { days: 0 });
               router.reload();
             }}
           >
