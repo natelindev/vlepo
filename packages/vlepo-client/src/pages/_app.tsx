@@ -7,7 +7,7 @@ import { ToastProvider } from 'react-toast-notifications';
 import { RelayEnvironmentProvider } from 'relay-hooks';
 import Layout from 'src/components/Layout';
 import { Toast } from 'src/components/Toast';
-import { SetCookieOptions, useCookie } from 'src/hooks/useCookie';
+import { useCookie } from 'src/hooks/useCookie';
 import { createEnvironment } from 'src/relay';
 import { globalStyles } from 'src/shared/styles';
 import { defaultTheme, ThemeType } from 'src/shared/theme';
@@ -30,16 +30,12 @@ export const ThemeContext = React.createContext<
 >({});
 
 export const CurrentUserContext = React.createContext<
-  | {
-      currentUser?: IdToken;
-      setCurrentUserCookie?: (value: IdToken | undefined, options: SetCookieOptions) => void;
-    }
-  | Record<string, never>
+  { currentUser?: IdToken } | Record<string, never>
 >({});
 
 function App({ Component, pageProps }: PageProps) {
   const [theme, setTheme] = useState(defaultTheme);
-  const [currentUser, setCurrentUserCookie] = useCookie<IdToken | undefined>('idToken', {
+  const [currentUser] = useCookie<IdToken | undefined>('idToken', {
     decode: (v: string) => JSON.parse(base64.decode(v)),
   });
 
@@ -47,12 +43,7 @@ function App({ Component, pageProps }: PageProps) {
     <React.StrictMode>
       <RelayEnvironmentProvider environment={createEnvironment(pageProps.relayData)}>
         <ThemeContext.Provider value={{ theme: defaultTheme, setTheme }}>
-          <CurrentUserContext.Provider
-            value={{
-              currentUser,
-              setCurrentUserCookie,
-            }}
-          >
+          <CurrentUserContext.Provider value={{ currentUser }}>
             <ThemeProvider theme={theme}>
               {globalStyles}
               <ToastProvider

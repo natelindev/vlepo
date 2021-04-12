@@ -33,7 +33,7 @@ const Badge = styled.div<BadgeProp & HeightProps & WidthProps>`
   ${margin}
   ${width}
   ${height}
-    ${variant({
+  ${variant({
     variants: {
       primary: {
         bg: 'primary',

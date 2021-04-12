@@ -3,26 +3,19 @@ import React from 'react';
 
 import { ConstrainedCard, OverlayLink } from './style';
 
-// import { useHoverIntent } from 'react-use-hoverintent';
-
 export type CardProps = {
   [key: string]: unknown;
-  hoverEffect?: 'bubba' | undefined | null | '';
   children?: React.ReactNode;
-  className?: string;
-  style?: React.CSSProperties;
   lr?: boolean;
   colorA?: string;
   colorB?: string;
   href?: string;
 } & React.ComponentProps<typeof ConstrainedCard>;
 
-const Card = React.forwardRef((props: CardProps, _ref: React.Ref<HTMLDivElement | null>) => {
-  const { children, className, href, ...rest } = props;
-  // const [isHovering, intentRef] = useHoverIntent<HTMLDivElement>({ ref });
-
+const Card = React.forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
+  const { children, href, ...rest } = props;
   return (
-    <ConstrainedCard {...rest} className={className}>
+    <ConstrainedCard ref={ref} {...rest}>
       {children}
       {href ? (
         <Link href={href} passHref>

@@ -5336,6 +5336,11 @@ date-fns@2.20.1:
   resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.20.1.tgz#7e60b7035284a5f83e37500376e738d9f49ecfd3"
   integrity sha512-8P5M8Kxbnovd0zfvOs7ipkiVJ3/zZQ0F/nrBW4x5E+I0uAZVZ80h6CKd24fSXQ5TLK5hXMtI4yb2O5rEZdUt2A==
 
+date-fns@2.20.2:
+  version "2.20.2"
+  resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.20.2.tgz#7f05d1275e1e43c3bdde5998201920098e19c6a1"
+  integrity sha512-QS0Z8SD/ALhKFvhtU4Fhz+1crsI7fPzBquXmdWay33KJPEU7btro2hnmmErpQRmt2D624B1lbjXQKDUMLnQTmQ==
+
 date-fns@^1.27.2:
   version "1.30.1"
   resolved "https://registry.npmjs.org/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
@@ -10725,10 +10730,10 @@ react-focus-lock@^2.5.0:
     use-callback-ref "^1.2.1"
     use-sidecar "^1.0.1"
 
-react-hook-form@7.0.5:
-  version "7.0.5"
-  resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.0.5.tgz#33d4a437be78ca1fe86867ed937fe94b09c4bf9c"
-  integrity sha512-NERg22pjSa8URYfNhDhefGVODMTP4DMLlkK+bpuN4GUWKYIh/qiV4YmPuH8bfMAcXKj+bpdh6n7dB5B6jBs74Q==
+react-hook-form@7.0.7:
+  version "7.0.7"
+  resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.0.7.tgz#16e39c0afc41c8263938c3602537db1d1f3b1131"
+  integrity sha512-PUiiEzAsLoO0hlO9Q3z/smDQ0mgPffL52QhLYvtjK11vDkXUgDc1l3ZXXvdeR4+VGwJNIuhl0bboFkhJN3E+Qg==
 
 react-is@16.13.1, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
@@ -10807,11 +10812,6 @@ react-typist@2.0.5:
   integrity sha512-iZCkeqeegO0TlkTMiH2JD1tvMtY9RrXkRylnAI6m8aCVAUUwNzoWTVF7CKLij6THeOMcUDCznLDDvNp55s+YZA==
   dependencies:
     prop-types "^15.5.10"
-
-react-use-hoverintent@1.2.3:
-  version "1.2.3"
-  resolved "https://registry.npmjs.org/react-use-hoverintent/-/react-use-hoverintent-1.2.3.tgz#7d8532e8e3964a29c787d72d9e63ba75052eb04b"
-  integrity sha512-yYf0nJ3uiU6QTEZ59jmnIvfFdoBV0RCVoECa7VOeNNQvSs4iUmI/vrYGpfYztYdpeXc9yTbmj9fm7uo5OyeFNQ==
 
 react@17.0.1:
   version "17.0.1"

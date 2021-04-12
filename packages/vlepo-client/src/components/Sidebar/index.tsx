@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { margin, MarginProps } from 'styled-system';
 
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 // import { OAuthConsts } from '@vlepo/shared';
@@ -34,7 +34,7 @@ const SidebarHeader = styled.h2`
   margin: 0;
 `;
 
-const SidebarItem = styled.div<{ active?: boolean }>`
+const SidebarItem = styled.div<{ active?: boolean } & MarginProps>`
   display: flex;
   border-radius: 0.4rem;
   margin-left: 0.4rem;
@@ -51,6 +51,7 @@ const SidebarItem = styled.div<{ active?: boolean }>`
       : `&:hover {
     background-color: ${props.theme.colors.backgroundMuted};
   }`}
+  ${margin}
 `;
 
 const Sidebar = (props: SidebarProps): React.ReactElement => {
@@ -58,11 +59,7 @@ const Sidebar = (props: SidebarProps): React.ReactElement => {
   const router = useRouter();
   return (
     <BaseSidebar width={width} expand={expand} className={className}>
-      <SidebarItem
-        css={css`
-          margin-top: 0.5rem;
-        `}
-      >
+      <SidebarItem mt="0.5rem">
         <SidebarHeader>Dashboard</SidebarHeader>
       </SidebarItem>
 

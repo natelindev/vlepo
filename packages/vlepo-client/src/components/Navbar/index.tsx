@@ -6,7 +6,6 @@ import { ThemeContext } from 'src/pages/_app';
 import { darkTheme, lightTheme } from 'src/shared/theme';
 
 import { DarkMode, LightMode } from '@emotion-icons/material-outlined';
-import { css } from '@emotion/react';
 
 import ClientOnly from '../ClientOnly';
 import LoginModal from '../Modals/LoginModal';
@@ -44,11 +43,7 @@ const Navbar: React.FC = () => {
           <NavLink href="/portfolio">Portfolio</NavLink>
           <NavLink href="/papers">Papers</NavLink>
           <NavLink href="/about">About</NavLink>
-          <Dropdown
-            css={css`
-              margin-top: 4px;
-            `}
-          >
+          <Dropdown mt="4px">
             <NavLink href="">More</NavLink>
             <NavLink href="/thoughts">
               <NavItem>Thoughts</NavItem>

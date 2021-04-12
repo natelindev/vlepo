@@ -3,10 +3,10 @@ import React, { useContext } from 'react';
 import Dropdown from 'src/components/Dropdown';
 import { NavItem } from 'src/components/Navbar/style';
 import NavLink from 'src/components/NavLink';
+import { deleteCookie } from 'src/hooks/useCookie';
 import { CurrentUserContext } from 'src/pages/_app';
 
 import { Dashboard, Logout, Settings } from '@emotion-icons/material-outlined';
-import { css } from '@emotion/react';
 import { OAuthConsts } from '@vlepo/shared';
 
 import { GreyText, LoginButton, NavbarAvatar } from './style';
@@ -16,19 +16,14 @@ type UserSectionProps = {
 };
 
 const UserSection = (props: UserSectionProps) => {
-  const { currentUser, setCurrentUserCookie } = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
   const { setShowLoginModal } = props;
   const router = useRouter();
 
   return (
     <>
       {currentUser ? (
-        <Dropdown
-          position="right"
-          css={css`
-            margin-top: 12px;
-          `}
-        >
+        <Dropdown variant="right" mt="12px">
           <NavbarAvatar
             size={32}
             imageUrl={currentUser.profileImageUrl ?? '/images/avatar/bot.svg'}
@@ -59,7 +54,10 @@ const UserSection = (props: UserSectionProps) => {
           )}
           <NavLink
             onClick={() => {
-              setCurrentUserCookie?.(undefined, { days: 0 });
+              deleteCookie('idToken');
+              deleteCookie('accessToken');
+              deleteCookie('idToken.sig');
+              deleteCookie('accessToken.sig');
               router.reload();
             }}
           >

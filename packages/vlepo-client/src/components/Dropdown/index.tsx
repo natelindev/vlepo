@@ -5,12 +5,12 @@ import { BaseDropdown, BaseDropdownMenu } from './style';
 
 type DropProps<P> = {
   className?: string;
-  position?: 'left' | 'right';
+  variant?: 'left' | 'right';
   children: [React.ReactElement<P>, ...React.ReactNode[]];
-};
+} & Omit<React.ComponentProps<typeof BaseDropdownMenu>, 'variant'>;
 
 const DropDown = <P extends { onClick: (e: MouseEventHandler) => void }>(props: DropProps<P>) => {
-  const { children, className, position = 'left' } = props;
+  const { children, variant = 'left', ...rest } = props;
   const [showDropDown, setShowDropDown] = useState(false);
   const dropDownRef = useRef(null);
 
@@ -32,7 +32,7 @@ const DropDown = <P extends { onClick: (e: MouseEventHandler) => void }>(props: 
       typeof children[0] !== 'undefined'
         ? React.cloneElement(children[0], newProps)
         : children[0]}
-      <BaseDropdownMenu position={position} show={showDropDown} className={className}>
+      <BaseDropdownMenu {...rest} variant={variant} show={showDropDown}>
         {children && children.length > 1 && children.slice(1)}
       </BaseDropdownMenu>
     </BaseDropdown>

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useCallback } from 'react';
 import { graphql, useFragment } from 'react-relay';
+import { useToasts } from 'react-toast-notifications';
 import { ImageCell_image$key } from 'src/__generated__/ImageCell_image.graphql';
 
 import styled from '@emotion/styled';
@@ -25,6 +26,7 @@ const fragmentSpec = graphql`
 
 const ImageCell = (props: ImageCellProps) => {
   const { image: fullImage, idx } = props;
+  const { addToast } = useToasts();
 
   const image = useFragment(fragmentSpec, fullImage);
 
@@ -32,7 +34,10 @@ const ImageCell = (props: ImageCellProps) => {
     if (navigator.clipboard && image) {
       navigator.clipboard.writeText(`![${image.alt}](${image.url})`);
     }
-  }, [image]);
+    addToast(`image markdown copied`, {
+      appearance: 'info',
+    });
+  }, [image, addToast]);
 
   return (
     <BaseImageCell

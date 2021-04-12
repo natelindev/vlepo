@@ -1,16 +1,27 @@
+import { margin, MarginProps, variant } from 'styled-system';
+
 import styled from '@emotion/styled';
 
 import { BaseNavLink } from '../NavLink/style';
 
 export type BaseDropDownProps = {
   show?: boolean;
-  position: 'left' | 'right';
+  variant?: 'left' | 'right';
 };
 
-export const BaseDropdownMenu = styled.div<BaseDropDownProps>`
+export const BaseDropdownMenu = styled.div<BaseDropDownProps & MarginProps>`
+  ${variant({
+    variants: {
+      left: {
+        left: '5px',
+      },
+      right: {
+        right: '5px',
+      },
+    },
+  })}
   position: absolute;
   top: 100%;
-  ${(props) => props.position}: 5px;
   z-index: ${(props) => props.theme.zIndices.DropDownMenu};
   display: ${(props) => (props.show ? 'flex' : 'none')};
   flex-direction: column;
@@ -30,6 +41,8 @@ export const BaseDropdownMenu = styled.div<BaseDropDownProps>`
   > ${BaseNavLink} {
     box-shadow: none;
   }
+
+  ${margin}
 `;
 
 export const BaseDropdown = styled.div`
