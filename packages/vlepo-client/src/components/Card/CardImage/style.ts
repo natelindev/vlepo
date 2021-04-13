@@ -9,7 +9,10 @@ export type CardImgProps = {
   bottom?: boolean;
 };
 
-export const CardImg = styled(Image)<CardImgProps>`
+export const CardImg = styled(Image, {
+  shouldForwardProp: (propName) =>
+    propName !== 'top' && propName !== 'bottom' && propName !== 'left' && propName !== 'right',
+})<CardImgProps>`
   object-fit: cover;
   flex-grow: 0;
   border-top-left-radius: ${(props) =>

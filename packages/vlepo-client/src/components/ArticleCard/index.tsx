@@ -56,13 +56,7 @@ const ArticleCard = (props: ArticleCardProps) => {
           </Badge>
         </Row>
       )}
-      {headerImageUrl && (
-        <CardImg src={headerImageUrl} alt={title} top>
-          {tags &&
-            tags.length &&
-            tags.map((t) => <Tag name={t.name} key={t.id} href={`/tags/${t.id}`} />)}
-        </CardImg>
-      )}
+      {headerImageUrl && <CardImg src={headerImageUrl} alt={title} top />}
       <CardBody>
         {title && (
           <Row>
@@ -100,7 +94,11 @@ const ArticleCard = (props: ArticleCardProps) => {
           </Abstract>
         )}
       </CardBody>
-      <ArticleCardFooter />
+      <ArticleCardFooter>
+        {tags &&
+          tags.length &&
+          tags.map((t) => <Tag name={t.name} key={t.id} href={`/tags/${t.id}`} />)}
+      </ArticleCardFooter>
     </BaseArticleCard>
   );
 };

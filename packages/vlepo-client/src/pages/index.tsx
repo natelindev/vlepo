@@ -9,6 +9,7 @@ import { IndexPostRefetchQuery } from 'src/__generated__/IndexPostRefetchQuery.g
 import { pages_Index_BlogQuery } from 'src/__generated__/pages_Index_BlogQuery.graphql';
 import { pages_Index_Posts$key } from 'src/__generated__/pages_Index_Posts.graphql';
 import ArticleCard from 'src/components/ArticleCard';
+import ClientOnly from 'src/components/ClientOnly';
 import GradientButton from 'src/components/GradientButton';
 import { Row } from 'src/components/Layout/style';
 import PlaceHolder from 'src/components/PlaceHolder';
@@ -119,29 +120,29 @@ const PostsSection = (props: PostSectionProps) => {
 
   return (
     <IndexRow>
-      <IndexMasonry<ArticleCard_post$key>
-        columnWidth={350}
-        items={
-          data && data.postsConnection && data.postsConnection.edges
-            ? data.postsConnection.edges
-                .filter((e) => e !== null && e.node !== null)
-                .map((e) => e!.node!)
-            : []
-        }
-        columnGutter={20}
-        overscanBy={2}
-        ssrWidth={1920}
-        ssrHeight={1080}
-        render={MasonryCard}
-      />
-      {isLoadingNext && <PlaceHolder width="100%" />}
-      {hasNext && !isLoadingNext && (
-        <Row>
-          <GradientButton width="100%" mx="6rem" mb="2rem" onClick={() => loadNext(5)}>
-            Load More
-          </GradientButton>
-        </Row>
-      )}
+      <ClientOnly>
+        <IndexMasonry<ArticleCard_post$key>
+          columnWidth={350}
+          items={
+            data && data.postsConnection && data.postsConnection.edges
+              ? data.postsConnection.edges
+                  .filter((e) => e !== null && e.node !== null)
+                  .map((e) => e!.node!)
+              : []
+          }
+          columnGutter={20}
+          overscanBy={2}
+          render={MasonryCard}
+        />
+        {isLoadingNext && <PlaceHolder width="100%" />}
+        {hasNext && !isLoadingNext && (
+          <Row>
+            <GradientButton width="100%" mx="6rem" mb="2rem" onClick={() => loadNext(5)}>
+              Load More
+            </GradientButton>
+          </Row>
+        )}
+      </ClientOnly>
     </IndexRow>
   );
 };

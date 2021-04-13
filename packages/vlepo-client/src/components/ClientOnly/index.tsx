@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 
-type ClientOnlyProps = { children: ReactElement | ReactElement[] };
+type ClientOnlyProps = { children: ReactNode };
 const ClientOnly = (props: ClientOnlyProps) => {
   const { children } = props;
 
