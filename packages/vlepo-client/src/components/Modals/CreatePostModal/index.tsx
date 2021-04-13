@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useFragment } from 'react-relay';
 import { useToasts } from 'react-toast-notifications';
@@ -87,6 +87,7 @@ const CreatePostModal = (props: CreatePostModalProps) => {
   const onModalClose = () => {
     onClose?.();
     reset();
+    setHeaderImage(null);
   };
 
   const [mutate, { loading }] = useMutation<CreatePostModal_Mutation>(
@@ -131,9 +132,10 @@ const CreatePostModal = (props: CreatePostModalProps) => {
   ) => {
     if (uploadedImages && uploadedImages.length > 0) {
       setHeaderImage(uploadedImages[0]);
-      setValue('headerImageUrl', headerImage?.url);
     }
   };
+
+  useEffect(() => setValue('headerImageUrl', headerImage?.url), [setValue, headerImage]);
 
   const { ref, ...statusRest } = register('status');
 
