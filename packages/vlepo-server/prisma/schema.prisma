@@ -34,12 +34,14 @@ model Blog {
 }
 
 model UserRole {
-  id        String   @id @default(uuid())
-  value     String   @unique
-  name      String
-  users     User[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id    String @id @default(uuid())
+  value String @unique
+  name  String
+  users User[]
+
+  scopes    OAuthScope[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 }
 
 enum OAuthProviders {
@@ -352,6 +354,9 @@ model OAuthScope {
 
   //client
   clients OAuthClient[]
+
+  //roles
+  roles UserRole[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

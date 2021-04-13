@@ -8,10 +8,11 @@
     "packages/*"
   ],
   "scripts": {
-    "bootstrap": "lerna bootstrap --scope=@vlepo/shared",
+    "bootstrap": "lerna bootstrap && yarn env",
     "prebuild": "patch-package && yarn generate && lerna link",
     "build": "lerna run build",
     "dev": "lerna run dev --parallel",
+    "env": "lerna exec -- ln -s ../../.env",
     "generate": "lerna run generate",
     "lint": "lerna run lint --parallel",
     "publish": "yarn lerna publish from-package --dist-tag canary --yes --no-verify-access",

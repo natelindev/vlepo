@@ -4,7 +4,6 @@ import { v4 } from 'uuid';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { PostStatus as DBPostStatus } from '@prisma/client';
-import { defaultIds } from '@vlepo/shared';
 
 import { OAuthCheckScope } from '../../oauth2/nexus';
 import { Comment } from './Comment';
@@ -167,7 +166,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
         await trx('Post')
           .insert({
             id: v4(),
-            blogId: defaultIds.blog,
+            blogId: process.env.DEFAULT_BLOG_ID,
             ownerId: currentUser.id,
             status: createPostInput.status,
             title: createPostInput.title,
@@ -198,7 +197,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
                 .insert(
                   newTags.map((t) => ({
                     id: v4(),
-                    blogId: defaultIds.blog,
+                    blogId: process.env.DEFAULT_BLOG_ID,
                     name: t.name,
                     createdAt: new Date(),
                     updatedAt: new Date(),

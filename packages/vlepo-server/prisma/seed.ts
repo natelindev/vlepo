@@ -6,7 +6,7 @@ import { lorem, name } from 'faker';
 import meow from 'meow';
 
 import { OAuthGrant, PostStatus, PrismaClient } from '@prisma/client';
-import { defaultIds, OAuthConsts } from '@vlepo/shared';
+import { OAuthConsts } from '@vlepo/shared';
 
 const debug = debugInit('vlepo:db:seed');
 
@@ -30,45 +30,6 @@ const cleanDB = async (prisma: PrismaClient) => {
 
 const seedBD = async (prisma: PrismaClient) => {
   try {
-    const admin = await prisma.user.create({
-      data: {
-        id: defaultIds.admin,
-        email: 'admin@admin.com',
-        password: await argon2.hash('default-password'),
-        name: `${name.firstName()} ${name.lastName()}`,
-        roles: {
-          create: OAuthConsts.roles.admin,
-        },
-        profileImageUrl: '/images/avatar/host.svg',
-      },
-    });
-    debug(`seeded admin user`);
-
-    const defaultBlog = await prisma.blog.create({
-      data: {
-        id: defaultIds.blog,
-        owner: {
-          connect: {
-            id: admin.id,
-          },
-        },
-        name: "Nathaniel's Blog",
-        visitorCount: 0,
-      },
-    });
-    debug(`seeded default blog`);
-
-    await prisma.post.createMany({
-      data: Array(5).fill({
-        title: name.title(),
-        content: lorem.paragraphs(5),
-        status: PostStatus.PUBLISHED,
-        ownerId: admin.id,
-        blogId: defaultBlog.id,
-      }),
-    });
-    debug(`seeded default posts`);
-
     await prisma.oAuthScope.create({
       data: {
         name: 'Self',
@@ -131,9 +92,49 @@ const seedBD = async (prisma: PrismaClient) => {
     );
     debug(`seeded default oauth scopes`);
 
+    const adminRole = await prisma.userRole.create({
+      data: {
+        name: 'Administrator',
+        value: 'admin',
+        scopes: {
+          connect: OAuthConsts.entities.map((e) => ({
+            value: e,
+          })),
+        },
+      },
+    });
+
+    await prisma.userRole.create({
+      data: {
+        name: 'Visitor',
+        value: 'visitor',
+        scopes: {
+          connect: ['comment:create', 'image:create', 'self'].map((value) => ({
+            value,
+          })),
+        },
+      },
+    });
+
+    const admin = await prisma.user.create({
+      data: {
+        id: process.env.DEFAULT_ADMIN_ID,
+        email: 'admin@admin.com',
+        password: await argon2.hash('default-password'),
+        name: `${name.firstName()} ${name.lastName()}`,
+        roles: {
+          connect: {
+            id: adminRole.id,
+          },
+        },
+        profileImageUrl: '/images/avatar/host.svg',
+      },
+    });
+    debug(`seeded admin user`);
+
     await prisma.oAuthClient.create({
       data: {
-        id: OAuthConsts.DEFAULT_CLIENT_ID,
+        id: process.env.DEFAULT_CLIENT_ID,
         secret: cryptoRandomString({ length: 20, type: 'alphanumeric' }),
         owner: {
           connect: {
@@ -149,6 +150,31 @@ const seedBD = async (prisma: PrismaClient) => {
       },
     });
     debug(`seeded default oauth client`);
+
+    const defaultBlog = await prisma.blog.create({
+      data: {
+        id: process.env.DEFAULT_BLOG_ID,
+        owner: {
+          connect: {
+            id: admin.id,
+          },
+        },
+        name: process.env.DEFAULT_BLOG_NAME,
+        visitorCount: 0,
+      },
+    });
+    debug(`seeded default blog`);
+
+    await prisma.post.createMany({
+      data: Array(5).fill({
+        title: name.title(),
+        content: lorem.paragraphs(5),
+        status: PostStatus.PUBLISHED,
+        ownerId: admin.id,
+        blogId: defaultBlog.id,
+      }),
+    });
+    debug(`seeded default posts`);
   } catch (err) {
     debug(err);
     await cleanDB(prisma);

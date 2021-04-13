@@ -1,4 +1,4 @@
-import { list, nonNull, objectType, stringArg } from 'nexus';
+import { list, nonNull, objectType } from 'nexus';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 
@@ -29,17 +29,25 @@ export const User = objectType({
     t.model.updatedAt();
     t.field('scopes', {
       type: nonNull(list('String')),
-      resolve: async (_root, _args, ctx) => {
-        const accessToken = ctx.oauth.extractAccessToken(ctx);
-        const accessTokenWithScope = await ctx.prisma.oAuthAccessToken.findFirst({
+      resolve: async (root, _args, ctx) => {
+        const user = await ctx.prisma.user.findFirst({
           where: {
-            accessToken,
+            id: root.id,
           },
-          include: {
-            scopes: true,
+          select: {
+            roles: {
+              include: {
+                scopes: true,
+              },
+            },
           },
         });
-        return accessTokenWithScope?.scopes.map((s) => s.value) ?? [];
+        return (
+          user?.roles.reduce<string[]>(
+            (prev, curr) => [...prev, ...(curr.scopes?.map((s) => s.value) ?? [])],
+            [],
+          ) ?? []
+        );
       },
     });
     t.connectionField('postsConnection', {

@@ -52,16 +52,30 @@ export const LoginMutation = mutationField('LoginMutation', {
         if (validPassword) {
           const accessToken = await generateAccessToken();
           const expiresAt = add(new Date(), { days: 1 });
-
+          const userRole = await ctx.prisma.userRole.findFirst({
+            where: {
+              users: {
+                some: {
+                  id: u.id,
+                },
+              },
+            },
+            select: {
+              scopes: true,
+            },
+          });
+          if (!userRole) {
+            throw new Error('user role does not exist');
+          }
           await saveToken(
             {
               accessToken,
               accessTokenExpiresAt: expiresAt,
-              scope: OAuthConsts.scope.admin.join(' '),
+              scope: userRole.scopes.map((s) => s.value),
             },
             (await ctx.prisma.oAuthClient.findFirst({
               where: {
-                id: OAuthConsts.DEFAULT_CLIENT_ID,
+                id: process.env.DEFAULT_CLIENT_ID,
               },
             })) as OAuthClient,
             u,

@@ -5,7 +5,7 @@ import { ExtendedContext } from 'src/app';
 import { match } from 'ts-pattern';
 
 import { OAuthClient, OAuthProviders } from '@prisma/client';
-import { envDetect, OAuthConsts } from '@vlepo/shared';
+import { envDetect } from '@vlepo/shared';
 
 import { token } from './middleware';
 import { generateAccessToken, saveToken } from './model';
@@ -112,8 +112,8 @@ router.get('/callback', async (ctx) => {
           openid: profile.sub,
           roles: {
             connectOrCreate: {
-              where: { value: 'guest' },
-              create: OAuthConsts.roles.guest,
+              where: { value: 'visitor' },
+              create: { name: 'Visitor', value: 'visitor' },
             },
           },
           provider,
@@ -145,8 +145,8 @@ router.get('/callback', async (ctx) => {
           openid: profile.id.toString(),
           roles: {
             connectOrCreate: {
-              where: { value: 'guest' },
-              create: OAuthConsts.roles.guest,
+              where: { value: 'visitor' },
+              create: { name: 'Visitor', value: 'visitor' },
             },
           },
           provider,
@@ -163,15 +163,26 @@ router.get('/callback', async (ctx) => {
   if (connectedUser) {
     // create accessToken
     const accessToken = await generateAccessToken();
+    const visitorRole = await ctx.prisma.userRole.findFirst({
+      where: {
+        value: 'visitor',
+      },
+      select: {
+        scopes: true,
+      },
+    });
+    if (!visitorRole) {
+      throw new Error('visitor role does not exist');
+    }
     await saveToken(
       {
         accessToken,
         accessTokenExpiresAt: add(new Date(), { days: 1 }),
-        scope: OAuthConsts.scope.guest.join(' '),
+        scope: visitorRole.scopes.map((s) => s.value),
       },
       (await ctx.prisma.oAuthClient.findFirst({
         where: {
-          id: OAuthConsts.DEFAULT_CLIENT_ID,
+          id: process.env.DEFAULT_CLIENT_ID,
         },
       })) as OAuthClient,
       connectedUser,

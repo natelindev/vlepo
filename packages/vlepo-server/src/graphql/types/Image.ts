@@ -1,4 +1,3 @@
-import debugInit from 'debug';
 import { promises as fsp } from 'fs';
 import { FileUpload } from 'graphql-upload';
 import { imageSize } from 'image-size';
@@ -10,8 +9,6 @@ import { v4 } from 'uuid';
 import { OAuthCheckScope } from '../../oauth2/nexus';
 import { streamToBuffer } from '../../util/streamToBuffer';
 import { Upload } from './Upload';
-
-const debug = debugInit('vlepo:image');
 
 export const Image = objectType({
   name: 'Image',
