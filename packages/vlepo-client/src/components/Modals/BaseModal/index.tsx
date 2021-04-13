@@ -1,4 +1,5 @@
-import React from 'react';
+import { clearAllBodyScrollLocks, disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import React, { useEffect } from 'react';
 import { useTransition } from 'react-spring';
 import { Row } from 'src/components/Layout/style';
 
@@ -27,6 +28,17 @@ const BaseModal = (props: BaseModalProps) => {
       mass: 0.5,
     },
   });
+
+  useEffect(() => {
+    if (open) {
+      disableBodyScroll(document.body);
+    } else {
+      enableBodyScroll(document.body);
+    }
+    return () => {
+      clearAllBodyScrollLocks();
+    };
+  }, [open]);
 
   return (
     <>

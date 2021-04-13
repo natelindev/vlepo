@@ -100,6 +100,7 @@ const CreatePostModal = (props: CreatePostModalProps) => {
     onClose?.();
     reset();
     setHeaderImage(null);
+    setImages([]);
   };
 
   const [mutate, { loading }] = useMutation<CreatePostModal_Mutation>(

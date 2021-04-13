@@ -56,13 +56,13 @@ const LoginModal = (props: LoginModalProps) => {
           addToast(`Login succeed`, {
             appearance: 'success',
           });
+          router.reload();
+          onModalClose();
         } else if (LoginMutation?.error) {
           addToast(`Login failed, ${LoginMutation?.error}`, {
             appearance: 'error',
           });
         }
-        onModalClose();
-        router.reload();
       },
       onError: (error) => {
         addToast(`Login failed, ${error}`, {
