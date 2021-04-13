@@ -16,9 +16,9 @@ const viewerQuery = graphql`
 
 export const useCurrentUser = <T extends CreatePostModal_user$key | UserSection_user$key>(
   fragmentNode: GraphQLTaggedNode,
-) => {
+): T[" $data"] => {
   const { data } = useQuery<useCurrentUser_viewerQuery>(viewerQuery);
-  const user = data!.viewer!;
+  const user = data?.viewer ?? null;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const currentUser = useFragment<T>(fragmentNode, user as any);
 
