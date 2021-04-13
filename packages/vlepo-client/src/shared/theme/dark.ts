@@ -16,6 +16,17 @@ export const darkTheme = {
     link: '#007bff',
     navbar: 'rgba(36,38,38,0.8)',
     whiteText: '#e5e6eb',
+    blackText: '#18191a',
+    textTransparent: 'rgba(255, 255, 255, 0.8)',
+    bgTransparent: 'rgba(0, 0, 0, 0.8)',
+  },
+  shadows: {
+    Tag: '0 1px 2px rgba(0, 0, 0, 0.2)',
+    Navbar: '0 0.1rem 0.1rem hsla(0,0%,100%,0.1)',
+    Card: '0 1px 2px rgba(0, 0, 0, 0.2)',
+    OauthButton: '0 0 7px hsla(0,0%,100%,0.1)',
+    Input: '0 0 7px rgba(50, 50, 255, 0.3)',
+    Dropdown: '0 1px 4px 0 hsla(0,0%,100%,0.1)',
   },
   ...shared,
 };

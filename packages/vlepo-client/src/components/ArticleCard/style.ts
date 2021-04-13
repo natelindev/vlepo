@@ -28,8 +28,11 @@ export const ArticleDate = styled.div`
 
 export const ArticleCardFooter = styled.div`
   display: flex;
-  align-self: center;
-  justify-content: space-between;
+  height: auto;
+  flex-wrap: wrap;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
 `;
 
 export const AuthorProfileImageContainer = styled.div`
