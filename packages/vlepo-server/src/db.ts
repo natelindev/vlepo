@@ -19,7 +19,7 @@ prisma.$use(async (params, next) => {
     .with('findFirst', 'findUnique', () =>
       match(result)
         .with([__], () =>
-          result.map((r: any) => ({
+          result.map((r: Record<string, unknown>) => ({
             ...r,
             __typename: params.model,
           })),
