@@ -18,8 +18,6 @@ import { Row } from 'src/components/Layout/style';
 import Select from 'src/components/Select';
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
 
-import { defaultIds } from '@vlepo/shared';
-
 import BaseModal, { BaseModalProps } from '../BaseModal';
 import { HeaderImage } from './style';
 
@@ -68,7 +66,7 @@ const CreatePostModal = (props: CreatePostModalProps) => {
   );
 
   const index_postConnectionId = ConnectionHandler.getConnectionID(
-    defaultIds.blog,
+    process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
     'Index_postsConnection',
   );
 

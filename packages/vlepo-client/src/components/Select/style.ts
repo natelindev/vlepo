@@ -1,4 +1,3 @@
-import { ExpandMore } from '@emotion-icons/material-outlined';
 import styled from '@emotion/styled';
 
 type OptionType = {

@@ -16,8 +16,6 @@ import PlaceHolder from 'src/components/PlaceHolder';
 import Sidebar from 'src/components/Sidebar';
 import { match } from 'ts-pattern';
 
-import { defaultIds } from '@vlepo/shared';
-
 import { Container, DashboardCard, DashboardMain, Numbers, NumbersLabel } from './style';
 
 const fragmentSpec = graphql`
@@ -63,7 +61,7 @@ export const getServerSideProps = () => {
 
 const BlogSection = () => {
   const { error, data, isLoading } = useQuery<Entity_blogSectionQuery>(blogSectionQuery, {
-    id: defaultIds.blog,
+    id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
   });
 
   if (error) return <div>{error.message}</div>;

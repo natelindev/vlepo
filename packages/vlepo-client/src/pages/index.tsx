@@ -15,7 +15,6 @@ import PlaceHolder from 'src/components/PlaceHolder';
 import { initEnvironment } from 'src/relay';
 
 import styled from '@emotion/styled';
-import { defaultIds } from '@vlepo/shared';
 
 import type { GetServerSidePropsContext } from 'next';
 
@@ -80,7 +79,7 @@ export const getServerSideProps = async ({ res }: GetServerSidePropsContext) => 
 
   await new Promise((resolve, reject) => {
     fetchQuery(environment, blogQuery, {
-      id: defaultIds.blog,
+      id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
     }).subscribe({
       complete: () => resolve(undefined),
       error: (err: Error) => reject(err),
@@ -149,7 +148,7 @@ const PostsSection = (props: PostSectionProps) => {
 
 export default function Home() {
   const { error, data } = useQuery<pages_Index_BlogQuery>(blogQuery, {
-    id: defaultIds.blog,
+    id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
   });
 
   if (error) return <div>{error.message}</div>;

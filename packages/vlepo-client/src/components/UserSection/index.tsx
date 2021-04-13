@@ -9,7 +9,6 @@ import { deleteCookie } from 'src/hooks/useCookie';
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
 
 import { Dashboard, Logout, Settings } from '@emotion-icons/material-outlined';
-import { OAuthConsts } from '@vlepo/shared';
 
 import { GreyText, LoginButton, NavbarAvatar } from './style';
 
@@ -58,7 +57,7 @@ const UserSection = (props: UserSectionProps) => {
               <Settings size={24} /> Settings
             </NavItem>
           </NavLink>
-          {currentUser.roles.map((r) => r.value).includes(OAuthConsts.roles.admin.value) && (
+          {currentUser.roles.map((r) => r.value).includes('admin') && (
             <NavLink active={router.pathname.split('/')[1] === 'dashboard'} href="/dashboard/blog">
               <NavItem>
                 <Dashboard size={24} /> Dashboard
