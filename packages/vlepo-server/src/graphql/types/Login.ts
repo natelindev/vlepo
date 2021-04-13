@@ -1,11 +1,10 @@
 import argon2 from 'argon2';
-import { encode } from 'base-64';
 import { add } from 'date-fns';
 import { inputObjectType, mutationField, nonNull, objectType } from 'nexus';
 import { __, match, not } from 'ts-pattern';
 
 import { OAuthClient } from '@prisma/client';
-import { envDetect, IdToken, OAuthConsts } from '@vlepo/shared';
+import { envDetect, OAuthConsts } from '@vlepo/shared';
 
 import { generateAccessToken, saveToken } from '../../oauth2/model';
 
@@ -66,23 +65,6 @@ export const LoginMutation = mutationField('LoginMutation', {
               },
             })) as OAuthClient,
             u,
-          );
-          ctx.cookies.set(
-            'idToken',
-            encode(
-              JSON.stringify({
-                id: u.id,
-                name: u.name,
-                roles: u.roles.map((r) => r.value).join(' '),
-                profileImageUrl: u.profileImageUrl,
-                scope: OAuthConsts.scope.guest.join(' '),
-              } as IdToken),
-            ),
-            {
-              secure: envDetect.isProd,
-              httpOnly: false,
-              expires: expiresAt,
-            },
           );
           ctx.cookies.set('accessToken', accessToken, {
             secure: envDetect.isProd,

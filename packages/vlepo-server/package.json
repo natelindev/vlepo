@@ -25,7 +25,6 @@
     "@prisma/client": "2.20.1",
     "@vlepo/shared": "1.0.0",
     "argon2": "0.27.2",
-    "base-64": "1.0.0",
     "crypto-random-string": "3.3.1",
     "date-fns": "2.20.1",
     "debug": "4.3.1",

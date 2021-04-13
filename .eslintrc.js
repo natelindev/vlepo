@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  plugins: ['prettier', '@typescript-eslint'],
+  plugins: ['prettier', '@typescript-eslint', 'relay'],
   extends: [
     'airbnb',
     'plugin:@typescript-eslint/eslint-recommended',
@@ -9,6 +9,7 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
+    'plugin:relay/recommended',
     'prettier',
   ],
   settings: {
@@ -90,5 +91,6 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     // needed for interface merging
     '@typescript-eslint/no-empty-interface': 'off',
+    'relay/generated-flow-types': 'off',
   },
 };

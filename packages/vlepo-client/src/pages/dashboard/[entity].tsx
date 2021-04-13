@@ -145,7 +145,7 @@ const Dashboard = () => {
   const router = useRouter();
   const entity = router.query.entity as string;
 
-  const { error, data, isLoading } = useQuery<Entity_viewerQuery>(viewerQuery, {});
+  const { error, data, isLoading } = useQuery<Entity_viewerQuery>(viewerQuery);
 
   if (error) {
     router.replace('/401');

@@ -18,7 +18,6 @@ type ImageCellProps = { image: ImageCell_image$key; idx: number };
 
 const fragmentSpec = graphql`
   fragment ImageCell_image on Image {
-    id
     alt
     url
   }

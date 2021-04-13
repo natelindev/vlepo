@@ -1,10 +1,12 @@
 import { useRouter } from 'next/router';
-import React, { useContext } from 'react';
+import React from 'react';
+import { graphql } from 'react-relay';
+import { UserSection_user$key } from 'src/__generated__/UserSection_user.graphql';
 import Dropdown from 'src/components/Dropdown';
 import { NavItem } from 'src/components/Navbar/style';
 import NavLink from 'src/components/NavLink';
 import { deleteCookie } from 'src/hooks/useCookie';
-import { CurrentUserContext } from 'src/pages/_app';
+import { useCurrentUser } from 'src/hooks/useCurrentUser';
 
 import { Dashboard, Logout, Settings } from '@emotion-icons/material-outlined';
 import { OAuthConsts } from '@vlepo/shared';
@@ -15,8 +17,19 @@ type UserSectionProps = {
   setShowLoginModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+const currentUserFragment = graphql`
+  fragment UserSection_user on User {
+    id
+    name
+    profileImageUrl
+    roles {
+      value
+    }
+  }
+`;
+
 const UserSection = (props: UserSectionProps) => {
-  const { currentUser } = useContext(CurrentUserContext);
+  const currentUser = useCurrentUser<UserSection_user$key>(currentUserFragment);
   const { setShowLoginModal } = props;
   const router = useRouter();
 
@@ -34,7 +47,7 @@ const UserSection = (props: UserSectionProps) => {
           >
             <NavItem>
               {currentUser.name}
-              <GreyText>{currentUser.roles}</GreyText>
+              <GreyText>{currentUser.roles.map((r) => r.value).join(',')}</GreyText>
             </NavItem>
           </NavLink>
           <NavLink
@@ -45,7 +58,7 @@ const UserSection = (props: UserSectionProps) => {
               <Settings size={24} /> Settings
             </NavItem>
           </NavLink>
-          {currentUser.roles.includes(OAuthConsts.roles.admin.value) && (
+          {currentUser.roles.map((r) => r.value).includes(OAuthConsts.roles.admin.value) && (
             <NavLink active={router.pathname.split('/')[1] === 'dashboard'} href="/dashboard/blog">
               <NavItem>
                 <Dashboard size={24} /> Dashboard
@@ -54,9 +67,7 @@ const UserSection = (props: UserSectionProps) => {
           )}
           <NavLink
             onClick={() => {
-              deleteCookie('idToken');
               deleteCookie('accessToken');
-              deleteCookie('idToken.sig');
               deleteCookie('accessToken.sig');
               router.reload();
             }}

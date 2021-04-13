@@ -1,4 +1,3 @@
-import { encode } from 'base-64';
 import { add } from 'date-fns';
 import debugInit from 'debug';
 import Router from 'koa-router';
@@ -6,7 +5,7 @@ import { ExtendedContext } from 'src/app';
 import { match } from 'ts-pattern';
 
 import { OAuthClient, OAuthProviders } from '@prisma/client';
-import { envDetect, IdToken, OAuthConsts } from '@vlepo/shared';
+import { envDetect, OAuthConsts } from '@vlepo/shared';
 
 import { token } from './middleware';
 import { generateAccessToken, saveToken } from './model';
@@ -185,22 +184,7 @@ router.get('/callback', async (ctx) => {
     if (!process.env.SECRET_KEY) {
       throw new Error('Cannot sign jwt, missing SECRET_KEY');
     }
-    ctx.cookies.set(
-      'idToken',
-      encode(
-        JSON.stringify({
-          id: connectedUser.id,
-          name: connectedUser.name,
-          roles: connectedUser.roles.map((r) => r.value).join(' '),
-          profileImageUrl: connectedUser.profileImageUrl,
-          scope: OAuthConsts.scope.guest.join(' '),
-        } as IdToken),
-      ),
-      {
-        secure: envDetect.isProd,
-        httpOnly: false,
-      },
-    );
+
     ctx.cookies.set('accessToken', accessToken, {
       secure: envDetect.isProd,
       httpOnly: false,

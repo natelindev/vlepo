@@ -1,14 +1,14 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useFragment } from 'react-relay';
 import { useToasts } from 'react-toast-notifications';
 import { useMutation } from 'relay-hooks';
 import { ConnectionHandler, graphql } from 'relay-runtime';
-import { CreatePostModal_image$key } from 'src/__generated__/CreatePostModal_image.graphql';
 import {
   createPostInput,
   CreatePostModal_Mutation,
 } from 'src/__generated__/CreatePostModal_Mutation.graphql';
+import { CreatePostModal_user$key } from 'src/__generated__/CreatePostModal_user.graphql';
 import { ImageUpload_MutationResponse } from 'src/__generated__/ImageUpload_Mutation.graphql';
 import GradientButton from 'src/components/GradientButton';
 import ImageGrid from 'src/components/ImageGrid';
@@ -16,18 +16,25 @@ import ImageUpload from 'src/components/ImageUpload';
 import { ErrorText, Form, Input, InputGroup, Label, TextArea } from 'src/components/Input';
 import { Row } from 'src/components/Layout/style';
 import Select from 'src/components/Select';
-import { CurrentUserContext } from 'src/pages/_app';
+import { useCurrentUser } from 'src/hooks/useCurrentUser';
 
 import { defaultIds } from '@vlepo/shared';
 
 import BaseModal, { BaseModalProps } from '../BaseModal';
 import { HeaderImage } from './style';
 
-const fragmentSpec = graphql`
+import type { CreatePostModal_image$key } from 'src/__generated__/CreatePostModal_image.graphql';
+
+const headerImageFragment = graphql`
   fragment CreatePostModal_image on Image {
     id
     url
-    alt
+  }
+`;
+
+const currentUserFragment = graphql`
+  fragment CreatePostModal_user on User {
+    id
   }
 `;
 
@@ -49,14 +56,14 @@ const CreatePostModal = (props: CreatePostModalProps) => {
 
   const [headerImageKey, setHeaderImage] = useState<CreatePostModal_image$key | null>(null);
 
-  const headerImage = useFragment(fragmentSpec, headerImageKey);
+  const headerImage = useFragment(headerImageFragment, headerImageKey);
 
   const [images, setImages] = useState<ImageUpload_MutationResponse['uploadImages']>([]);
 
-  const { currentUser } = useContext(CurrentUserContext);
+  const currentUser = useCurrentUser<CreatePostModal_user$key>(currentUserFragment);
 
   const dashboard_postConnectionId = ConnectionHandler.getConnectionID(
-    currentUser!.id,
+    currentUser!.id as string,
     'Entity_postsConnection',
   );
 

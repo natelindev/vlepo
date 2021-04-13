@@ -1,8 +1,8 @@
-import { objectType } from 'nexus';
+import { list, nonNull, objectType, stringArg } from 'nexus';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 
-import { OAuthCheckScope } from '../../oauth2/nexus';
+import { OAuthResolve } from '../../oauth2/nexus';
 import { Comment } from './Comment';
 import { Image } from './Image';
 import { Post } from './Post';
@@ -16,7 +16,7 @@ export const User = objectType({
       resolve: (root) => root.id,
     });
     t.model.name();
-    t.model.email({ resolve: OAuthCheckScope('user:email') });
+    t.model.email({ resolve: OAuthResolve('user:email:view') });
     t.model.website();
     t.model.profileImageUrl();
     t.model.description();
@@ -27,6 +27,21 @@ export const User = objectType({
     t.model.images();
     t.model.createdAt();
     t.model.updatedAt();
+    t.field('scopes', {
+      type: nonNull(list('String')),
+      resolve: async (_root, _args, ctx) => {
+        const accessToken = ctx.oauth.extractAccessToken(ctx);
+        const accessTokenWithScope = await ctx.prisma.oAuthAccessToken.findFirst({
+          where: {
+            accessToken,
+          },
+          include: {
+            scopes: true,
+          },
+        });
+        return accessTokenWithScope?.scopes.map((s) => s.value) ?? [];
+      },
+    });
     t.connectionField('postsConnection', {
       type: Post,
       async resolve(_root, args, ctx) {

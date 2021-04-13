@@ -22,7 +22,7 @@ import type { ArticleCard_post$key } from '../../__generated__/ArticleCard_post.
 
 export type ArticleCardProps = { post: ArticleCard_post$key; width?: string };
 
-const fragmentSpec = graphql`
+const articlePostFragment = graphql`
   fragment ArticleCard_post on Post {
     id
     title
@@ -43,7 +43,7 @@ const fragmentSpec = graphql`
 
 const ArticleCard = (props: ArticleCardProps) => {
   const { post: fullPost, width } = props;
-  const post = useFragment(fragmentSpec, fullPost);
+  const post = useFragment(articlePostFragment, fullPost);
   const { title, headerImageUrl, abstract, createdAt, id, tags, owner, minuteRead } = post;
   const createDate = parseISO(createdAt);
 

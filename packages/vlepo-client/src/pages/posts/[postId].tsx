@@ -61,8 +61,6 @@ const postIdQuery = graphql`
       }
       headerImageUrl
       content
-      createdAt
-      editedAt
     }
   }
 `;
