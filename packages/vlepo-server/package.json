@@ -17,6 +17,7 @@
     "generate:nexus": "cross-env NODE_ENV=development ts-node --transpile-only src/graphql",
     "generate:prisma": "prisma generate",
     "lint": "eslint src --ext .ts,.tsx",
+    "spellcheck": "cspell src/**/*.{ts,tsx}",
     "ts-node": "ts-node --transpile-only",
     "typecheck": "tsc --noEmit"
   },

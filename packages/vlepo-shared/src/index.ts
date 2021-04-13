@@ -1,4 +1,3 @@
-export { rng, RngOption } from './randomGenerator';
 export * as envDetect from './envDetect';
 export type {
   Mutable,

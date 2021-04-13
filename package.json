@@ -16,6 +16,7 @@
     "generate": "lerna run generate",
     "lint": "lerna run lint --parallel",
     "publish": "yarn lerna publish from-package --dist-tag canary --yes --no-verify-access",
+    "spellcheck": "lerna run spellcheck --parallel",
     "start": "pm2 start ./pm2.yml",
     "typecheck": "lerna run typecheck --parallel",
     "watch": "lerna run watch --parallel"
@@ -26,6 +27,7 @@
     "@types/react": "17.0.3",
     "@typescript-eslint/eslint-plugin": "4.21.0",
     "@typescript-eslint/parser": "4.21.0",
+    "cspell": "5.3.12",
     "eslint": "7.23.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-config-prettier": "8.1.0",

@@ -12,6 +12,7 @@
     "lint": "eslint src --ext .ts,.tsx",
     "relay": "relay-compiler",
     "relay:watch": "yarn relay --watch",
+    "spellcheck": "cspell src/**/*.{ts,tsx}",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "watch": "yarn relay:watch"
