@@ -32,7 +32,7 @@ function App({ Component, pageProps }: PageProps) {
   return (
     <React.StrictMode>
       <RelayEnvironmentProvider environment={createEnvironment(pageProps.relayData)}>
-        <ThemeContext.Provider value={{ theme: defaultTheme, setTheme }}>
+        <ThemeContext.Provider value={{ theme, setTheme }}>
           <ThemeProvider theme={theme}>
             {globalStyles}
             <ToastProvider
