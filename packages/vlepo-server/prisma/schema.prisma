@@ -5,7 +5,7 @@ datasource db {
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["selectRelationCount"]
+  previewFeatures = ["selectRelationCount", "orderByAggregateGroup", "orderByRelation"]
 }
 
 enum Language {
@@ -164,7 +164,7 @@ model Image {
   id      String  @id @default(uuid())
   owner   User    @relation(fields: [ownerId], references: [id])
   ownerId String
-  url     String
+  url     String  @unique
   alt     String?
 
   mainColor      String?

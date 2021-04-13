@@ -4,6 +4,8 @@ import { useFragment } from 'react-relay';
 import { useToasts } from 'react-toast-notifications';
 import { useMutation } from 'relay-hooks';
 import { ConnectionHandler, graphql } from 'relay-runtime';
+import { CreatePostModal_headerImage$key } from 'src/__generated__/CreatePostModal_headerImage.graphql';
+import { CreatePostModal_images$key } from 'src/__generated__/CreatePostModal_images.graphql';
 import {
   createPostInput,
   CreatePostModal_Mutation,
@@ -21,10 +23,15 @@ import { useCurrentUser } from 'src/hooks/useCurrentUser';
 import BaseModal, { BaseModalProps } from '../BaseModal';
 import { HeaderImage } from './style';
 
-import type { CreatePostModal_image$key } from 'src/__generated__/CreatePostModal_image.graphql';
-
 const headerImageFragment = graphql`
-  fragment CreatePostModal_image on Image {
+  fragment CreatePostModal_headerImage on Image {
+    id
+    url
+  }
+`;
+
+const imagesFragment = graphql`
+  fragment CreatePostModal_images on Image @relay(plural: true) {
     id
     url
   }
@@ -52,11 +59,16 @@ const CreatePostModal = (props: CreatePostModalProps) => {
     setValue,
   } = useForm<createPostInputType>();
 
-  const [headerImageKey, setHeaderImage] = useState<CreatePostModal_image$key | null>(null);
+  const [headerImageKey, setHeaderImage] = useState<CreatePostModal_headerImage$key | null>(null);
 
   const headerImage = useFragment(headerImageFragment, headerImageKey);
 
   const [images, setImages] = useState<ImageUpload_MutationResponse['uploadImages']>([]);
+
+  const inputImages = useFragment<CreatePostModal_images$key>(
+    imagesFragment,
+    images as CreatePostModal_images$key,
+  );
 
   const currentUser = useCurrentUser<CreatePostModal_user$key>(currentUserFragment);
 
@@ -71,13 +83,13 @@ const CreatePostModal = (props: CreatePostModalProps) => {
   );
 
   const onSubmit = (data: createPostInputType) => {
-    const { tags, images, ...rest } = data;
+    const { tags, ...rest } = data;
     mutate({
       variables: {
         connections: [dashboard_postConnectionId, index_postConnectionId],
         input: {
           ...rest,
-          images: images && images.length > 0 ? images.split(',').map((i) => ({ url: i })) : [],
+          images: inputImages.map((i) => ({ url: i.url })),
           tags: tags && tags.length > 0 ? tags.split(',').map((t) => ({ name: t })) : [],
         },
       },

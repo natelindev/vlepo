@@ -6,11 +6,10 @@ import { ImageCell_image$key } from 'src/__generated__/ImageCell_image.graphql';
 
 import styled from '@emotion/styled';
 
-type BaseImageCellProps = { idx: number } & React.ComponentProps<typeof Image>;
-const BaseImageCell = styled(Image)<BaseImageCellProps>`
-  object-fit: cover;
-  grid-column: ${(props) => props.idx % 4};
-  grid-row: ${(props) => props.idx / 4};
+type BaseImageCellProps = { idx: number };
+const BaseImageCell = styled.div<BaseImageCellProps>``;
+
+const BaseImage = styled(Image)`
   border-radius: ${(props) => props.theme.radii.default};
 `;
 
@@ -24,7 +23,7 @@ const fragmentSpec = graphql`
 `;
 
 const ImageCell = (props: ImageCellProps) => {
-  const { image: fullImage, idx } = props;
+  const { image: fullImage, idx, ...rest } = props;
   const { addToast } = useToasts();
 
   const image = useFragment(fragmentSpec, fullImage);
@@ -39,14 +38,9 @@ const ImageCell = (props: ImageCellProps) => {
   }, [image, addToast]);
 
   return (
-    <BaseImageCell
-      onClick={copyImageMarkdown}
-      layout="fixed"
-      width="130px"
-      height="130px"
-      idx={idx}
-      src={image.url}
-    />
+    <BaseImageCell onClick={copyImageMarkdown} idx={idx} {...rest}>
+      <BaseImage objectFit="cover" layout="fixed" width="130px" height="130px" src={image.url} />
+    </BaseImageCell>
   );
 };
 

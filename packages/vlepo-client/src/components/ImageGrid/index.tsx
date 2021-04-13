@@ -10,10 +10,9 @@ type ImageGridProps<T> = {
 
 const BaseImageGrid = styled.div`
   display: grid;
-  grid-auto-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-gap: 1rem;
   align-items: center;
-  grid-auto-flow: column;
 `;
 
 const ImageGrid = <T extends ReadonlyArray<ImageCell_image$key>>(props: ImageGridProps<T>) => {

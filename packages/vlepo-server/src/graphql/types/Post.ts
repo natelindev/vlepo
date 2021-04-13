@@ -216,16 +216,23 @@ export const creatPostMutation = mutationField('creatPostMutation', {
         );
       }
 
+      // connect the images including header image
       if (createPostInput.images && createPostInput.images.length > 0) {
         await trx('Image')
           .insert(
-            createPostInput.images.map((img) => ({
-              id: v4(),
-              url: img.url,
-              postId: post.id,
-            })),
+            [...createPostInput.images, { url: createPostInput.headerImageUrl }]
+              .filter((i): i is { url: string } => !!i.url)
+              .map((image) => ({
+                id: v4(),
+                url: image.url,
+                postId: post.id,
+                ownerId: currentUser.id,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+              })),
           )
-          .returning('id');
+          .onConflict('url')
+          .merge(['url', 'postId']);
       }
       return {
         createPostEdge: {

@@ -25,7 +25,8 @@ const ImageUpload = (props: UploadProps) => {
       mutation ImageUpload_Mutation($files: [Upload!]!) {
         uploadImages(files: $files) {
           ...ImageCell_image
-          ...CreatePostModal_image
+          ...CreatePostModal_headerImage
+          ...CreatePostModal_images
         }
       }
     `,
@@ -46,11 +47,15 @@ const ImageUpload = (props: UploadProps) => {
 
   const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.currentTarget?.files;
-    if (files) {
+    if (files && files.length > 0 && files.length <= 5) {
       mutate({
         variables: {
           files: Array.from(files),
         },
+      });
+    } else if (files && files.length > 5) {
+      addToast(`cannot upload more than 5 files at once`, {
+        appearance: 'error',
       });
     }
   };
