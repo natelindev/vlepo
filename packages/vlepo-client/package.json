@@ -68,6 +68,7 @@
     "@types/zen-observable": "0.8.2",
     "@typescript-eslint/eslint-plugin": "4.22.0",
     "@typescript-eslint/parser": "4.22.0",
+    "@vlepo/server": "1.0.0",
     "babel-plugin-relay": "11.0.1",
     "cross-env": "7.0.3",
     "eslint": "7.24.0",
