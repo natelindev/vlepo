@@ -1,15 +1,16 @@
 import { graphql } from 'react-relay';
 import { profile_user$key } from 'src/__generated__/profile_user.graphql';
 import Avatar from 'src/components/Avatar';
+import Card from 'src/components/Card';
 import CommentSection from 'src/components/Comment/CommentSection';
-import { Column } from 'src/components/Layout/style';
+import { Column, Row } from 'src/components/Layout/style';
 import PlaceHolder from 'src/components/PlaceHolder';
-import { H3, H4 } from 'src/components/Typography';
+import { H2, H4 } from 'src/components/Typography';
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
 
 import styled from '@emotion/styled';
 
-const UserCard = styled.div``;
+const UserCard = styled(Card)``;
 
 const profileUserFragment = graphql`
   fragment profile_user on User {
@@ -23,22 +24,28 @@ const profileUserFragment = graphql`
 const Profile = () => {
   const currentUser = useCurrentUser<profile_user$key>(profileUserFragment);
   return (
-    <>
+    <Column mx="auto" width={[0.9, 0.8, 0.7, 0.5]}>
       {currentUser ? (
         <>
-          <Column mx="auto">
-            <UserCard>
-              <Avatar mt="-50%" src={currentUser.profileImageUrl ?? '/images/avatar/bot.svg'} />
-              {currentUser.name && <H3>{currentUser.name}</H3>}
-              {currentUser.description && <H4>{currentUser.description}</H4>}
-            </UserCard>
+          <UserCard p="2rem" mt="10rem">
+            <Row mt="-5rem">
+              <Avatar
+                size={96}
+                mx="auto"
+                src={currentUser.profileImageUrl ?? '/images/avatar/bot.svg'}
+              />
+            </Row>
+            <Row mt="2rem">{currentUser.name && <H2 mx="auto">{currentUser.name}</H2>}</Row>
+            <Row>{currentUser.description && <H4 mx="auto">{currentUser.description}</H4>}</Row>
+          </UserCard>
+          <Card my="2rem">
             <CommentSection comments={currentUser} />
-          </Column>
+          </Card>
         </>
       ) : (
         <PlaceHolder />
       )}
-    </>
+    </Column>
   );
 };
 

@@ -1,4 +1,15 @@
-import { height, HeightProps, margin, MarginProps, width, WidthProps } from 'styled-system';
+import {
+  flexbox,
+  FlexboxProps,
+  height,
+  HeightProps,
+  margin,
+  MarginProps,
+  padding,
+  PaddingProps,
+  width,
+  WidthProps,
+} from 'styled-system';
 
 import styled from '@emotion/styled';
 
@@ -17,10 +28,14 @@ export const CardBody = styled.div`
   padding: 1.25rem;
 `;
 
-export const ConstrainedCard = styled(BaseCard)<WidthProps & HeightProps & MarginProps>`
+export const ConstrainedCard = styled(BaseCard)<
+  WidthProps & HeightProps & PaddingProps & MarginProps & FlexboxProps
+>`
   ${width}
   ${height}
   ${margin}
+  ${padding}
+  ${flexbox}
 `;
 
 export const OverlayLink = styled.a`

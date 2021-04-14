@@ -1,5 +1,5 @@
 export const shared = {
-  breakpoints: ['40em', '52em', '64em'],
+  breakpoints: ['40em', '52em', '64em', '76em'],
   fonts: {
     content:
       'Titillium, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"',
