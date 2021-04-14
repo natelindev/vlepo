@@ -98,7 +98,7 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
       <Body>
         <ArticleBody>
           <Title>{title}</Title>
-          <Author>{owner?.name}</Author>
+          {owner.name && <Author>{owner.name}</Author>}
           <Content>{mdxContent}</Content>
         </ArticleBody>
       </Body>

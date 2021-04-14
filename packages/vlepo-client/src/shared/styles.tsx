@@ -44,6 +44,11 @@ export const globalStyles = (
         color: ${theme.colors.background} !important;
         background-color: ${theme.colors.background} !important;
       }
+
+      ::selection {
+        color: ${theme.colors.text};
+        background: ${theme.colors.selection};
+      }
     `}
   />
 );

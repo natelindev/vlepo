@@ -19,6 +19,7 @@ export const darkTheme = {
     blackText: '#18191a',
     textTransparent: 'rgba(255, 255, 255, 0.8)',
     bgTransparent: 'rgba(0, 0, 0, 0.8)',
+    selection: '#007bff',
   },
   shadows: {
     Tag: '0 1px 2px rgba(0, 0, 0, 0.2)',

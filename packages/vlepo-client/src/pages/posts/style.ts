@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { H1 } from 'src/components/Typography';
 
 import styled from '@emotion/styled';
 
@@ -14,8 +15,14 @@ export const FullWidthImage = styled(Image)`
   object-fit: cover;
 `;
 
-export const Title = styled.h1`
-  font-size: 2.75rem;
+export const Title = styled(H1)`
+  font-size: '36px';
+  font-weight: 600;
+  text-align: center;
+`;
+
+export const Back = styled.div`
+  margin-right: auto;
 `;
 
 export const ArticleBody = styled.article`
