@@ -8,12 +8,17 @@ import { graphql } from 'react-relay';
 import { useQuery } from 'relay-hooks';
 import { fetchQuery } from 'relay-runtime';
 import HoverShare from 'src/components/HoverShare/HoverShare';
+import ImageOverLay from 'src/components/ImageOverLay';
+import { Column, Row } from 'src/components/Layout/style';
 import * as components from 'src/components/MDXComponents';
 import PlaceHolder from 'src/components/PlaceHolder';
+import { H3 } from 'src/components/Typography';
 import { initEnvironment } from 'src/relay';
 
+import { KeyboardBackspace } from '@emotion-icons/material-outlined';
+
 import { PostIdQuery } from '../../__generated__/PostIdQuery.graphql';
-import { ArticleBody, Author, Body, Content, FullWidthImage, Header, Title } from './style';
+import { ArticleBody, Back, Content, FullWidthImage, Header, Title } from './style';
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const debug = debugInit('vlepo:postId');
@@ -92,16 +97,26 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
       {headerImageUrl && (
         <Header>
           <FullWidthImage layout="responsive" src={headerImageUrl} width="16" height="5" />
+          <ImageOverLay mt="3rem">
+            <Column width="100%">
+              <Back>
+                <KeyboardBackspace size={32} />
+              </Back>
+              <Title mx="auto" mt="4rem">
+                {title}
+              </Title>
+
+              {owner.name && <H3 mx="auto">{owner.name}</H3>}
+            </Column>
+          </ImageOverLay>
         </Header>
       )}
       <HoverShare title={title} url={fullUrl} tags={tags.map((t) => t.name)} />
-      <Body>
+      <Row>
         <ArticleBody>
-          <Title>{title}</Title>
-          {owner.name && <Author>{owner.name}</Author>}
           <Content>{mdxContent}</Content>
         </ArticleBody>
-      </Body>
+      </Row>
     </>
   );
 };

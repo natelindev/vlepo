@@ -39,7 +39,7 @@ const CommentSection = (props: CommentSectionProps) => {
   return (
     <BaseCommentSection {...rest}>
       <H3 pl="2rem" py="1rem">
-        Comments
+        Comments({data?.commentsConnection?.edges?.length ?? 0})
       </H3>
       {data &&
       data.commentsConnection &&

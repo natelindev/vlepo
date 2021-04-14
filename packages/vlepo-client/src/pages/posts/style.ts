@@ -4,6 +4,7 @@ import { H1 } from 'src/components/Typography';
 import styled from '@emotion/styled';
 
 export const Header = styled.div`
+  color: ${(props) => props.theme.colors.whiteText};
   max-height: 30rem;
   width: 100%;
   > div {
@@ -13,6 +14,7 @@ export const Header = styled.div`
 
 export const FullWidthImage = styled(Image)`
   object-fit: cover;
+  filter: brightness(60%) saturate(180%);
 `;
 
 export const Title = styled(H1)`
@@ -32,10 +34,6 @@ export const ArticleBody = styled.article`
 
 export const Body = styled.div`
   display: flex;
-`;
-
-export const Author = styled.div`
-  font-size: 1.5rem;
 `;
 
 export const Content = styled.div`

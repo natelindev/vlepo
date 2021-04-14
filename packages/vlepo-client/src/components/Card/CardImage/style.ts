@@ -24,16 +24,3 @@ export const CardImg = styled(Image, {
   border-bottom-left-radius: ${(props) =>
     props.left || props.bottom ? `calc(${props.theme.radii.default} - 1px)` : `0`};
 `;
-
-export const CardImgOverlay = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 1.25rem;
-  color: ${(props) => props.color};
-  text-decoration: none;
-`;

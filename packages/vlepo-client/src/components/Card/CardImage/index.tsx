@@ -1,6 +1,7 @@
 import React from 'react';
+import ImageOverLay from 'src/components/ImageOverLay';
 
-import { CardImg as BaseCardImg, CardImgOverlay } from './style';
+import { CardImg as BaseCardImg } from './style';
 
 export interface CardImgProps extends React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode;
@@ -28,7 +29,7 @@ const CardImg: React.FC<CardImgProps> = (props: CardImgProps) => {
         top={top}
         bottom={bottom}
       />
-      {children ? <CardImgOverlay>{children}</CardImgOverlay> : null}
+      {children ? <ImageOverLay>{children}</ImageOverLay> : null}
     </>
   );
 };

@@ -1,0 +1,7 @@
+schema: ${NEXT_PUBLIC_API_ENDPOINT}/graphql
+extensions:
+  codegen:
+    generates:
+      ./src/schema/schema.graphql:
+        plugins:
+          - schema-ast

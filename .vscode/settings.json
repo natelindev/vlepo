@@ -56,5 +56,6 @@
   "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 100,
   "importSorter.importStringConfiguration.tabSize": 2,
   "importSorter.importStringConfiguration.quoteMark": "single",
-  "importSorter.importStringConfiguration.trailingComma": "multiLine"
+  "importSorter.importStringConfiguration.trailingComma": "multiLine",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
