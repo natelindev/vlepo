@@ -12,6 +12,9 @@ export const Comment = objectType({
       resolve: (root) => root.id,
     });
     t.model.owner();
+    t.model.content();
+    t.model.post();
+    t.model.thought();
     t.model.parent();
     t.model.childComments();
     t.model.images();

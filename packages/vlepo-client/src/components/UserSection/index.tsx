@@ -36,10 +36,7 @@ const UserSection = (props: UserSectionProps) => {
     <>
       {currentUser ? (
         <Dropdown variant="right" mt="12px">
-          <NavbarAvatar
-            size={32}
-            imageUrl={currentUser.profileImageUrl ?? '/images/avatar/bot.svg'}
-          />
+          <NavbarAvatar size={32} src={currentUser.profileImageUrl ?? '/images/avatar/bot.svg'} />
           <NavLink
             active={router.pathname.split('/').slice(-1)[0] === 'profile'}
             href={`/user/${currentUser.id}/profile`}

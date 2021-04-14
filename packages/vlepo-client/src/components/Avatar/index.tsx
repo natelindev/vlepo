@@ -1,26 +1,38 @@
 import Image from 'next/image';
 import React from 'react';
+import {
+  borderRadius,
+  BorderRadiusProps,
+  margin,
+  MarginProps,
+  padding,
+  PaddingProps,
+} from 'styled-system';
 
 import styled from '@emotion/styled';
 
 type BaseAvatarProps = {
-  size: number;
+  size?: number;
 };
 
-const BaseAvatar = styled.div<BaseAvatarProps>`
+const BaseAvatar = styled.div<BaseAvatarProps & MarginProps & PaddingProps & BorderRadiusProps>`
   display: flex;
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
+  border-radius: ${(props) => props.theme.radii.default};
+  ${margin}
+  ${padding}
+  ${borderRadius}
 `;
 
-type AvatarProps = { imageUrl: string; size: number } & React.ComponentProps<typeof BaseAvatar>;
+type AvatarProps = React.ComponentProps<typeof BaseAvatar> & { src: string; size?: number };
 
 const Avatar = (props: AvatarProps) => {
-  const { imageUrl, size = 24, ...rest } = props;
+  const { src, size = 24, ...rest } = props;
 
   return (
     <BaseAvatar size={size} {...rest}>
-      <Image src={imageUrl} layout="fixed" height={size} width={size} />
+      <Image src={src} layout="fixed" height={size} width={size} />
     </BaseAvatar>
   );
 };

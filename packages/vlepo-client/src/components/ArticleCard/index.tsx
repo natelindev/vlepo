@@ -96,7 +96,7 @@ const ArticleCard = (props: ArticleCardProps) => {
       </CardBody>
       <ArticleCardFooter>
         {tags &&
-          tags.length &&
+          tags.length > 0 &&
           tags.map((t) => <Tag name={t.name} key={t.id} href={`/tags/${t.id}`} />)}
       </ArticleCardFooter>
     </BaseArticleCard>

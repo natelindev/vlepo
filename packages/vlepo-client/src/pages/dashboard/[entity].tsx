@@ -122,7 +122,7 @@ const PostSection = (props: PostSectionProps) => {
       </Row>
       <Column mt="1rem">
         {user &&
-          user.postsConnection?.edges?.length &&
+          user.postsConnection?.edges?.length > 0 &&
           user.postsConnection.edges.map(
             (e) => e && e.node && <PostCard key={e.node.id} post={e.node} />,
           )}
