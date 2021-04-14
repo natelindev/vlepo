@@ -8,7 +8,7 @@ import { graphql } from 'react-relay';
 import { useQuery } from 'relay-hooks';
 import { fetchQuery } from 'relay-runtime';
 import HoverShare from 'src/components/HoverShare/HoverShare';
-import ImageOverLay from 'src/components/ImageOverLay';
+import ImageOverlay from 'src/components/ImageOverlay';
 import { Column, Row } from 'src/components/Layout/style';
 import * as components from 'src/components/MDXComponents';
 import PlaceHolder from 'src/components/PlaceHolder';
@@ -97,7 +97,7 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
       {headerImageUrl && (
         <Header>
           <FullWidthImage layout="responsive" src={headerImageUrl} width="16" height="5" />
-          <ImageOverLay mt="3rem">
+          <ImageOverlay mt="3rem">
             <Column width="100%">
               <Back>
                 <KeyboardBackspace size={32} />
@@ -108,7 +108,7 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
 
               {owner.name && <H3 mx="auto">{owner.name}</H3>}
             </Column>
-          </ImageOverLay>
+          </ImageOverlay>
         </Header>
       )}
       <HoverShare title={title} url={fullUrl} tags={tags.map((t) => t.name)} />

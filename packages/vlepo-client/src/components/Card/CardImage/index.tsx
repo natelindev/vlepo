@@ -1,5 +1,5 @@
 import React from 'react';
-import ImageOverLay from 'src/components/ImageOverLay';
+import ImageOverlay from 'src/components/ImageOverlay';
 
 import { CardImg as BaseCardImg } from './style';
 
@@ -29,7 +29,7 @@ const CardImg: React.FC<CardImgProps> = (props: CardImgProps) => {
         top={top}
         bottom={bottom}
       />
-      {children ? <ImageOverLay>{children}</ImageOverLay> : null}
+      {children ? <ImageOverlay>{children}</ImageOverlay> : null}
     </>
   );
 };

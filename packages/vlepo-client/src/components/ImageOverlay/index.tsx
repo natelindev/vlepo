@@ -2,7 +2,7 @@ import { flexbox, FlexboxProps, margin, MarginProps, padding, PaddingProps } fro
 
 import styled from '@emotion/styled';
 
-const ImageOverLay = styled.div<PaddingProps & MarginProps & FlexboxProps>`
+const ImageOverlay = styled.div<PaddingProps & MarginProps & FlexboxProps>`
   display: flex;
   flex-wrap: wrap;
   position: absolute;
@@ -18,4 +18,4 @@ const ImageOverLay = styled.div<PaddingProps & MarginProps & FlexboxProps>`
   ${flexbox}
 `;
 
-export default ImageOverLay;
+export default ImageOverlay;
