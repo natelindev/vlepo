@@ -1,15 +1,5 @@
-import Image from 'next/image';
 import { H1 } from 'src/components/Typography';
-import {
-  height,
-  HeightProps,
-  margin,
-  MarginProps,
-  padding,
-  PaddingProps,
-  width,
-  WidthProps,
-} from 'styled-system';
+import { margin, MarginProps, padding, PaddingProps, width, WidthProps } from 'styled-system';
 
 import styled from '@emotion/styled';
 

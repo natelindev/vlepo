@@ -9,7 +9,6 @@ import { useQuery } from 'relay-hooks';
 import { fetchQuery } from 'relay-runtime';
 import HoverShare from 'src/components/HoverShare/HoverShare';
 import Image from 'src/components/Image';
-import ImageOverlay from 'src/components/ImageOverlay';
 import { Column, Row } from 'src/components/Layout/style';
 import * as components from 'src/components/MDXComponents';
 import PlaceHolder from 'src/components/PlaceHolder';

@@ -1,6 +1,8 @@
 import NextImage from 'next/image';
 import React from 'react';
 import {
+  borderRadius,
+  BorderRadiusProps,
   flexbox,
   FlexboxProps,
   height,
@@ -35,14 +37,14 @@ const ImageContainer = styled.div<HeightProps & WidthProps & MaxHeightProps & Ma
   ${maxWidth}
 `;
 
-const BaseImage = styled(NextImage)`
-  object-fit: cover;
+const BaseImage = styled(NextImage)<BorderRadiusProps>`
   width: 100% !important;
   position: relative !important;
   height: unset !important;
+  ${borderRadius}
 `;
 
-const ImageOverlay = styled.div<PaddingProps & MarginProps & FlexboxProps>`
+export const ImageOverlay = styled.div<PaddingProps & MarginProps & FlexboxProps>`
   position: absolute;
   top: 0;
   right: 0;
@@ -57,7 +59,7 @@ const ImageOverlay = styled.div<PaddingProps & MarginProps & FlexboxProps>`
 `;
 
 type ImageProps = React.ComponentProps<typeof ImageContainer> &
-  Omit<React.ComponentProps<typeof NextImage>, 'width' | 'height'>;
+  Omit<React.ComponentProps<typeof BaseImage>, 'width' | 'height'>;
 
 const Image = (props: ImageProps) => {
   const { width, height, maxHeight, maxWidth, children, ...rest } = props;
