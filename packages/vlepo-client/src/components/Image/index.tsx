@@ -44,6 +44,11 @@ const BaseImage = styled(NextImage)<BorderRadiusProps>`
   ${borderRadius}
 `;
 
+const Transparent = styled.div<BorderRadiusProps>`
+  width: 100%;
+  ${borderRadius}
+`;
+
 export const ImageOverlay = styled.div<PaddingProps & MarginProps & FlexboxProps>`
   position: absolute;
   top: 0;
@@ -58,14 +63,14 @@ export const ImageOverlay = styled.div<PaddingProps & MarginProps & FlexboxProps
   ${flexbox}
 `;
 
-type ImageProps = React.ComponentProps<typeof ImageContainer> &
-  Omit<React.ComponentProps<typeof BaseImage>, 'width' | 'height'>;
+type ImageProps = { src?: string | null } & React.ComponentProps<typeof ImageContainer> &
+  Omit<React.ComponentProps<typeof BaseImage>, 'width' | 'height' | 'src'>;
 
 const Image = (props: ImageProps) => {
-  const { width, height, maxHeight, maxWidth, children, ...rest } = props;
+  const { width, height, maxHeight, maxWidth, children, src, ...rest } = props;
   return (
     <ImageContainer width={width} height={height} maxHeight={maxHeight} maxWidth={maxWidth}>
-      <BaseImage layout="fill" {...rest} />
+      {src ? <BaseImage src={src} layout="fill" {...rest} /> : <Transparent {...rest} />}
       {children && <ImageOverlay>{children}</ImageOverlay>}
     </ImageContainer>
   );

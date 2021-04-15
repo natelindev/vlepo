@@ -98,32 +98,30 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
 
   return (
     <>
-      {headerImageUrl && (
-        <Header>
-          <Image
-            css={css`
-              filter: brightness(50%) saturate(180%);
-            `}
-            width="100%"
-            height="20rem"
-            src={headerImageUrl}
-          >
-            <Column width="100%" mb="auto">
-              <Back onClick={() => router.back()}>
-                <KeyboardBackspace color={theme.colors.whiteText} size={24} />
-                <H5 ml="0.5rem" color="whiteText">
-                  Back
-                </H5>
-              </Back>
-              <Title mx="auto" mt="4rem">
-                {title}
-              </Title>
-
-              {owner.name && <H5 mx="auto">{owner.name}</H5>}
-            </Column>
-          </Image>
-        </Header>
-      )}
+      <Header>
+        <Image
+          css={css`
+            filter: brightness(50%) saturate(180%);
+          `}
+          width="100%"
+          height="20rem"
+          src={headerImageUrl}
+        >
+          <Column width="100%" mb="auto">
+            <Back onClick={() => router.back()}>
+              <KeyboardBackspace color={theme.colors.whiteText} size={24} />
+              <H5 ml="0.5rem" color="whiteText">
+                Back
+              </H5>
+            </Back>
+            <Title mx="auto" mt="4rem">
+              {title}
+            </Title>
+            {owner.name && <H5 mx="auto">{owner.name}</H5>}
+          </Column>
+        </Image>
+        )
+      </Header>
       <HoverShare title={title} url={fullUrl} tags={tags.map((t) => t.name)} />
       <Row>
         <ArticleBody mx="auto" width={[0.95, 0.9, 0.85, 0.8]}>
