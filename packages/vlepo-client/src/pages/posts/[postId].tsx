@@ -1,3 +1,4 @@
+import { format, parseISO } from 'date-fns';
 import debugInit from 'debug';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import hydrate from 'next-mdx-remote/hydrate';
@@ -7,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { graphql } from 'react-relay';
 import { useQuery } from 'relay-hooks';
 import { fetchQuery } from 'relay-runtime';
+import Avatar from 'src/components/Avatar';
 import HoverShare from 'src/components/HoverShare/HoverShare';
 import Image from 'src/components/Image';
 import { Column, Row } from 'src/components/Layout/style';
@@ -61,6 +63,7 @@ const postIdQuery = graphql`
       title
       owner {
         name
+        profileImageUrl
       }
       tags {
         name
@@ -94,7 +97,7 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
   if (error) return <div>{error.message}</div>;
   if (!data || !data.post || router.isFallback) return <PlaceHolder />;
 
-  const { headerImageUrl, title, owner, tags } = data.post;
+  const { headerImageUrl, title, owner, tags, createdAt } = data.post;
 
   return (
     <>
@@ -117,10 +120,17 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
             <Title mx="auto" mt="4rem">
               {title}
             </Title>
-            {owner.name && <H5 mx="auto">{owner.name}</H5>}
+            <H5 mx="auto" mt="2rem">
+              {format(parseISO(createdAt), 'eee, MMM dd yyyy')}
+            </H5>
+            <Row mx="auto" mt="0.5rem">
+              {owner.profileImageUrl && (
+                <Avatar size={28} mr="0.5rem" src={owner.profileImageUrl} />
+              )}
+              {owner.name && <H5 my="auto">{owner.name}</H5>}
+            </Row>
           </Column>
         </Image>
-        )
       </Header>
       <HoverShare title={title} url={fullUrl} tags={tags.map((t) => t.name)} />
       <Row>

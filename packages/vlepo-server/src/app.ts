@@ -14,6 +14,7 @@ import serve from 'koa-static';
 
 import cors from '@koa/cors';
 import { envDetect } from '@vlepo/shared';
+import { findMissingFieldNames, hasFields } from '@vlepo/shared/build/utilTypes';
 
 import db from './db';
 import schema from './graphql';
@@ -36,11 +37,11 @@ export type ExtendedContext = {
 
 const app = new Koa();
 
-if (!process.env.SECRET_KEY) {
-  throw new Error('You need SECRET_KEY env variable in order to run');
-}
-if (!process.env.IMAGE_PATH) {
-  throw new Error('You need IMAGE_PATH env variable in order to run');
+const requiredEnv = ['SECRET_KEY', 'IMAGE_PATH'];
+if (!hasFields(process.env, requiredEnv)) {
+  throw new Error(
+    `You need ${findMissingFieldNames(process.env, requiredEnv)} env variable in order to run`,
+  );
 }
 
 app.keys = [process.env.SECRET_KEY];
@@ -104,8 +105,8 @@ app.use(router.routes());
 app.use(mount('/images/user-upload/', serve(process.env.IMAGE_PATH, { brotli: true })));
 
 app
-  .listen(3001)
-  .on('listening', () => debug('Server running on port 3001'))
+  .listen(process.env.API_PORT)
+  .on('listening', () => debug(`Server running on port ${process.env.API_PORT}`))
   .on('error', (err) => {
     debug(err.stack);
   })

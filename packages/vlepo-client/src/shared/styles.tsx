@@ -46,14 +46,12 @@ export const globalStyles = (
       }
 
       ::selection {
-        color: ${theme.colors.text};
+        color: ${theme.colors.whiteText};
         background: ${theme.colors.selection};
       }
     `}
   />
 );
-
-export const animations = {};
 
 export const spinner = styled.div`
   display: inline-block;

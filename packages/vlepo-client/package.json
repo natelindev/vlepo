@@ -5,15 +5,15 @@
   "scripts": {
     "prebuild": "yarn generate",
     "build": "next build",
-    "debug": "NODE_OPTIONS='--inspect=5009' next dev",
-    "dev": "cross-env DEBUG=vlepo:* next dev",
+    "debug": "NODE_OPTIONS='--inspect=5009' next dev -p ${PORT}",
+    "dev": "cross-env DEBUG=vlepo:* next dev -p ${PORT}",
     "generate": "yarn relay",
     "get-schema": "graphql-codegen -r dotenv/config --config .graphqlrc.yml",
     "lint": "eslint src --ext .ts,.tsx",
     "relay": "relay-compiler",
     "relay:watch": "yarn relay --watch",
     "spellcheck": "cspell src/**/*.{ts,tsx}",
-    "start": "next start",
+    "start": "next start -p ${PORT}",
     "typecheck": "tsc --noEmit",
     "watch": "yarn relay:watch"
   },
