@@ -101,7 +101,7 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
 
   return (
     <>
-      <Header>
+      <Header height={['18rem', '20rem', '22rem']}>
         <Image
           objectFit="cover"
           width="100%"

@@ -2,6 +2,8 @@ import { H1 } from 'src/components/Typography';
 import {
   fontSize,
   FontSizeProps,
+  height,
+  HeightProps,
   margin,
   MarginProps,
   padding,
@@ -12,8 +14,9 @@ import {
 
 import styled from '@emotion/styled';
 
-export const Header = styled.div`
+export const Header = styled.div<HeightProps>`
   width: 100%;
+  ${height}
 `;
 
 export const Title = styled(H1)<FontSizeProps>`

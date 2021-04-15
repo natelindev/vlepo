@@ -61,11 +61,12 @@ export const BaseImage = styled(NextImage)<BorderRadiusProps>`
 `;
 
 export const Transparent = styled.div`
-  height: 100%;
   width: 100%;
+  position: relative;
 `;
 
-export const ImageOverlay = styled.div<PaddingProps & MarginProps & FlexboxProps>`
+type ImageOverlayProps = PaddingProps & MarginProps & FlexboxProps;
+export const ImageOverlay = styled.div<ImageOverlayProps>`
   position: absolute;
   top: 0;
   right: 0;

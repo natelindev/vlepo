@@ -23,10 +23,23 @@ const Image = (props: ImageProps) => {
     filter,
     borderRadius,
     className,
+    width,
+    height,
     ...rest
   } = props;
   return (
-    <ImageContainer borderRadius={borderRadius} color={src ? 'whiteText' : 'text'} {...rest}>
+    <ImageContainer
+      width={width}
+      height={height}
+      borderRadius={borderRadius}
+      color={src ? 'whiteText' : 'text'}
+      css={(theme) =>
+        css`
+          text-shadow: ${src && theme.name === 'light' ? 'rgba(0,0,0, 0.3) 0 0 8px' : 'none'};
+        `
+      }
+      {...rest}
+    >
       {src ? (
         <BaseImage
           src={src}

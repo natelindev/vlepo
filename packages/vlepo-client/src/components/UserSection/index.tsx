@@ -65,7 +65,7 @@ const UserSection = (props: UserSectionProps) => {
             onClick={() => {
               deleteCookie('accessToken');
               deleteCookie('accessToken.sig');
-              router.reload();
+              setTimeout(() => router.reload(), 1000);
             }}
           >
             <NavItem>
