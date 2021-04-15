@@ -1,3 +1,4 @@
+import Image from 'src/components/Image';
 import {
   flexbox,
   FlexboxProps,
@@ -20,7 +21,7 @@ type BaseCardProps = { direction?: string } & WidthProps &
   FlexboxProps;
 export const BaseCard = styled.div<BaseCardProps>`
   background-color: ${(props) => props.theme.colors.backgroundSecondary};
-  border-radius: ${(props) => props.theme.radii.default};
+  border-radius: ${(props) => `${props.theme.radii.default}px`};
   box-shadow: ${(props) => props.theme.shadows.Card};
   display: flex;
   ${width}
@@ -44,4 +45,27 @@ export const OverlayLink = styled.a`
   left: 0;
   bottom: 0;
   z-index: ${(props) => props.theme.zIndices.CardLink};
+`;
+
+export type CardImgProps = {
+  left?: boolean;
+  right?: boolean;
+  top?: boolean;
+  bottom?: boolean;
+};
+
+export const CardImg = styled(Image, {
+  shouldForwardProp: (propName) =>
+    propName !== 'top' && propName !== 'bottom' && propName !== 'left' && propName !== 'right',
+})<CardImgProps>`
+  object-fit: cover;
+  flex-grow: 0;
+  border-top-left-radius: ${(props) =>
+    props.left || props.top ? `${props.theme.radii.default}px` : `0`};
+  border-top-right-radius: ${(props) =>
+    props.right || props.top ? `${props.theme.radii.default}px` : `0`};
+  border-bottom-right-radius: ${(props) =>
+    props.right || props.bottom ? `${props.theme.radii.default}px` : `0`};
+  border-bottom-left-radius: ${(props) =>
+    props.left || props.bottom ? `${props.theme.radii.default}px` : `0`};
 `;

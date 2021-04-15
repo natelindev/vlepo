@@ -23,7 +23,7 @@ export const BaseSelect = styled.select`
       1,
     )}' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e")
     no-repeat right 0.75rem center/8px 10px`};
-  border-radius: ${(props) => props.theme.radii.default};
+  border-radius: ${(props) => `${props.theme.radii.default}px`};
   border: 1px solid ${(props) => props.theme.colors.muted};
   appearance: none;
 

@@ -29,5 +29,8 @@ export const lightTheme = {
     Input: '0 0 7px rgba(50, 50, 255, 0.3)',
     Dropdown: '0 1px 4px 0 hsla(0,0%,100%,0.1)',
   },
+  filter: {
+    headerImage: 'brightness(85%) saturate(180%)',
+  },
   ...shared,
 };

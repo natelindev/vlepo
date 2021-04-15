@@ -17,9 +17,9 @@ type BaseAvatarProps = {
 
 const BaseAvatar = styled.div<BaseAvatarProps & MarginProps & PaddingProps & BorderRadiusProps>`
   display: flex;
-  height: ${(props) => props.size}px;
-  width: ${(props) => props.size}px;
-  border-radius: ${(props) => props.theme.radii.default};
+  height: ${(props) => `${props.size}px`};
+  width: ${(props) => `${props.size}px`};
+  border-radius: ${(props) => `${props.theme.radii.default}px`};
   ${margin}
   ${padding}
   ${borderRadius}

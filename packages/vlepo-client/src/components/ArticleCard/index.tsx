@@ -1,8 +1,7 @@
 import { addDays, compareAsc, format, parseISO } from 'date-fns';
 import { graphql, useFragment } from 'react-relay';
 import Badge from 'src/components/Badge';
-import { CardBody } from 'src/components/Card/style';
-import Image from 'src/components/Image';
+import { CardBody, CardImg } from 'src/components/Card/style';
 import { Column, Row } from 'src/components/Layout/style';
 
 import Tag from '../Tag';
@@ -56,14 +55,7 @@ const ArticleCard = (props: ArticleCardProps) => {
           </Badge>
         </Row>
       )}
-      {headerImageUrl && (
-        <Image
-          src={headerImageUrl}
-          alt={title}
-          borderTopLeftRadius="default"
-          borderTopRightRadius="default"
-        />
-      )}
+      {headerImageUrl && <CardImg src={headerImageUrl} alt={title} top />}
       <CardBody>
         {title && (
           <Row>

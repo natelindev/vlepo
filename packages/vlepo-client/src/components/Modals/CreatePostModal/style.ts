@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'src/components/Image';
 
 import styled from '@emotion/styled';
 

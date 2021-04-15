@@ -23,7 +23,7 @@ import {
 import styled from '@emotion/styled';
 
 export const ImageContainer = styled.div<
-  HeightProps & WidthProps & MaxHeightProps & MaxWidthProps & ColorProps
+  HeightProps & WidthProps & MaxHeightProps & MaxWidthProps & ColorProps & BorderRadiusProps
 >`
   > div {
     &:first-child {
@@ -39,6 +39,7 @@ export const ImageContainer = styled.div<
   ${width}
   ${maxHeight}
   ${maxWidth}
+  ${borderRadius}
 `;
 
 export const BaseImage = styled(NextImage)<BorderRadiusProps>`

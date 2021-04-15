@@ -10,7 +10,7 @@ type BaseImageCellProps = { idx: number };
 const BaseImageCell = styled.div<BaseImageCellProps>``;
 
 const BaseImage = styled(Image)`
-  border-radius: ${(props) => props.theme.radii.default};
+  border-radius: ${(props) => `${props.theme.radii.default}px`};
 `;
 
 type ImageCellProps = { image: ImageCell_image$key; idx: number };

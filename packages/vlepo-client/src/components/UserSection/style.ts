@@ -4,7 +4,7 @@ import Avatar from '../Avatar';
 import GradientButton from '../GradientButton';
 
 export const LoginButton = styled(GradientButton)`
-  border-radius: ${(props) => props.theme.radii.default};
+  border-radius: ${(props) => `${props.theme.radii.default}px`};
   margin-right: 1rem;
   height: 100%;
 `;

@@ -55,7 +55,8 @@ export const AuthorSection = styled(Row)`
 `;
 
 export const BaseArticleCard = styled(Card)`
-  border-radius: ${(props) => props.theme.radii.default};
+  flex-direction: column;
+  border-radius: ${(props) => `${props.theme.radii.default}px`};
   box-shadow: ${(props) => props.theme.shadows.Card};
   color: ${(props) => props.theme.colors.text};
   background-color: ${(props) => props.theme.colors.backgroundSecondary};

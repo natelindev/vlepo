@@ -6,7 +6,7 @@ type ImageProps = { src?: string | null } & React.ComponentProps<typeof ImageCon
   Omit<React.ComponentProps<typeof BaseImage>, 'width' | 'height' | 'src'>;
 
 const Image = (props: ImageProps) => {
-  const { width, height, maxHeight, maxWidth, children, src, ...rest } = props;
+  const { width, height, maxHeight, maxWidth, children, borderRadius, src, ...rest } = props;
   return (
     <ImageContainer
       color={src ? 'whiteText' : 'text'}
@@ -14,8 +14,13 @@ const Image = (props: ImageProps) => {
       height={height}
       maxHeight={maxHeight}
       maxWidth={maxWidth}
+      borderRadius={borderRadius}
     >
-      {src ? <BaseImage src={src} layout="fill" {...rest} /> : <Transparent {...rest} />}
+      {src ? (
+        <BaseImage src={src} borderRadius={borderRadius} layout="fill" {...rest} />
+      ) : (
+        <Transparent {...rest} />
+      )}
       {children && <ImageOverlay>{children}</ImageOverlay>}
     </ImageContainer>
   );

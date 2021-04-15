@@ -1,4 +1,5 @@
 import Card from 'src/components/Card';
+import { margin, MarginProps, padding, PaddingProps } from 'styled-system';
 
 import styled from '@emotion/styled';
 
@@ -20,14 +21,21 @@ export const DashboardMain = styled.div`
   margin-bottom: 1rem;
 `;
 
-export const Numbers = styled.div`
+export const Numbers = styled.div<MarginProps & PaddingProps>`
   display: flex;
   font-size: ${(props) => props.theme.fontSizes[5]}px;
   font-weight: ${(props) => props.theme.fontWeights.semiBold};
+  ${margin}
+  ${padding}
 `;
 
-export const NumbersLabel = styled.div`
+export const NumbersLabel = styled.div<MarginProps & PaddingProps>`
   color: ${(props) => props.theme.colors.muted};
   font-weight: ${(props) => props.theme.fontWeights.regular};
   font-size: ${(props) => props.theme.fontSizes[2]}px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 1rem;
+  ${margin}
+  ${padding}
 `;

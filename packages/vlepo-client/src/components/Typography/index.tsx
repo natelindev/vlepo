@@ -57,8 +57,8 @@ export const H5 = styled.h5<MarginProps & PaddingProps & FontWeightProps & Color
   font-size: ${(props) => `${props.theme.fontSizes[1]}px`};
   ${margin}
   ${padding}
-  ${fontWeight}
   ${color}
+  ${fontWeight}
 `;
 
 export const H6 = styled.h6<MarginProps & PaddingProps & FontWeightProps & ColorProps>`

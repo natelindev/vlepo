@@ -12,7 +12,7 @@ export const BasePostCard = styled.div<WidthProps>`
   margin-bottom: 0.5rem;
   padding: 1.5rem 2rem;
 
-  border-radius: ${(props) => props.theme.radii.default};
+  border-radius: ${(props) => `${props.theme.radii.default}px`};
   box-shadow: ${(props) => props.theme.shadows.Card};
   color: ${(props) => props.theme.colors.text};
   background-color: ${(props) => props.theme.colors.backgroundSecondary};

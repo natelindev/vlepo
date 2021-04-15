@@ -46,7 +46,7 @@ export const Button = styled.button<ButtonBaseProps>`
   border: none;
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
-  border-radius: ${(props) => props.theme.radii.default};
+  border-radius: ${(props) => `${props.theme.radii.default}px`};
   line-height: ${(props) => props.theme.lineHeights.content};
 
   &:hover {

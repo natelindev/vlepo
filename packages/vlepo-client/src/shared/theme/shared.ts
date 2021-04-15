@@ -25,7 +25,7 @@ export const shared = {
     heading: 1.125,
   },
   radii: {
-    default: '4px',
+    default: 4,
   },
   text: {
     heading: {

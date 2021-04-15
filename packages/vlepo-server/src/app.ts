@@ -105,8 +105,8 @@ app.use(router.routes());
 app.use(mount('/images/user-upload/', serve(process.env.IMAGE_PATH, { brotli: true })));
 
 app
-  .listen(process.env.API_PORT)
-  .on('listening', () => debug(`Server running on port ${process.env.API_PORT}`))
+  .listen(process.env.API_PORT ?? 3001)
+  .on('listening', () => debug(`Server running on port ${process.env.API_PORT ?? 3001}`))
   .on('error', (err) => {
     debug(err.stack);
   })
