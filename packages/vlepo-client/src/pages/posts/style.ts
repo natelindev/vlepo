@@ -1,20 +1,21 @@
 import Image from 'next/image';
 import { H1 } from 'src/components/Typography';
+import {
+  height,
+  HeightProps,
+  margin,
+  MarginProps,
+  padding,
+  PaddingProps,
+  width,
+  WidthProps,
+} from 'styled-system';
 
 import styled from '@emotion/styled';
 
 export const Header = styled.div`
   color: ${(props) => props.theme.colors.whiteText};
-  max-height: 30rem;
   width: 100%;
-  > div {
-    max-height: 30rem;
-  }
-`;
-
-export const FullWidthImage = styled(Image)`
-  object-fit: cover;
-  filter: brightness(60%) saturate(180%);
 `;
 
 export const Title = styled(H1)`
@@ -24,12 +25,15 @@ export const Title = styled(H1)`
 `;
 
 export const Back = styled.div`
+  display: flex;
   margin-right: auto;
+  cursor: pointer;
 `;
 
-export const ArticleBody = styled.article`
-  margin-left: 10rem;
-  margin-right: 10rem;
+export const ArticleBody = styled.article<WidthProps & MarginProps & PaddingProps>`
+  ${width}
+  ${margin}
+  ${padding}
 `;
 
 export const Body = styled.div`

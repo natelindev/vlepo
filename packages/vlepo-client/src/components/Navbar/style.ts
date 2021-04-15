@@ -15,7 +15,7 @@ export const BaseNavbar = styled.nav`
   box-shadow: ${(props) => props.theme.shadows.Navbar};
   background-color: ${(props) => props.theme.colors.navbar};
   backdrop-filter: saturate(180%) blur(5px);
-  height: 3.5rem;
+  height: ${(props) => props.theme.heights.navbar};
   z-index: ${(props) => props.theme.zIndices.Navbar};
 `;
 

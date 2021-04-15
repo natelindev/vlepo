@@ -18,6 +18,6 @@
   },
   "devDependencies": {
     "@types/debug": "4.1.5",
-    "typescript": "4.3.0-beta"
+    "typescript": "4.2.4"
   }
 }

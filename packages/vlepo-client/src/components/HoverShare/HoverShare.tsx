@@ -19,17 +19,21 @@ const HoverShare = (props: HoverShareProps) => {
   const { title, url, tags } = props;
   const [scrollPosition] = useScrollPosition();
   return (
-    <ShareContainer scrollPosition={scrollPosition}>
-      <TelegramShareButton title={title} url={url}>
-        <TelegramIcon size="2.25rem" />
-      </TelegramShareButton>
-      <RedditShareButton title={title} url={url}>
-        <RedditIcon size="2.25rem" />
-      </RedditShareButton>
-      <TwitterShareButton title={title} hashtags={tags} url={url}>
-        <TwitterIcon size="2.25rem" />
-      </TwitterShareButton>
-    </ShareContainer>
+    <>
+      {scrollPosition > 5 && (
+        <ShareContainer scrollPosition={scrollPosition}>
+          <TelegramShareButton title={title} url={url}>
+            <TelegramIcon size="2.25rem" />
+          </TelegramShareButton>
+          <RedditShareButton title={title} url={url}>
+            <RedditIcon size="2.25rem" />
+          </RedditShareButton>
+          <TwitterShareButton title={title} hashtags={tags} url={url}>
+            <TwitterIcon size="2.25rem" />
+          </TwitterShareButton>
+        </ShareContainer>
+      )}
+    </>
   );
 };
 

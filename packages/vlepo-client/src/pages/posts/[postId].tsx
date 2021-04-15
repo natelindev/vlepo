@@ -8,17 +8,19 @@ import { graphql } from 'react-relay';
 import { useQuery } from 'relay-hooks';
 import { fetchQuery } from 'relay-runtime';
 import HoverShare from 'src/components/HoverShare/HoverShare';
+import Image from 'src/components/Image';
 import ImageOverlay from 'src/components/ImageOverlay';
 import { Column, Row } from 'src/components/Layout/style';
 import * as components from 'src/components/MDXComponents';
 import PlaceHolder from 'src/components/PlaceHolder';
-import { H3 } from 'src/components/Typography';
+import { H5 } from 'src/components/Typography';
 import { initEnvironment } from 'src/relay';
 
 import { KeyboardBackspace } from '@emotion-icons/material-outlined';
+import { css, useTheme } from '@emotion/react';
 
 import { PostIdQuery } from '../../__generated__/PostIdQuery.graphql';
-import { ArticleBody, Back, Content, FullWidthImage, Header, Title } from './style';
+import { ArticleBody, Back, Content, Header, Title } from './style';
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const debug = debugInit('vlepo:postId');
@@ -66,6 +68,7 @@ const postIdQuery = graphql`
       }
       headerImageUrl
       content
+      createdAt
     }
   }
 `;
@@ -83,6 +86,8 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
   const { error, data } = useQuery<PostIdQuery>(postIdQuery, { id: PostId });
   const mdxContent = hydrate(renderedMDX, { components });
   const [fullUrl, setFullUrl] = useState('');
+  const theme = useTheme();
+
   useEffect(() => {
     setFullUrl(window.location.href);
   }, []);
@@ -96,24 +101,33 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
     <>
       {headerImageUrl && (
         <Header>
-          <FullWidthImage layout="responsive" src={headerImageUrl} width="16" height="5" />
-          <ImageOverlay mt="3rem">
-            <Column width="100%">
-              <Back>
-                <KeyboardBackspace size={32} />
+          <Image
+            css={css`
+              filter: brightness(50%) saturate(180%);
+            `}
+            width="100%"
+            height="20rem"
+            src={headerImageUrl}
+          >
+            <Column width="100%" mb="auto">
+              <Back onClick={() => router.back()}>
+                <KeyboardBackspace color={theme.colors.whiteText} size={24} />
+                <H5 ml="0.5rem" color="whiteText">
+                  Back
+                </H5>
               </Back>
               <Title mx="auto" mt="4rem">
                 {title}
               </Title>
 
-              {owner.name && <H3 mx="auto">{owner.name}</H3>}
+              {owner.name && <H5 mx="auto">{owner.name}</H5>}
             </Column>
-          </ImageOverlay>
+          </Image>
         </Header>
       )}
       <HoverShare title={title} url={fullUrl} tags={tags.map((t) => t.name)} />
       <Row>
-        <ArticleBody>
+        <ArticleBody mx="auto" width={[0.95, 0.9, 0.85, 0.8]}>
           <Content>{mdxContent}</Content>
         </ArticleBody>
       </Row>

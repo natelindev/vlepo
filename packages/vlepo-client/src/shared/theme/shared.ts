@@ -102,4 +102,7 @@ export const shared = {
     ModalContainer: 999,
     Toast: 1000,
   },
+  heights: {
+    navbar: '3.5rem',
+  },
 };
