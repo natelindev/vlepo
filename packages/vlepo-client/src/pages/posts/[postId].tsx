@@ -18,7 +18,7 @@ import { H5 } from 'src/components/Typography';
 import { initEnvironment } from 'src/relay';
 
 import { KeyboardBackspace } from '@emotion-icons/material-outlined';
-import { css, useTheme } from '@emotion/react';
+import { useTheme } from '@emotion/react';
 
 import { PostIdQuery } from '../../__generated__/PostIdQuery.graphql';
 import { ArticleBody, Back, Content, Header, Title } from './style';
