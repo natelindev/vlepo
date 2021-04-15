@@ -54,12 +54,10 @@ export type CardImgProps = {
   bottom?: boolean;
 };
 
-export const CardImg = styled(Image, {
+export const CardImage = styled(Image, {
   shouldForwardProp: (propName) =>
     propName !== 'top' && propName !== 'bottom' && propName !== 'left' && propName !== 'right',
 })<CardImgProps>`
-  object-fit: cover;
-  flex-grow: 0;
   border-top-left-radius: ${(props) =>
     props.left || props.top ? `${props.theme.radii.default}px` : `0`};
   border-top-right-radius: ${(props) =>

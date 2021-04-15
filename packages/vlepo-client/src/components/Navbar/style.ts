@@ -2,7 +2,6 @@ import { margin, MarginProps, width, WidthProps } from 'styled-system';
 
 import styled from '@emotion/styled';
 
-import Logo from '../Logo';
 import SearchBar from '../SearchBar';
 
 export const BaseNavbar = styled.nav`
@@ -57,12 +56,6 @@ export const NavItem = styled.li<WidthProps & MarginProps>`
   ${width}
   ${margin}
   text-decoration: none;
-`;
-
-export const NavLogo = styled(Logo)`
-  margin-left: 1rem;
-  margin-right: 0.3rem;
-  margin-top: 0.3rem;
 `;
 
 export const NavSearchBar = styled(SearchBar)`

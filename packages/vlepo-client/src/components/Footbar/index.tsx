@@ -2,13 +2,13 @@ import * as React from 'react';
 
 import Logo from '../Logo';
 import Social from '../Social';
-import { BottomText, CenteredText, FootbarContainer, LoveIcon } from './style';
+import { BaseFootbar, BottomText, CenteredText, LoveIcon } from './style';
 
 const Footbar: React.FC = () => (
-  <FootbarContainer>
+  <BaseFootbar flexDirection={['column', 'column', 'row']}>
     <Logo size="42px" />
     <BottomText>
-      <CenteredText>
+      <CenteredText mx="auto">
         © 2019-
         {new Date().getFullYear()}
         {'  '}
@@ -22,7 +22,7 @@ const Footbar: React.FC = () => (
     </BottomText>
 
     <Social />
-  </FootbarContainer>
+  </BaseFootbar>
 );
 
 export default Footbar;

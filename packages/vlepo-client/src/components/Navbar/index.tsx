@@ -2,6 +2,7 @@
 import React, { useContext, useState } from 'react';
 import { a, useTransition } from 'react-spring';
 import Dropdown from 'src/components/Dropdown';
+import Logo from 'src/components/Logo';
 import { ThemeContext } from 'src/pages/_app';
 import { darkTheme, lightTheme } from 'src/shared/theme';
 
@@ -17,7 +18,6 @@ import {
   NavbarNav,
   NavBrand,
   NavItem,
-  NavLogo,
   NavSearchBar,
   RightNavCollapse,
 } from './style';
@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
 
   return (
     <BaseNavbar>
-      <NavLogo size="50px" />
+      <Logo size="32px" ml="1rem" my="auto" />
       <Link href="/" passHref>
         <NavBrand href="/">Nathaniel&#39;s Blog</NavBrand>
       </Link>

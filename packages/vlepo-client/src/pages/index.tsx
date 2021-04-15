@@ -14,6 +14,7 @@ import GradientButton from 'src/components/GradientButton';
 import { Row } from 'src/components/Layout/style';
 import PlaceHolder from 'src/components/PlaceHolder';
 import { initEnvironment } from 'src/relay';
+import { fontSize, FontSizeProps, margin, MarginProps } from 'styled-system';
 
 import styled from '@emotion/styled';
 
@@ -30,22 +31,21 @@ const IndexMasonry = styled(Masonry)`
   }
 ` as typeof Masonry;
 
-const IndexRow = styled.div`
-  margin-left: 6rem;
-  margin-right: 6rem;
+const IndexRow = styled.div<MarginProps>`
   display: flex;
   justify-content: center;
   margin-top: 3rem;
+  ${margin}
 `;
 
-const IndexSlogan = styled(Typist)`
+const IndexSlogan = styled(Typist)<FontSizeProps>`
   display: flex;
   justify-content: center;
   margin-top: 3rem;
-  margin-bottom: 7rem;
+  margin-bottom: 6rem;
   margin-left: auto;
   margin-right: auto;
-  font-size: 1.75rem;
+  ${fontSize}
   color: ${(props) => props.theme.colors.text};
 `;
 
@@ -119,7 +119,7 @@ const PostsSection = (props: PostSectionProps) => {
   if (!data) return <PlaceHolder />;
 
   return (
-    <IndexRow>
+    <IndexRow mx={['0.3rem', '2rem', '6rem']}>
       <ClientOnly>
         <IndexMasonry<ArticleCard_post$key>
           columnWidth={350}
@@ -156,7 +156,7 @@ export default function Home() {
 
   return (
     <>
-      <IndexSlogan cursor={{ show: false }}>
+      <IndexSlogan cursor={{ show: false }} fontSize={[3, 4]}>
         <Slogan>I code, Therefore I am</Slogan>
       </IndexSlogan>
       {data && <PostsSection blog={data.blog!} />}

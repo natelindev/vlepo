@@ -103,22 +103,19 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
     <>
       <Header>
         <Image
-          css={css`
-            filter: ${theme.filter.headerImage};
-          `}
           objectFit="cover"
           width="100%"
-          height="20rem"
+          filter={theme.filter.headerImage}
+          height={['18rem', '20rem', '22rem']}
+          mt={theme.heights.navbar}
           src={headerImageUrl}
         >
           <Column width="100%" mb="auto">
             <Back onClick={() => router.back()}>
-              <KeyboardBackspace color="whiteText" size={24} />
-              <H5 ml="0.5rem" color="whiteText">
-                Back
-              </H5>
+              <KeyboardBackspace size={24} />
+              <H5 ml="0.5rem">Back</H5>
             </Back>
-            <Title mx="auto" mt="4rem">
+            <Title fontSize={[3, 4, 5]} mx="auto" mt="2rem">
               {title}
             </Title>
             <H5 fontWeight="normal" mx="auto" mt="2rem">

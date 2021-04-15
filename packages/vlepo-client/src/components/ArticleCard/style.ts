@@ -4,6 +4,7 @@ import { Row } from 'src/components/Layout/style';
 import styled from '@emotion/styled';
 
 import Card from '../Card';
+import { H3 } from '../Typography';
 
 export const Abstract = styled.div`
   display: flex;
@@ -14,11 +15,11 @@ export const Abstract = styled.div`
   margin-bottom: 1rem;
 `;
 
-export const ArticleCardTitle = styled.h1`
+export const ArticleCardTitle = styled(H3)`
   padding: 0;
   margin-block-start: 0;
   margin-block-end: 0.5rem;
-  font-weight: 400;
+  font-weight: ${(props) => props.theme.fontWeights.semiBold};
   font-family: ${(props) => props.theme.fonts.heading};
 `;
 

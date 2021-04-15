@@ -16,29 +16,40 @@ import {
   MaxWidthProps,
   padding,
   PaddingProps,
+  size,
+  SizeProps,
   width,
   WidthProps,
 } from 'styled-system';
 
 import styled from '@emotion/styled';
 
-export const ImageContainer = styled.div<
-  HeightProps & WidthProps & MaxHeightProps & MaxWidthProps & ColorProps & BorderRadiusProps
->`
+type ImageContainerProps = SizeProps &
+  HeightProps &
+  WidthProps &
+  MaxHeightProps &
+  MaxWidthProps &
+  ColorProps &
+  MarginProps &
+  PaddingProps &
+  BorderRadiusProps;
+
+export const ImageContainer = styled.div<ImageContainerProps>`
+  display: flex;
   > div {
-    &:first-child {
+    &:first-of-type {
       position: unset !important;
     }
-    margin-top: ${(props) => props.theme.heights.navbar};
-    max-height: ${(props) => props.height};
-    width: ${(props) => props.width};
+    ${color}
+    ${height}
+    ${width}
+    ${maxHeight}
+    ${maxWidth}
+
+    ${margin}
+    ${padding}
+    ${size}
   }
-  display: flex;
-  ${color}
-  ${height}
-  ${width}
-  ${maxHeight}
-  ${maxWidth}
   ${borderRadius}
 `;
 
@@ -49,9 +60,9 @@ export const BaseImage = styled(NextImage)<BorderRadiusProps>`
   ${borderRadius}
 `;
 
-export const Transparent = styled.div<BorderRadiusProps>`
+export const Transparent = styled.div`
+  height: 100%;
   width: 100%;
-  ${borderRadius}
 `;
 
 export const ImageOverlay = styled.div<PaddingProps & MarginProps & FlexboxProps>`

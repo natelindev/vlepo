@@ -1,26 +1,10 @@
-import Image from 'next/image';
 import React from 'react';
+import Image from 'src/components/Image';
 
-export interface LogoProps {
-  size?: string;
-  height?: string;
-  width?: string;
-  className?: string;
-}
+type LogoProps = Omit<React.ComponentProps<typeof Image>, 'src' | 'alt'>;
 
-const Logo: React.FC<LogoProps> = (props: LogoProps) => {
-  const { size = '100px', height, width, className } = props;
-  return (
-    <div className={className}>
-      <Image
-        height={height ?? size}
-        width={width ?? size}
-        src="/logo.svg"
-        alt="logo"
-        className={className}
-      />
-    </div>
-  );
+const Logo = (props: LogoProps) => {
+  return <Image src="/logo.svg" alt="logo" {...props} />;
 };
 
 export default Logo;

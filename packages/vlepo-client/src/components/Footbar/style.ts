@@ -1,18 +1,20 @@
+import { flexbox, FlexboxProps, margin, MarginProps } from 'styled-system';
+
 import styled from '@emotion/styled';
 
-export const FootbarContainer = styled.div`
+export const BaseFootbar = styled.div<FlexboxProps>`
   display: flex;
   justify-content: space-around;
   margin-top: 3rem;
   margin-bottom: 2rem;
+  ${flexbox}
 `;
 
-export const CenteredText = styled.div`
+export const CenteredText = styled.div<MarginProps>`
   color: ${(props) => props.theme.colors.muted};
   display: flex;
-  margin-left: auto;
-  margin-right: auto;
   justify-content: center;
+  ${margin}
 `;
 
 export const LoveIcon = styled.div`
