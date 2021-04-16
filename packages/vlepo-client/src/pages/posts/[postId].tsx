@@ -69,6 +69,7 @@ const postIdQuery = graphql`
       tags {
         name
       }
+      minuteRead
       headerImageUrl
       content
       createdAt
@@ -107,7 +108,7 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
   if (error) return <div>{error.message}</div>;
   if (!data || !data.post || router.isFallback) return <PlaceHolder />;
 
-  const { headerImageUrl, title, owner, tags, createdAt } = data.post;
+  const { headerImageUrl, title, owner, tags, createdAt, minuteRead } = data.post;
 
   return (
     <>
@@ -136,6 +137,8 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
             </Title>
             <H5 fontWeight="normal" mx="auto" mt="2rem">
               {format(parseISO(createdAt), 'eee, MMM dd yyyy')}
+              {' • '}
+              {`${minuteRead ?? 1} min read`}
             </H5>
             <Row mx="auto" mt="0.5rem">
               {owner.profileImageUrl && (

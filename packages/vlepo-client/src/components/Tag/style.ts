@@ -1,7 +1,11 @@
 import styled from '@emotion/styled';
 
-export const BaseTag = styled.a`
-  color: ${(props) => props.theme.colors.muted};
+type BaseTagProps = {
+  mainColor?: string | null;
+  secondaryColor?: string | null;
+};
+export const BaseTag = styled.a<BaseTagProps>`
+  color: ${(props) => props.mainColor ?? props.theme.colors.muted};
 
   font-size: ${(props) => `${props.theme.fontSizes[1]}px`};
   margin-bottom: auto;
@@ -14,15 +18,15 @@ export const BaseTag = styled.a`
   padding-bottom: 0.1rem;
   padding-left: 0.2rem;
   padding-right: 0.2rem;
-  border: 1px solid ${(props) => props.theme.colors.muted};
+  border: 1px solid ${(props) => props.mainColor ?? props.theme.colors.muted};
   border-radius: 0.2rem;
 
   transition: all 0.1s ease-in-out;
 
   &:hover {
-    color: ${(props) => props.theme.colors.background};
-    background-color: ${(props) => props.theme.colors.textTransparent};
-    border-color: ${(props) => props.theme.colors.text};
+    color: ${(props) => props.mainColor ?? props.theme.colors.background};
+    background-color: ${(props) => props.secondaryColor ?? props.theme.colors.textTransparent};
+    border-color: ${(props) => props.secondaryColor ?? props.theme.colors.text};
     backdrop-filter: saturate(180%) blur(5px);
   }
 

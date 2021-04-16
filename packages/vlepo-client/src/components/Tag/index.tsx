@@ -6,13 +6,17 @@ import { BaseTag } from './style';
 type TagProps = {
   name: string;
   href: string;
+  mainColor?: string | null;
+  secondaryColor?: string | null;
 };
 
 const Tag = (props: TagProps): React.ReactElement => {
-  const { name, href } = props;
+  const { name, href, mainColor, secondaryColor } = props;
   return (
     <Link href={href} passHref>
-      <BaseTag>{name}</BaseTag>
+      <BaseTag mainColor={mainColor} secondaryColor={secondaryColor}>
+        {name}
+      </BaseTag>
     </Link>
   );
 };

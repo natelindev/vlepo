@@ -35,6 +35,8 @@ const articlePostFragment = graphql`
     tags {
       id
       name
+      mainColor
+      secondaryColor
     }
     owner {
       name
@@ -119,7 +121,15 @@ const ArticleCard = (props: ArticleCardProps) => {
       <ArticleCardFooter>
         {tags &&
           tags.length > 0 &&
-          tags.map((t) => <Tag name={t.name} key={t.id} href={`/tags/${t.id}`} />)}
+          tags.map((t) => (
+            <Tag
+              mainColor={t.mainColor}
+              secondaryColor={t.secondaryColor}
+              name={t.name}
+              key={t.id}
+              href={`/tags/${t.id}`}
+            />
+          ))}
       </ArticleCardFooter>
     </BaseArticleCard>
   );

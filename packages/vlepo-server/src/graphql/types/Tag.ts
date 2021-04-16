@@ -15,6 +15,8 @@ export const Tag = objectType({
       resolve: (root) => root.id,
     });
     t.model.name();
+    t.model.mainColor();
+    t.model.secondaryColor();
     t.model.posts();
     t.model.thoughts();
     t.model.projects();
