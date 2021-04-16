@@ -8,7 +8,7 @@ import { v4 } from 'uuid';
 
 import { OAuthCheckScope } from '../../oauth2/nexus';
 import { streamToBuffer } from '../../util/streamToBuffer';
-import { Upload } from './Upload';
+import { Upload } from './Scalars';
 
 export const Image = objectType({
   name: 'Image',

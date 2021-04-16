@@ -7,6 +7,7 @@ export const lightTheme = {
     background: '#f0f2f5',
     backgroundSecondary: '#ffffff',
     backgroundMuted: '#f0f2f5',
+    backgroundDarker: '#b1b3b8',
     error: '#ff3232',
     highlight: '#e4e6ea',
     muted: '#65676b',

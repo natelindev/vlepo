@@ -5,8 +5,6 @@ import { margin, MarginProps } from 'styled-system';
 
 import styled from '@emotion/styled';
 
-// import { OAuthConsts } from '@vlepo/shared';
-
 type SidebarProps = {
   expand?: boolean;
   width?: string;
@@ -64,17 +62,14 @@ const Sidebar = (props: SidebarProps): React.ReactElement => {
       </SidebarItem>
 
       <SidebarGroup>
-        {
-          // OAuthConsts.entities
-          ['blog', 'post'].map((e) => (
-            <Link key={e} href={`/dashboard/${e}`} passHref>
-              <SidebarItem active={router.pathname === `/dashboard/${e}`}>
-                {e.charAt(0).toUpperCase()}
-                {e.slice(1)}
-              </SidebarItem>
-            </Link>
-          ))
-        }
+        {['blog', 'post'].map((e) => (
+          <Link key={e} href={`/dashboard/${e}`} passHref>
+            <SidebarItem active={router.pathname === `/dashboard/${e}`}>
+              {e.charAt(0).toUpperCase()}
+              {e.slice(1)}
+            </SidebarItem>
+          </Link>
+        ))}
       </SidebarGroup>
     </BaseSidebar>
   );

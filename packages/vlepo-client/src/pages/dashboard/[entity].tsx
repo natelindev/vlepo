@@ -129,7 +129,13 @@ const PostSection = (props: PostSectionProps) => {
             (e) => e && e.node && <PostCard key={e.node.id} post={e.node} />,
           )}
       </Column>
-      {isLoadingNext && <PlaceHolder width="100%" />}
+      {isLoadingNext && (
+        <Column mt="1rem">
+          {Array(5).fill(
+            <PlaceHolder ml="1rem" mr="2.5rem" height="105px" my="0.5rem" borderRadius="default" />,
+          )}
+        </Column>
+      )}
       {hasNext && !isLoadingNext && (
         <Row>
           <GradientButton width="100%" mt="0.5rem" mx="1rem" onClick={() => loadNext(5)}>

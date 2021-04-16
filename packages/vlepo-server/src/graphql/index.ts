@@ -1,3 +1,4 @@
+import { GraphQLVoid } from 'graphql-scalars';
 import * as NexusSchema from 'nexus';
 import { nexusPrisma } from 'nexus-plugin-prisma';
 import * as path from 'path';
@@ -17,6 +18,9 @@ export default NexusSchema.makeSchema({
   plugins: [
     nexusPrisma({
       experimentalCRUD: true,
+      scalars: {
+        Void: GraphQLVoid,
+      },
     }),
     NexusSchema.connectionPlugin({ includeNodesField: true }),
     NexusSchema.fieldAuthorizePlugin(),

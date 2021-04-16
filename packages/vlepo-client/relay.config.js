@@ -14,6 +14,7 @@ module.exports = {
   customScalars: {
     DateTime: 'String',
     Upload: 'File',
+    Void: 'null',
   },
   artifactDirectory: './src/__generated__',
 };

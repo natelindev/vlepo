@@ -7,6 +7,7 @@ export const darkTheme = {
     background: '#18191a',
     backgroundSecondary: '#242526',
     backgroundMuted: '#303031',
+    backgroundDarker: '#111111',
     error: '#ff3232',
     highlight: '#454546',
     muted: '#b1b3b8',

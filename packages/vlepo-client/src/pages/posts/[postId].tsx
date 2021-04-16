@@ -6,8 +6,9 @@ import renderToString from 'next-mdx-remote/render-to-string';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { graphql } from 'react-relay';
-import { useQuery } from 'relay-hooks';
+import { useMutation, useQuery } from 'relay-hooks';
 import { fetchQuery } from 'relay-runtime';
+import { PostIdViewMutation } from 'src/__generated__/PostIdViewMutation.graphql';
 import Avatar from 'src/components/Avatar';
 import HoverShare from 'src/components/HoverShare/HoverShare';
 import Image from 'src/components/Image';
@@ -75,6 +76,12 @@ const postIdQuery = graphql`
   }
 `;
 
+const postIdViewMutation = graphql`
+  mutation PostIdViewMutation($id: String!) {
+    viewPost(id: $id)
+  }
+`;
+
 const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
   const PostId = router.query.postId as string;
@@ -90,9 +97,12 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
   const [fullUrl, setFullUrl] = useState('');
   const theme = useTheme();
 
+  const [mutate] = useMutation<PostIdViewMutation>(postIdViewMutation);
+
   useEffect(() => {
     setFullUrl(window.location.href);
-  }, []);
+    mutate({ variables: { id: PostId } });
+  }, [PostId, mutate]);
 
   if (error) return <div>{error.message}</div>;
   if (!data || !data.post || router.isFallback) return <PlaceHolder />;

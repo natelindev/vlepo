@@ -1,9 +1,12 @@
 import { addDays, compareAsc, format, parseISO } from 'date-fns';
+import { useState } from 'react';
 import { graphql, useFragment } from 'react-relay';
 import Badge from 'src/components/Badge';
 import { CardBody, CardImage } from 'src/components/Card/style';
 import { Column, Row } from 'src/components/Layout/style';
 
+import { ImageOverlay } from '../Image/style';
+import PlaceHolder from '../PlaceHolder';
 import Tag from '../Tag';
 import {
   Abstract,
@@ -45,6 +48,7 @@ const ArticleCard = (props: ArticleCardProps) => {
   const post = useFragment(articlePostFragment, fullPost);
   const { title, headerImageUrl, abstract, createdAt, id, tags, owner, minuteRead } = post;
   const createDate = parseISO(createdAt);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <BaseArticleCard href={`/posts/${id}`} width={width}>
@@ -56,16 +60,25 @@ const ArticleCard = (props: ArticleCardProps) => {
         </Row>
       )}
       {headerImageUrl && (
-        <CardImage
-          layout="responsive"
-          height={100}
-          width={200}
-          objectFit="cover"
-          src={headerImageUrl}
-          alt={title}
-          top
-        />
+        <>
+          <CardImage
+            onLoad={() => setImageLoaded(true)}
+            layout="responsive"
+            height={100}
+            width={200}
+            objectFit="cover"
+            src={headerImageUrl}
+            alt={title}
+            top
+          />
+          {!imageLoaded && (
+            <ImageOverlay>
+              <PlaceHolder />
+            </ImageOverlay>
+          )}
+        </>
       )}
+
       <CardBody>
         {title && (
           <Row>

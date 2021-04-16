@@ -1,4 +1,12 @@
-import { enumType, inputObjectType, list, mutationField, nonNull, objectType } from 'nexus';
+import {
+  enumType,
+  inputObjectType,
+  list,
+  mutationField,
+  nonNull,
+  objectType,
+  stringArg,
+} from 'nexus';
 import readingTime from 'reading-time';
 import { v4 } from 'uuid';
 
@@ -10,6 +18,7 @@ import { Comment } from './Comment';
 import { createImageInput, Image } from './Image';
 import { Rating } from './Rating';
 import { Reaction } from './Reaction';
+import { Void } from './Scalars';
 import { ShareCount } from './ShareCount';
 import { createTagInput, Tag } from './Tag';
 
@@ -149,6 +158,36 @@ export const creatPostResponse = objectType({
   name: 'creatPostResponse',
   definition(t) {
     t.nonNull.field('createPostEdge', { type: 'PostEdge' });
+  },
+});
+
+export const viewPostMutation = mutationField('viewPost', {
+  type: Void,
+  args: {
+    id: stringArg(),
+  },
+  resolve: async (_root, { id }, ctx) => {
+    if (!id) {
+      return;
+    }
+    const dbPost = await ctx.prisma.post.findFirst({
+      select: {
+        viewCount: true,
+      },
+      where: {
+        id,
+      },
+    });
+    if (dbPost) {
+      await ctx.prisma.post.update({
+        where: {
+          id,
+        },
+        data: {
+          viewCount: dbPost.viewCount + 1,
+        },
+      });
+    }
   },
 });
 
