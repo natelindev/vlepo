@@ -1,10 +1,18 @@
 import React from 'react';
-import Image from 'src/components/Image';
+import { margin, MarginProps, padding, PaddingProps, size, SizeProps } from 'styled-system';
 
-type LogoProps = Omit<React.ComponentProps<typeof Image>, 'src' | 'alt'>;
+import styled from '@emotion/styled';
+
+type LogoProps = React.ComponentProps<typeof BaseLogo>;
+const BaseLogo = styled.img<SizeProps & MarginProps & PaddingProps>`
+  ${size}
+  ${margin}
+  ${padding}
+`;
 
 const Logo = (props: LogoProps) => {
-  return <Image src="/logo.svg" alt="logo" {...props} />;
+  const { size = 32, ...rest } = props;
+  return <BaseLogo src="/logo.svg" alt="logo" size={size} {...rest} />;
 };
 
 export default Logo;

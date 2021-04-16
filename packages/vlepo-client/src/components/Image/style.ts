@@ -48,12 +48,12 @@ export const ImageContainer = styled.div<ImageContainerProps>`
     ${width}
     ${maxHeight}
     ${maxWidth}
-
+    ${margin}
+    ${padding}
     ${size}
     ${textShadow}
   }
-  ${margin}
-  ${padding}
+
   ${borderRadius}
 `;
 

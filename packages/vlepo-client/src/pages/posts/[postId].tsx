@@ -18,7 +18,7 @@ import { H5 } from 'src/components/Typography';
 import { initEnvironment } from 'src/relay';
 
 import { KeyboardBackspace } from '@emotion-icons/material-outlined';
-import { useTheme } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
 
 import { PostIdQuery } from '../../__generated__/PostIdQuery.graphql';
 import { ArticleBody, Back, Content, Header, Title } from './style';
@@ -108,6 +108,9 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
           filter={theme.filter.headerImage}
           height={['18rem', '20rem', '22rem']}
           mt={theme.heights.navbar}
+          css={css`
+            margin-top: 0;
+          `}
           src={headerImageUrl}
           textShadow={
             headerImageUrl && theme.name === 'light' ? 'rgba(0,0,0, 0.3) 0 0 8px' : 'none'
