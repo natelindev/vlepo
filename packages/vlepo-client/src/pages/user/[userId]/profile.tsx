@@ -13,7 +13,9 @@ import { H2, H4 } from 'src/components/Typography';
 
 import styled from '@emotion/styled';
 
-const UserCard = styled(Card)``;
+const UserCard = styled(Card)`
+  flex-direction: column;
+`;
 
 const profileUserFragment = graphql`
   fragment profile_user on User {
@@ -35,7 +37,6 @@ const profileUserQuery = graphql`
 const Profile = () => {
   const router = useRouter();
   const userId = router.query.userId as string;
-  console.log(router.query);
   const { data, isLoading, error } = useQuery<profile_userQuery>(profileUserQuery, {
     id: userId,
   });
@@ -59,7 +60,7 @@ const Profile = () => {
             <Row mt="2rem">{profileUser.name && <H2 mx="auto">{profileUser.name}</H2>}</Row>
             <Row>{profileUser.description && <H4 mx="auto">{profileUser.description}</H4>}</Row>
           </UserCard>
-          <Card my="2rem">
+          <Card my="2rem" width="100%">
             <CommentSection comments={profileUser} />
           </Card>
         </>

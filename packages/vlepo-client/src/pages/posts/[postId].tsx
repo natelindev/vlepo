@@ -109,6 +109,9 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
           height={['18rem', '20rem', '22rem']}
           mt={theme.heights.navbar}
           src={headerImageUrl}
+          textShadow={
+            headerImageUrl && theme.name === 'light' ? 'rgba(0,0,0, 0.3) 0 0 8px' : 'none'
+          }
         >
           <Column width="100%" mb="auto">
             <Back onClick={() => router.back()}>

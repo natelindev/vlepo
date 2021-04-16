@@ -4,9 +4,11 @@ import { css } from '@emotion/react';
 
 import { BaseImage, ImageContainer, ImageOverlay, Transparent } from './style';
 
-type ImageProps = { src?: string | null; filter?: string | null } & React.ComponentProps<
-  typeof ImageContainer
-> &
+type ImageProps = {
+  src?: string | null;
+  filter?: string | null;
+  textShadow?: string | null;
+} & React.ComponentProps<typeof ImageContainer> &
   Omit<React.ComponentProps<typeof BaseImage>, 'width' | 'height' | 'src'>;
 
 const Image = (props: ImageProps) => {
@@ -25,6 +27,7 @@ const Image = (props: ImageProps) => {
     className,
     width,
     height,
+    textShadow,
     ...rest
   } = props;
   return (
@@ -33,11 +36,7 @@ const Image = (props: ImageProps) => {
       height={height}
       borderRadius={borderRadius}
       color={src ? 'whiteText' : 'text'}
-      css={(theme) =>
-        css`
-          text-shadow: ${src && theme.name === 'light' ? 'rgba(0,0,0, 0.3) 0 0 8px' : 'none'};
-        `
-      }
+      textShadow={textShadow}
       {...rest}
     >
       {src ? (

@@ -18,6 +18,8 @@ import {
   PaddingProps,
   size,
   SizeProps,
+  textShadow,
+  TextShadowProps,
   width,
   WidthProps,
 } from 'styled-system';
@@ -32,7 +34,8 @@ type ImageContainerProps = SizeProps &
   ColorProps &
   MarginProps &
   PaddingProps &
-  BorderRadiusProps;
+  BorderRadiusProps &
+  TextShadowProps;
 
 export const ImageContainer = styled.div<ImageContainerProps>`
   display: flex;
@@ -46,14 +49,17 @@ export const ImageContainer = styled.div<ImageContainerProps>`
     ${maxHeight}
     ${maxWidth}
 
-    ${margin}
-    ${padding}
     ${size}
+    ${textShadow}
   }
+  ${margin}
+  ${padding}
   ${borderRadius}
 `;
 
-export const BaseImage = styled(NextImage)<BorderRadiusProps>`
+export const BaseImage = styled(NextImage, {
+  shouldForwardProp: (propName) => propName !== 'borderRadius',
+})<BorderRadiusProps>`
   width: 100% !important;
   position: relative !important;
   height: unset !important;

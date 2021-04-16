@@ -24,6 +24,7 @@ export const BaseProfileComment = styled.div<WidthProps & HeightProps & MarginPr
 export const BaseCommentSection = styled.div<WidthProps & HeightProps & MarginProps & PaddingProps>`
   display: flex;
   flex-direction: column;
+  width: 100%;
   ${width}
   ${height}
   ${margin}

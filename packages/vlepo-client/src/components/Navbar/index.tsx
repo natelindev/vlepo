@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
 
   return (
     <BaseNavbar>
-      <Logo size="32px" ml="1rem" my="auto" />
+      <Logo size="32px" ml="1rem" mr="0.5rem" my="auto" />
       <Link href="/" passHref>
         <NavBrand href="/">Nathaniel&#39;s Blog</NavBrand>
       </Link>
