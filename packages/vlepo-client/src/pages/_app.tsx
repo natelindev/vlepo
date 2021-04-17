@@ -7,7 +7,7 @@ import { RelayEnvironmentProvider } from 'relay-hooks';
 import Layout from 'src/components/Layout';
 import { Toast } from 'src/components/Toast';
 import { createEnvironment } from 'src/relay';
-import { globalStyles } from 'src/shared/styles';
+import { globalStyles } from 'src/shared/globalStyles';
 import { defaultTheme, ThemeType } from 'src/shared/theme';
 
 import { ThemeProvider } from '@emotion/react';

@@ -1,11 +1,7 @@
 import { Button } from 'src/components/Button';
+import { isBright } from 'src/shared/colorUtil';
 
 import styled from '@emotion/styled';
-
-export const isBright = (hexColor: string) => {
-  const [r, g, b] = [0, 2, 4].map((p) => Number.parseInt(hexColor.substr(p, 2), 16));
-  return (r * 299 + g * 587 + b * 114) / 1000 >= 128;
-};
 
 type BaseGradientButtonProps = {
   colorA: string;
@@ -46,7 +42,11 @@ export const BaseGradientButton = styled(Button)<BaseGradientButtonProps>`
   background-image: ${(props) =>
     `linear-gradient(45deg, ${props.colorA} 10%, ${props.colorB} 90%)`};
   color: ${(props) =>
-    `${isBright(props.colorA) && isBright(props.colorB) ? '#000000' : '#ffffff'}`};
+    `${
+      isBright(props.colorA) && isBright(props.colorB)
+        ? props.theme.colors.blackText
+        : props.theme.colors.whiteText
+    }`};
   &::before {
     background-image: ${(props) =>
       `linear-gradient(45deg, ${props.colorA} 35%, ${props.colorB} 75%)`};

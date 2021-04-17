@@ -1,9 +1,13 @@
+import { isBright } from 'src/shared/colorUtil';
+import { __, match } from 'ts-pattern';
+
 import styled from '@emotion/styled';
 
 type BaseTagProps = {
   mainColor?: string | null;
   secondaryColor?: string | null;
 };
+
 export const BaseTag = styled.a<BaseTagProps>`
   color: ${(props) => props.mainColor ?? props.theme.colors.muted};
 
@@ -24,10 +28,27 @@ export const BaseTag = styled.a<BaseTagProps>`
   transition: all 0.1s ease-in-out;
 
   &:hover {
-    color: ${(props) => props.mainColor ?? props.theme.colors.background};
-    background-color: ${(props) => props.secondaryColor ?? props.theme.colors.textTransparent};
-    border-color: ${(props) => props.secondaryColor ?? props.theme.colors.text};
-    backdrop-filter: saturate(180%) blur(5px);
+    color: ${(props) =>
+      match(props)
+        .with({ mainColor: __.string, secondaryColor: __.string }, (p) =>
+          isBright(p.mainColor) && isBright(p.mainColor)
+            ? p.theme.colors.blackText
+            : p.theme.colors.whiteText,
+        )
+        .with({ mainColor: __.string }, (p) =>
+          isBright(p.mainColor) ? p.theme.colors.blackText : p.theme.colors.whiteText,
+        )
+        .otherwise(() => props.theme.colors.background)};
+
+    ${(props) =>
+      match(props)
+        .with(
+          { mainColor: __.string, secondaryColor: __.string },
+          (p) =>
+            `background-image: linear-gradient(45deg, ${p.mainColor} 10%, ${p.secondaryColor} 90%);`,
+        )
+        .with({ mainColor: __.string }, (p) => `background-color: ${p.mainColor};`)
+        .otherwise(() => `background-color: ${props.theme.colors.text};`)};
   }
 
   &:focus,

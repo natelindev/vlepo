@@ -1,5 +1,4 @@
 import { css, Global } from '@emotion/react';
-import styled from '@emotion/styled';
 
 export const globalStyles = (
   <Global
@@ -52,10 +51,3 @@ export const globalStyles = (
     `}
   />
 );
-
-export const spinner = styled.div`
-  display: inline-block;
-  position: relative;
-  width: 64px;
-  height: 64px;
-`;
