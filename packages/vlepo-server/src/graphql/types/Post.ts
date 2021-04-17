@@ -14,6 +14,7 @@ import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection
 import { PostStatus as DBPostStatus } from '@prisma/client';
 
 import { OAuthCheckScope } from '../../oauth2/nexus';
+import { genPostSlug } from '../../util/genPostSlug';
 import { Comment } from './Comment';
 import { createImageInput, Image } from './Image';
 import { Rating } from './Rating';
@@ -31,6 +32,7 @@ export const Post = objectType({
     });
     t.model.owner();
     t.model.title();
+    t.model.slug();
     t.model.content();
     t.model.headerImageUrl();
     t.model.comments();
@@ -164,10 +166,10 @@ export const creatPostResponse = objectType({
 export const viewPostMutation = mutationField('viewPost', {
   type: Void,
   args: {
-    id: stringArg(),
+    slug: stringArg(),
   },
-  resolve: async (_root, { id }, ctx) => {
-    if (!id) {
+  resolve: async (_root, { slug }, ctx) => {
+    if (!slug) {
       return;
     }
     const dbPost = await ctx.prisma.post.findFirst({
@@ -175,13 +177,13 @@ export const viewPostMutation = mutationField('viewPost', {
         viewCount: true,
       },
       where: {
-        id,
+        slug,
       },
     });
     if (dbPost) {
       await ctx.prisma.post.update({
         where: {
-          id,
+          slug,
         },
         data: {
           viewCount: dbPost.viewCount + 1,
@@ -209,6 +211,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
             ownerId: currentUser.id,
             status: createPostInput.status,
             title: createPostInput.title,
+            slug: genPostSlug(createPostInput.title),
             content: createPostInput.content,
             headerImageUrl: createPostInput.headerImageUrl,
             minuteRead: Math.ceil(readingTime(createPostInput.content).minutes),

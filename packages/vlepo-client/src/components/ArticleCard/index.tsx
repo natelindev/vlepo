@@ -28,6 +28,7 @@ const articlePostFragment = graphql`
   fragment ArticleCard_post on Post {
     id
     title
+    slug
     abstract
     headerImageUrl
     createdAt
@@ -48,12 +49,12 @@ const articlePostFragment = graphql`
 const ArticleCard = (props: ArticleCardProps) => {
   const { post: fullPost, width } = props;
   const post = useFragment(articlePostFragment, fullPost);
-  const { title, headerImageUrl, abstract, createdAt, id, tags, owner, minuteRead } = post;
+  const { title, headerImageUrl, abstract, createdAt, slug, tags, owner, minuteRead } = post;
   const createDate = parseISO(createdAt);
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
-    <BaseArticleCard href={`/posts/${id}`} width={width}>
+    <BaseArticleCard href={`/posts/${slug}`} width={width}>
       {compareAsc(new Date(), addDays(createDate, 1)) === -1 && (
         <Row height="0">
           <Badge height="1.2rem" variant="accent" mt="-0.5rem" ml="auto" mr="-0.5rem">
@@ -127,7 +128,7 @@ const ArticleCard = (props: ArticleCardProps) => {
               secondaryColor={t.secondaryColor}
               name={t.name}
               key={t.id}
-              href={`/tags/${t.id}`}
+              href={`/tags/${t.name}`}
             />
           ))}
       </ArticleCardFooter>

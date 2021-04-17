@@ -81,6 +81,7 @@ model Post {
   content        String?
   status         PostStatus @default(DRAFT)
   title          String
+  slug           String     @unique
   headerImageUrl String?
   owner          User       @relation(fields: [ownerId], references: [id])
   comments       Comment[]

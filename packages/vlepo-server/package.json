@@ -11,7 +11,7 @@
     "db:new-migration": "prisma migrate dev --name",
     "db:push": "prisma db push --preview-feature",
     "db:reset": "prisma migrate reset",
-    "db:seed": "cross-env DEBUG=vlepo:* ts-node prisma/seed.ts -s",
+    "db:seed": "cross-env DEBUG=vlepo:* ts-node --transpile-only prisma/seed.ts -s",
     "dev": "cross-env NODE_ENV=development DEBUG=vlepo:* ts-node-dev -r dotenv/config --exit-child --tree-kill --respawn --transpile-only src/app.ts",
     "generate": "yarn -s generate:prisma && yarn -s generate:nexus",
     "generate:nexus": "cross-env NODE_ENV=development ts-node --transpile-only src/graphql",

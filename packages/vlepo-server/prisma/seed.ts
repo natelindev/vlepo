@@ -8,6 +8,8 @@ import meow from 'meow';
 import { OAuthGrant, PostStatus, PrismaClient } from '@prisma/client';
 import { OAuthConsts } from '@vlepo/shared';
 
+import { genPostSlug } from '../src/util/genPostSlug';
+
 const debug = debugInit('vlepo:db:seed');
 
 const cleanDB = async (prisma: PrismaClient) => {
@@ -165,14 +167,21 @@ const seedBD = async (prisma: PrismaClient) => {
     });
     debug(`seeded default blog`);
 
+    const posts = Array(5)
+      .fill(null)
+      .map(() => {
+        const title = name.title();
+        return {
+          title,
+          content: lorem.paragraphs(5),
+          status: PostStatus.PUBLISHED,
+          ownerId: admin.id,
+          blogId: defaultBlog.id,
+          slug: genPostSlug(title),
+        };
+      });
     await prisma.post.createMany({
-      data: Array(5).fill({
-        title: name.title(),
-        content: lorem.paragraphs(5),
-        status: PostStatus.PUBLISHED,
-        ownerId: admin.id,
-        blogId: defaultBlog.id,
-      }),
+      data: posts,
     });
     debug(`seeded default posts`);
   } catch (err) {

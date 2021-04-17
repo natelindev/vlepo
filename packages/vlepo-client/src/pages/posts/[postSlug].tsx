@@ -1,5 +1,4 @@
 import { format, parseISO } from 'date-fns';
-import debugInit from 'debug';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import hydrate from 'next-mdx-remote/hydrate';
 import renderToString from 'next-mdx-remote/render-to-string';
@@ -8,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { graphql } from 'react-relay';
 import { useMutation, useQuery } from 'relay-hooks';
 import { fetchQuery } from 'relay-runtime';
-import { PostIdViewMutation } from 'src/__generated__/PostIdViewMutation.graphql';
+import { PostSlugViewMutation } from 'src/__generated__/PostSlugViewMutation.graphql';
 import Avatar from 'src/components/Avatar';
 import HoverShare from 'src/components/HoverShare/HoverShare';
 import Image from 'src/components/Image';
@@ -21,18 +20,17 @@ import { initEnvironment } from 'src/relay';
 import { KeyboardBackspace } from '@emotion-icons/material-outlined';
 import { css, useTheme } from '@emotion/react';
 
-import { PostIdQuery } from '../../__generated__/PostIdQuery.graphql';
+import { PostSlugQuery } from '../../__generated__/PostSlugQuery.graphql';
 import { ArticleBody, Back, Content, Header, Title } from './style';
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const debug = debugInit('vlepo:postId');
   const { query, res } = context;
   const { environment, relaySSR } = initEnvironment();
-  const PostId = query.postId as string;
+  const postSlug = query.postSlug as string;
 
   await new Promise((resolve, reject) => {
-    fetchQuery<PostIdQuery>(environment, postIdQuery, {
-      id: PostId,
+    fetchQuery<PostSlugQuery>(environment, postSlugQuery, {
+      slug: postSlug,
     }).subscribe({
       complete: () => resolve(undefined),
       error: (err: Error) => reject(err),
@@ -41,7 +39,6 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   const [relayData] = await relaySSR.getCache();
   const [queryString, queryPayload] = relayData ?? [];
-  debug(`${PostId} visited`);
 
   res.setHeader('Cache-Control', 's-maxage=604800, stale-while-revalidate');
 
@@ -58,9 +55,9 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   };
 };
 
-const postIdQuery = graphql`
-  query PostIdQuery($id: String!) {
-    post(where: { id: $id }) {
+const postSlugQuery = graphql`
+  query PostSlugQuery($slug: String!) {
+    post(where: { slug: $slug }) {
       title
       owner {
         name
@@ -77,15 +74,15 @@ const postIdQuery = graphql`
   }
 `;
 
-const postIdViewMutation = graphql`
-  mutation PostIdViewMutation($id: String!) {
-    viewPost(id: $id)
+const postSlugViewMutation = graphql`
+  mutation PostSlugViewMutation($slug: String!) {
+    viewPost(slug: $slug)
   }
 `;
 
 const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
-  const PostId = router.query.postId as string;
+  const postSlug = router.query.postSlug as string;
   const {
     renderedMDX = {
       compiledSource: '',
@@ -93,17 +90,17 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
       scope: {},
     },
   } = props;
-  const { error, data } = useQuery<PostIdQuery>(postIdQuery, { id: PostId });
+  const { error, data } = useQuery<PostSlugQuery>(postSlugQuery, { slug: postSlug });
   const mdxContent = hydrate(renderedMDX, { components });
   const [fullUrl, setFullUrl] = useState('');
   const theme = useTheme();
 
-  const [mutate] = useMutation<PostIdViewMutation>(postIdViewMutation);
+  const [mutate] = useMutation<PostSlugViewMutation>(postSlugViewMutation);
 
   useEffect(() => {
     setFullUrl(window.location.href);
-    mutate({ variables: { id: PostId } });
-  }, [PostId, mutate]);
+    mutate({ variables: { slug: postSlug } });
+  }, [postSlug, mutate]);
 
   if (error) return <div>{error.message}</div>;
   if (!data || !data.post || router.isFallback) return <PlaceHolder />;
