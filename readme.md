@@ -10,6 +10,7 @@ Here's the one of them to show off technologies I learned.
 
 - [React](https://github.com/facebook/react)
   - SSR support by [Next.js](https://github.com/vercel/next.js)
+  - [MDX](https://mdxjs.com/) powered content supercharged markdown engine
   - 99% of components are hand-built using [Emotion](https://github.com/emotion-js/emotion) css-in-js
   - A number of hand-written custom hooks
   - Theme support for both dark and light and more
@@ -56,4 +57,3 @@ Here's the one of them to show off technologies I learned.
 This repo's dependencies contains `next-mdx-remote`, which is licensed with `MPL 2.0`.
 
 This project's sources itself is licensed under MIT.
-
