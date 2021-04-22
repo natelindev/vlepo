@@ -48,8 +48,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   return {
     props: {
-      // @ts-expect-error relay-network-modern inaccurate typing
-      relayData: relayData ? [[queryString, queryPayload.json]] : null,
+      relayData: relayData && 'json' in queryPayload ? [[queryString, queryPayload.json]] : null,
       renderedMDX,
     },
   };
