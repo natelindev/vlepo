@@ -6,7 +6,6 @@
   "types": "build/index.d.ts",
   "scripts": {
     "build": "tsc && cp package.json build",
-    "dev": "tsc --watch",
     "generate": "yarn build",
     "lint": "eslint src --ext .ts,.tsx",
     "spellcheck": "cspell src/**/*.{ts,tsx}",

@@ -33,6 +33,7 @@ const IndexMasonry = styled(Masonry)`
 
 const IndexRow = styled.div<MarginProps>`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   margin-top: 3rem;
   ${margin}
@@ -136,7 +137,7 @@ const PostsSection = (props: PostSectionProps) => {
         {isLoadingNext && <PlaceHolder width="100%" />}
         {hasNext && !isLoadingNext && (
           <Row>
-            <GradientButton width="100%" mx="6rem" mb="2rem" onClick={() => loadNext(5)}>
+            <GradientButton width="100%" mb="2rem" onClick={() => loadNext(5)}>
               Load More
             </GradientButton>
           </Row>
