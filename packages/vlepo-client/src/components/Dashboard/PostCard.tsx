@@ -20,7 +20,7 @@ export type PostCardProps = { post: PostCard_post$key };
 
 const fragmentSpec = graphql`
   fragment PostCard_post on Post {
-    id
+    slug
     title
     status
     createdAt
@@ -35,7 +35,7 @@ const PostCard = (props: PostCardProps) => {
   const { post: fullPost } = props;
 
   const post = useFragment(fragmentSpec, fullPost);
-  const { id, title, status, reactionCount, commentCount, viewCount, createdAt, editedAt } = post;
+  const { slug, title, status, reactionCount, commentCount, viewCount, createdAt, editedAt } = post;
   return (
     <BasePostCard>
       <Row mb="auto">
@@ -52,7 +52,7 @@ const PostCard = (props: PostCardProps) => {
       </Row>
       <Row>
         <Section mr="auto" my="auto" flexDirection="column" justifyContent="center">
-          <Link href={`/posts/${id}`} passHref>
+          <Link href={`/posts/${slug}`} passHref>
             <Title>{title}</Title>
           </Link>
           <Row mt="auto">
