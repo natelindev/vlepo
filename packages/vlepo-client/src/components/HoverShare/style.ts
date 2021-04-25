@@ -16,4 +16,8 @@ export const ShareContainer = styled.div<{ scrollPosition: number }>`
     border: none;
     outline: none;
   }
+
+  svg {
+    border-radius: ${(props) => `${props.theme.radii.default}px`};
+  }
 `;

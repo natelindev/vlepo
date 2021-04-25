@@ -1,8 +1,25 @@
-import { objectType } from 'nexus';
+import { interfaceType, objectType } from 'nexus';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 
 import { Image } from './Image';
+
+export const Commendable = interfaceType({
+  name: 'Commendable',
+  definition(t) {
+    t.connectionField('commentsConnection', {
+      type: Comment,
+      async resolve(_root, args, ctx) {
+        const result = await findManyCursorConnection(
+          (args) => ctx.prisma.comment.findMany(args),
+          () => ctx.prisma.comment.count(),
+          args,
+        );
+        return result;
+      },
+    });
+  },
+});
 
 export const Comment = objectType({
   name: 'Comment',

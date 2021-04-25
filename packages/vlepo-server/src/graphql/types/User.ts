@@ -12,6 +12,7 @@ export const User = objectType({
   name: 'User',
   definition(t) {
     t.implements('Node');
+    t.implements('Commendable');
     t.id('id', {
       resolve: (root) => root.id,
     });
@@ -52,15 +53,18 @@ export const User = objectType({
     });
     t.connectionField('postsConnection', {
       type: Post,
-      async resolve(_root, args, ctx) {
-        const sortArgs = {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            ownerId: id,
+          },
           orderBy: {
             createdAt: 'desc' as const,
           },
         };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.post.findMany({ ...args, ...sortArgs }),
-          () => ctx.prisma.post.count(sortArgs),
+          (args) => ctx.prisma.post.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.post.count(customArgs),
           args,
         );
         return result;

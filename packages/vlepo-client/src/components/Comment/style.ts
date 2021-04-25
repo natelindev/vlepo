@@ -11,9 +11,14 @@ import {
 
 import styled from '@emotion/styled';
 
-export const BaseProfileComment = styled.div<WidthProps & HeightProps & MarginProps & PaddingProps>`
+type BaseCommentProps = { variant: 'profile' | 'post' } & WidthProps &
+  HeightProps &
+  MarginProps &
+  PaddingProps;
+export const BaseComment = styled.div<BaseCommentProps>`
   &:hover {
-    background-color: ${(props) => props.theme.colors.backgroundMuted};
+    background-color: ${(props) =>
+      props.variant === 'profile' ? props.theme.colors.backgroundMuted : 'inherit'};
   }
   ${width}
   ${height}

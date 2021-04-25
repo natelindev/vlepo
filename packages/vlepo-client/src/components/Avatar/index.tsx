@@ -25,14 +25,14 @@ const BaseAvatar = styled.div<BaseAvatarProps & MarginProps & PaddingProps & Bor
   ${borderRadius}
 `;
 
-type AvatarProps = React.ComponentProps<typeof BaseAvatar> & { src: string; size?: number };
+type AvatarProps = React.ComponentProps<typeof BaseAvatar> & { src?: string | null; size?: number };
 
 const Avatar = (props: AvatarProps) => {
   const { src, size = 24, ...rest } = props;
 
   return (
     <BaseAvatar size={size} {...rest}>
-      <Image src={src} layout="fixed" height={size} width={size} />
+      <Image src={src ?? '/images/avatar/bot.svg'} layout="fixed" height={size} width={size} />
     </BaseAvatar>
   );
 };

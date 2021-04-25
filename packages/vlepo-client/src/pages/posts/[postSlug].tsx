@@ -9,6 +9,7 @@ import { useMutation, useQuery } from 'relay-hooks';
 import { fetchQuery } from 'relay-runtime';
 import { PostSlugViewMutation } from 'src/__generated__/PostSlugViewMutation.graphql';
 import Avatar from 'src/components/Avatar';
+import { PostCommentSection } from 'src/components/Comment/CommentSection';
 import HoverShare from 'src/components/HoverShare/HoverShare';
 import Image from 'src/components/Image';
 import { Column, Row } from 'src/components/Layout/style';
@@ -69,6 +70,7 @@ const postSlugQuery = graphql`
       headerImageUrl
       content
       createdAt
+      ...CommentSection_commendable
     }
   }
 `;
@@ -150,11 +152,14 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
         </Image>
       </Header>
       <HoverShare title={title} url={fullUrl} tags={tags.map((t) => t.name)} />
-      <Row>
-        <ArticleBody mx="auto" width={[0.95, 0.9, 0.85, 0.8]}>
-          <Content>{mdxContent}</Content>
-        </ArticleBody>
-      </Row>
+      <Column mb="2rem" mx="auto" width={[0.95, 0.9, 0.85, 0.8]}>
+        <Row>
+          <ArticleBody>
+            <Content>{mdxContent}</Content>
+          </ArticleBody>
+        </Row>
+        <PostCommentSection parent={data.post} />
+      </Column>
     </>
   );
 };

@@ -8,6 +8,9 @@ import {
   stringArg,
 } from 'nexus';
 import readingTime from 'reading-time';
+import remark from 'remark';
+import mdx from 'remark-mdx';
+import strip from 'remark-mdx-to-plain-text';
 import { v4 } from 'uuid';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
@@ -27,6 +30,7 @@ export const Post = objectType({
   name: 'Post',
   definition(t) {
     t.implements('Node');
+    t.implements('Commendable');
     t.id('id', {
       resolve: (root) => root.id,
     });
@@ -66,16 +70,26 @@ export const Post = objectType({
       },
     });
     t.string('abstract', {
-      resolve({ content }) {
-        return content ? content.slice(0, 150) : null;
+      async resolve({ content }) {
+        const strippedContent = await remark()
+          .use(mdx)
+          .use(strip)
+          .process(content ?? '');
+        const result = strippedContent.toString();
+        return result.length > 0 ? result.slice(0, 150) : null;
       },
     });
     t.connectionField('commentsConnection', {
       type: Comment,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            postId: id,
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.comment.findMany(args),
-          () => ctx.prisma.comment.count(),
+          (args) => ctx.prisma.comment.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.comment.count(customArgs),
           args,
         );
         return result;

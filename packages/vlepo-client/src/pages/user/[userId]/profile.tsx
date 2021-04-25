@@ -5,7 +5,7 @@ import { profile_user$key } from 'src/__generated__/profile_user.graphql';
 import { profile_userQuery } from 'src/__generated__/profile_userQuery.graphql';
 import Avatar from 'src/components/Avatar';
 import Card from 'src/components/Card';
-import CommentSection from 'src/components/Comment/CommentSection';
+import { ProfileCommentSection } from 'src/components/Comment/CommentSection';
 import { ErrorText } from 'src/components/Input';
 import { Column, Row } from 'src/components/Layout/style';
 import PlaceHolder from 'src/components/PlaceHolder';
@@ -22,7 +22,7 @@ const profileUserFragment = graphql`
     name
     description
     profileImageUrl
-    ...CommentSection_user
+    ...CommentSection_commendable
   }
 `;
 
@@ -61,7 +61,7 @@ const Profile = () => {
             <Row>{profileUser.description && <H4 mx="auto">{profileUser.description}</H4>}</Row>
           </UserCard>
           <Card my="2rem" width="100%">
-            <CommentSection comments={profileUser} />
+            <ProfileCommentSection parent={profileUser} />
           </Card>
         </>
       ) : (
