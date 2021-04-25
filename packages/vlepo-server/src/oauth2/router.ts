@@ -7,7 +7,6 @@ import { match } from 'ts-pattern';
 import { OAuthClient, OAuthProviders } from '@prisma/client';
 import { envDetect } from '@vlepo/shared';
 
-import { token } from './middleware';
 import { generateAccessToken, saveToken } from './model';
 
 import type { DefaultState } from 'koa';
@@ -204,14 +203,5 @@ router.get('/callback', async (ctx) => {
   }
   return ctx.redirect(`${process.env.CLIENT_URL}/oauth2-redirect?error=invalid_provider`);
 });
-
-router.post(
-  '/token',
-  token({
-    requireClientAuthentication: {
-      password: false,
-    },
-  }),
-);
 
 export default router;
