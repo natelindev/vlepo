@@ -357,7 +357,6 @@ export const verifyScope = async (token: OAuthAccessToken, scope: string | strin
   return scopes.every((s) => flattenedScopes.includes(s));
 };
 
-// not used for oauth2-server model, utility function
 export const verifyAccessToken = async (
   accessToken: string | OAuthAccessToken | null | undefined,
   options?: {
