@@ -3583,6 +3583,15 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
+"@types/react@17.0.4":
+  version "17.0.4"
+  resolved "https://registry.npmjs.org/@types/react/-/react-17.0.4.tgz#a67c6f7a460d2660e950d9ccc1c2f18525c28220"
+  integrity sha512-onz2BqScSFMoTRdJUZUDD/7xrusM8hBA2Fktk2qgaTYPCgPvWnDEgkrOs8hhPUf2jfcIXkJ5yK6VfYormJS3Jw==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
+
 "@types/relay-runtime@*":
   version "10.1.9"
   resolved "https://registry.npmjs.org/@types/relay-runtime/-/relay-runtime-10.1.9.tgz#3928680a46e456153d340b347871bb00639cf62c"
