@@ -6,15 +6,12 @@ import { Comment_comment$key } from 'src/__generated__/Comment_comment.graphql';
 import { Comment_user$key } from 'src/__generated__/Comment_user.graphql';
 import { H4, H5, H6 } from 'src/components/Typography';
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
+import { match } from 'ts-pattern';
 
 import Avatar from '../Avatar';
 import Badge from '../Badge';
 import { Row } from '../Layout/style';
 import { BaseComment } from './style';
-
-const Comment = () => {
-  return <></>;
-};
 
 const commentFragment = graphql`
   fragment Comment_comment on Comment {
@@ -37,43 +34,43 @@ const Comment_user = graphql`
   }
 `;
 
-type ProfileCommentProps = {
+type CommentProps = {
   comment: Comment_comment$key;
+  variant: 'profile' | 'post';
 } & React.ComponentProps<typeof BaseComment>;
 
-export const PostComment = (props: ProfileCommentProps) => {
-  const { comment: fullComment, ...rest } = props;
+const Comment = (props: CommentProps) => {
+  const { comment: fullComment, variant, ...rest } = props;
   const currentUser = useCurrentUser<Comment_user$key>(Comment_user);
   const comment = useFragment(commentFragment, fullComment);
   return (
-    <BaseComment {...rest}>
-      <Row alignItems="center">
-        <Avatar src={comment.owner.profileImageUrl} size={32} />
-        <H5 mx="0.5rem">{comment.owner.name}</H5>
-        <H6>{format(parseISO(comment.createdAt), 'MMM d')}</H6>
-        {currentUser && currentUser.id === comment.owner.id && (
-          <Badge ml="0.3rem" variant="secondary">
-            me
-          </Badge>
-        )}
-      </Row>
+    <BaseComment variant={variant} {...rest}>
+      {match(variant)
+        .with('post', () => (
+          <Row alignItems="center">
+            <Avatar src={comment.owner.profileImageUrl} size={32} />
+            <H5 mx="0.5rem">{comment.owner.name}</H5>
+            <H6>{format(parseISO(comment.createdAt), 'MMM d')}</H6>
+            {currentUser && currentUser.id === comment.owner.id && (
+              <Badge ml="0.3rem" variant="secondary">
+                me
+              </Badge>
+            )}
+          </Row>
+        ))
+        .with('profile', () => (
+          <>
+            {comment.post && <H6 color="muted">{comment.post.title}</H6>}
+            <Row>
+              <H4>{comment.content}</H4>
+              <H4 ml="auto" mr="1rem">
+                {format(parseISO(comment.createdAt), 'MMM d')}
+              </H4>
+            </Row>
+          </>
+        ))
+        .run()}
       <Row>{comment.content}</Row>
-    </BaseComment>
-  );
-};
-
-export const ProfileComment = (props: ProfileCommentProps) => {
-  const { comment: fullComment, ...rest } = props;
-  const comment = useFragment(commentFragment, fullComment);
-  return (
-    <BaseComment {...rest}>
-      {comment.post && <H6 color="muted">{comment.post.title}</H6>}
-      <Row>
-        <H4>{comment.content}</H4>
-        <H4 ml="auto" mr="1rem">
-          {format(parseISO(comment.createdAt), 'MMM d')}
-        </H4>
-      </Row>
     </BaseComment>
   );
 };

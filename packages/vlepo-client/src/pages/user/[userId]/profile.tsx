@@ -5,7 +5,7 @@ import { profile_user$key } from 'src/__generated__/profile_user.graphql';
 import { profile_userQuery } from 'src/__generated__/profile_userQuery.graphql';
 import Avatar from 'src/components/Avatar';
 import Card from 'src/components/Card';
-import { ProfileCommentSection } from 'src/components/Comment/CommentSection';
+import CommentSection from 'src/components/Comment/CommentSection';
 import { ErrorText } from 'src/components/Input';
 import { Column, Row } from 'src/components/Layout/style';
 import PlaceHolder from 'src/components/PlaceHolder';
@@ -61,7 +61,7 @@ const Profile = () => {
             <Row>{profileUser.description && <H4 mx="auto">{profileUser.description}</H4>}</Row>
           </UserCard>
           <Card my="2rem" width="100%">
-            <ProfileCommentSection parent={profileUser} />
+            <CommentSection variant="profile" parent={profileUser} />
           </Card>
         </>
       ) : (

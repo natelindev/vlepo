@@ -9,7 +9,7 @@ import { useMutation, useQuery } from 'relay-hooks';
 import { fetchQuery } from 'relay-runtime';
 import { PostSlugViewMutation } from 'src/__generated__/PostSlugViewMutation.graphql';
 import Avatar from 'src/components/Avatar';
-import { PostCommentSection } from 'src/components/Comment/CommentSection';
+import CommentSection from 'src/components/Comment/CommentSection';
 import HoverShare from 'src/components/HoverShare/HoverShare';
 import Image from 'src/components/Image';
 import { Column, Row } from 'src/components/Layout/style';
@@ -158,7 +158,7 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
             <Content>{mdxContent}</Content>
           </ArticleBody>
         </Row>
-        <PostCommentSection parent={data.post} />
+        <CommentSection variant="post" parent={data.post} />
       </Column>
     </>
   );
