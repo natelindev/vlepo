@@ -41,10 +41,15 @@ export const Comment = objectType({
     t.model.updatedAt();
     t.connectionField('childCommentsConnection', {
       type: Comment,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            parentId: id,
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.comment.findMany(args),
-          () => ctx.prisma.comment.count(),
+          (args) => ctx.prisma.comment.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.comment.count(customArgs),
           args,
         );
         return result;
@@ -52,10 +57,15 @@ export const Comment = objectType({
     });
     t.connectionField('imagesConnection', {
       type: Image,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            commentId: id,
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.image.findMany(args),
-          () => ctx.prisma.image.count(),
+          (args) => ctx.prisma.image.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.image.count(customArgs),
           args,
         );
         return result;

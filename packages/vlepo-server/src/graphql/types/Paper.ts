@@ -23,10 +23,15 @@ export const Paper = objectType({
     t.model.updatedAt();
     t.connectionField('imagesConnection', {
       type: Image,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            paperId: id,
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.image.findMany(args),
-          () => ctx.prisma.image.count(),
+          (args) => ctx.prisma.image.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.image.count(customArgs),
           args,
         );
         return result;
@@ -34,10 +39,19 @@ export const Paper = objectType({
     });
     t.connectionField('tagsConnection', {
       type: Tag,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            papers: {
+              some: {
+                id,
+              },
+            },
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.tag.findMany(args),
-          () => ctx.prisma.tag.count(),
+          (args) => ctx.prisma.tag.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.tag.count(customArgs),
           args,
         );
         return result;
@@ -45,10 +59,15 @@ export const Paper = objectType({
     });
     t.connectionField('reactionsConnection', {
       type: Reaction,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            paperId: id,
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.reaction.findMany(args),
-          () => ctx.prisma.reaction.count(),
+          (args) => ctx.prisma.reaction.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.reaction.count(customArgs),
           args,
         );
         return result;
