@@ -30,12 +30,12 @@ const animation = css`
   }
 `;
 
-interface ScrollTopProps {
+export type ScrollTopProps = {
   show: boolean;
   up: boolean;
-}
+};
 
-const BaseScrollToTop = styled.div<ScrollTopProps>`
+export const BaseScrollToTop = styled.div<ScrollTopProps>`
   ${animation}
 
   position: fixed;

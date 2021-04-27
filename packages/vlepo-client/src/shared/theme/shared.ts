@@ -99,6 +99,7 @@ export const shared = {
     Navbar: 3,
     ProgressBar: 4,
     DropDownMenu: 4,
+    HoverShare: 5,
     ModalContainer: 999,
     Toast: 1000,
   },
