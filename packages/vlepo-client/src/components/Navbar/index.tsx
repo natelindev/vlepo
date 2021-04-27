@@ -1,6 +1,6 @@
 ﻿import Link from 'next/link';
 import React, { useContext, useState } from 'react';
-import { a, useSpring } from 'react-spring';
+import { a, useSpring, useSprings } from 'react-spring';
 import Dropdown from 'src/components/Dropdown';
 import Logo from 'src/components/Logo';
 import { ThemeContext } from 'src/pages/_app';
@@ -14,25 +14,43 @@ import {
   BaseNavbar,
   LeftNavCollapse,
   NavbarNav,
+  NavbarToggler,
   NavBrand,
   NavItem,
   NavSearchBar,
   RightNavCollapse,
+  TogglerBar,
 } from './style';
 
 const Navbar: React.FC = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const { theme, setTheme } = useContext(ThemeContext);
-
+  const [isToggled, setIsToggled] = useState(false);
   const { x } = useSpring({ config: { duration: 300 }, x: theme?.name === 'dark' ? 1 : 0 });
+
+  const toggleSprings = useSprings(3, [
+    {
+      transformOrigin: '10% 10%',
+      transform: isToggled ? 'rotate(0deg)' : 'rotate(45deg)',
+    },
+    {
+      opacity: isToggled ? '1' : '0',
+    },
+    {
+      transformOrigin: '10% 90%',
+      transform: isToggled ? 'rotate(0deg)' : 'rotate(-45deg)',
+    },
+  ]);
 
   return (
     <BaseNavbar>
       <Logo size="32px" ml="1rem" mr="0.5rem" my="auto" />
       <Link href="/" passHref>
-        <NavBrand href="/">Nathaniel&#39;s Blog</NavBrand>
+        <NavBrand href="/" mr="auto">
+          Nathaniel&#39;s Blog
+        </NavBrand>
       </Link>
-      <LeftNavCollapse>
+      <LeftNavCollapse display={['none', 'none', 'block']}>
         <NavbarNav>
           <NavLink href="/portfolio">Portfolio</NavLink>
           <NavLink href="/papers">Papers</NavLink>
@@ -51,7 +69,7 @@ const Navbar: React.FC = () => {
           </Dropdown>
         </NavbarNav>
       </LeftNavCollapse>
-      <RightNavCollapse>
+      <RightNavCollapse display={['none', 'block']}>
         <NavbarNav>
           <NavSearchBar />
           <NavItem
@@ -83,7 +101,12 @@ const Navbar: React.FC = () => {
           </ClientOnly>
         </NavbarNav>
       </RightNavCollapse>
-      {/* <NavbarToggler className="animated--toggler" /> */}
+      <NavbarToggler onClick={() => setIsToggled(!isToggled)} display={['block', 'none']}>
+        {toggleSprings.map((styles, key) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <TogglerBar key={key} style={styles} />
+        ))}
+      </NavbarToggler>
       <LoginModal open={showLoginModal} onClose={() => setShowLoginModal(false)} />
     </BaseNavbar>
   );

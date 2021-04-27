@@ -1,4 +1,5 @@
-import { margin, MarginProps, width, WidthProps } from 'styled-system';
+import { a } from 'react-spring';
+import { display, DisplayProps, margin, MarginProps, width, WidthProps } from 'styled-system';
 
 import styled from '@emotion/styled';
 
@@ -18,7 +19,7 @@ export const BaseNavbar = styled.nav`
   z-index: ${(props) => props.theme.zIndices.Navbar};
 `;
 
-export const NavBrand = styled.a`
+export const NavBrand = styled.a<MarginProps>`
   display: inline-block;
   padding-top: 0.3125rem;
   padding-bottom: 0.3125rem;
@@ -28,6 +29,7 @@ export const NavBrand = styled.a`
   white-space: nowrap;
   text-decoration: none;
   color: ${(props) => props.theme.colors.text};
+  ${margin}
 `;
 
 export const NavbarCollapse = styled.div`
@@ -35,13 +37,15 @@ export const NavbarCollapse = styled.div`
   flex-grow: 1;
 `;
 
-export const LeftNavCollapse = styled(NavbarCollapse)`
+export const LeftNavCollapse = styled(NavbarCollapse)<DisplayProps>`
   flex-grow: 0;
   flex-basis: auto;
+  ${display}
 `;
 
-export const RightNavCollapse = styled(NavbarCollapse)`
+export const RightNavCollapse = styled(NavbarCollapse)<DisplayProps>`
   flex-grow: 0;
+  ${display}
 `;
 
 export const NavbarNav = styled.div`
@@ -61,4 +65,22 @@ export const NavItem = styled.li<WidthProps & MarginProps>`
 export const NavSearchBar = styled(SearchBar)`
   margin-left: auto;
   margin-right: 0.5rem;
+`;
+
+export const NavbarToggler = styled.div<DisplayProps>`
+  ${display}
+  width: 2.2rem;
+  height: 2.2rem;
+  margin-top: 1.1rem;
+  margin-bottom: auto;
+  margin-right: 1rem;
+`;
+
+export const TogglerBar = styled(a.div)`
+  background-color: ${(props) => props.theme.colors.text};
+  display: block;
+  width: 1.5em;
+  height: 2px;
+  border-radius: 1px;
+  margin-top: 0.3rem;
 `;
