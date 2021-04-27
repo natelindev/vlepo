@@ -18,10 +18,19 @@ export const UserRole = objectType({
     t.model.updatedAt();
     t.connectionField('usersConnection', {
       type: User,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            roles: {
+              some: {
+                id,
+              },
+            },
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.user.findMany(args),
-          () => ctx.prisma.user.count(),
+          (args) => ctx.prisma.user.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.user.count(customArgs),
           args,
         );
         return result;

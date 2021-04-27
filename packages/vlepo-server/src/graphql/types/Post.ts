@@ -97,10 +97,15 @@ export const Post = objectType({
     });
     t.connectionField('sharesConnection', {
       type: ShareCount,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            postId: id,
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.shareCount.findMany(args),
-          () => ctx.prisma.shareCount.count(),
+          (args) => ctx.prisma.shareCount.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.shareCount.count(customArgs),
           args,
         );
         return result;
@@ -108,10 +113,15 @@ export const Post = objectType({
     });
     t.connectionField('imagesConnection', {
       type: Image,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            postId: id,
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.image.findMany(args),
-          () => ctx.prisma.image.count(),
+          (args) => ctx.prisma.image.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.image.count(customArgs),
           args,
         );
         return result;
@@ -119,10 +129,19 @@ export const Post = objectType({
     });
     t.connectionField('tagsConnection', {
       type: Tag,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            posts: {
+              some: {
+                id,
+              },
+            },
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.tag.findMany(args),
-          () => ctx.prisma.tag.count(),
+          (args) => ctx.prisma.tag.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.tag.count(customArgs),
           args,
         );
         return result;
@@ -130,10 +149,15 @@ export const Post = objectType({
     });
     t.connectionField('ratingsConnection', {
       type: Rating,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            postId: id,
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.rating.findMany(args),
-          () => ctx.prisma.rating.count(),
+          (args) => ctx.prisma.rating.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.rating.count(customArgs),
           args,
         );
         return result;
@@ -141,10 +165,15 @@ export const Post = objectType({
     });
     t.connectionField('reactionsConnection', {
       type: Reaction,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            postId: id,
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.reaction.findMany(args),
-          () => ctx.prisma.reaction.count(),
+          (args) => ctx.prisma.reaction.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.reaction.count(customArgs),
           args,
         );
         return result;

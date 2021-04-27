@@ -25,10 +25,19 @@ export const Tag = objectType({
     t.model.updatedAt();
     t.connectionField('postsConnection', {
       type: Post,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            tags: {
+              some: {
+                id,
+              },
+            },
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.post.findMany(args),
-          () => ctx.prisma.post.count(),
+          (args) => ctx.prisma.post.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.post.count(customArgs),
           args,
         );
         return result;
@@ -36,10 +45,19 @@ export const Tag = objectType({
     });
     t.connectionField('thoughtsConnection', {
       type: Thought,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            tags: {
+              some: {
+                id,
+              },
+            },
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.thought.findMany(args),
-          () => ctx.prisma.thought.count(),
+          (args) => ctx.prisma.thought.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.thought.count(customArgs),
           args,
         );
         return result;
@@ -47,10 +65,19 @@ export const Tag = objectType({
     });
     t.connectionField('projectConnection', {
       type: Project,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            tags: {
+              some: {
+                id,
+              },
+            },
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.project.findMany(args),
-          () => ctx.prisma.project.count(),
+          (args) => ctx.prisma.project.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.project.count(customArgs),
           args,
         );
         return result;
@@ -58,10 +85,19 @@ export const Tag = objectType({
     });
     t.connectionField('papersConnection', {
       type: Paper,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            tags: {
+              some: {
+                id,
+              },
+            },
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.paper.findMany(args),
-          () => ctx.prisma.paper.count(),
+          (args) => ctx.prisma.paper.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.paper.count(customArgs),
           args,
         );
         return result;

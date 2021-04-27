@@ -72,10 +72,15 @@ export const User = objectType({
     });
     t.connectionField('thoughtsConnection', {
       type: Thought,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            ownerId: id,
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.thought.findMany(args),
-          () => ctx.prisma.thought.count(),
+          (args) => ctx.prisma.thought.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.thought.count(customArgs),
           args,
         );
         return result;
@@ -83,9 +88,16 @@ export const User = objectType({
     });
     t.connectionField('commentsConnection', {
       type: Comment,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            owner: {
+              id,
+            },
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.comment.findMany(args),
+          (args) => ctx.prisma.comment.findMany({ ...args, ...customArgs }),
           () => ctx.prisma.comment.count(),
           args,
         );
@@ -94,10 +106,15 @@ export const User = objectType({
     });
     t.connectionField('imagesConnection', {
       type: Image,
-      async resolve(_root, args, ctx) {
+      async resolve({ id }, args, ctx) {
+        const customArgs = {
+          where: {
+            ownerId: id,
+          },
+        };
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.image.findMany(args),
-          () => ctx.prisma.image.count(),
+          (args) => ctx.prisma.image.findMany({ ...args, ...customArgs }),
+          () => ctx.prisma.image.count(customArgs),
           args,
         );
         return result;
