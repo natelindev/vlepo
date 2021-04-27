@@ -22,6 +22,7 @@
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.3.0",
     "@vlepo/shared": "1.0.0",
+    "bezier-easing": "2.1.0",
     "body-scroll-lock": "3.1.5",
     "date-fns": "2.21.1",
     "debug": "4.3.1",

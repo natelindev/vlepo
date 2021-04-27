@@ -1,3 +1,5 @@
+import { a } from 'react-spring';
+
 import styled from '@emotion/styled';
 
 import { BaseScrollToTop } from '../ScrollToTop';
@@ -9,12 +11,12 @@ export const ShareToggler = styled(BaseScrollToTop)`
   justify-content: center;
 `;
 
-export const ShareContainer = styled.div<{ show: boolean }>`
-  display: ${(props) => (props.show ? 'flex' : 'none')};
+export const ShareContainer = styled(a.div)`
   margin-top: 2rem;
   position: fixed;
   right: 0;
   bottom: 5.75rem;
+  display: flex;
 
   max-width: 2.2rem;
 

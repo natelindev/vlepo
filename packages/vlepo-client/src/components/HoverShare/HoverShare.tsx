@@ -1,3 +1,4 @@
+import easing from 'bezier-easing';
 import { useState } from 'react';
 import {
   RedditIcon,
@@ -7,7 +8,7 @@ import {
   TwitterIcon,
   TwitterShareButton,
 } from 'react-share';
-import { a, useSpring } from 'react-spring';
+import { a, useSpring, useTransition } from 'react-spring';
 import { useScrollPosition } from 'src/hooks/useScrollPosition';
 
 import { useTheme } from '@emotion/react';
@@ -28,6 +29,26 @@ const HoverShare = (props: HoverShareProps) => {
   const theme = useTheme();
 
   const { x } = useSpring({ config: { duration: 300 }, x: showContainer ? 1 : 0 });
+
+  const shareTransition = useTransition(showContainer, {
+    from: {
+      transform: 'translateX(2.2rem)',
+    },
+    enter: {
+      transform: 'translateX(0rem)',
+    },
+    leave: {
+      transform: 'translateX(2.2rem)',
+    },
+    config: {
+      duration: 1000,
+      easing: easing(0.77, 0, 0.175, 1),
+    },
+  });
+
+  if (scrollPosition < 100 && showContainer) {
+    setShowContainer(false);
+  }
 
   return (
     <>
@@ -56,17 +77,22 @@ const HoverShare = (props: HoverShareProps) => {
           />
         </svg>
       </ShareToggler>
-      <ShareContainer show={showContainer}>
-        <TelegramShareButton title={title} url={url}>
-          <TelegramIcon size="2.2rem" />
-        </TelegramShareButton>
-        <RedditShareButton title={title} url={url}>
-          <RedditIcon size="2.2rem" />
-        </RedditShareButton>
-        <TwitterShareButton title={title} hashtags={tags} url={url}>
-          <TwitterIcon size="2.2rem" />
-        </TwitterShareButton>
-      </ShareContainer>
+      {shareTransition(
+        (style, item) =>
+          item && (
+            <ShareContainer style={style}>
+              <TelegramShareButton title={title} url={url}>
+                <TelegramIcon size="2.2rem" />
+              </TelegramShareButton>
+              <RedditShareButton title={title} url={url}>
+                <RedditIcon size="2.2rem" />
+              </RedditShareButton>
+              <TwitterShareButton title={title} hashtags={tags} url={url}>
+                <TwitterIcon size="2.2rem" />
+              </TwitterShareButton>
+            </ShareContainer>
+          ),
+      )}
     </>
   );
 };
