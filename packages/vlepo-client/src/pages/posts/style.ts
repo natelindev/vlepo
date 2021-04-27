@@ -32,6 +32,8 @@ export const Back = styled.div`
 `;
 
 export const ArticleBody = styled.article<WidthProps & MarginProps & PaddingProps>`
+  max-width: 100%;
+  overflow-x: hidden;
   ${width}
   ${margin}
   ${padding}

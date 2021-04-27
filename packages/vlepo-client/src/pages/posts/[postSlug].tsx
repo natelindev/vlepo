@@ -13,7 +13,7 @@ import CommentSection from 'src/components/Comment/CommentSection';
 import HoverShare from 'src/components/HoverShare/HoverShare';
 import Image from 'src/components/Image';
 import { Column, Row } from 'src/components/Layout/style';
-import * as components from 'src/components/MDXComponents';
+import components from 'src/components/MDXComponents';
 import PlaceHolder from 'src/components/PlaceHolder';
 import { H5 } from 'src/components/Typography';
 import { initEnvironment } from 'src/relay';
@@ -22,6 +22,7 @@ import { KeyboardBackspace } from '@emotion-icons/material-outlined';
 import { css, useTheme } from '@emotion/react';
 
 import { PostSlugQuery } from '../../__generated__/PostSlugQuery.graphql';
+import { themeProvider } from '../_app';
 import { ArticleBody, Back, Content, Header, Title } from './style';
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
@@ -45,6 +46,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   const renderedMDX = await renderToString(queryPayload?.data?.post.content, {
     components,
+    provider: themeProvider,
   });
 
   return {

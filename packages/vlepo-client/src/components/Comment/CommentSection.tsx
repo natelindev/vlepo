@@ -47,6 +47,7 @@ const CommentSection = (props: CommentSectionProps) => {
             Comments({data?.commentsConnection?.edges?.length ?? 0})
           </H3>
         ))
+        .with('post', () => null)
         .run()}
       {data &&
       data.commentsConnection &&
