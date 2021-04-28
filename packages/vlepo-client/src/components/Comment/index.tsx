@@ -1,12 +1,18 @@
 import { format, parseISO } from 'date-fns';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { graphql } from 'react-relay';
+import rehype2react from 'rehype-react';
 import { useFragment } from 'relay-hooks';
+import parse from 'remark-parse';
+import remark2rehype from 'remark-rehype';
 import { Comment_comment$key } from 'src/__generated__/Comment_comment.graphql';
-import { Comment_user$key } from 'src/__generated__/Comment_user.graphql';
+import { CommentSection_user } from 'src/__generated__/CommentSection_user.graphql';
+import { remarkComponents } from 'src/components/MDXComponents';
 import { H4, H5, H6 } from 'src/components/Typography';
-import { useCurrentUser } from 'src/hooks/useCurrentUser';
 import { match } from 'ts-pattern';
+import unified from 'unified';
+
+import rehypePrism from '@mapbox/rehype-prism';
 
 import Avatar from '../Avatar';
 import Badge from '../Badge';
@@ -28,20 +34,20 @@ const commentFragment = graphql`
   }
 `;
 
-const Comment_user = graphql`
-  fragment Comment_user on User {
-    id
-  }
-`;
-
 type CommentProps = {
   comment: Comment_comment$key;
   variant: 'profile' | 'post';
+  currentUser?: CommentSection_user;
 } & React.ComponentProps<typeof BaseComment>;
 
+const mdProcessor = unified().use(parse).use(remark2rehype).use(rehypePrism).use(rehype2react, {
+  createElement: React.createElement,
+  components: remarkComponents,
+});
+
 const Comment = (props: CommentProps) => {
-  const { comment: fullComment, variant, ...rest } = props;
-  const currentUser = useCurrentUser<Comment_user$key>(Comment_user);
+  const { comment: fullComment, variant, currentUser, ...rest } = props;
+
   const comment = useFragment(commentFragment, fullComment);
   return (
     <BaseComment variant={variant} {...rest}>
@@ -58,7 +64,7 @@ const Comment = (props: CommentProps) => {
                 </Badge>
               )}
             </Row>
-            <Row mt="1rem">{comment.content}</Row>
+            <Row mt="1rem">{mdProcessor.processSync(comment.content).result as ReactNode}</Row>
           </>
         ))
         .with('profile', () => (

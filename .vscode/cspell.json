@@ -2,6 +2,7 @@
     "version": "0.1",
     "language": "en",
     "words": [
+        "autosize",
         "bodyparser",
         "brotli",
         "camelcase",
@@ -14,6 +15,7 @@
         "googleusercontent",
         "graphqlrc",
         "Helvetica",
+        "mapbox",
         "maxage",
         "Menlo",
         "monospace",
@@ -26,6 +28,7 @@
         "pkce",
         "prebuild",
         "refetchable",
+        "rehype",
         "repos",
         "Roboto",
         "schemaname",

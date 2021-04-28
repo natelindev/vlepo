@@ -1,7 +1,7 @@
 /* eslint-disable relay/must-colocate-fragment-spreads */
 import { graphql, GraphQLTaggedNode } from 'react-relay';
 import { useFragment, useQuery } from 'relay-hooks';
-import { Comment_user$key } from 'src/__generated__/Comment_user.graphql';
+import { CommentSection_user$key } from 'src/__generated__/CommentSection_user.graphql';
 import { CreatePostModal_user$key } from 'src/__generated__/CreatePostModal_user.graphql';
 import { profile_user$key } from 'src/__generated__/profile_user.graphql';
 import { useCurrentUser_viewerQuery } from 'src/__generated__/useCurrentUser_viewerQuery.graphql';
@@ -15,13 +15,17 @@ const viewerQuery = graphql`
       ...CreatePostModal_user
       ...UserSection_user
       ...profile_user
-      ...Comment_user
+      ...CommentSection_user
     }
   }
 `;
 
 export const useCurrentUser = <
-  T extends CreatePostModal_user$key | UserSection_user$key | profile_user$key | Comment_user$key
+  T extends
+    | CreatePostModal_user$key
+    | UserSection_user$key
+    | profile_user$key
+    | CommentSection_user$key
 >(
   fragmentNode: GraphQLTaggedNode,
 ): T[' $data'] => {

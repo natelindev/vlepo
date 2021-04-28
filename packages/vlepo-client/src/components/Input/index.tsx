@@ -1,3 +1,4 @@
+import TextareaAutosize from 'react-textarea-autosize';
 import {
   height,
   HeightProps,
@@ -11,7 +12,8 @@ import {
 
 import styled from '@emotion/styled';
 
-export const TextArea = styled.textarea<WidthProps & MarginProps & HeightProps>`
+export const TextArea = styled(TextareaAutosize)<WidthProps & MarginProps & HeightProps>`
+  display: block;
   width: 100%;
   min-height: 5rem;
   height: auto;
@@ -21,10 +23,12 @@ export const TextArea = styled.textarea<WidthProps & MarginProps & HeightProps>`
   overflow: auto;
   resize: vertical;
   padding-right: calc(1.5em + 0.75rem);
-  font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: ${(props) => props.theme.colors.muted};
+  color: ${(props) => props.theme.colors.text};
+  font-family: ${(props) => props.theme.fonts.content};
+  padding: 0.5rem;
+  font-size: ${(props) => `${props.theme.fontSizes[2]}px`};
   background-color: ${(props) => props.theme.colors.backgroundMuted};
   background-clip: padding-box;
   border: 1px solid ${(props) => props.theme.colors.muted};

@@ -5,6 +5,7 @@ import renderToString from 'next-mdx-remote/render-to-string';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { graphql } from 'react-relay';
+import rehypeSlug from 'rehype-slug';
 import { useMutation, useQuery } from 'relay-hooks';
 import { fetchQuery } from 'relay-runtime';
 import { PostSlugViewMutation } from 'src/__generated__/PostSlugViewMutation.graphql';
@@ -47,6 +48,9 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   const renderedMDX = await renderToString(queryPayload?.data?.post.content, {
     components,
     provider: themeProvider,
+    mdxOptions: {
+      rehypePlugins: [rehypeSlug],
+    },
   });
 
   return {
