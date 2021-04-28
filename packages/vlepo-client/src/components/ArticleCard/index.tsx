@@ -4,6 +4,9 @@ import { graphql, useFragment } from 'react-relay';
 import Badge from 'src/components/Badge';
 import { CardBody, CardImage } from 'src/components/Card/style';
 import { Column, Row } from 'src/components/Layout/style';
+import { match } from 'ts-pattern';
+
+import { Article, Lock } from '@emotion-icons/material-outlined';
 
 import { ImageOverlay } from '../Image/style';
 import PlaceHolder from '../PlaceHolder';
@@ -30,6 +33,7 @@ const articlePostFragment = graphql`
     title
     slug
     abstract
+    status
     headerImageUrl
     createdAt
     minuteRead
@@ -49,7 +53,17 @@ const articlePostFragment = graphql`
 const ArticleCard = (props: ArticleCardProps) => {
   const { post: fullPost, width } = props;
   const post = useFragment(articlePostFragment, fullPost);
-  const { title, headerImageUrl, abstract, createdAt, slug, tags, owner, minuteRead } = post;
+  const {
+    title,
+    headerImageUrl,
+    abstract,
+    createdAt,
+    slug,
+    tags,
+    status,
+    owner,
+    minuteRead,
+  } = post;
   const createDate = parseISO(createdAt);
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -85,7 +99,7 @@ const ArticleCard = (props: ArticleCardProps) => {
       <CardBody>
         {title && (
           <Row>
-            <ArticleCardTitle>{title}</ArticleCardTitle>
+            <ArticleCardTitle mr="0.5rem">{title}</ArticleCardTitle>
           </Row>
         )}
         {owner && (
@@ -131,6 +145,13 @@ const ArticleCard = (props: ArticleCardProps) => {
               href={`/tags/${t.name}`}
             />
           ))}
+        <Column ml="auto">
+          {match(status)
+            .with('DRAFT', () => <Article size={18} />)
+            .with('PRIVATE', () => <Lock size={18} />)
+            .with('PUBLISHED', () => null)
+            .run()}
+        </Column>
       </ArticleCardFooter>
     </BaseArticleCard>
   );

@@ -39,6 +39,7 @@ export const NavbarCollapse = styled.div`
 `;
 
 export const LeftNavCollapse = styled(NavbarCollapse)<DisplayProps>`
+  margin-left: 0.5rem;
   flex-grow: 0;
   flex-basis: auto;
   ${display}

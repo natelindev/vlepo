@@ -47,16 +47,19 @@ const Comment = (props: CommentProps) => {
     <BaseComment variant={variant} {...rest}>
       {match(variant)
         .with('post', () => (
-          <Row alignItems="center">
-            <Avatar src={comment.owner.profileImageUrl} size={32} />
-            <H5 mx="0.5rem">{comment.owner.name}</H5>
-            <H6>{format(parseISO(comment.createdAt), 'MMM d')}</H6>
-            {currentUser && currentUser.id === comment.owner.id && (
-              <Badge ml="0.3rem" variant="secondary">
-                me
-              </Badge>
-            )}
-          </Row>
+          <>
+            <Row alignItems="center">
+              <Avatar src={comment.owner.profileImageUrl} size={32} />
+              <H5 mx="0.5rem">{comment.owner.name}</H5>
+              <H6>{format(parseISO(comment.createdAt), 'MMM d')}</H6>
+              {currentUser && currentUser.id === comment.owner.id && (
+                <Badge ml="0.3rem" variant="secondary">
+                  me
+                </Badge>
+              )}
+            </Row>
+            <Row mt="1rem">{comment.content}</Row>
+          </>
         ))
         .with('profile', () => (
           <>
@@ -70,7 +73,6 @@ const Comment = (props: CommentProps) => {
           </>
         ))
         .run()}
-      <Row>{comment.content}</Row>
     </BaseComment>
   );
 };
