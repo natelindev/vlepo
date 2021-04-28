@@ -87,7 +87,8 @@ export const Blog = objectType({
     t.connectionField('postsConnection', {
       type: Post,
       async resolve({ id }, args, ctx) {
-        const { currentUser } = ctx;
+        const accessToken = await ctx.oauth.extractAccessToken(ctx, true);
+        const currentUser = accessToken?.user;
         const customArgs = {
           where: {
             blogId: id,

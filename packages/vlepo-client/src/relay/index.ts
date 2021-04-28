@@ -12,7 +12,7 @@ interface Env {
   environment: Environment;
 }
 
-let initEnvironment: () => Env;
+let initEnvironment: (token?: string) => Env;
 let createEnvironment: (relayData: SSRCache) => Environment;
 
 if (envDetect.isNode) {

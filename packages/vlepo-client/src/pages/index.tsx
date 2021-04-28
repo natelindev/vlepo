@@ -76,9 +76,8 @@ const blogQuery = graphql`
   }
 `;
 
-export const getServerSideProps = async ({ res }: GetServerSidePropsContext) => {
-  const { environment, relaySSR } = initEnvironment();
-
+export const getServerSideProps = async ({ res, req }: GetServerSidePropsContext) => {
+  const { environment, relaySSR } = initEnvironment(req.cookies.accessToken);
   await new Promise((resolve, reject) => {
     fetchQuery(environment, blogQuery, {
       id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
