@@ -1,14 +1,17 @@
-import React from 'react';
-import { graphql } from 'react-relay';
-import { usePagination } from 'relay-hooks';
+import React, { useState } from 'react';
+import { ConnectionHandler, graphql } from 'react-relay';
+import { useToasts } from 'react-toast-notifications';
+import { useMutation, usePagination } from 'relay-hooks';
 import { CommentRefetchQuery } from 'src/__generated__/CommentRefetchQuery.graphql';
 import { CommentSection_commendable$key } from 'src/__generated__/CommentSection_commendable.graphql';
+import { CommentSection_Mutation } from 'src/__generated__/CommentSection_Mutation.graphql';
 import { CommentSection_user$key } from 'src/__generated__/CommentSection_user.graphql';
 import Comment from 'src/components/Comment';
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
 import { match } from 'ts-pattern';
 
 import { Markdown } from '@emotion-icons/fa-brands/Markdown';
+import { Send } from '@emotion-icons/material-outlined';
 
 import Avatar from '../Avatar';
 import GradientButton from '../GradientButton';
@@ -20,7 +23,7 @@ import { BaseCommentSection, NewComment } from './style';
 
 const commentFragmentSpec = graphql`
   fragment CommentSection_commendable on Commendable
-  @argumentDefinitions(count: { type: "Int", defaultValue: 10 }, cursor: { type: "String" })
+  @argumentDefinitions(count: { type: "Int", defaultValue: 5 }, cursor: { type: "String" })
   @refetchable(queryName: "CommentRefetchQuery") {
     commentsConnection(first: $count, after: $cursor)
       @connection(key: "CommentSection_commentsConnection") {
@@ -54,6 +57,48 @@ const CommentSection = (props: CommentSectionProps) => {
     CommentRefetchQuery,
     CommentSection_commendable$key
   >(commentFragmentSpec, parent);
+
+  const [commentContent, setCommentContent] = useState('');
+
+  const { addToast } = useToasts();
+
+  const commentSection_commentsConnectionId = ConnectionHandler.getConnectionID(
+    ((parent as unknown) as { __id: string }).__id,
+    'CommentSection_commentsConnection',
+  );
+
+  const [mutate] = useMutation<CommentSection_Mutation>(
+    graphql`
+      mutation CommentSection_Mutation(
+        $connections: [ID!]!
+        $parentId: String!
+        $content: String!
+      ) {
+        creatCommentMutation(parentId: $parentId, content: $content) {
+          createCommentEdge @appendEdge(connections: $connections) {
+            cursor
+            node {
+              id
+              ...Comment_comment
+            }
+          }
+        }
+      }
+    `,
+    {
+      onCompleted: () => {
+        addToast(`comment succeed`, {
+          appearance: 'success',
+        });
+        setCommentContent('');
+      },
+      onError: (error) => {
+        addToast(`comment failed, ${error}`, {
+          appearance: 'error',
+        });
+      },
+    },
+  );
 
   return (
     <BaseCommentSection {...rest}>
@@ -102,12 +147,27 @@ const CommentSection = (props: CommentSectionProps) => {
               <Avatar size={32} src={currentUser.profileImageUrl} />
               <H5 mx="0.5rem">{currentUser.name}</H5>
             </Row>
-            <TextArea />
+            <TextArea
+              value={commentContent}
+              onChange={(e) => setCommentContent(e.currentTarget.value)}
+            />
             <Row mt="0.5rem" alignItems="center">
               <Markdown size={24} />
               <H5 ml="0.5rem">markdown powered</H5>
-              <GradientButton ml="auto" mr="0.5rem">
-                Comment
+              <GradientButton
+                ml="auto"
+                mr="0.5rem"
+                onClick={() =>
+                  mutate({
+                    variables: {
+                      connections: [commentSection_commentsConnectionId],
+                      parentId: ((parent as unknown) as { __id: string }).__id,
+                      content: commentContent,
+                    },
+                  })
+                }
+              >
+                <Send size={18} />
               </GradientButton>
             </Row>
           </>

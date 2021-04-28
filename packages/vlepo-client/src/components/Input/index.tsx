@@ -31,7 +31,9 @@ export const TextArea = styled(TextareaAutosize)<WidthProps & MarginProps & Heig
   font-size: ${(props) => `${props.theme.fontSizes[2]}px`};
   background-color: ${(props) => props.theme.colors.backgroundMuted};
   background-clip: padding-box;
-  border: 1px solid ${(props) => props.theme.colors.muted};
+  &:focus {
+    border: 1px solid ${(props) => props.theme.colors.muted};
+  }
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);

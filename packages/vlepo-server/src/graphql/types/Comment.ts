@@ -1,7 +1,9 @@
-import { interfaceType, objectType } from 'nexus';
+import { interfaceType, mutationField, nonNull, objectType, stringArg } from 'nexus';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
+import { Language } from '@prisma/client';
 
+import { OAuthCheckScope } from '../../oauth2/nexus';
 import { Image } from './Image';
 
 export const Commendable = interfaceType({
@@ -71,5 +73,55 @@ export const Comment = objectType({
         return result;
       },
     });
+  },
+});
+
+export const creatCommentResponse = objectType({
+  name: 'creatCommentResponse',
+  definition(t) {
+    t.nonNull.field('createCommentEdge', { type: 'CommentEdge' });
+  },
+});
+
+export const creatCommentMutation = mutationField('creatCommentMutation', {
+  type: creatCommentResponse,
+  args: {
+    parentId: nonNull(stringArg()),
+    content: nonNull(stringArg()),
+  },
+  authentication: true,
+  authorize: OAuthCheckScope('comment:create'),
+  resolve: async (_root, { parentId, content }, ctx) => {
+    const currentUser = ctx.currentUser!;
+
+    // extract language code
+    const language =
+      (ctx.request.header['accept-language']
+        ?.split(';')[0]
+        .split(',')
+        .find((c) => c.length === 2) as Language) ?? 'en';
+
+    const comment = await ctx.prisma.comment.create({
+      data: {
+        owner: {
+          connect: {
+            id: currentUser.id,
+          },
+        },
+        post: {
+          connect: {
+            id: parentId,
+          },
+        },
+        content,
+        language,
+      },
+    });
+    return {
+      createCommentEdge: {
+        cursor: comment.id,
+        node: { ...comment, __typename: 'Comment' },
+      },
+    };
   },
 });

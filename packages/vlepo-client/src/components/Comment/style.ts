@@ -24,8 +24,9 @@ export const BaseComment = styled.div<BaseCommentProps>`
   }
   background-color: ${(props) =>
     props.variant === 'profile' ? undefined : props.theme.colors.backgroundSecondary};
-  border: 1px solid ${(props) => props.theme.colors.muted};
+  box-shadow: ${(props) => props.theme.shadows.Card};
   border-radius: ${(props) => `${props.theme.radii.default}px`};
+  overflow-x: hidden;
   ${width}
   ${height}
   ${margin}
@@ -45,7 +46,7 @@ export const BaseCommentSection = styled.div<WidthProps & HeightProps & MarginPr
 export const NewComment = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid ${(props) => props.theme.colors.muted};
+  box-shadow: ${(props) => props.theme.shadows.Card};
   border-radius: ${(props) => `${props.theme.radii.default}px`};
   background-color: ${(props) => props.theme.colors.backgroundSecondary};
   width: 100%;
