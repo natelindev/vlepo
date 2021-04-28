@@ -1,5 +1,6 @@
 import { flexbox, FlexboxProps, margin, MarginProps } from 'styled-system';
 
+import { Favorite } from '@emotion-icons/material-outlined';
 import styled from '@emotion/styled';
 
 export const BaseFootbar = styled.div<FlexboxProps>`
@@ -17,8 +18,11 @@ export const CenteredText = styled.div<MarginProps>`
   ${margin}
 `;
 
-export const LoveIcon = styled.div`
+export const LoveIcon = styled(Favorite)`
+  color: ${(props) => props.theme.colors.error};
+  margin-top: 0.2rem;
   margin-left: 0.2rem;
+  margin-right: 0.2rem;
 `;
 
 export const BottomText = styled.div`

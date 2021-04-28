@@ -1,59 +1,14 @@
 import React, { ReactElement } from 'react';
 
 import { useTheme } from '@emotion/react';
-import styled from '@emotion/styled';
 
-const SocialLink = styled.a`
-  width: 2.5rem;
-  height: 2.5rem;
-  color: ${(props) => props.color};
-`;
-
-const SocialSvg = styled.svg`
-  width: 2.5rem;
-  height: 2.5rem;
-`;
-
-const SocialGroupInnerCircle = styled.circle`
-  fill: transparent;
-  transition: all 0.2s;
-
-  ${SocialLink}:hover & {
-    fill: currentColor;
-    transition: all 0.45s;
-  }
-
-  ${SocialSvg}:hover & {
-    fill: currentColor;
-    transition: all 0.45s;
-  }
-`;
-
-const SocialGroupOutline = styled.circle`
-  stroke: ${(props) => props.theme.colors.text};
-  transform-origin: 50% 50%;
-  transition: all 0.2s;
-
-  ${SocialLink}:hover & {
-    stroke: currentColor;
-    transform: scale(1.1);
-    transition: all 0.45s;
-  }
-
-  ${SocialSvg}:hover & {
-    stroke: currentColor;
-    transform: scale(1.1);
-    transition: all 0.45s;
-  }
-`;
-
-const SocialGroupIcon = styled.path`
-  fill: ${(props) => props.theme.colors.text};
-  ${SocialSvg}:hover & {
-    fill: ${(props) => props.fill};
-  }
-  transition: all 0.45s;
-`;
+import {
+  SocialGroupIcon,
+  SocialGroupInnerCircle,
+  SocialGroupOutline,
+  SocialLink,
+  SocialSvg,
+} from './style';
 
 const TelegramSocialIcon = ({ color }: { color: string }) => {
   const theme = useTheme();

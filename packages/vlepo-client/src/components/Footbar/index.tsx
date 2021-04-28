@@ -6,7 +6,7 @@ import { BaseFootbar, BottomText, CenteredText, LoveIcon } from './style';
 
 const Footbar: React.FC = () => (
   <BaseFootbar flexDirection={['column', 'column', 'row']}>
-    <Logo size="42px" />
+    <Logo display={['none', 'none', 'flex']} size="42px" />
     <BottomText>
       <CenteredText mx="auto">
         © 2019-
@@ -16,12 +16,12 @@ const Footbar: React.FC = () => (
       </CenteredText>
       <CenteredText>
         Made by Nathaniel with
-        <LoveIcon>❤️</LoveIcon>
+        <LoveIcon size={18} />
         and effort
       </CenteredText>
     </BottomText>
 
-    <Social />
+    <Social mt={['1rem', '1rem', '0']} mx={['auto', 'auto', '0']} />
   </BaseFootbar>
 );
 
