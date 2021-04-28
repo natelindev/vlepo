@@ -1,5 +1,14 @@
 import React from 'react';
-import { borderRadius, color, fontSize, space, variant, width } from 'styled-system';
+import {
+  border,
+  BorderProps,
+  borderRadius,
+  color,
+  fontSize,
+  space,
+  variant,
+  width,
+} from 'styled-system';
 
 import styled from '@emotion/styled';
 
@@ -34,6 +43,7 @@ export type ButtonBaseProps = {
   FontSizeProps &
   WidthProps &
   SpaceProps &
+  BorderProps &
   BorderRadiusProps;
 
 export const Button = styled.button<ButtonBaseProps>`
@@ -71,4 +81,5 @@ export const Button = styled.button<ButtonBaseProps>`
   ${width}
   ${fontSize}
   ${variants}
+  ${border}
 `;

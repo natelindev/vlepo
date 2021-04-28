@@ -19,7 +19,7 @@ export const BaseNavbar = styled.nav`
   z-index: ${(props) => props.theme.zIndices.Navbar};
 `;
 
-export const NavBrand = styled.a<MarginProps>`
+export const NavBrand = styled.a<MarginProps & DisplayProps>`
   display: inline-block;
   padding-top: 0.3125rem;
   padding-bottom: 0.3125rem;
@@ -30,6 +30,7 @@ export const NavBrand = styled.a<MarginProps>`
   text-decoration: none;
   color: ${(props) => props.theme.colors.text};
   ${margin}
+  ${display}
 `;
 
 export const NavbarCollapse = styled.div`
@@ -72,8 +73,8 @@ export const NavbarToggler = styled.div<DisplayProps>`
   width: 2.2rem;
   height: 2.2rem;
   margin-top: 1.1rem;
+  margin-left: 1rem;
   margin-bottom: auto;
-  margin-right: 1rem;
 `;
 
 export const TogglerBar = styled(a.div)`

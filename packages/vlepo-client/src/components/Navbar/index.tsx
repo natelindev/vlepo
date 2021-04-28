@@ -31,22 +31,28 @@ const Navbar: React.FC = () => {
   const toggleSprings = useSprings(3, [
     {
       transformOrigin: '10% 10%',
-      transform: isToggled ? 'rotate(0deg)' : 'rotate(45deg)',
+      transform: isToggled ? 'rotate(45deg)' : 'rotate(0deg)',
     },
     {
-      opacity: isToggled ? '1' : '0',
+      opacity: isToggled ? '0' : '1',
     },
     {
       transformOrigin: '10% 90%',
-      transform: isToggled ? 'rotate(0deg)' : 'rotate(-45deg)',
+      transform: isToggled ? 'rotate(-45deg)' : 'rotate(0deg)',
     },
   ]);
 
   return (
     <BaseNavbar>
-      <Logo size="32px" ml="1rem" mr="0.5rem" my="auto" />
+      <NavbarToggler onClick={() => setIsToggled(!isToggled)} display={['block', 'none']}>
+        {toggleSprings.map((styles, key) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <TogglerBar key={key} style={styles} />
+        ))}
+      </NavbarToggler>
+      <Logo display={['none', 'inline-block']} size="32px" ml="1rem" mr="0.5rem" my="auto" />
       <Link href="/" passHref>
-        <NavBrand href="/" mr="auto">
+        <NavBrand display={['none', 'inline-block']} href="/" mr="auto">
           Nathaniel&#39;s Blog
         </NavBrand>
       </Link>
@@ -69,7 +75,7 @@ const Navbar: React.FC = () => {
           </Dropdown>
         </NavbarNav>
       </LeftNavCollapse>
-      <RightNavCollapse display={['none', 'block']}>
+      <RightNavCollapse>
         <NavbarNav>
           <NavSearchBar />
           <NavItem
@@ -101,12 +107,6 @@ const Navbar: React.FC = () => {
           </ClientOnly>
         </NavbarNav>
       </RightNavCollapse>
-      <NavbarToggler onClick={() => setIsToggled(!isToggled)} display={['block', 'none']}>
-        {toggleSprings.map((styles, key) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <TogglerBar key={key} style={styles} />
-        ))}
-      </NavbarToggler>
       <LoginModal open={showLoginModal} onClose={() => setShowLoginModal(false)} />
     </BaseNavbar>
   );
