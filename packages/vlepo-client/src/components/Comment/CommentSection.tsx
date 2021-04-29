@@ -17,6 +17,7 @@ import Avatar from '../Avatar';
 import GradientButton from '../GradientButton';
 import { TextArea } from '../Input';
 import { Row } from '../Layout/style';
+import Loading from '../Loading';
 import PlaceHolder from '../PlaceHolder';
 import { H3, H5 } from '../Typography';
 import { BaseCommentSection, NewComment } from './style';
@@ -67,7 +68,7 @@ const CommentSection = (props: CommentSectionProps) => {
     'CommentSection_commentsConnection',
   );
 
-  const [mutate] = useMutation<CommentSection_Mutation>(
+  const [mutate, { loading }] = useMutation<CommentSection_Mutation>(
     graphql`
       mutation CommentSection_Mutation(
         $connections: [ID!]!
@@ -167,7 +168,7 @@ const CommentSection = (props: CommentSectionProps) => {
                   })
                 }
               >
-                <Send size={18} />
+                {loading ? <Loading size={18} /> : <Send size={18} />}
               </GradientButton>
             </Row>
           </>

@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/heading-has-content */
-
 import React, { useState } from 'react';
 import { SSRCache } from 'react-relay-network-modern-ssr/node8/server';
 import { ToastProvider } from 'react-toast-notifications';
