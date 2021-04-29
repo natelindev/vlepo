@@ -18,6 +18,9 @@ declare global {
       DEFAULT_BLOG_NAME?: string;
       PORT?: string;
       API_PORT?: number;
+      ALGOLIA_APP_ID: string;
+      ALGOLIA_API_KEY: string;
+      ALGOLIA_INDEX_NAME: string;
     }
   }
 }

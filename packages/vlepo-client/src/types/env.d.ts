@@ -5,6 +5,9 @@ declare global {
       NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS: string;
       NEXT_PUBLIC_DEFAULT_CLIENT_ID: string;
       NEXT_PUBLIC_DEFAULT_BLOG_ID: string;
+      NEXT_PUBLIC_ALGOLIA_APP_ID: string;
+      NEXT_PUBLIC_ALGOLIA_API_KEY: string;
+      NEXT_PUBLIC_ALGOLIA_INDEX_NAME: string;
       PORT: string;
     }
   }

@@ -1,3 +1,4 @@
+import algoliasearch, { SearchIndex } from 'algoliasearch';
 import debugInit from 'debug';
 import grant from 'grant';
 import depthLimit from 'graphql-depth-limit';
@@ -26,11 +27,15 @@ import type { PrismaClient, User } from '@prisma/client';
 import type { Knex } from 'knex';
 
 const debug = debugInit('vlepo:app');
+const client = algoliasearch(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_API_KEY);
+
+const index = client.initIndex(process.env.ALGOLIA_INDEX_NAME);
 
 export type ExtendedContext = {
   prisma: PrismaClient;
   oauth: typeof oauth;
   knex: Knex;
+  searchIndex: SearchIndex;
   currentUser?: User;
 } & Koa.Context &
   Koa.BaseContext;
@@ -44,10 +49,11 @@ if (!hasFields(process.env, requiredEnv)) {
   );
 }
 
-app.keys = [process.env.SECRET_KEY];
+app.keys = [process.env.SECRET_KEY!];
 app.context.prisma = db.prisma;
 app.context.oauth = oauth;
 app.context.knex = db.knexConnection;
+app.context.searchIndex = index;
 
 app.use(bodyParser());
 app.use(
@@ -102,7 +108,7 @@ router.all('/graphql', graphqlServer);
 
 app.use(graphqlUploadKoa({ maxFileSize: 100000000, maxFiles: 5 }));
 app.use(router.routes());
-app.use(mount('/images/user-upload/', serve(process.env.IMAGE_PATH, { brotli: true })));
+app.use(mount('/images/user-upload/', serve(process.env.IMAGE_PATH!, { brotli: true })));
 
 app
   .listen(process.env.API_PORT ?? 3001)

@@ -272,6 +272,11 @@ export const creatPostMutation = mutationField('creatPostMutation', {
           .returning('*')
       )[0];
 
+      await ctx.searchIndex.saveObject({
+        objectID: post.id,
+        ...post,
+      });
+
       if (createPostInput.tags && createPostInput.tags.length > 0) {
         const existingTags = await trx('Tag')
           .whereIn(
@@ -327,6 +332,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
           .onConflict('url')
           .merge(['url', 'postId']);
       }
+
       return {
         createPostEdge: {
           cursor: post.id,

@@ -1,9 +1,13 @@
+import { SearchBox } from 'react-instantsearch-dom';
+
 import styled from '@emotion/styled';
 
-export const InputGroup = styled.div`
+export const BaseSearchBar = styled.div`
   position: relative;
   display: flex;
   align-items: stretch;
+
+  margin-left: auto;
 
   background-color: ${(props) => props.theme.colors.backgroundMuted};
   border-radius: 0.25rem;
@@ -16,11 +20,17 @@ export const InputGroup = styled.div`
     box-shadow: 0 2px 0 0 ${(props) => props.theme.colors.secondary};
     flex-grow: 1;
   }
-`;
 
-export const InputGroupAddon = styled.div`
-  margin-right: -1px;
-  display: flex;
+  > svg {
+    margin-left: 0.5rem;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  > .ais-Hits {
+    position: absolute;
+    top: ${(props) => props.theme.heights.navbar};
+  }
 `;
 
 export const InputGroupText = styled.span`
@@ -46,26 +56,38 @@ export const InputGroupText = styled.span`
   border-radius: 0.25rem;
 `;
 
-export const Input = styled.input`
-  border: none;
-  background: none;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  position: relative;
-  flex: 1 1 auto;
-  width: 1%;
-  margin-bottom: 0;
-  display: block;
-  height: calc(1.5em + 0.75rem + 2px);
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: ${(props) => props.theme.colors.muted};
-  border-radius: 0.25rem;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  overflow: visible;
-  margin: 0;
-  font-family: inherit;
-  outline: none;
+export const SearchInput = styled(SearchBox)`
+  display: flex;
+
+  > form {
+    display: flex;
+    width: 100%;
+  }
+  input {
+    border: none;
+    background: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    margin-bottom: 0;
+    display: block;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: ${(props) => props.theme.colors.muted};
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    overflow: visible;
+    margin: 0;
+    font-family: inherit;
+    outline: none;
+  }
+
+  button {
+    display: none;
+  }
 `;
