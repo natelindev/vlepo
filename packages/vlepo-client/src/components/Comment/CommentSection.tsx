@@ -127,6 +127,7 @@ const CommentSection = (props: CommentSectionProps) => {
                   .with('post', () => '1rem')
                   .run()}
                 py="1rem"
+                my="0.5rem"
                 key={e.node.id}
                 comment={e.node}
               />
@@ -158,15 +159,17 @@ const CommentSection = (props: CommentSectionProps) => {
               <GradientButton
                 ml="auto"
                 mr="0.5rem"
-                onClick={() =>
-                  mutate({
-                    variables: {
-                      connections: [commentSection_commentsConnectionId],
-                      parentId: ((parent as unknown) as { __id: string }).__id,
-                      content: commentContent,
-                    },
-                  })
-                }
+                onClick={() => {
+                  if (commentContent.length > 0) {
+                    mutate({
+                      variables: {
+                        connections: [commentSection_commentsConnectionId],
+                        parentId: ((parent as unknown) as { __id: string }).__id,
+                        content: commentContent,
+                      },
+                    });
+                  }
+                }}
               >
                 {loading ? <Loading size={18} /> : <Send size={18} />}
               </GradientButton>

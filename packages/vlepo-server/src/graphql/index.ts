@@ -22,7 +22,12 @@ export default NexusSchema.makeSchema({
         Void: GraphQLVoid,
       },
     }),
-    NexusSchema.connectionPlugin({ includeNodesField: true }),
+    NexusSchema.connectionPlugin({
+      includeNodesField: true,
+      additionalArgs: {
+        orderBy: NexusSchema.list(NexusSchema.nonNull('OrderBy')),
+      },
+    }),
     NexusSchema.fieldAuthorizePlugin(),
     fieldAuthenticationPlugin({
       isLoggedIn: async (_root, _args, ctx) => {

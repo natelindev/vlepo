@@ -1,4 +1,4 @@
-import { idArg, interfaceType, list, nonNull, queryField } from 'nexus';
+import { enumType, idArg, inputObjectType, interfaceType, list, nonNull, queryField } from 'nexus';
 
 import { entities } from '@vlepo/shared';
 
@@ -68,4 +68,19 @@ export const nodes = queryField((t) => {
       return result.find((r) => r.length > 0);
     },
   });
+});
+
+export const sortOrder = enumType({
+  name: 'sortOrder',
+  members: ['asc', 'desc'],
+});
+
+export const OrderBy = inputObjectType({
+  name: 'OrderBy',
+  definition(t) {
+    t.nonNull.string('key');
+    t.field('order', {
+      type: sortOrder,
+    });
+  },
 });

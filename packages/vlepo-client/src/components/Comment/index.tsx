@@ -17,7 +17,7 @@ import rehypePrism from '@mapbox/rehype-prism';
 import Avatar from '../Avatar';
 import Badge from '../Badge';
 import { Row } from '../Layout/style';
-import { BaseComment } from './style';
+import { BaseComment, CommentContent } from './style';
 
 const commentFragment = graphql`
   fragment Comment_comment on Comment {
@@ -64,7 +64,9 @@ const Comment = (props: CommentProps) => {
                 </Badge>
               )}
             </Row>
-            <Row mt="1rem">{mdProcessor.processSync(comment.content).result as ReactNode}</Row>
+            <CommentContent>
+              {mdProcessor.processSync(comment.content).result as ReactNode}
+            </CommentContent>
           </>
         ))
         .with('profile', () => (

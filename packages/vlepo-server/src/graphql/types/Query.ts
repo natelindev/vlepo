@@ -2,6 +2,7 @@ import { queryField } from 'nexus';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 
+import { connectionArgsValidator, orderByArgs } from '../util/connectionArgsValidator';
 import { Blog } from './Blog';
 import { Comment } from './Comment';
 import { Image } from './Image';
@@ -15,6 +16,22 @@ import { ShareCount } from './ShareCount';
 import { Tag } from './Tag';
 import { Thought } from './Thought';
 import { Translation } from './Translation';
+
+import type {
+  DBBlog,
+  DBComment,
+  DBImage,
+  DBLink,
+  DBPaper,
+  DBPost,
+  DBProject,
+  DBRating,
+  DBReaction,
+  DBShareCount,
+  DBTag,
+  DBThought,
+  DBTranslation,
+} from 'src/types/db';
 
 export const Query = queryField((t) => {
   t.crud.blog();
@@ -34,27 +51,16 @@ export const Query = queryField((t) => {
   t.crud.translation();
   t.crud.userRole();
 
-  t.crud.users();
-  t.crud.posts();
-  t.crud.tags();
-  t.crud.comments();
-  t.crud.images();
-  t.crud.links();
-  t.crud.papers();
-  t.crud.projects();
-  t.crud.ratings();
-  t.crud.reactions();
-  t.crud.shareCounts();
-  t.crud.thoughts();
-  t.crud.translations();
-  t.crud.userRoles();
-
   t.connectionField('BlogsConnection', {
     type: Blog,
+    validateArgs: connectionArgsValidator<DBBlog>(['visitorCount', 'createdAt', 'updatedAt']),
     async resolve(_root, args, ctx) {
+      const customArgs = {
+        orderBy: orderByArgs(args.orderBy),
+      };
       const result = await findManyCursorConnection(
-        (args) => ctx.prisma.blog.findMany(args),
-        () => ctx.prisma.blog.count(),
+        (args) => ctx.prisma.blog.findMany({ ...args, ...customArgs }),
+        () => ctx.prisma.blog.count(customArgs),
         args,
       );
       return result;
@@ -63,10 +69,20 @@ export const Query = queryField((t) => {
 
   t.connectionField('PostsConnection', {
     type: Post,
+    validateArgs: connectionArgsValidator<DBPost>([
+      'viewCount',
+      'editedAt',
+      'createdAt',
+      'updatedAt',
+    ]),
     async resolve(_root, args, ctx) {
+      const customArgs = {
+        orderBy: orderByArgs(args.orderBy),
+      };
+
       const result = await findManyCursorConnection(
-        (args) => ctx.prisma.post.findMany(args),
-        () => ctx.prisma.post.count(),
+        (args) => ctx.prisma.post.findMany({ ...args, ...customArgs }),
+        () => ctx.prisma.post.count(customArgs),
         args,
       );
       return result;
@@ -74,10 +90,14 @@ export const Query = queryField((t) => {
   });
   t.connectionField('ThoughtsConnection', {
     type: Thought,
+    validateArgs: connectionArgsValidator<DBThought>(['editedAt', 'createdAt', 'updatedAt']),
     async resolve(_root, args, ctx) {
+      const customArgs = {
+        orderBy: orderByArgs(args.orderBy),
+      };
       const result = await findManyCursorConnection(
-        (args) => ctx.prisma.thought.findMany(args),
-        () => ctx.prisma.thought.count(),
+        (args) => ctx.prisma.thought.findMany({ ...args, ...customArgs }),
+        () => ctx.prisma.thought.count(customArgs),
         args,
       );
       return result;
@@ -85,10 +105,14 @@ export const Query = queryField((t) => {
   });
   t.connectionField('CommentsConnection', {
     type: Comment,
+    validateArgs: connectionArgsValidator<DBComment>(['editedAt', 'createdAt', 'updatedAt']),
     async resolve(_root, args, ctx) {
+      const customArgs = {
+        orderBy: orderByArgs(args.orderBy),
+      };
       const result = await findManyCursorConnection(
-        (args) => ctx.prisma.comment.findMany(args),
-        () => ctx.prisma.comment.count(),
+        (args) => ctx.prisma.comment.findMany({ ...args, ...customArgs }),
+        () => ctx.prisma.comment.count(customArgs),
         args,
       );
       return result;
@@ -96,10 +120,14 @@ export const Query = queryField((t) => {
   });
   t.connectionField('TagsConnection', {
     type: Tag,
+    validateArgs: connectionArgsValidator<DBTag>(['createdAt', 'updatedAt']),
     async resolve(_root, args, ctx) {
+      const customArgs = {
+        orderBy: orderByArgs(args.orderBy),
+      };
       const result = await findManyCursorConnection(
-        (args) => ctx.prisma.tag.findMany(args),
-        () => ctx.prisma.tag.count(),
+        (args) => ctx.prisma.tag.findMany({ ...args, ...customArgs }),
+        () => ctx.prisma.tag.count(customArgs),
         args,
       );
       return result;
@@ -107,10 +135,14 @@ export const Query = queryField((t) => {
   });
   t.connectionField('ImagesConnection', {
     type: Image,
+    validateArgs: connectionArgsValidator<DBImage>(['createdAt', 'updatedAt']),
     async resolve(_root, args, ctx) {
+      const customArgs = {
+        orderBy: orderByArgs(args.orderBy),
+      };
       const result = await findManyCursorConnection(
-        (args) => ctx.prisma.image.findMany(args),
-        () => ctx.prisma.image.count(),
+        (args) => ctx.prisma.image.findMany({ ...args, ...customArgs }),
+        () => ctx.prisma.image.count(customArgs),
         args,
       );
       return result;
@@ -118,21 +150,14 @@ export const Query = queryField((t) => {
   });
   t.connectionField('SharesConnection', {
     type: ShareCount,
+    validateArgs: connectionArgsValidator<DBShareCount>(['createdAt', 'updatedAt']),
     async resolve(_root, args, ctx) {
+      const customArgs = {
+        orderBy: orderByArgs(args.orderBy),
+      };
       const result = await findManyCursorConnection(
-        (args) => ctx.prisma.shareCount.findMany(args),
-        () => ctx.prisma.shareCount.count(),
-        args,
-      );
-      return result;
-    },
-  });
-  t.connectionField('TagsConnection', {
-    type: Tag,
-    async resolve(_root, args, ctx) {
-      const result = await findManyCursorConnection(
-        (args) => ctx.prisma.tag.findMany(args),
-        () => ctx.prisma.tag.count(),
+        (args) => ctx.prisma.shareCount.findMany({ ...args, ...customArgs }),
+        () => ctx.prisma.shareCount.count(customArgs),
         args,
       );
       return result;
@@ -140,10 +165,14 @@ export const Query = queryField((t) => {
   });
   t.connectionField('RatingsConnection', {
     type: Rating,
+    validateArgs: connectionArgsValidator<DBRating>(['createdAt', 'updatedAt']),
     async resolve(_root, args, ctx) {
+      const customArgs = {
+        orderBy: orderByArgs(args.orderBy),
+      };
       const result = await findManyCursorConnection(
-        (args) => ctx.prisma.rating.findMany(args),
-        () => ctx.prisma.rating.count(),
+        (args) => ctx.prisma.rating.findMany({ ...args, ...customArgs }),
+        () => ctx.prisma.rating.count(customArgs),
         args,
       );
       return result;
@@ -151,10 +180,14 @@ export const Query = queryField((t) => {
   });
   t.connectionField('ReactionsConnection', {
     type: Reaction,
+    validateArgs: connectionArgsValidator<DBReaction>(['createdAt', 'updatedAt']),
     async resolve(_root, args, ctx) {
+      const customArgs = {
+        orderBy: orderByArgs(args.orderBy),
+      };
       const result = await findManyCursorConnection(
-        (args) => ctx.prisma.reaction.findMany(args),
-        () => ctx.prisma.reaction.count(),
+        (args) => ctx.prisma.reaction.findMany({ ...args, ...customArgs }),
+        () => ctx.prisma.reaction.count(customArgs),
         args,
       );
       return result;
@@ -162,10 +195,14 @@ export const Query = queryField((t) => {
   });
   t.connectionField('PapersConnection', {
     type: Paper,
+    validateArgs: connectionArgsValidator<DBPaper>(['createdAt', 'updatedAt']),
     async resolve(_root, args, ctx) {
+      const customArgs = {
+        orderBy: orderByArgs(args.orderBy),
+      };
       const result = await findManyCursorConnection(
-        (args) => ctx.prisma.paper.findMany(args),
-        () => ctx.prisma.paper.count(),
+        (args) => ctx.prisma.paper.findMany({ ...args, ...customArgs }),
+        () => ctx.prisma.paper.count(customArgs),
         args,
       );
       return result;
@@ -173,10 +210,14 @@ export const Query = queryField((t) => {
   });
   t.connectionField('ProjectsConnection', {
     type: Project,
+    validateArgs: connectionArgsValidator<DBProject>(['createdAt', 'updatedAt']),
     async resolve(_root, args, ctx) {
+      const customArgs = {
+        orderBy: orderByArgs(args.orderBy),
+      };
       const result = await findManyCursorConnection(
-        (args) => ctx.prisma.project.findMany(args),
-        () => ctx.prisma.project.count(),
+        (args) => ctx.prisma.project.findMany({ ...args, ...customArgs }),
+        () => ctx.prisma.project.count(customArgs),
         args,
       );
       return result;
@@ -184,10 +225,14 @@ export const Query = queryField((t) => {
   });
   t.connectionField('TranslationsConnection', {
     type: Translation,
+    validateArgs: connectionArgsValidator<DBTranslation>(['createdAt', 'updatedAt']),
     async resolve(_root, args, ctx) {
+      const customArgs = {
+        orderBy: orderByArgs(args.orderBy),
+      };
       const result = await findManyCursorConnection(
-        (args) => ctx.prisma.translation.findMany(args),
-        () => ctx.prisma.translation.count(),
+        (args) => ctx.prisma.translation.findMany({ ...args, ...customArgs }),
+        () => ctx.prisma.translation.count(customArgs),
         args,
       );
       return result;
@@ -195,10 +240,14 @@ export const Query = queryField((t) => {
   });
   t.connectionField('LinksConnection', {
     type: Link,
+    validateArgs: connectionArgsValidator<DBLink>(['createdAt', 'updatedAt']),
     async resolve(_root, args, ctx) {
+      const customArgs = {
+        orderBy: orderByArgs(args.orderBy),
+      };
       const result = await findManyCursorConnection(
-        (args) => ctx.prisma.link.findMany(args),
-        () => ctx.prisma.link.count(),
+        (args) => ctx.prisma.link.findMany({ ...args, ...customArgs }),
+        () => ctx.prisma.link.count(customArgs),
         args,
       );
       return result;

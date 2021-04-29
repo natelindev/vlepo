@@ -11,6 +11,8 @@ import {
 
 import styled from '@emotion/styled';
 
+import { Row } from '../Layout/style';
+
 type BaseCommentProps = { variant: 'profile' | 'post' } & WidthProps &
   HeightProps &
   MarginProps &
@@ -41,6 +43,15 @@ export const BaseCommentSection = styled.div<WidthProps & HeightProps & MarginPr
   ${height}
   ${margin}
   ${padding}
+`;
+
+export const CommentContent = styled(Row)`
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  > div {
+    word-break: break-word;
+    overflow-x: scroll;
+  }
 `;
 
 export const NewComment = styled.div`

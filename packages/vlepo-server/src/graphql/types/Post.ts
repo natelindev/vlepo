@@ -18,6 +18,7 @@ import { PostStatus as DBPostStatus } from '@prisma/client';
 
 import { OAuthCheckScope } from '../../oauth2/nexus';
 import { genPostSlug } from '../../util/genPostSlug';
+import { connectionArgsValidator, orderByArgs } from '../util/connectionArgsValidator';
 import { Comment } from './Comment';
 import { createImageInput, Image } from './Image';
 import { Rating } from './Rating';
@@ -25,6 +26,8 @@ import { Reaction } from './Reaction';
 import { Void } from './Scalars';
 import { ShareCount } from './ShareCount';
 import { createTagInput, Tag } from './Tag';
+
+import type { DBComment, DBTag } from 'src/types/db';
 
 export const Post = objectType({
   name: 'Post',
@@ -81,11 +84,14 @@ export const Post = objectType({
     });
     t.connectionField('commentsConnection', {
       type: Comment,
+      validateArgs: connectionArgsValidator<DBComment>(['createdAt', 'updatedAt']),
       async resolve({ id }, args, ctx) {
         const customArgs = {
           where: {
             postId: id,
           },
+
+          orderBy: orderByArgs(args.orderBy),
         };
         const result = await findManyCursorConnection(
           (args) => ctx.prisma.comment.findMany({ ...args, ...customArgs }),
@@ -129,6 +135,7 @@ export const Post = objectType({
     });
     t.connectionField('tagsConnection', {
       type: Tag,
+      validateArgs: connectionArgsValidator<DBTag>(['name', 'createdAt', 'updatedAt']),
       async resolve({ id }, args, ctx) {
         const customArgs = {
           where: {
@@ -137,6 +144,7 @@ export const Post = objectType({
                 id,
               },
             },
+            orderBy: orderByArgs(args.orderBy),
           },
         };
         const result = await findManyCursorConnection(
