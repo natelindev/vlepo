@@ -4,9 +4,7 @@ export const Link = objectType({
   name: 'Link',
   definition(t) {
     t.implements('Node');
-    t.id('id', {
-      resolve: (root) => root.id,
-    });
+    t.relayGlobalId('id', { description: 'ID for a resource' });
     t.model.url();
     t.model.iconUrl();
     t.model.createdAt();

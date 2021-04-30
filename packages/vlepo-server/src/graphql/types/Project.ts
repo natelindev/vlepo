@@ -10,9 +10,7 @@ export const Project = objectType({
   name: 'Project',
   definition(t) {
     t.implements('Node');
-    t.id('id', {
-      resolve: (root) => root.id,
-    });
+    t.relayGlobalId('id', { description: 'ID for a resource' });
     t.model.name();
     t.model.content();
     t.model.url();

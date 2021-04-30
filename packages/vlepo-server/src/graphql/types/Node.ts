@@ -1,11 +1,11 @@
 import { enumType, idArg, inputObjectType, interfaceType, list, nonNull, queryField } from 'nexus';
 
-import { entities } from '@vlepo/shared';
+import { fromGlobalId } from '../plugins/relayGlobalId';
 
 export const NodeInterface = interfaceType({
   name: 'Node',
   definition(t) {
-    t.id('id', { description: 'UUID for a resource' });
+    t.id('id', { description: 'ID for a resource' });
   },
 });
 
@@ -13,7 +13,6 @@ export const node = queryField((t) => {
   t.nullable.field('node', {
     type: 'Node',
     args: {
-      // defaults to nonNull to keep it backward compatible
       id: nonNull(
         idArg({
           description: 'The global ID of an object',
@@ -22,17 +21,13 @@ export const node = queryField((t) => {
     },
     description: 'Fetches an object given its global ID',
     resolve: async (_obj, { id }, ctx) => {
-      const result = await Promise.all(
-        entities.map((et) =>
-          // @ts-expect-error prisma client workaround
-          ctx.prisma[et].findFirst({
-            where: {
-              id,
-            },
-          }),
-        ),
-      );
-      return result.find((r) => r !== null);
+      const { type: typeName, id: rawId } = fromGlobalId(id);
+      // @ts-expect-error prisma client workaround
+      return ctx.prisma[`${typeName[0].toLocaleLowerCase()}${typeName.slice(1)}`].findFirst({
+        where: {
+          id: rawId,
+        },
+      });
     },
   });
 });
@@ -52,21 +47,18 @@ export const nodes = queryField((t) => {
       ),
     },
     description: 'Fetches objects given their global IDs',
-    resolve: async (_obj, { ids }, ctx) => {
-      const result = await Promise.all(
-        entities.map((et) =>
+    resolve: async (_obj, { ids }, ctx) =>
+      Promise.all(
+        ids.map((id) => {
+          const { type: typeName, id: rawId } = fromGlobalId(id);
           // @ts-expect-error prisma client workaround
-          ctx.prisma[et].findMany({
+          return ctx.prisma[`${typeName[0].toLocaleLowerCase()}${typeName.slice(1)}`].findFirst({
             where: {
-              id: {
-                in: ids,
-              },
+              id: rawId,
             },
-          }),
-        ),
-      );
-      return result.find((r) => r.length > 0);
-    },
+          });
+        }),
+      ),
   });
 });
 

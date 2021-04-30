@@ -13,9 +13,7 @@ export const User = objectType({
   definition(t) {
     t.implements('Node');
     t.implements('Commendable');
-    t.id('id', {
-      resolve: (root) => root.id,
-    });
+    t.relayGlobalId('id', { description: 'ID for a resource' });
     t.model.name();
     t.model.email({ resolve: OAuthResolve('user:email:view') });
     t.model.website();

@@ -4,9 +4,7 @@ export const Translation = objectType({
   name: 'Translation',
   definition(t) {
     t.implements('Node');
-    t.id('id', {
-      resolve: (root) => root.id,
-    });
+    t.relayGlobalId('id', { description: 'ID for a resource' });
     t.model.type();
     t.model.language();
     t.model.content();

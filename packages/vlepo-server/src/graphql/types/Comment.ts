@@ -4,6 +4,7 @@ import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection
 import { Language } from '@prisma/client';
 
 import { OAuthCheckScope } from '../../oauth2/nexus';
+import { fromGlobalId, toGlobalId } from '../plugins/relayGlobalId';
 import { Image } from './Image';
 
 export const Commendable = interfaceType({
@@ -110,7 +111,7 @@ export const creatCommentMutation = mutationField('creatCommentMutation', {
         },
         post: {
           connect: {
-            id: parentId,
+            id: fromGlobalId(parentId).id,
           },
         },
         content,
@@ -118,9 +119,10 @@ export const creatCommentMutation = mutationField('creatCommentMutation', {
       },
     });
 
-    await ctx.searchIndex.saveObject({
-      objectID: comment.id,
+    ctx.searchIndex.saveObject({
+      objectID: toGlobalId('Comment', comment.id),
       ...comment,
+      __typename: 'Comment',
     });
 
     return {

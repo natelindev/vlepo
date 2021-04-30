@@ -4,6 +4,7 @@ import { nexusPrisma } from 'nexus-plugin-prisma';
 import * as path from 'path';
 
 import { fieldAuthenticationPlugin } from './plugins/authentication';
+import { relayGlobalIdPlugin } from './plugins/relayGlobalId';
 import * as types from './types';
 
 export default NexusSchema.makeSchema({
@@ -29,6 +30,9 @@ export default NexusSchema.makeSchema({
       },
     }),
     NexusSchema.fieldAuthorizePlugin(),
+    relayGlobalIdPlugin({
+      shouldAddRawId: false,
+    }),
     fieldAuthenticationPlugin({
       isLoggedIn: async (_root, _args, ctx) => {
         const accessToken = await ctx.oauth.extractAccessToken(ctx, true);

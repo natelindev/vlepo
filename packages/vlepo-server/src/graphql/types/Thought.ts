@@ -12,9 +12,7 @@ export const Thought = objectType({
   name: 'Thought',
   definition(t) {
     t.implements('Node');
-    t.id('id', {
-      resolve: (root) => root.id,
-    });
+    t.relayGlobalId('id', { description: 'ID for a resource' });
     t.model.content();
     t.model.status();
     t.model.images();

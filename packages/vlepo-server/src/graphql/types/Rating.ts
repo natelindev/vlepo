@@ -4,9 +4,7 @@ export const Rating = objectType({
   name: 'Rating',
   definition(t) {
     t.implements('Node');
-    t.id('id', {
-      resolve: (root) => root.id,
-    });
+    t.relayGlobalId('id', { description: 'ID for a resource' });
     t.model.score();
     t.model.comment();
     t.model.createdAt();

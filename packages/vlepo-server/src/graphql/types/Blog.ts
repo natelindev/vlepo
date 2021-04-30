@@ -13,9 +13,7 @@ export const Blog = objectType({
   name: 'Blog',
   definition(t) {
     t.implements('Node');
-    t.id('id', {
-      resolve: (root) => root.id,
-    });
+    t.relayGlobalId('id', { description: 'ID for a resource' });
     t.model.name();
     t.int('postViewCount', {
       async resolve({ id }, _args, ctx) {

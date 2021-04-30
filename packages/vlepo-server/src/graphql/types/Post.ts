@@ -18,6 +18,7 @@ import { PostStatus as DBPostStatus } from '@prisma/client';
 
 import { OAuthCheckScope } from '../../oauth2/nexus';
 import { genPostSlug } from '../../util/genPostSlug';
+import { toGlobalId } from '../plugins/relayGlobalId';
 import { connectionArgsValidator, orderByArgs } from '../util/connectionArgsValidator';
 import { Comment } from './Comment';
 import { createImageInput, Image } from './Image';
@@ -28,15 +29,12 @@ import { ShareCount } from './ShareCount';
 import { createTagInput, Tag } from './Tag';
 
 import type { DBComment, DBTag } from 'src/types/db';
-
 export const Post = objectType({
   name: 'Post',
   definition(t) {
     t.implements('Node');
     t.implements('Commendable');
-    t.id('id', {
-      resolve: (root) => root.id,
-    });
+    t.relayGlobalId('id', { description: 'ID for a resource' });
     t.model.owner();
     t.model.title();
     t.model.slug();
@@ -272,11 +270,6 @@ export const creatPostMutation = mutationField('creatPostMutation', {
           .returning('*')
       )[0];
 
-      await ctx.searchIndex.saveObject({
-        objectID: post.id,
-        ...post,
-      });
-
       if (createPostInput.tags && createPostInput.tags.length > 0) {
         const existingTags = await trx('Tag')
           .whereIn(
@@ -332,6 +325,12 @@ export const creatPostMutation = mutationField('creatPostMutation', {
           .onConflict('url')
           .merge(['url', 'postId']);
       }
+
+      ctx.searchIndex.saveObject({
+        objectID: toGlobalId('Post', post.id),
+        ...post,
+        __typename: 'Post',
+      });
 
       return {
         createPostEdge: {
