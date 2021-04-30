@@ -6,7 +6,10 @@ import { useToasts } from 'react-toast-notifications';
 import { useMutation } from 'relay-hooks';
 import GradientButton from 'src/components/GradientButton';
 import { ErrorText, Form, Input, InputGroup, Label } from 'src/components/Input';
+import Loading from 'src/components/Loading';
 import { usePopupWindow } from 'src/hooks/usePopupWindow';
+
+import { Check } from '@emotion-icons/material-outlined';
 
 import {
   LoginInput as LoginInputType,
@@ -108,7 +111,7 @@ const LoginModal = (props: LoginModalProps) => {
             ))}
         </OauthButtonSection>
         <GradientButton my="0.5rem" type="submit">
-          {loading ? 'Login...' : 'Login'}
+          {loading ? <Loading size={24} /> : <Check size={24} />}
         </GradientButton>
       </Form>
     </BaseModal>

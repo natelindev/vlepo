@@ -8,6 +8,9 @@ import {
 } from 'src/__generated__/ImageUpload_Mutation.graphql';
 import GradientButton from 'src/components/GradientButton';
 
+import { Upload } from '@emotion-icons/material-outlined';
+
+import Loading from '../Loading';
 import { FileInput } from './style';
 
 type UploadProps = {
@@ -74,7 +77,7 @@ const ImageUpload = (props: UploadProps) => {
         onChange={onFileChange}
       />
       <GradientButton type="button" onClick={selectImage}>
-        Upload{loading ? `ing...` : ''}
+        {loading ? <Loading size={24} /> : <Upload size={24} />}
       </GradientButton>
     </>
   );

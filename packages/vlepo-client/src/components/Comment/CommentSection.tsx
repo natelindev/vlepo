@@ -11,7 +11,7 @@ import { useCurrentUser } from 'src/hooks/useCurrentUser';
 import { match } from 'ts-pattern';
 
 import { Markdown } from '@emotion-icons/fa-brands/Markdown';
-import { Send } from '@emotion-icons/material-outlined';
+import { ExpandMore, Send } from '@emotion-icons/material-outlined';
 
 import Avatar from '../Avatar';
 import GradientButton from '../GradientButton';
@@ -139,7 +139,7 @@ const CommentSection = (props: CommentSectionProps) => {
       {isLoadingNext && <PlaceHolder />}
       {hasNext && (
         <GradientButton mx="2rem" mb="1rem" onClick={() => loadNext(5)}>
-          Load More
+          <ExpandMore size={24} />
         </GradientButton>
       )}
       <NewComment>

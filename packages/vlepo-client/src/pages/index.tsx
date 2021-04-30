@@ -16,6 +16,7 @@ import PlaceHolder from 'src/components/PlaceHolder';
 import { initEnvironment } from 'src/relay';
 import { fontSize, FontSizeProps, margin, MarginProps } from 'styled-system';
 
+import { ExpandMore } from '@emotion-icons/material-outlined';
 import styled from '@emotion/styled';
 
 import type { GetServerSidePropsContext } from 'next';
@@ -137,7 +138,7 @@ const PostsSection = (props: PostSectionProps) => {
         {hasNext && !isLoadingNext && (
           <Row>
             <GradientButton width="100%" mb="2rem" onClick={() => loadNext(5)}>
-              Load More
+              <ExpandMore size={24} />
             </GradientButton>
           </Row>
         )}

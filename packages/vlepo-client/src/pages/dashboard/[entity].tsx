@@ -16,6 +16,8 @@ import PlaceHolder from 'src/components/PlaceHolder';
 import Sidebar from 'src/components/Sidebar';
 import { match } from 'ts-pattern';
 
+import { AddCircle, ExpandMore } from '@emotion-icons/material-outlined';
+
 import { Container, DashboardCard, DashboardMain, Numbers, NumbersLabel } from './style';
 
 const fragmentSpec = graphql`
@@ -117,7 +119,7 @@ const PostSection = (props: PostSectionProps) => {
           mr="1rem"
           onClick={() => setShowCreatePostModal(true)}
         >
-          Create
+          <AddCircle size={24} />
         </GradientButton>
       </Row>
       <Column mt="1rem">
@@ -139,7 +141,7 @@ const PostSection = (props: PostSectionProps) => {
       {hasNext && !isLoadingNext && (
         <Row>
           <GradientButton width="100%" mt="0.5rem" mx="1rem" onClick={() => loadNext(5)}>
-            Load More
+            <ExpandMore size={24} />
           </GradientButton>
         </Row>
       )}

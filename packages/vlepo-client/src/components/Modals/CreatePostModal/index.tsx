@@ -17,8 +17,11 @@ import ImageGrid from 'src/components/ImageGrid';
 import ImageUpload from 'src/components/ImageUpload';
 import { ErrorText, Form, Input, InputGroup, Label, TextArea } from 'src/components/Input';
 import { Row } from 'src/components/Layout/style';
+import Loading from 'src/components/Loading';
 import Select from 'src/components/Select';
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
+
+import { Check } from '@emotion-icons/material-outlined';
 
 import BaseModal, { BaseModalProps } from '../BaseModal';
 import { HeaderImage } from './style';
@@ -205,7 +208,7 @@ const CreatePostModal = (props: CreatePostModalProps) => {
           {errors.content && <ErrorText>{errors.content.message}</ErrorText>}
         </InputGroup>
         <GradientButton my="0.5rem" type="submit">
-          {loading ? 'Create...' : 'Create'}
+          {loading ? <Loading size={24} /> : <Check size={24} />}
         </GradientButton>
       </Form>
     </BaseModal>
