@@ -1,4 +1,4 @@
-import { AnimatedLink } from 'src/components/Link';
+import { AnimatedExternalLink } from 'src/components/Link';
 
 import CodeBlock from '../CodeBlock';
 import PlaceHolder from '../PlaceHolder';
@@ -8,7 +8,7 @@ import { inlineCode } from './style';
 export default {
   PlaceHolder,
   code: CodeBlock,
-  a: AnimatedLink,
+  a: AnimatedExternalLink,
   h1: H1,
   h2: H2,
   h3: H3,
@@ -19,7 +19,7 @@ export default {
 };
 
 export const remarkComponents = {
-  a: AnimatedLink,
+  a: AnimatedExternalLink,
   h1: H1,
   h2: H2,
   h3: H3,

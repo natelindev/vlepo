@@ -2,14 +2,26 @@ import { SearchBox } from 'react-instantsearch-dom';
 
 import styled from '@emotion/styled';
 
-export const BaseSearchBar = styled.div`
+export const BaseSearchBar = styled.div<{ show?: boolean }>`
+  background-color: ${(props) => props.theme.colors.backgroundMuted};
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+
+  .ais-Hits-item {
+    padding: 0.3rem;
+  }
+
   position: relative;
   display: flex;
   align-items: stretch;
 
   margin-left: auto;
 
-  background-color: ${(props) => props.theme.colors.backgroundMuted};
   border-radius: 0.25rem;
 
   flex-grow: 0;
@@ -28,8 +40,20 @@ export const BaseSearchBar = styled.div`
   }
 
   > .ais-Hits {
+    width: 100%;
     position: absolute;
-    top: ${(props) => props.theme.heights.navbar};
+    top: 100%;
+    background-color: ${(props) => props.theme.colors.backgroundSecondary};
+    z-index: ${(props) => props.theme.zIndices.DropDownMenu};
+    display: ${(props) => (props.show ? 'flex' : 'none')};
+    flex-direction: column;
+    float: left;
+    min-width: 10rem;
+    padding: 0.3rem;
+    margin: 0.125rem 0 0;
+    border-radius: ${(props) =>
+      `0 0 ${props.theme.radii.default}px ${props.theme.radii.default}px`};
+    box-shadow: ${(props) => props.theme.shadows.Dropdown};
   }
 `;
 
@@ -58,11 +82,13 @@ export const InputGroupText = styled.span`
 
 export const SearchInput = styled(SearchBox)`
   display: flex;
+  width: 100%;
 
   > form {
     display: flex;
     width: 100%;
   }
+
   input {
     border: none;
     background: none;
@@ -85,9 +111,26 @@ export const SearchInput = styled(SearchBox)`
     margin: 0;
     font-family: inherit;
     outline: none;
+    appearance: none;
+
+    &::-webkit-search-cancel-button {
+      display: none;
+    }
   }
 
-  button {
+  button[type='submit'] {
     display: none;
+  }
+
+  button[type='reset'] {
+    margin-left: auto;
+    margin-right: 0.5rem;
+    border: none;
+    color: ${(props) => props.theme.colors.text};
+    background-color: transparent;
+
+    > svg {
+      fill: ${(props) => props.theme.colors.text};
+    }
   }
 `;

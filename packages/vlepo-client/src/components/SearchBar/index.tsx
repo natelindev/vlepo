@@ -1,4 +1,5 @@
 import algoliasearch from 'algoliasearch';
+import { useState } from 'react';
 import { Hits, InstantSearch } from 'react-instantsearch-dom';
 
 import { Search } from '@emotion-icons/material-outlined';
@@ -12,8 +13,13 @@ const searchClient = algoliasearch(
 );
 
 const SearchBar = (): React.ReactElement => {
+  const [showSearchResult, setShowSearchResult] = useState(false);
   return (
-    <BaseSearchBar>
+    <BaseSearchBar
+      onFocus={() => setShowSearchResult(true)}
+      onBlur={() => setShowSearchResult(false)}
+      show={showSearchResult}
+    >
       <Search size={24} />
       <InstantSearch
         indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME}

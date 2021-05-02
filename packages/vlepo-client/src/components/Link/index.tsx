@@ -1,3 +1,5 @@
+import React from 'react';
+
 import styled from '@emotion/styled';
 
 export const AnimatedLink = styled.a`
@@ -27,3 +29,7 @@ export const AnimatedLink = styled.a`
     transition: all 0.3s ease-in-out 0s;
   }
 `;
+
+export const AnimatedExternalLink = (props: React.ComponentProps<typeof AnimatedLink>) => {
+  return <AnimatedLink target="_blank" rel="noopener noreferrer" {...props} />;
+};
