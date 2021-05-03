@@ -119,12 +119,6 @@ export const creatCommentMutation = mutationField('creatCommentMutation', {
       },
     });
 
-    ctx.searchIndex.saveObject({
-      objectID: toGlobalId('Comment', comment.id),
-      ...comment,
-      __typename: 'Comment',
-    });
-
     return {
       createCommentEdge: {
         cursor: comment.id,

@@ -1,3 +1,5 @@
+import { match } from 'ts-pattern';
+
 import styled from '@emotion/styled';
 
 type SearchResultProp = {
@@ -11,7 +13,14 @@ const BaseSearchResult = styled.div`
 
 const SearchResult = (props: SearchResultProp) => {
   const { hit } = props;
-  return <BaseSearchResult>{hit.title ?? hit.content}</BaseSearchResult>;
+  return (
+    <BaseSearchResult>
+      {match(hit.__typename)
+        .with('Post', () => hit.title)
+        .with('Thought', () => hit.content)
+        .otherwise(() => null)}
+    </BaseSearchResult>
+  );
 };
 
 export default SearchResult;

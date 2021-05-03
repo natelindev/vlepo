@@ -29,6 +29,7 @@ import { ShareCount } from './ShareCount';
 import { createTagInput, Tag } from './Tag';
 
 import type { DBComment, DBTag } from 'src/types/db';
+
 export const Post = objectType({
   name: 'Post',
   definition(t) {
@@ -326,11 +327,14 @@ export const creatPostMutation = mutationField('creatPostMutation', {
           .merge(['url', 'postId']);
       }
 
-      ctx.searchIndex.saveObject({
-        objectID: toGlobalId('Post', post.id),
-        ...post,
-        __typename: 'Post',
-      });
+      // only index published posts
+      if (post.status === 'PUBLISHED') {
+        ctx.searchIndex.saveObject({
+          objectID: toGlobalId('Post', post.id),
+          ...post,
+          __typename: 'Post',
+        });
+      }
 
       return {
         createPostEdge: {
