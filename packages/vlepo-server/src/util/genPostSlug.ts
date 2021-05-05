@@ -6,6 +6,6 @@ export const genPostSlug = (title: string) =>
     .replace(/[^ -~]+/g, '') // remove non-ascii
     .replace(/[\s]+/g, '-') // replace spaces with dash
     .toLocaleLowerCase()}-${cryptoRandomString({
-    length: 8,
+    length: 4,
     type: 'alphanumeric',
   }).toLocaleLowerCase()}`;
