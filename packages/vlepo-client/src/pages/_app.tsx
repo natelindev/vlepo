@@ -24,11 +24,6 @@ export const ThemeContext = React.createContext<
   | Record<string, never>
 >({});
 
-export const themeProvider = {
-  component: ThemeProvider,
-  props: { theme: defaultTheme },
-};
-
 function App({ Component, pageProps }: PageProps) {
   const [theme, setTheme] = useState(defaultTheme);
 

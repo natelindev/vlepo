@@ -4,7 +4,7 @@ import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection
 import { Language } from '@prisma/client';
 
 import { OAuthCheckScope } from '../../oauth2/nexus';
-import { fromGlobalId, toGlobalId } from '../plugins/relayGlobalId';
+import { fromGlobalId } from '../plugins/relayGlobalId';
 import { Image } from './Image';
 
 export const Commendable = interfaceType({

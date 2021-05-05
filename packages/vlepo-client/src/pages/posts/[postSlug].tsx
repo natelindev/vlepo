@@ -1,11 +1,10 @@
 import { format, parseISO } from 'date-fns';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
-import hydrate from 'next-mdx-remote/hydrate';
-import renderToString from 'next-mdx-remote/render-to-string';
+import { MDXRemote } from 'next-mdx-remote';
+import { serialize } from 'next-mdx-remote/serialize';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { graphql } from 'react-relay';
-import rehypeSlug from 'rehype-slug';
 import { useMutation, useQuery } from 'relay-hooks';
 import { fetchQuery } from 'relay-runtime';
 import { PostSlugViewMutation } from 'src/__generated__/PostSlugViewMutation.graphql';
@@ -14,7 +13,7 @@ import CommentSection from 'src/components/Comment/CommentSection';
 import HoverShare from 'src/components/HoverShare/HoverShare';
 import Image from 'src/components/Image';
 import { Column, Row } from 'src/components/Layout/style';
-import components from 'src/components/MDXComponents';
+import mdxComponents from 'src/components/MDXComponents';
 import PlaceHolder from 'src/components/PlaceHolder';
 import { H5 } from 'src/components/Typography';
 import { initEnvironment } from 'src/relay';
@@ -23,7 +22,6 @@ import { KeyboardBackspace } from '@emotion-icons/material-outlined';
 import { css, useTheme } from '@emotion/react';
 
 import { PostSlugQuery } from '../../__generated__/PostSlugQuery.graphql';
-import { themeProvider } from '../_app';
 import { ArticleBody, Back, Content, Header, Title } from './style';
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
@@ -45,18 +43,12 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   res.setHeader('Cache-Control', 's-maxage=604800, stale-while-revalidate');
 
-  const renderedMDX = await renderToString(queryPayload?.data?.post.content, {
-    components,
-    provider: themeProvider,
-    mdxOptions: {
-      rehypePlugins: [rehypeSlug],
-    },
-  });
+  const mdxSource = await serialize(queryPayload?.data?.post.content);
 
   return {
     props: {
       relayData: relayData && 'json' in queryPayload ? [[queryString, queryPayload.json]] : null,
-      renderedMDX,
+      mdxSource,
     },
   };
 };
@@ -90,15 +82,8 @@ const postSlugViewMutation = graphql`
 const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
   const postSlug = router.query.postSlug as string;
-  const {
-    renderedMDX = {
-      compiledSource: '',
-      renderedOutput: '',
-      scope: {},
-    },
-  } = props;
+  const { mdxSource } = props;
   const { error, data } = useQuery<PostSlugQuery>(postSlugQuery, { slug: postSlug });
-  const mdxContent = hydrate(renderedMDX, { components });
   const [fullUrl, setFullUrl] = useState('');
   const theme = useTheme();
 
@@ -161,7 +146,9 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
       <Column mb="2rem" mx="auto" width={[0.95, 0.9, 0.85, 0.8]}>
         <Row>
           <ArticleBody>
-            <Content>{mdxContent}</Content>
+            <Content>
+              <MDXRemote {...mdxSource} components={mdxComponents} lazy />
+            </Content>
           </ArticleBody>
         </Row>
         <CommentSection variant="post" parent={data.post} />
