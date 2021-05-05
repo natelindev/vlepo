@@ -42,18 +42,26 @@ export const BaseSearchBar = styled.div<{ show?: boolean }>`
   > .ais-Hits {
     width: 100%;
     position: absolute;
-    top: 100%;
+    top: ${(props) => (props.show ? '100%' : '-100rem')};
     background-color: ${(props) => props.theme.colors.backgroundSecondary};
     z-index: ${(props) => props.theme.zIndices.DropDownMenu};
-    display: ${(props) => (props.show ? 'flex' : 'none')};
+    display: flex;
     flex-direction: column;
     float: left;
     min-width: 10rem;
     padding: 0.3rem;
-    margin: 0.125rem 0 0;
+    margin: 0.1rem 0 0;
     border-radius: ${(props) =>
       `0 0 ${props.theme.radii.default}px ${props.theme.radii.default}px`};
     box-shadow: ${(props) => props.theme.shadows.Dropdown};
+  }
+
+  .ais-Hits-item {
+    position: relative;
+    border-radius: ${(props) => `${props.theme.radii.default}px`};
+    &:hover {
+      background-color: ${(props) => props.theme.colors.backgroundMuted};
+    }
   }
 `;
 

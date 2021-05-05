@@ -1,5 +1,6 @@
 import algoliasearch from 'algoliasearch';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
 import { Hits, InstantSearch } from 'react-instantsearch-dom';
 
 import { Search } from '@emotion-icons/material-outlined';
@@ -14,10 +15,32 @@ const searchClient = algoliasearch(
 
 const SearchBar = (): React.ReactElement => {
   const [showSearchResult, setShowSearchResult] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
+  const router = useRouter();
+
+  const routerChangeBlur = () => {
+    searchInputRef.current?.blur();
+    setShowSearchResult(false);
+  };
+
+  useEffect(() => {
+    router.events.on('routeChangeStart', routerChangeBlur);
+    return () => {
+      router.events.off('routeChangeStart', routerChangeBlur);
+    };
+  }, [router.events]);
+
   return (
     <BaseSearchBar
       onFocus={() => setShowSearchResult(true)}
-      onBlur={() => setShowSearchResult(false)}
+      onBlur={() => {
+        setShowSearchResult(false);
+      }}
+      onKeyUp={(e) => {
+        if (e.key === 'Escape') {
+          searchInputRef.current?.blur();
+        }
+      }}
       show={showSearchResult}
     >
       <Search size={24} />
@@ -25,7 +48,8 @@ const SearchBar = (): React.ReactElement => {
         indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME}
         searchClient={searchClient}
       >
-        <SearchInput />
+        {/** @ts-expect-error algolia search typing inaccurate */}
+        <SearchInput inputRef={searchInputRef} />
         <Hits hitComponent={SearchResult} />
       </InstantSearch>
     </BaseSearchBar>

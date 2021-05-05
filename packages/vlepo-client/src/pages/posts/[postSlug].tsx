@@ -117,7 +117,7 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
           }
         >
           <Column width="100%" mb="auto">
-            <Back onClick={() => router.back()}>
+            <Back onClick={() => router.push('/')}>
               <KeyboardBackspace size={24} />
               <H5 ml="0.5rem">Back</H5>
             </Back>

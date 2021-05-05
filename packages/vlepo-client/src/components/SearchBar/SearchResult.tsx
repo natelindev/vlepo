@@ -1,25 +1,45 @@
+import Link from 'next/link';
 import { match } from 'ts-pattern';
 
 import styled from '@emotion/styled';
+
+import { OverlayLink } from '../Card/style';
 
 type SearchResultProp = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   hit: any;
 };
 
-const BaseSearchResult = styled.div`
-  background-color: ${(props) => props.theme.colors.backgroundSecondary};
-`;
+const BaseResultCard = styled.div``;
+
+type ResultCardProps = {
+  href?: string;
+  children?: React.ReactNode;
+} & React.ComponentProps<typeof BaseResultCard>;
+
+const ResultCard = (props: ResultCardProps) => {
+  const { href, children, ...rest } = props;
+  return (
+    <BaseResultCard {...rest}>
+      {children}
+      {href ? (
+        <Link href={href} passHref>
+          <OverlayLink />
+        </Link>
+      ) : null}
+    </BaseResultCard>
+  );
+};
 
 const SearchResult = (props: SearchResultProp) => {
   const { hit } = props;
   return (
-    <BaseSearchResult>
+    <>
       {match(hit.__typename)
-        .with('Post', () => hit.title)
+        .with('Post', () => <ResultCard href={`/posts/${hit.slug}`}>{hit.title}</ResultCard>)
         .with('Thought', () => hit.content)
         .otherwise(() => null)}
-    </BaseSearchResult>
+    </>
   );
 };
 
