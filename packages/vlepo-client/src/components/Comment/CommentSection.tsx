@@ -159,7 +159,7 @@ const CommentSection = (props: CommentSectionProps) => {
           {currentUser ? (
             <>
               <Row alignItems="center" mb="0.75rem">
-                <Avatar size={32} src={currentUser.profileImageUrl} />
+                <Avatar variant="round" size={32} src={currentUser.profileImageUrl} />
                 <H5 mx="0.5rem">{currentUser.name}</H5>
               </Row>
               <TextArea

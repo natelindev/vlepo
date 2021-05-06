@@ -55,7 +55,7 @@ const Comment = (props: CommentProps) => {
         .with('post', () => (
           <>
             <Row alignItems="center">
-              <Avatar src={comment.owner.profileImageUrl} size={32} />
+              <Avatar variant="round" src={comment.owner.profileImageUrl} size={32} />
               <H5 mx="0.5rem">{comment.owner.name}</H5>
 
               {currentUser && currentUser.id === comment.owner.id && (

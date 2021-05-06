@@ -131,7 +131,7 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
             </H5>
             <Row mx="auto" mt="0.5rem">
               {owner.profileImageUrl && (
-                <Avatar size={28} mr="0.5rem" src={owner.profileImageUrl} />
+                <Avatar variant="round" size={28} mr="0.5rem" src={owner.profileImageUrl} />
               )}
               {owner.name && (
                 <H5 fontWeight="normal" my="auto">

@@ -52,6 +52,7 @@ const Profile = () => {
           <UserCard p="2rem" mt="10rem">
             <Row mt="-5rem">
               <Avatar
+                variant="round"
                 size={96}
                 mx="auto"
                 src={profileUser.profileImageUrl ?? '/images/avatar/bot.svg'}
