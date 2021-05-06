@@ -1,4 +1,4 @@
-import { margin, MarginProps, variant } from 'styled-system';
+import { display, DisplayProps, margin, MarginProps, variant } from 'styled-system';
 
 import styled from '@emotion/styled';
 
@@ -9,7 +9,7 @@ export type BaseDropDownProps = {
   variant?: 'left' | 'right';
 };
 
-export const BaseDropdownMenu = styled.div<BaseDropDownProps & MarginProps>`
+export const BaseDropdownMenu = styled.div<BaseDropDownProps & MarginProps & DisplayProps>`
   ${variant({
     variants: {
       left: {
@@ -36,13 +36,14 @@ export const BaseDropdownMenu = styled.div<BaseDropDownProps & MarginProps>`
   background-color: ${(props) => props.theme.colors.backgroundSecondary};
   background-clip: padding-box;
   box-shadow: ${(props) => props.theme.shadows.Dropdown};
-  border-radius: 0.25rem;
+  border-radius: ${(props) => `${props.theme.radii.default}px`};
 
   > ${BaseNavLink} {
     box-shadow: none;
   }
 
   ${margin}
+  ${display}
 `;
 
 export const BaseDropdown = styled.div`

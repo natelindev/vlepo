@@ -7,7 +7,7 @@ export const shared = {
       'Economica, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"',
     monospace: 'Menlo, monospace',
   },
-  fontSizes: [12, 14, 16, 24, 32, 48, 64, 96, 128],
+  fontSizes: [12, 14, 18, 24, 32, 48, 64, 96, 128],
   fontWeights: {
     black: 800,
     bold: 700,

@@ -1,8 +1,9 @@
 ﻿import Link from 'next/link';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { a, useSpring, useSprings } from 'react-spring';
 import Dropdown from 'src/components/Dropdown';
 import Logo from 'src/components/Logo';
+import { useOnClickOutside } from 'src/hooks/useOnClickOutside';
 import { ThemeContext } from 'src/pages/_app';
 import { shapes } from 'src/shared/shapes';
 import { darkTheme, lightTheme } from 'src/shared/theme';
@@ -33,8 +34,14 @@ const Navbar: React.FC = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const [isToggled, setIsToggled] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const togglerRef = useRef<HTMLDivElement | null>(null);
 
   const { x } = useSpring({ config: { duration: 300 }, x: theme?.name === 'dark' ? 1 : 0 });
+
+  const toggleToggler = () => setIsToggled(!isToggled);
+  const closeToggler = () => setIsToggled(false);
+
+  useOnClickOutside(togglerRef, closeToggler);
 
   const toggleSprings = useSprings(3, [
     {
@@ -53,15 +60,25 @@ const Navbar: React.FC = () => {
   return (
     <SearchBarContext.Provider value={{ showSearch, setShowSearch }}>
       <BaseNavbar>
-        <NavbarToggler
-          onClick={() => setIsToggled(!isToggled)}
-          display={['block', 'block', 'none']}
-        >
-          {toggleSprings.map((styles, key) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <TogglerBar key={key} style={styles} />
-          ))}
-        </NavbarToggler>
+        <Dropdown mt="4px" show={isToggled}>
+          <NavbarToggler
+            ref={togglerRef}
+            onClick={toggleToggler}
+            onTouchStart={toggleToggler}
+            display={['block', 'block', 'none']}
+          >
+            {toggleSprings.map((styles, key) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <TogglerBar key={key} style={styles} />
+            ))}
+          </NavbarToggler>
+          <NavLink href="/portfolio">Portfolio</NavLink>
+          <NavLink href="/papers">Papers</NavLink>
+          <NavLink href="/about">About</NavLink>
+          <NavLink href="/thoughts">Thoughts</NavLink>
+          <NavLink href="/friends">Friends</NavLink>
+          <NavLink href="/tags">Tags</NavLink>
+        </Dropdown>
         <Logo size="32px" ml={['0', '0', '0.5rem']} mr="0.5rem" my="auto" />
         <Link href="/" passHref>
           <NavBrand

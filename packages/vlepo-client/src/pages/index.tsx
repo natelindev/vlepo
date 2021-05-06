@@ -40,7 +40,7 @@ const IndexRow = styled.div<MarginProps>`
   ${margin}
 `;
 
-const IndexSlogan = styled(Typist)<FontSizeProps>`
+const IndexSlogan = styled(Typist)<FontSizeProps & MarginProps>`
   display: flex;
   justify-content: center;
   margin-top: 3rem;
@@ -48,6 +48,7 @@ const IndexSlogan = styled(Typist)<FontSizeProps>`
   margin-left: auto;
   margin-right: auto;
   ${fontSize}
+  ${margin}
   color: ${(props) => props.theme.colors.text};
 `;
 
@@ -156,7 +157,12 @@ export default function Home() {
 
   return (
     <>
-      <IndexSlogan cursor={{ show: false }} fontSize={[3, 4]}>
+      <IndexSlogan
+        cursor={{ show: false }}
+        mt={['5rem', '4rem', '3rem']}
+        mb={['4rem', '5rem', '6rem']}
+        fontSize={[2, 3, 4]}
+      >
         <Slogan>I code, Therefore I am</Slogan>
       </IndexSlogan>
       {data && <PostsSection blog={data.blog!} />}

@@ -44,6 +44,12 @@ export const LeftNavCollapse = styled(NavbarCollapse)<DisplayProps>`
   ${display}
   margin-top: auto;
   margin-bottom: auto;
+  @media only screen and (max-width: ${(props) => props.theme.breakpoints[1]}) {
+    position: absolute;
+    flex-direction: column;
+    top: 100%;
+    height: auto;
+  }
 `;
 
 export const RightNavCollapse = styled(NavbarCollapse)<DisplayProps>`
@@ -80,7 +86,7 @@ export const NavbarToggler = styled.div<DisplayProps & MarginProps>`
   max-height: 2.2rem;
   min-width: 2.2rem;
   min-height: 2.2rem;
-  margin-top: 1rem;
+  margin-top: 1.1rem;
   margin-left: 1rem;
   margin-right: 0;
   margin-bottom: auto;
