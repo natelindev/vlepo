@@ -62,7 +62,7 @@ const Navbar: React.FC = () => {
             <TogglerBar key={key} style={styles} />
           ))}
         </NavbarToggler>
-        <Logo size="32px" ml="0.5rem" mr="0.5rem" my="auto" />
+        <Logo size="32px" ml={['0', '0', '0.5rem']} mr="0.5rem" my="auto" />
         <Link href="/" passHref>
           <NavBrand
             display={[showSearch ? 'none' : 'inline-block', 'inline-block']}

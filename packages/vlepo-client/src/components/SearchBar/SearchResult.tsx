@@ -10,7 +10,9 @@ type SearchResultProp = {
   hit: any;
 };
 
-const BaseResultCard = styled.div``;
+const BaseResultCard = styled.div`
+  padding: 0.25rem 0.5rem;
+`;
 
 type ResultCardProps = {
   href?: string;

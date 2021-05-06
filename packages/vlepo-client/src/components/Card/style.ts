@@ -14,6 +14,20 @@ import {
 
 import styled from '@emotion/styled';
 
+export const CardImage = styled(Image, {
+  shouldForwardProp: (propName) =>
+    propName !== 'top' && propName !== 'bottom' && propName !== 'left' && propName !== 'right',
+})<CardImgProps>`
+  border-top-left-radius: ${(props) =>
+    props.left || props.top ? `${props.theme.radii.default}px` : `0`};
+  border-top-right-radius: ${(props) =>
+    props.right || props.top ? `${props.theme.radii.default}px` : `0`};
+  border-bottom-right-radius: ${(props) =>
+    props.right || props.bottom ? `${props.theme.radii.default}px` : `0`};
+  border-bottom-left-radius: ${(props) =>
+    props.left || props.bottom ? `${props.theme.radii.default}px` : `0`};
+`;
+
 type BaseCardProps = { direction?: string } & WidthProps &
   HeightProps &
   PaddingProps &
@@ -29,6 +43,10 @@ export const BaseCard = styled.div<BaseCardProps>`
   ${margin}
   ${padding}
   ${flexbox}
+
+  ${CardImage} {
+    filter: ${(props) => props.theme.filter.cardImage};
+  }
 `;
 
 export const CardBody = styled.div`
@@ -53,17 +71,3 @@ export type CardImgProps = {
   top?: boolean;
   bottom?: boolean;
 };
-
-export const CardImage = styled(Image, {
-  shouldForwardProp: (propName) =>
-    propName !== 'top' && propName !== 'bottom' && propName !== 'left' && propName !== 'right',
-})<CardImgProps>`
-  border-top-left-radius: ${(props) =>
-    props.left || props.top ? `${props.theme.radii.default}px` : `0`};
-  border-top-right-radius: ${(props) =>
-    props.right || props.top ? `${props.theme.radii.default}px` : `0`};
-  border-bottom-right-radius: ${(props) =>
-    props.right || props.bottom ? `${props.theme.radii.default}px` : `0`};
-  border-bottom-left-radius: ${(props) =>
-    props.left || props.bottom ? `${props.theme.radii.default}px` : `0`};
-`;

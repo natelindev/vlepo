@@ -106,7 +106,4 @@ export const shared = {
   heights: {
     navbar: '3.5rem',
   },
-  filter: {
-    headerImage: 'brightness(50%) saturate(120%)',
-  },
 };

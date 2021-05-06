@@ -8,7 +8,7 @@ type LoadingProps = {
 };
 const Loading = (props: LoadingProps) => {
   const theme = useTheme();
-  const { color = theme.colors.text, size = 24, height = size, width = size } = props;
+  const { color = theme.colors.whiteText, size = 24, height = size, width = size } = props;
 
   return (
     <svg
