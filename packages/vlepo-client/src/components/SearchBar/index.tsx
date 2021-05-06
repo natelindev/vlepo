@@ -1,11 +1,12 @@
 import algoliasearch from 'algoliasearch';
 import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef } from 'react';
 import { Hits, InstantSearch } from 'react-instantsearch-dom';
 import { useOnClickOutside } from 'src/hooks/useOnClickOutside';
 
 import { Search } from '@emotion-icons/material-outlined';
 
+import { SearchBarContext } from '../Navbar';
 import SearchResult from './SearchResult';
 import { BaseSearchBar, SearchInput } from './style';
 
@@ -15,42 +16,42 @@ const searchClient = algoliasearch(
 );
 
 const SearchBar = (): React.ReactElement => {
-  const [showSearchResult, setShowSearchResult] = useState(false);
+  const { showSearch = false, setShowSearch } = useContext(SearchBarContext);
   const searchInputRef = useRef<HTMLInputElement | null>(null);
+  const searchBarRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
 
-  const hideSearch = () => {
+  const hideSearchCallback = useCallback(() => {
     searchInputRef.current?.blur();
-    setShowSearchResult(false);
-  };
+    setShowSearch?.(false);
+  }, [setShowSearch]);
 
-  useOnClickOutside(searchInputRef, hideSearch);
+  const showSearchCallback = useCallback(() => {
+    setShowSearch?.(true);
+    setTimeout(() => searchInputRef.current?.focus(), 0);
+  }, [setShowSearch]);
+
+  useOnClickOutside(searchBarRef, hideSearchCallback);
 
   useEffect(() => {
-    router.events.on('routeChangeStart', hideSearch);
+    router.events.on('routeChangeStart', hideSearchCallback);
     return () => {
-      router.events.off('routeChangeStart', hideSearch);
+      router.events.off('routeChangeStart', hideSearchCallback);
     };
-  }, [router.events]);
+  }, [router.events, hideSearchCallback]);
 
   return (
     <BaseSearchBar
-      onClick={() => {
-        searchInputRef.current?.focus();
-        setShowSearchResult(true);
-      }}
-      onFocus={() => setShowSearchResult(true)}
-      onBlur={() => {
-        setShowSearchResult(false);
-      }}
+      ref={searchBarRef}
+      onFocus={showSearchCallback}
       onKeyUp={(e) => {
         if (e.key === 'Escape') {
-          searchInputRef.current?.blur();
+          hideSearchCallback();
         }
       }}
-      show={showSearchResult}
+      show={showSearch}
     >
-      <Search size={24} />
+      <Search size={24} onClick={showSearchCallback} />
       <InstantSearch
         indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME}
         searchClient={searchClient}

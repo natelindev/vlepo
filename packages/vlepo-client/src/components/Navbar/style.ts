@@ -23,7 +23,6 @@ export const NavBrand = styled.a<MarginProps & DisplayProps>`
   display: inline-block;
   padding-top: 0.3125rem;
   padding-bottom: 0.3125rem;
-  margin-right: 1rem;
   font-size: 1.25rem;
   line-height: inherit;
   white-space: nowrap;
@@ -43,6 +42,8 @@ export const LeftNavCollapse = styled(NavbarCollapse)<DisplayProps>`
   flex-grow: 0;
   flex-basis: auto;
   ${display}
+  margin-top: auto;
+  margin-bottom: auto;
 `;
 
 export const RightNavCollapse = styled(NavbarCollapse)<DisplayProps>`
@@ -55,6 +56,7 @@ export const NavbarNav = styled.div`
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+  height: 100%;
 `;
 
 export const NavItem = styled.li<WidthProps & MarginProps>`
@@ -74,8 +76,13 @@ export const NavbarToggler = styled.div<DisplayProps & MarginProps>`
   ${margin}
   width: 2.2rem;
   height: 2.2rem;
-  margin-top: 1.1rem;
+  max-width: 2.2rem;
+  max-height: 2.2rem;
+  min-width: 2.2rem;
+  min-height: 2.2rem;
+  margin-top: 1rem;
   margin-left: 1rem;
+  margin-right: 0;
   margin-bottom: auto;
 `;
 

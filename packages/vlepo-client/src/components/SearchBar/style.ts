@@ -102,6 +102,7 @@ export const BaseSearchBar = styled.div<{ show?: boolean }>`
   }
 
   ${SearchInput} {
+    display: flex;
     @media only screen and (max-width: ${(props) => props.theme.breakpoints[1]}) {
       display: ${(props) => (props.show ? 'flex' : 'none')};
     }
@@ -115,7 +116,7 @@ export const BaseSearchBar = styled.div<{ show?: boolean }>`
 
   border-radius: 0.25rem;
 
-  flex-grow: 0;
+  flex-grow: ${(props) => (props.show ? 1 : 0)};
   transition: all 0.12s;
   text-transform: none;
 
@@ -151,6 +152,7 @@ export const BaseSearchBar = styled.div<{ show?: boolean }>`
   }
 
   .ais-Hits-item {
+    display: flex;
     position: relative;
     border-radius: ${(props) => `${props.theme.radii.default}px`};
     &:hover {
