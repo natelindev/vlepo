@@ -1,7 +1,8 @@
-import { queryField } from 'nexus';
+import { inputObjectType, nonNull, queryField } from 'nexus';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 
+import { fromGlobalId } from '../plugins/relayGlobalId';
 import { connectionArgsValidator, orderByArgs } from '../util/connectionArgsValidator';
 import { Blog } from './Blog';
 import { Comment } from './Comment';
@@ -16,6 +17,7 @@ import { ShareCount } from './ShareCount';
 import { Tag } from './Tag';
 import { Thought } from './Thought';
 import { Translation } from './Translation';
+import { User } from './User';
 
 import type {
   DBBlog,
@@ -33,10 +35,42 @@ import type {
   DBTranslation,
 } from 'src/types/db';
 
-export const Query = queryField((t) => {
-  t.crud.blog();
+const whereUniqueInput = inputObjectType({
+  name: 'whereUniqueInput',
+  definition(t) {
+    t.string('id');
+  },
+});
 
-  t.crud.user();
+export const Query = queryField((t) => {
+  t.field('blog', {
+    type: Blog,
+    args: {
+      where: nonNull(whereUniqueInput.asArg()),
+    },
+    resolve: async (_root, { where: { id } }, ctx) => {
+      return ctx.prisma.blog.findFirst({
+        where: {
+          id: fromGlobalId(id ?? '').id,
+        },
+      });
+    },
+  });
+
+  t.field('user', {
+    type: User,
+    args: {
+      where: nonNull(whereUniqueInput.asArg()),
+    },
+    resolve: async (_root, { where: { id } }, ctx) => {
+      return ctx.prisma.user.findFirst({
+        where: {
+          id: fromGlobalId(id ?? '').id,
+        },
+      });
+    },
+  });
+
   t.crud.post();
   t.crud.tag();
   t.crud.comment();
@@ -49,7 +83,6 @@ export const Query = queryField((t) => {
   t.crud.shareCount();
   t.crud.thought();
   t.crud.translation();
-  t.crud.userRole();
 
   t.connectionField('BlogsConnection', {
     type: Blog,

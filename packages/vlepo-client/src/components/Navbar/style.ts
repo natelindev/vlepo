@@ -69,8 +69,9 @@ export const NavSearchBar = styled(SearchBar)`
   margin-right: 0.5rem;
 `;
 
-export const NavbarToggler = styled.div<DisplayProps>`
+export const NavbarToggler = styled.div<DisplayProps & MarginProps>`
   ${display}
+  ${margin}
   width: 2.2rem;
   height: 2.2rem;
   margin-top: 1.1rem;

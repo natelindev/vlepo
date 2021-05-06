@@ -35,10 +35,20 @@ export const BaseComment = styled.div<BaseCommentProps>`
   ${padding}
 `;
 
-export const BaseCommentSection = styled.div<WidthProps & HeightProps & MarginProps & PaddingProps>`
+type BaseCommentSectionProps = {
+  variant: 'profile' | 'post';
+} & WidthProps &
+  HeightProps &
+  MarginProps &
+  PaddingProps;
+
+export const BaseCommentSection = styled.div<BaseCommentSectionProps>`
   display: flex;
   flex-direction: column;
   width: 100%;
+  border-top: ${(props) =>
+    props.variant === 'post' ? `2px solid ${props.theme.colors.highlight}` : 'none'};
+
   ${width}
   ${height}
   ${margin}

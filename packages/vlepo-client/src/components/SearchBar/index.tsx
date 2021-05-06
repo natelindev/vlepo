@@ -2,6 +2,7 @@ import algoliasearch from 'algoliasearch';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { Hits, InstantSearch } from 'react-instantsearch-dom';
+import { useOnClickOutside } from 'src/hooks/useOnClickOutside';
 
 import { Search } from '@emotion-icons/material-outlined';
 
@@ -18,20 +19,26 @@ const SearchBar = (): React.ReactElement => {
   const searchInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
 
-  const routerChangeBlur = () => {
+  const hideSearch = () => {
     searchInputRef.current?.blur();
     setShowSearchResult(false);
   };
 
+  useOnClickOutside(searchInputRef, hideSearch);
+
   useEffect(() => {
-    router.events.on('routeChangeStart', routerChangeBlur);
+    router.events.on('routeChangeStart', hideSearch);
     return () => {
-      router.events.off('routeChangeStart', routerChangeBlur);
+      router.events.off('routeChangeStart', hideSearch);
     };
   }, [router.events]);
 
   return (
     <BaseSearchBar
+      onClick={() => {
+        searchInputRef.current?.focus();
+        setShowSearchResult(true);
+      }}
       onFocus={() => setShowSearchResult(true)}
       onBlur={() => {
         setShowSearchResult(false);

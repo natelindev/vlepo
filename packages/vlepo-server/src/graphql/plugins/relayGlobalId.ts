@@ -17,6 +17,12 @@ export const toGlobalId = (type: string, id: string) => {
  * used to create it.
  */
 export const fromGlobalId = (globalId: string) => {
+  // raw uuid
+  if (globalId.length === 36) {
+    return {
+      id: globalId,
+    };
+  }
   const parsedGlobalId = base64Decode(globalId);
   const delimiterPos = parsedGlobalId.indexOf(':');
   return {

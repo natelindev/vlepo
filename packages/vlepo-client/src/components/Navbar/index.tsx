@@ -45,13 +45,13 @@ const Navbar: React.FC = () => {
 
   return (
     <BaseNavbar>
-      <NavbarToggler onClick={() => setIsToggled(!isToggled)} display={['block', 'none']}>
+      <NavbarToggler onClick={() => setIsToggled(!isToggled)} display={['block', 'block', 'none']}>
         {toggleSprings.map((styles, key) => (
           // eslint-disable-next-line react/no-array-index-key
           <TogglerBar key={key} style={styles} />
         ))}
       </NavbarToggler>
-      <Logo display={['none', 'inline-block']} size="32px" ml="1rem" mr="0.5rem" my="auto" />
+      <Logo size="32px" ml="1rem" mr="0.5rem" my="auto" />
       <Link href="/" passHref>
         <NavBrand display={['none', 'inline-block']} href="/" mr="auto">
           Nathaniel&#39;s Blog

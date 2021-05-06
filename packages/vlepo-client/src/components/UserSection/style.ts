@@ -7,16 +7,17 @@ export const LoginButton = styled(GradientButton)`
   border-radius: ${(props) => `${props.theme.radii.default}px`};
   margin-right: 1rem;
   height: 100%;
+  padding: 0.5rem 0.6rem;
 `;
 
 export const NavbarAvatar = styled(Avatar)`
   & > div {
     border-radius: 50%;
   }
-  margin-top: auto;
+  margin-top: -0.15rem;
   margin-bottom: auto;
-  margin-left: 1.25rem;
-  margin-right: 1.75rem;
+  margin-left: 0.3rem;
+  margin-right: 1.25rem;
 `;
 
 export const GreyText = styled.h5`

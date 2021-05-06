@@ -19,12 +19,12 @@ import { TextArea } from '../Input';
 import { Row } from '../Layout/style';
 import Loading from '../Loading';
 import PlaceHolder from '../PlaceHolder';
-import { H3, H5 } from '../Typography';
+import { H3, H4, H5 } from '../Typography';
 import { BaseCommentSection, NewComment } from './style';
 
 const commentFragmentSpec = graphql`
   fragment CommentSection_commendable on Commendable
-  @argumentDefinitions(count: { type: "Int", defaultValue: 5 }, cursor: { type: "String" })
+  @argumentDefinitions(count: { type: "Int", defaultValue: 3 }, cursor: { type: "String" })
   @refetchable(queryName: "CommentRefetchQuery") {
     commentsConnection(first: $count, after: $cursor)
       @connection(key: "CommentSection_commentsConnection") {
@@ -102,14 +102,23 @@ const CommentSection = (props: CommentSectionProps) => {
   );
 
   return (
-    <BaseCommentSection {...rest}>
+    <BaseCommentSection
+      mt={match(variant)
+        .with('post', () => '1rem')
+        .with('profile', () => undefined)
+        .run()}
+      variant={variant}
+      {...rest}
+    >
       {match(variant)
         .with('profile', () => (
           <H3 pl="2rem" py="1rem">
             Comments({data?.commentsConnection?.edges?.length ?? 0})
           </H3>
         ))
-        .with('post', () => null)
+        .with('post', () => (
+          <H4 py="1rem">Comments({data?.commentsConnection?.edges?.length ?? 0})</H4>
+        ))
         .run()}
       {data &&
       data.commentsConnection &&
@@ -127,7 +136,10 @@ const CommentSection = (props: CommentSectionProps) => {
                   .with('post', () => '1rem')
                   .run()}
                 py="1rem"
-                my="0.5rem"
+                my={match(variant)
+                  .with('profile', () => '0')
+                  .with('post', () => '0.5rem')
+                  .run()}
                 key={e.node.id}
                 comment={e.node}
               />
@@ -138,51 +150,53 @@ const CommentSection = (props: CommentSectionProps) => {
       )}
       {isLoadingNext && <PlaceHolder />}
       {hasNext && (
-        <GradientButton mx="2rem" mb="1rem" onClick={() => loadNext(5)}>
+        <GradientButton mb="1rem" onClick={() => loadNext(5)}>
           <ExpandMore size={24} />
         </GradientButton>
       )}
-      <NewComment>
-        {currentUser ? (
-          <>
-            <Row alignItems="center" mb="0.75rem">
-              <Avatar size={32} src={currentUser.profileImageUrl} />
-              <H5 mx="0.5rem">{currentUser.name}</H5>
-            </Row>
-            <TextArea
-              value={commentContent}
-              onChange={(e) => setCommentContent(e.currentTarget.value)}
-            />
-            <Row mt="0.5rem" alignItems="center">
-              <Markdown size={24} />
-              <H5 ml="0.5rem">markdown powered</H5>
-              <GradientButton
-                ml="auto"
-                mr="0.5rem"
-                onClick={() => {
-                  if (commentContent.length > 0) {
-                    mutate({
-                      variables: {
-                        connections: [commentSection_commentsConnectionId],
-                        parentId: ((parent as unknown) as { __id: string }).__id,
-                        content: commentContent,
-                      },
-                    });
-                  }
-                }}
-              >
-                {loading ? <Loading size={18} /> : <Send size={18} />}
-              </GradientButton>
-            </Row>
-          </>
-        ) : (
-          <>
-            <Row justifyContent="center" alignItems="center" height="5rem">
-              Please Login to comment
-            </Row>
-          </>
-        )}
-      </NewComment>
+      {variant === 'post' && (
+        <NewComment>
+          {currentUser ? (
+            <>
+              <Row alignItems="center" mb="0.75rem">
+                <Avatar size={32} src={currentUser.profileImageUrl} />
+                <H5 mx="0.5rem">{currentUser.name}</H5>
+              </Row>
+              <TextArea
+                value={commentContent}
+                onChange={(e) => setCommentContent(e.currentTarget.value)}
+              />
+              <Row mt="0.5rem" alignItems="center">
+                <Markdown size={24} />
+                <H5 ml="0.5rem">markdown powered</H5>
+                <GradientButton
+                  ml="auto"
+                  mr="0.5rem"
+                  onClick={() => {
+                    if (commentContent.length > 0) {
+                      mutate({
+                        variables: {
+                          connections: [commentSection_commentsConnectionId],
+                          parentId: ((parent as unknown) as { __id: string }).__id,
+                          content: commentContent,
+                        },
+                      });
+                    }
+                  }}
+                >
+                  {loading ? <Loading size={18} /> : <Send size={18} />}
+                </GradientButton>
+              </Row>
+            </>
+          ) : (
+            <>
+              <Row justifyContent="center" alignItems="center" height="5rem">
+                Please Login to comment
+              </Row>
+            </>
+          )}
+        </NewComment>
+      )}
     </BaseCommentSection>
   );
 };

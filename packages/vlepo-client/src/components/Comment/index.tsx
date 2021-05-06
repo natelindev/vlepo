@@ -57,12 +57,13 @@ const Comment = (props: CommentProps) => {
             <Row alignItems="center">
               <Avatar src={comment.owner.profileImageUrl} size={32} />
               <H5 mx="0.5rem">{comment.owner.name}</H5>
-              <H6>{format(parseISO(comment.createdAt), 'MMM d')}</H6>
+
               {currentUser && currentUser.id === comment.owner.id && (
                 <Badge ml="0.3rem" variant="secondary">
                   me
                 </Badge>
               )}
+              <H6 ml="auto">{format(parseISO(comment.createdAt), 'MMM d')}</H6>
             </Row>
             <CommentContent>
               {mdProcessor.processSync(comment.content).result as ReactNode}
