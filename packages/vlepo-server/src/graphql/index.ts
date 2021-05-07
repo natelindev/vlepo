@@ -1,7 +1,8 @@
-import { GraphQLVoid } from 'graphql-scalars';
 import * as NexusSchema from 'nexus';
 import { nexusPrisma } from 'nexus-plugin-prisma';
 import * as path from 'path';
+
+import { envDetect } from '@vlepo/shared';
 
 import { fieldAuthenticationPlugin } from './plugins/authentication';
 import { relayGlobalIdPlugin } from './plugins/relayGlobalId';
@@ -19,9 +20,6 @@ export default NexusSchema.makeSchema({
   plugins: [
     nexusPrisma({
       experimentalCRUD: true,
-      scalars: {
-        Void: GraphQLVoid,
-      },
     }),
     NexusSchema.connectionPlugin({
       includeNodesField: true,
@@ -44,22 +42,26 @@ export default NexusSchema.makeSchema({
       },
     }),
   ],
-  outputs: {
-    schema: path.join(__dirname, '../../../vlepo-client/src/schema/schema.graphql'),
-    typegen: path.join(__dirname, '../../node_modules/@types/nexus-typegen/index.d.ts'),
-  },
+  outputs: envDetect.isProd
+    ? undefined
+    : {
+        schema: path.join(__dirname, '../../../vlepo-client/src/schema/schema.graphql'),
+        typegen: path.join(__dirname, '../../node_modules/@types/nexus-typegen/index.d.ts'),
+      },
   contextType: {
     module: require.resolve('../app'),
     export: 'ExtendedContext',
   },
-  sourceTypes: {
-    modules: [
-      {
-        module: require.resolve(
-          path.join(__dirname, '../../../../node_modules/.prisma/client/index.d.ts'),
-        ),
-        alias: 'prisma',
+  sourceTypes: envDetect.isProd
+    ? undefined
+    : {
+        modules: [
+          {
+            module: require.resolve(
+              path.join(__dirname, '../../../../node_modules/.prisma/client/index.d.ts'),
+            ),
+            alias: 'prisma',
+          },
+        ],
       },
-    ],
-  },
 });

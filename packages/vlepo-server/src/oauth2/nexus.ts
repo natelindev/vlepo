@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { GraphQLResolveInfo } from 'graphql';
+
 import type { ExtendedContext } from 'src/app';
 
 export const OAuthCheckScope = (scope: string | string[]) => async (
@@ -13,11 +16,11 @@ export const OAuthCheckScope = (scope: string | string[]) => async (
 };
 
 export const OAuthResolve = (scope: string | string[]) => async (
-  root: unknown,
-  args: unknown,
+  root: any,
+  args: any,
   ctx: ExtendedContext,
-  info: unknown,
-  originalResolve: (root: unknown, args: unknown, ctx: ExtendedContext, info: unknown) => unknown,
+  info: GraphQLResolveInfo,
+  originalResolve: any,
 ) => {
   const token = await ctx.oauth.extractAccessToken(ctx, true);
   if (token) {

@@ -6,10 +6,17 @@
   vars:
     vlepo_server_dir: /root/vlepo
 
-  environment:
-    PATH: '/opt/bin:{{ ansible_env.PATH }}'
-
   tasks:
+    - name: stop existing server
+      shell:
+        cmd: 'source /root/.zshrc && pm2 delete vlepo-server 2> /dev/null || true'
+        executable: /usr/bin/zsh
+
+    - name: remove existing target dir
+      file:
+        path: '{{ vlepo_server_dir }}'
+        state: absent
+
     - name: ensure target dir exists
       file:
         path: '{{ vlepo_server_dir }}'
@@ -42,7 +49,58 @@
         dest: '{{ vlepo_server_dir }}/server/build/.env'
         state: link
 
+    - name: install dependencies
+      shell:
+        cmd: source /root/.zshrc && yarn
+        executable: /usr/bin/zsh
+        chdir: '{{ vlepo_server_dir }}/server/build/'
+      async: 1000
+      poll: 0
+      register: yarn_install
+
+    - name: 'waiting for yarn install'
+      async_status:
+        jid: '{{ yarn_install.ansible_job_id }}'
+      register: yarn_install_result
+      until: yarn_install_result.finished
+      retries: 60
+      delay: 5
+
+    - name: database client generation
+      shell:
+        cmd: source /root/.zshrc && yarn db:migrate
+        executable: /usr/bin/zsh
+        chdir: '{{ vlepo_server_dir }}/server/build/'
+      async: 1000
+      poll: 0
+      register: db_client_generation
+
+    - name: 'waiting for database client generation'
+      async_status:
+        jid: '{{ db_client_generation.ansible_job_id }}'
+      register: db_client_generation_result
+      until: db_client_generation_result.finished
+      retries: 60
+      delay: 5
+
+    - name: database migration
+      shell:
+        cmd: source /root/.zshrc && yarn db:migrate
+        executable: /usr/bin/zsh
+        chdir: '{{ vlepo_server_dir }}/server/build/'
+      async: 1000
+      poll: 0
+      register: db_migrate
+
+    - name: 'waiting for database migration'
+      async_status:
+        jid: '{{ db_client_generation.ansible_job_id }}'
+      register: db_migrate_result
+      until: db_migrate_result.finished
+      retries: 60
+      delay: 5
+
     - name: run server
       shell:
-        cmd: 'source /root/.zshrc && pm2 start {{ vlepo_server_dir }}/server/build/app.js --name vlepo-server --env NODE_ENV=production'
+        cmd: 'source /root/.zshrc && NODE_ENV=production pm2 start {{ vlepo_server_dir }}/server/build/app.js --name vlepo-server'
         executable: /usr/bin/zsh

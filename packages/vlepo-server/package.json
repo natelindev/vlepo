@@ -4,8 +4,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "prebuild": "rm -rf ./node_modules && NODE_ENV=production npm i && npm run generate",
-    "build": "yarn -s clean && tsc --outDir ./build && cp -R node_modules package.json ./build",
+    "prebuild": "npm run generate",
+    "build": "yarn -s clean && tsc --outDir ./build && cp -R prisma package.json ./build",
     "clean": "rm -rf ./build",
     "db:clean": "cross-env DEBUG=vlepo:* ts-node --transpile-only prisma/seed.ts -c",
     "db:migrate": "prisma migrate dev",
@@ -21,7 +21,7 @@
     "spellcheck": "cspell src/**/*.{ts,tsx}",
     "ts-node": "ts-node --transpile-only",
     "typecheck": "tsc --noEmit",
-    "zip": "mkdir -p ../../artifact && zip -r ../../artifact/vlepo-server.zip build"
+    "zip": "rm -rf ../../artifact && mkdir -p ../../artifact && zip -r ../../artifact/vlepo-server.zip build"
   },
   "dependencies": {
     "@devoxa/prisma-relay-cursor-connection": "1.1.1",
@@ -40,7 +40,6 @@
     "graphql-scalars": "1.9.3",
     "graphql-upload": "12.0.0",
     "image-size": "1.0.0",
-    "jwt-decode": "3.1.2",
     "knex": "0.95.4",
     "koa": "2.13.1",
     "koa-bodyparser": "4.3.0",
