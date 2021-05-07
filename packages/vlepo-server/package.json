@@ -4,6 +4,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
+    "prebuild": "rm -rf ./node_modules && NODE_ENV=production npm i && npm run generate",
     "build": "yarn -s clean && tsc --outDir ./build && cp -R node_modules package.json ./build",
     "clean": "rm -rf ./build",
     "db:clean": "cross-env DEBUG=vlepo:* ts-node --transpile-only prisma/seed.ts -c",
@@ -19,12 +20,13 @@
     "lint": "eslint src --ext .ts,.tsx",
     "spellcheck": "cspell src/**/*.{ts,tsx}",
     "ts-node": "ts-node --transpile-only",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "zip": "mkdir -p ../../artifact && zip -r ../../artifact/vlepo-server.zip build"
   },
   "dependencies": {
     "@devoxa/prisma-relay-cursor-connection": "1.1.1",
     "@koa/cors": "3.1.0",
-    "@prisma/client": "2.22.0",
+    "@prisma/client": "2.22.1",
     "@vlepo/shared": "1.0.0",
     "algoliasearch": "4.9.1",
     "argon2": "0.27.2",
@@ -86,7 +88,7 @@
     "eslint-plugin-react-hooks": "4.2.0",
     "faker": "5.5.3",
     "meow": "9.0.0",
-    "prisma": "2.22.0",
+    "prisma": "2.22.1",
     "ts-node": "9.1.1",
     "ts-node-dev": "1.1.6",
     "typescript": "4.2.4"

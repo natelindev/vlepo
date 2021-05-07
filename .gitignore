@@ -49,8 +49,9 @@ jspm_packages/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
+# environment variables file
 .env*
+hosts
 
 # next.js build output
 .next
@@ -60,9 +61,13 @@ temp
 
 # build output directory
 build
+artifact
 
 # macOS specific
 .DS_Store
+
+# ignore npm files
+package-lock.json
 
 # ignore generated files
 schema.graphql

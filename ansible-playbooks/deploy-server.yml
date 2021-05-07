@@ -1,32 +1,48 @@
 - name: deploy vlepo server
-  hosts: all
+  hosts: web
   remote_user: root
   become: false
 
   vars:
     vlepo_server_dir: /root/vlepo
 
+  environment:
+    PATH: '/opt/bin:{{ ansible_env.PATH }}'
+
   tasks:
     - name: ensure target dir exists
       file:
-        path: "{{ vlepo_server_dir }}"
+        path: '{{ vlepo_server_dir }}'
         state: directory
-        mode: "0755"
+        mode: '0755'
+
+    - name: ensure target server dir exists
+      file:
+        path: '{{ vlepo_server_dir }}/server'
+        state: directory
+        mode: '0755'
 
     - name: copy built vlepo-server archive to target server dir
       copy:
-        src: vlepo-server.zip
-        dest: "{{ vlepo_server_dir }}/vlepo-server.zip"
+        src: ../artifact/vlepo-server.zip
+        dest: '{{ vlepo_server_dir }}/vlepo-server.zip'
         owner: root
         group: root
-        mode: "0644"
+        mode: '0644'
 
     - name: unarchive vlepo-server
       unarchive:
-        src: "{{ vlepo_server_dir }}/vlepo-server.zip"
-        dest: "{{ vlepo_server_dir }}"
+        remote_src: yes
+        src: '{{ vlepo_server_dir }}/vlepo-server.zip'
+        dest: '{{ vlepo_server_dir }}/server/'
+
+    - name: link env file
+      file:
+        src: '/root/.env'
+        dest: '{{ vlepo_server_dir }}/server/build/.env'
+        state: link
 
     - name: run server
-      command: node app.js
-      args:
-        chdir: "{{ vlepo_server_dir }}"
+      shell:
+        cmd: 'source /root/.zshrc && pm2 start {{ vlepo_server_dir }}/server/build/app.js --name vlepo-server --env NODE_ENV=production'
+        executable: /usr/bin/zsh
