@@ -34,7 +34,8 @@
   },
   "files.associations": {
     "**/package.json": "json",
-    "**/*.json": "jsonc"
+    "**/*.json": "jsonc",
+    "**/ansible-playbooks/**/*.yml": "ansible"
   },
   "emeraldwalk.runonsave": {
     "commands": [

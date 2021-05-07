@@ -43,7 +43,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   res.setHeader('Cache-Control', 's-maxage=604800, stale-while-revalidate');
 
-  const mdxSource = await serialize(queryPayload?.data?.post.content);
+  const mdxSource = await serialize(queryPayload?.data?.post?.content);
 
   return {
     props: {

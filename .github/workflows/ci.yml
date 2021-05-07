@@ -17,7 +17,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: ['12']
+        node-version: ["14"]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -34,6 +34,12 @@ jobs:
 
       - name: Run `lint`
         run: yarn lint
+
+      - name: Run `generate`
+        run: yarn generate
+
+      - name: Run `typecheck`
+        run: yarn typecheck
 
       - name: Run `build`
         run: yarn build

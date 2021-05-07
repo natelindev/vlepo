@@ -1,0 +1,32 @@
+- name: deploy vlepo server
+  hosts: all
+  remote_user: root
+  become: false
+
+  vars:
+    vlepo_server_dir: /root/vlepo
+
+  tasks:
+    - name: ensure target dir exists
+      file:
+        path: "{{ vlepo_server_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: copy built vlepo-server archive to target server dir
+      copy:
+        src: vlepo-server.zip
+        dest: "{{ vlepo_server_dir }}/vlepo-server.zip"
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: unarchive vlepo-server
+      unarchive:
+        src: "{{ vlepo_server_dir }}/vlepo-server.zip"
+        dest: "{{ vlepo_server_dir }}"
+
+    - name: run server
+      command: node app.js
+      args:
+        chdir: "{{ vlepo_server_dir }}"
