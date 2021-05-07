@@ -196,7 +196,7 @@ router.get('/callback', async (ctx) => {
     }
 
     ctx.cookies.set('accessToken', accessToken, {
-      secure: envDetect.isProd,
+      secure: false,
       httpOnly: false,
     });
     return ctx.redirect(`${process.env.CLIENT_URL}/oauth2-redirect?success=true`);

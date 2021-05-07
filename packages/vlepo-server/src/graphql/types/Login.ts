@@ -81,7 +81,7 @@ export const LoginMutation = mutationField('LoginMutation', {
             u,
           );
           ctx.cookies.set('accessToken', accessToken, {
-            secure: envDetect.isProd,
+            secure: false,
             httpOnly: false,
             expires: expiresAt,
           });
