@@ -5,7 +5,6 @@ import { ExtendedContext } from 'src/app';
 import { match } from 'ts-pattern';
 
 import { OAuthClient, OAuthProviders } from '@prisma/client';
-import { envDetect } from '@vlepo/shared';
 
 import { generateAccessToken, saveToken } from './model';
 

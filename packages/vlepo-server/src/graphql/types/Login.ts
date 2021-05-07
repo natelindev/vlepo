@@ -4,7 +4,6 @@ import { inputObjectType, mutationField, nonNull, objectType } from 'nexus';
 import { __, match, not } from 'ts-pattern';
 
 import { OAuthClient } from '@prisma/client';
-import { envDetect } from '@vlepo/shared';
 
 import { generateAccessToken, saveToken } from '../../oauth2/model';
 
