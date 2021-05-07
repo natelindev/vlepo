@@ -18,5 +18,8 @@
   "devDependencies": {
     "@types/debug": "4.1.5",
     "typescript": "4.2.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
