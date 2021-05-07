@@ -57,29 +57,27 @@ app.context.searchIndex = index;
 
 app.use(bodyParser());
 app.use(
-  envDetect.isProd
-    ? (_ctx, next) => next()
-    : cors({
-        origin: '*',
-        allowMethods: ['GET', 'HEAD', 'POST', 'OPTIONS'],
-        credentials: true,
-        allowHeaders: [
-          'Access-Control-Allow-Headers',
-          'X-CSRF-Token',
-          'X-Requested-With',
-          'Origin',
-          'Authorization',
-          'Access-Control-Request-Method',
-          'Access-Control-Request-Headers',
-          'Accept',
-          'Accept-Version',
-          'Content-Length',
-          'Content-MD5',
-          'Content-Type',
-          'Date',
-          'X-Api-Version',
-        ],
-      }),
+  cors({
+    origin: '*',
+    allowMethods: ['GET', 'HEAD', 'POST', 'OPTIONS'],
+    credentials: true,
+    allowHeaders: [
+      'Access-Control-Allow-Headers',
+      'X-CSRF-Token',
+      'X-Requested-With',
+      'Origin',
+      'Authorization',
+      'Access-Control-Request-Method',
+      'Access-Control-Request-Headers',
+      'Accept',
+      'Accept-Version',
+      'Content-Length',
+      'Content-MD5',
+      'Content-Type',
+      'Date',
+      'X-Api-Version',
+    ],
+  }),
 );
 
 app.use(session(app));
