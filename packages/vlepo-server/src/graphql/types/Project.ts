@@ -34,6 +34,7 @@ export const Project = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('tagsConnection', {
       type: Tag,
@@ -54,6 +55,7 @@ export const Project = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('reactionsConnection', {
       type: Reaction,
@@ -70,6 +72,7 @@ export const Project = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
   },
 });

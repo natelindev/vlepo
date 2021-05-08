@@ -2,6 +2,7 @@ import { format, parseISO } from 'date-fns';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { graphql } from 'react-relay';
@@ -101,6 +102,9 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
 
   return (
     <>
+      <Head>
+        <title key="title">{title}</title>
+      </Head>
       <Header height={['18rem', '20rem', '22rem']}>
         <Image
           objectFit="cover"
@@ -143,7 +147,7 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
         </Image>
       </Header>
       <HoverShare title={title} url={fullUrl} tags={tags.map((t) => t.name)} />
-      <Column mb="2rem" mx="auto" width={[0.95, 0.9, 0.85, 0.8]}>
+      <Column mb="2rem" mx="auto" width={[0.9, 0.9, 0.85, 0.8]}>
         <Row>
           <ArticleBody>
             <Content>

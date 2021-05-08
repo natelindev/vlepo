@@ -8,6 +8,7 @@ declare global {
       NEXT_PUBLIC_ALGOLIA_APP_ID: string;
       NEXT_PUBLIC_ALGOLIA_API_KEY: string;
       NEXT_PUBLIC_ALGOLIA_INDEX_NAME: string;
+      NEXT_PUBLIC_DEFAULT_BLOG_NAME: string;
       PORT: string;
     }
   }

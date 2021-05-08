@@ -34,6 +34,7 @@ const commentFragmentSpec = graphql`
           ...Comment_comment
         }
       }
+      totalCount
     }
   }
 `;
@@ -113,11 +114,11 @@ const CommentSection = (props: CommentSectionProps) => {
       {match(variant)
         .with('profile', () => (
           <H3 pl="2rem" py="1rem">
-            Comments({data?.commentsConnection?.edges?.length ?? 0})
+            Comments({data?.commentsConnection?.totalCount ?? 0})
           </H3>
         ))
         .with('post', () => (
-          <H4 py="1rem">Comments({data?.commentsConnection?.edges?.length ?? 0})</H4>
+          <H4 py="1rem">Comments({data?.commentsConnection?.totalCount ?? 0})</H4>
         ))
         .run()}
       {data &&

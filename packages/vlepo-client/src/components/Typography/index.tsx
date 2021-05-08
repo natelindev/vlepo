@@ -81,7 +81,12 @@ export const Text = styled.div<MarginProps & PaddingProps & FontWeightProps & Co
   margin: 0;
   padding: 0;
   font-family: ${(props) => props.theme.fonts.content};
-  font-size: ${(props) => `${props.theme.fontSizes[1]}px`};
+  line-height: ${(props) => props.theme.lineHeights.content};
+  font-size: ${(props) => `${props.theme.fontSizes[2]}px`};
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
   ${margin}
   ${padding}
   ${color}

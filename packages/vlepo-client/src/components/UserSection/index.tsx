@@ -74,7 +74,7 @@ const UserSection = (props: UserSectionProps) => {
           </NavLink>
         </Dropdown>
       ) : (
-        <LoginButton onClick={() => setShowLoginModal(true)} size={25} />
+        <LoginButton onClick={() => setShowLoginModal(true)} size={28} />
       )}
     </>
   );

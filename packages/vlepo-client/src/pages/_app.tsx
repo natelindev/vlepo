@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import React, { useState } from 'react';
 import { SSRCache } from 'react-relay-network-modern-ssr/node8/server';
 import { ToastProvider } from 'react-toast-notifications';
@@ -40,6 +41,9 @@ function App({ Component, pageProps }: PageProps) {
               placement="top-right"
             >
               <Layout>
+                <Head>
+                  <title key="title">{process.env.NEXT_PUBLIC_DEFAULT_BLOG_NAME}</title>
+                </Head>
                 <Component {...pageProps} />
               </Layout>
             </ToastProvider>

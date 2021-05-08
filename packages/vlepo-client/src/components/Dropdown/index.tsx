@@ -43,18 +43,17 @@ const DropDown = <P extends { onClick: (e: MouseEventHandler) => void }>(props: 
       <BaseDropdownMenu {...rest} variant={variant} show={showDropDown}>
         {children &&
           children.length > 1 &&
-          children
-            .slice(1)
-            .map((child) =>
-              child &&
-              React.isValidElement(child) &&
-              typeof child !== 'number' &&
-              typeof child !== 'string' &&
-              typeof child !== 'boolean' &&
-              typeof child !== 'undefined'
-                ? React.cloneElement(child, newProps(child.props.onClick))
-                : child,
-            )}
+          children.slice(1).map((child, key) =>
+            child &&
+            React.isValidElement(child) &&
+            typeof child !== 'number' &&
+            typeof child !== 'string' &&
+            typeof child !== 'boolean' &&
+            typeof child !== 'undefined'
+              ? // eslint-disable-next-line react/no-array-index-key
+                React.cloneElement(child, { ...newProps(child.props.onClick), key })
+              : child,
+          )}
       </BaseDropdownMenu>
     </BaseDropdown>
   );

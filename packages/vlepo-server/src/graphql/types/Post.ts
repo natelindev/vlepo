@@ -97,8 +97,12 @@ export const Post = objectType({
           () => ctx.prisma.comment.count(customArgs),
           args,
         );
-        return result;
+        ctx.state.totalCount = await ctx.prisma.comment.count(customArgs);
+        return {
+          ...result,
+        };
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('sharesConnection', {
       type: ShareCount,
@@ -115,6 +119,7 @@ export const Post = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('imagesConnection', {
       type: Image,
@@ -131,6 +136,7 @@ export const Post = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('tagsConnection', {
       type: Tag,
@@ -153,6 +159,7 @@ export const Post = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('ratingsConnection', {
       type: Rating,
@@ -169,6 +176,7 @@ export const Post = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('reactionsConnection', {
       type: Reaction,
@@ -185,6 +193,7 @@ export const Post = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
   },
 });
@@ -328,7 +337,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
       }
 
       // only index published posts
-      if (post.status === 'PUBLISHED') {
+      if (post.status === DBPostStatus.PUBLISHED) {
         ctx.searchIndex.saveObject({
           objectID: toGlobalId('Post', post.id),
           ...post,

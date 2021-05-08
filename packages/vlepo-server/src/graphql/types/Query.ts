@@ -98,6 +98,7 @@ export const Query = queryField((t) => {
       );
       return result;
     },
+    totalCount: (_source, _args, ctx) => ctx.state.totalCount,
   });
 
   t.connectionField('PostsConnection', {
@@ -120,6 +121,7 @@ export const Query = queryField((t) => {
       );
       return result;
     },
+    totalCount: (_source, _args, ctx) => ctx.state.totalCount,
   });
   t.connectionField('ThoughtsConnection', {
     type: Thought,
@@ -135,6 +137,7 @@ export const Query = queryField((t) => {
       );
       return result;
     },
+    totalCount: (_source, _args, ctx) => ctx.state.totalCount,
   });
   t.connectionField('CommentsConnection', {
     type: Comment,
@@ -150,6 +153,7 @@ export const Query = queryField((t) => {
       );
       return result;
     },
+    totalCount: (_source, _args, ctx) => ctx.state.totalCount,
   });
   t.connectionField('TagsConnection', {
     type: Tag,
@@ -165,6 +169,7 @@ export const Query = queryField((t) => {
       );
       return result;
     },
+    totalCount: (_source, _args, ctx) => ctx.state.totalCount,
   });
   t.connectionField('ImagesConnection', {
     type: Image,
@@ -180,6 +185,7 @@ export const Query = queryField((t) => {
       );
       return result;
     },
+    totalCount: (_source, _args, ctx) => ctx.state.totalCount,
   });
   t.connectionField('SharesConnection', {
     type: ShareCount,
@@ -195,6 +201,7 @@ export const Query = queryField((t) => {
       );
       return result;
     },
+    totalCount: (_source, _args, ctx) => ctx.state.totalCount,
   });
   t.connectionField('RatingsConnection', {
     type: Rating,
@@ -210,6 +217,7 @@ export const Query = queryField((t) => {
       );
       return result;
     },
+    totalCount: (_source, _args, ctx) => ctx.state.totalCount,
   });
   t.connectionField('ReactionsConnection', {
     type: Reaction,
@@ -225,6 +233,7 @@ export const Query = queryField((t) => {
       );
       return result;
     },
+    totalCount: (_source, _args, ctx) => ctx.state.totalCount,
   });
   t.connectionField('PapersConnection', {
     type: Paper,
@@ -240,6 +249,7 @@ export const Query = queryField((t) => {
       );
       return result;
     },
+    totalCount: (_source, _args, ctx) => ctx.state.totalCount,
   });
   t.connectionField('ProjectsConnection', {
     type: Project,
@@ -255,6 +265,7 @@ export const Query = queryField((t) => {
       );
       return result;
     },
+    totalCount: (_source, _args, ctx) => ctx.state.totalCount,
   });
   t.connectionField('TranslationsConnection', {
     type: Translation,
@@ -270,6 +281,7 @@ export const Query = queryField((t) => {
       );
       return result;
     },
+    totalCount: (_source, _args, ctx) => ctx.state.totalCount,
   });
   t.connectionField('LinksConnection', {
     type: Link,
@@ -285,5 +297,6 @@ export const Query = queryField((t) => {
       );
       return result;
     },
+    totalCount: (_source, _args, ctx) => ctx.state.totalCount,
   });
 });

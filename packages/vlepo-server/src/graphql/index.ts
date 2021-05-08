@@ -26,6 +26,9 @@ export default NexusSchema.makeSchema({
       additionalArgs: {
         orderBy: NexusSchema.list(NexusSchema.nonNull('OrderBy')),
       },
+      extendConnection: {
+        totalCount: { type: NexusSchema.nullable('Int') },
+      },
     }),
     NexusSchema.fieldAuthorizePlugin(),
     relayGlobalIdPlugin({

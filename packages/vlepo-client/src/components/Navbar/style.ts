@@ -80,13 +80,13 @@ export const NavSearchBar = styled(SearchBar)`
 export const NavbarToggler = styled.div<DisplayProps & MarginProps>`
   ${display}
   ${margin}
-  width: 2.2rem;
-  height: 2.2rem;
-  max-width: 2.2rem;
-  max-height: 2.2rem;
-  min-width: 2.2rem;
-  min-height: 2.2rem;
-  margin-top: 1.1rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  max-width: 1.8rem;
+  max-height: 1.8rem;
+  min-width: 1.8rem;
+  min-height: 1.8rem;
+  margin-top: 1rem;
   margin-left: 1rem;
   margin-right: 0;
   margin-bottom: auto;
@@ -95,7 +95,7 @@ export const NavbarToggler = styled.div<DisplayProps & MarginProps>`
 export const TogglerBar = styled(a.div)`
   background-color: ${(props) => props.theme.colors.text};
   display: block;
-  width: 1.5em;
+  width: 1.2em;
   height: 2px;
   border-radius: 1px;
   margin-top: 0.3rem;

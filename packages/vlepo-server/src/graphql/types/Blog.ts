@@ -119,6 +119,7 @@ export const Blog = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('thoughtsConnection', {
       type: Thought,
@@ -135,6 +136,7 @@ export const Blog = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('tagsConnection', {
       type: Tag,
@@ -151,6 +153,7 @@ export const Blog = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('papersConnection', {
       type: Paper,
@@ -167,6 +170,7 @@ export const Blog = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('projectsConnection', {
       type: Project,
@@ -183,6 +187,7 @@ export const Blog = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
   },
 });

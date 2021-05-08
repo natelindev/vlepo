@@ -38,6 +38,7 @@ export const Thought = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('sharesConnection', {
       type: ShareCount,
@@ -54,6 +55,7 @@ export const Thought = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('imagesConnection', {
       type: Image,
@@ -70,6 +72,7 @@ export const Thought = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('tagsConnection', {
       type: Tag,
@@ -90,6 +93,7 @@ export const Thought = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('reactionsConnection', {
       type: Reaction,
@@ -106,6 +110,7 @@ export const Thought = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
   },
 });

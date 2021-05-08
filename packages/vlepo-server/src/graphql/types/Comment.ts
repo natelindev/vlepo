@@ -18,8 +18,10 @@ export const Commendable = interfaceType({
           () => ctx.prisma.comment.count(),
           args,
         );
+        ctx.state.totalCount = await ctx.prisma.comment.count();
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
   },
 });
@@ -57,6 +59,7 @@ export const Comment = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('imagesConnection', {
       type: Image,
@@ -73,6 +76,7 @@ export const Comment = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
   },
 });

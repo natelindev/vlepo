@@ -1,9 +1,9 @@
-import { Login } from '@emotion-icons/material-outlined';
+import { PersonOutline } from '@emotion-icons/material-outlined';
 import styled from '@emotion/styled';
 
 import Avatar from '../Avatar';
 
-export const LoginButton = styled(Login)`
+export const LoginButton = styled(PersonOutline)`
   margin-top: auto;
   margin-bottom: auto;
   margin-right: 1rem;

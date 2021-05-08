@@ -1,4 +1,5 @@
 ﻿import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useContext, useRef, useState } from 'react';
 import { a, useSpring, useSprings } from 'react-spring';
 import Dropdown from 'src/components/Dropdown';
@@ -7,6 +8,8 @@ import { useOnClickOutside } from 'src/hooks/useOnClickOutside';
 import { ThemeContext } from 'src/pages/_app';
 import { shapes } from 'src/shared/shapes';
 import { darkTheme, lightTheme } from 'src/shared/theme';
+
+import { css } from '@emotion/react';
 
 import ClientOnly from '../ClientOnly';
 import LoginModal from '../Modals/LoginModal';
@@ -35,6 +38,7 @@ const Navbar: React.FC = () => {
   const [isToggled, setIsToggled] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const togglerRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
 
   const { x } = useSpring({ config: { duration: 300 }, x: theme?.name === 'dark' ? 1 : 0 });
 
@@ -45,14 +49,14 @@ const Navbar: React.FC = () => {
 
   const toggleSprings = useSprings(3, [
     {
-      transformOrigin: '10% 10%',
+      transformOrigin: '0% 0%',
       transform: isToggled ? 'rotate(45deg)' : 'rotate(0deg)',
     },
     {
       opacity: isToggled ? '0' : '1',
     },
     {
-      transformOrigin: '10% 90%',
+      transformOrigin: '0% 100%',
       transform: isToggled ? 'rotate(-45deg)' : 'rotate(0deg)',
     },
   ]);
@@ -78,14 +82,23 @@ const Navbar: React.FC = () => {
           <NavLink href="/friends">Friends</NavLink>
           <NavLink href="/tags">Tags</NavLink>
         </Dropdown>
-        <Logo size="32px" ml={['0', '0', '0.5rem']} mr="0.5rem" my="auto" />
+        <Logo
+          size="32px"
+          onClick={() => router.push('/')}
+          css={css`
+            cursor: pointer;
+          `}
+          ml={['0', '0', '0.5rem']}
+          mr="0.5rem"
+          my="auto"
+        />
         <Link href="/" passHref>
           <NavBrand
             display={[showSearch ? 'none' : 'inline-block', 'inline-block']}
             href="/"
             mr="auto"
           >
-            Nathaniel&#39;s Blog
+            {process.env.NEXT_PUBLIC_DEFAULT_BLOG_NAME}
           </NavBrand>
         </Link>
         <LeftNavCollapse display={['none', 'none', 'block']}>

@@ -40,6 +40,7 @@ export const Tag = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('thoughtsConnection', {
       type: Thought,
@@ -60,6 +61,7 @@ export const Tag = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('projectConnection', {
       type: Project,
@@ -80,6 +82,7 @@ export const Tag = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('papersConnection', {
       type: Paper,
@@ -100,6 +103,7 @@ export const Tag = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
   },
 });

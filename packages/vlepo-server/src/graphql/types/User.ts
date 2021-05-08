@@ -67,6 +67,7 @@ export const User = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('thoughtsConnection', {
       type: Thought,
@@ -83,6 +84,7 @@ export const User = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('commentsConnection', {
       type: Comment,
@@ -101,6 +103,7 @@ export const User = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
     t.connectionField('imagesConnection', {
       type: Image,
@@ -117,6 +120,7 @@ export const User = objectType({
         );
         return result;
       },
+      totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });
   },
 });
