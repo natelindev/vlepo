@@ -4,6 +4,7 @@
     "sourceMap": false,
     "target": "esnext",
     "declaration": false,
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "noImplicitThis": true,
     "typeRoots": ["node_modules/@types", "src/types"]

@@ -8,7 +8,7 @@ import NavLink from 'src/components/NavLink';
 import { deleteCookie } from 'src/hooks/useCookie';
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
 
-import { Dashboard, Login, Logout, Settings } from '@emotion-icons/material-outlined';
+import { Dashboard, Logout, Settings } from '@emotion-icons/material-outlined';
 
 import { GreyText, LoginButton, NavbarAvatar } from './style';
 
@@ -74,9 +74,7 @@ const UserSection = (props: UserSectionProps) => {
           </NavLink>
         </Dropdown>
       ) : (
-        <LoginButton onClick={() => setShowLoginModal(true)}>
-          <Login size={24} />
-        </LoginButton>
+        <LoginButton onClick={() => setShowLoginModal(true)} size={25} />
       )}
     </>
   );

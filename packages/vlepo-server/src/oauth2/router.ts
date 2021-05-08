@@ -1,6 +1,8 @@
 import { add } from 'date-fns';
 import debugInit from 'debug';
+import { reddit } from 'grant/config/profile.json';
 import Router from 'koa-router';
+import fetch from 'node-fetch';
 import { ExtendedContext } from 'src/app';
 import { match } from 'ts-pattern';
 
@@ -69,6 +71,17 @@ type GrantGithubResponse = {
     updated_at: string;
   };
 };
+
+type GrantRedditResponse = {
+  access_token: string;
+};
+
+type RedditProfileResponse = {
+  id: string;
+  icon_img: string;
+  name: string;
+};
+
 type GrantErrorResponse = {
   access_token: undefined;
   error: string;
@@ -76,12 +89,12 @@ type GrantErrorResponse = {
 
 router.get('/callback', async (ctx) => {
   debug(ctx.response);
-  const response: GrantGoogleResponse | GrantGithubResponse | GrantErrorResponse =
-    ctx.session?.grant?.response;
+  const response:
+    | GrantGoogleResponse
+    | GrantGithubResponse
+    | GrantRedditResponse
+    | GrantErrorResponse = ctx.session?.grant?.response;
   const provider: OAuthProviders = ctx.session?.grant?.provider;
-
-  debug(response);
-  debug(provider);
 
   if (!response.access_token) {
     const { error } = response as GrantErrorResponse;
@@ -150,6 +163,44 @@ router.get('/callback', async (ctx) => {
           provider,
           website: profile.blog ?? profile.url,
           profileImageUrl: profile.avatar_url,
+        },
+        include: {
+          roles: true,
+        },
+      });
+    })
+    .with(OAuthProviders.reddit, async () => {
+      const { access_token } = response;
+      const profileResponse = await fetch(reddit.profile_url, {
+        headers: {
+          authorization: `bearer ${access_token}`,
+        },
+      });
+      const profile: RedditProfileResponse = await profileResponse.json();
+      const existingUser = await ctx.prisma.user.findFirst({
+        where: {
+          provider: OAuthProviders.github,
+          openid: profile?.id.toString(),
+        },
+        include: {
+          roles: true,
+        },
+      });
+      if (existingUser) {
+        return existingUser;
+      }
+      return ctx.prisma.user.create({
+        data: {
+          name: profile.name,
+          openid: profile.id.toString(),
+          roles: {
+            connectOrCreate: {
+              where: { value: 'visitor' },
+              create: { name: 'Visitor', value: 'visitor' },
+            },
+          },
+          provider,
+          profileImageUrl: profile.icon_img,
         },
         include: {
           roles: true,

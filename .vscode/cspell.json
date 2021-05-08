@@ -32,6 +32,7 @@
         "overscan",
         "pkce",
         "prebuild",
+        "redditstatic",
         "refetchable",
         "rehype",
         "repos",

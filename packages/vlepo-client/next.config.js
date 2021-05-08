@@ -9,6 +9,7 @@ module.exports = withBundleAnalyzer({
       'placeholder.pics',
       'images.unsplash.com',
       'avatars.githubusercontent.com',
+      'www.redditstatic.com',
       'lh1.googleusercontent.com',
       'lh2.googleusercontent.com',
       'lh3.googleusercontent.com',

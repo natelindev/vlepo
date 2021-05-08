@@ -29,10 +29,9 @@ export const grantConfig: GrantConfig = {
     key: process.env.REDDIT_OAUTH_CLIENT_ID,
     secret: process.env.REDDIT_OAUTH_CLIENT_SECRET,
     custom_params: { duration: 'temporary' },
-    state: 'some state',
+    state: true,
     nonce: false,
-    pkce: false,
     scope: ['identity'],
-    response: ['tokens', 'profile'],
+    response: ['tokens'],
   },
 };

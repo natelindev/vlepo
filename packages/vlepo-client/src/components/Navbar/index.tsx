@@ -64,7 +64,6 @@ const Navbar: React.FC = () => {
           <NavbarToggler
             ref={togglerRef}
             onClick={toggleToggler}
-            onTouchStart={toggleToggler}
             display={['block', 'block', 'none']}
           >
             {toggleSprings.map((styles, key) => (

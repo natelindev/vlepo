@@ -1,13 +1,13 @@
+import { Login } from '@emotion-icons/material-outlined';
 import styled from '@emotion/styled';
 
 import Avatar from '../Avatar';
-import GradientButton from '../GradientButton';
 
-export const LoginButton = styled(GradientButton)`
-  border-radius: ${(props) => `${props.theme.radii.default}px`};
+export const LoginButton = styled(Login)`
+  margin-top: auto;
+  margin-bottom: auto;
   margin-right: 1rem;
-  height: 100%;
-  padding: 0.5rem 0.6rem;
+  cursor: pointer;
 `;
 
 export const NavbarAvatar = styled(Avatar)`
@@ -16,8 +16,7 @@ export const NavbarAvatar = styled(Avatar)`
   }
   margin-top: -0.15rem;
   margin-bottom: auto;
-  margin-left: 0.3rem;
-  margin-right: 1.25rem;
+  margin-right: 1rem;
 `;
 
 export const GreyText = styled.h5`
