@@ -6,7 +6,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 module.exports = withBundleAnalyzer({
   images: {
     domains: [
-      process.env.NEXT_PUBLIC_API_ENDPOINT,
+      "api.nate-lin.com",
+      "dev-to-uploads.s3.amazonaws.com",
       'placeholder.pics',
       'images.unsplash.com',
       'avatars.githubusercontent.com',
