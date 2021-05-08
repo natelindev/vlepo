@@ -5,6 +5,7 @@ import { a, useSpring, useSprings } from 'react-spring';
 import Dropdown from 'src/components/Dropdown';
 import Logo from 'src/components/Logo';
 import { useOnClickOutside } from 'src/hooks/useOnClickOutside';
+import { useTitle } from 'src/hooks/useTitle';
 import { ThemeContext } from 'src/pages/_app';
 import { shapes } from 'src/shared/shapes';
 import { darkTheme, lightTheme } from 'src/shared/theme';
@@ -39,6 +40,7 @@ const Navbar: React.FC = () => {
   const [showSearch, setShowSearch] = useState(false);
   const togglerRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
+  const { title } = useTitle();
 
   const { x } = useSpring({ config: { duration: 300 }, x: theme?.name === 'dark' ? 1 : 0 });
 
@@ -98,7 +100,7 @@ const Navbar: React.FC = () => {
             href="/"
             mr="auto"
           >
-            {process.env.NEXT_PUBLIC_DEFAULT_BLOG_NAME}
+            {title}
           </NavBrand>
         </Link>
         <LeftNavCollapse display={['none', 'none', 'block']}>

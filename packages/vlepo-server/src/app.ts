@@ -27,9 +27,9 @@ import type { PrismaClient, User } from '@prisma/client';
 import type { Knex } from 'knex';
 
 const debug = debugInit('vlepo:app');
-const client = algoliasearch(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_API_KEY);
+const client = algoliasearch(process.env.NEXT_PUBLIC_ALGOLIA_APP_ID, process.env.ALGOLIA_API_KEY);
 
-const index = client.initIndex(process.env.ALGOLIA_INDEX_NAME);
+const index = client.initIndex(process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME);
 
 export type ExtendedContext = {
   prisma: PrismaClient;

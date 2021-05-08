@@ -80,7 +80,7 @@ export const uploadImages = mutationField('uploadImages', {
                 height: size.height,
                 mainColor: pallette.Vibrant?.hex,
                 secondaryColor: pallette.Muted?.hex,
-                url: `${process.env.API_URL}/images/user-upload/${imageId}.${extname}`,
+                url: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/images/user-upload/${imageId}.${extname}`,
               },
             });
           }),

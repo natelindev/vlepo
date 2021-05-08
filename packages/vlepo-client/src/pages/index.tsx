@@ -1,5 +1,5 @@
 import { Masonry } from 'masonic';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { graphql } from 'react-relay';
 import Typist from 'react-typist';
 import { usePagination, useQuery } from 'relay-hooks';
@@ -13,6 +13,7 @@ import ClientOnly from 'src/components/ClientOnly';
 import GradientButton from 'src/components/GradientButton';
 import { Row } from 'src/components/Layout/style';
 import PlaceHolder from 'src/components/PlaceHolder';
+import { useTitle } from 'src/hooks/useTitle';
 import { initEnvironment } from 'src/relay';
 import { fontSize, FontSizeProps, margin, MarginProps } from 'styled-system';
 
@@ -73,6 +74,7 @@ const indexFragmentSpec = graphql`
 const blogQuery = graphql`
   query pages_Index_BlogQuery($id: String!) {
     blog(where: { id: $id }) {
+      name
       ...pages_Index_Posts
     }
   }
@@ -152,6 +154,14 @@ export default function Home() {
   const { error, data } = useQuery<pages_Index_BlogQuery>(blogQuery, {
     id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
   });
+
+  const { setTitle } = useTitle();
+
+  useEffect(() => {
+    if (data?.blog?.name) {
+      setTitle?.(data?.blog?.name);
+    }
+  }, [data?.blog?.name, setTitle]);
 
   if (error) return <div>{error.message}</div>;
 

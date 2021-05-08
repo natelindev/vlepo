@@ -231,7 +231,7 @@ router.get('/callback', async (ctx) => {
       },
       (await ctx.prisma.oAuthClient.findFirst({
         where: {
-          id: process.env.DEFAULT_CLIENT_ID,
+          id: process.env.NEXT_PUBLIC_DEFAULT_CLIENT_ID,
         },
       })) as OAuthClient,
       connectedUser,

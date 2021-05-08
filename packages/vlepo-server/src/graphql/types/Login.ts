@@ -74,7 +74,7 @@ export const LoginMutation = mutationField('LoginMutation', {
             },
             (await ctx.prisma.oAuthClient.findFirst({
               where: {
-                id: process.env.DEFAULT_CLIENT_ID,
+                id: process.env.NEXT_PUBLIC_DEFAULT_CLIENT_ID,
               },
             })) as OAuthClient,
             u,

@@ -136,7 +136,7 @@ const seedBD = async (prisma: PrismaClient) => {
 
     await prisma.oAuthClient.create({
       data: {
-        id: process.env.DEFAULT_CLIENT_ID,
+        id: process.env.NEXT_PUBLIC_DEFAULT_CLIENT_ID,
         secret: cryptoRandomString({ length: 20, type: 'alphanumeric' }),
         owner: {
           connect: {
@@ -155,13 +155,13 @@ const seedBD = async (prisma: PrismaClient) => {
 
     const defaultBlog = await prisma.blog.create({
       data: {
-        id: process.env.DEFAULT_BLOG_ID,
+        id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
         owner: {
           connect: {
             id: admin.id,
           },
         },
-        name: process.env.DEFAULT_BLOG_NAME,
+        name: process.env.NEXT_PUBLIC_DEFAULT_BLOG_NAME,
         visitorCount: 0,
       },
     });

@@ -266,7 +266,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
         await trx('Post')
           .insert({
             id: v4(),
-            blogId: process.env.DEFAULT_BLOG_ID,
+            blogId: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
             ownerId: currentUser.id,
             status: createPostInput.status,
             title: createPostInput.title,
@@ -298,7 +298,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
                 .insert(
                   newTags.map((t) => ({
                     id: v4(),
-                    blogId: process.env.DEFAULT_BLOG_ID,
+                    blogId: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
                     name: t.name,
                     createdAt: new Date(),
                     updatedAt: new Date(),
