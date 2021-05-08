@@ -151,9 +151,15 @@ const PostsSection = (props: PostSectionProps) => {
 };
 
 export default function Home() {
-  const { error, data } = useQuery<pages_Index_BlogQuery>(blogQuery, {
-    id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
-  });
+  const { error, data } = useQuery<pages_Index_BlogQuery>(
+    blogQuery,
+    {
+      id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
+    },
+    {
+      fetchPolicy: 'store-and-network',
+    },
+  );
 
   const { setTitle } = useTitle();
 
