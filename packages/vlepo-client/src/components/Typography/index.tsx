@@ -76,3 +76,14 @@ export const H6 = styled.h6<MarginProps & PaddingProps & FontWeightProps & Color
   ${fontWeight}
   ${color}
 `;
+
+export const Text = styled.div<MarginProps & PaddingProps & FontWeightProps & ColorProps>`
+  margin: 0;
+  padding: 0;
+  font-family: ${(props) => props.theme.fonts.content};
+  font-size: ${(props) => `${props.theme.fontSizes[1]}px`};
+  ${margin}
+  ${padding}
+  ${color}
+  ${fontWeight}
+`;

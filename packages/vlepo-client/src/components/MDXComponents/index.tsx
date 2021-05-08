@@ -2,7 +2,7 @@ import { AnimatedExternalLink } from 'src/components/Link';
 
 import CodeBlock from '../CodeBlock';
 import PlaceHolder from '../PlaceHolder';
-import { H1, H2, H3, H4, H5, H6 } from '../Typography';
+import { H1, H2, H3, H4, H5, H6, Text } from '../Typography';
 import { inlineCode } from './style';
 
 export default {
@@ -16,6 +16,7 @@ export default {
   h5: H5,
   h6: H6,
   inlineCode,
+  p: Text,
 };
 
 export const remarkComponents = {
@@ -27,4 +28,5 @@ export const remarkComponents = {
   h5: H5,
   h6: H6,
   inlineCode,
+  p: Text,
 };
