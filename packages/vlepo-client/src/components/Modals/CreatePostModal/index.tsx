@@ -174,7 +174,7 @@ const CreatePostModal = (props: CreatePostModalProps) => {
             <Select
               {...statusRest}
               innerRef={ref}
-              options={['DRAFT', 'PUBLISHED', 'PRIVATE'].map((v) => ({ key: v, value: v }))}
+              options={['PUBLISHED', 'PRIVATE', 'DRAFT'].map((v) => ({ key: v, value: v }))}
             />
             {errors.status && <ErrorText>{errors.status.message}</ErrorText>}
           </InputGroup>

@@ -318,11 +318,14 @@ export const creatPostMutation = mutationField('creatPostMutation', {
       }
 
       // connect the images including header image
-      if (createPostInput.images && createPostInput.images.length > 0) {
+      if (
+        createPostInput.headerImageUrl ||
+        (createPostInput.images && createPostInput.images.length > 0)
+      ) {
         await trx('Image')
           .insert(
-            [...createPostInput.images, { url: createPostInput.headerImageUrl }]
-              .filter((i): i is { url: string } => !!i.url)
+            [...(createPostInput.images ?? []), { url: createPostInput.headerImageUrl }]
+              .filter((i): i is { url: string } => Boolean(i.url))
               .map((image) => ({
                 id: v4(),
                 url: image.url,

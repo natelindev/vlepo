@@ -137,7 +137,7 @@ export const BaseSearchBar = styled.div<{ show?: boolean }>`
   > .ais-Hits {
     width: 100%;
     position: absolute;
-    top: ${(props) => (props.show ? '100%' : '-100rem')};
+    top: ${(props) => (props.show ? '100%' : '-999999999rem')};
     background-color: ${(props) => props.theme.colors.backgroundSecondary};
     z-index: ${(props) => props.theme.zIndices.DropDownMenu};
     display: flex;

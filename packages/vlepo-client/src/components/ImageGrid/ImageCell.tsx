@@ -3,14 +3,20 @@ import { useCallback } from 'react';
 import { graphql, useFragment } from 'react-relay';
 import { useToasts } from 'react-toast-notifications';
 import { ImageCell_image$key } from 'src/__generated__/ImageCell_image.graphql';
+import { H5 } from 'src/components/Typography';
 
 import styled from '@emotion/styled';
 
+import { ImageOverlay } from '../Image/style';
+
 type BaseImageCellProps = { idx: number };
-const BaseImageCell = styled.div<BaseImageCellProps>``;
+const BaseImageCell = styled.div<BaseImageCellProps>`
+  position: relative;
+`;
 
 const BaseImage = styled(Image)`
   border-radius: ${(props) => `${props.theme.radii.default}px`};
+  filter: ${(props) => props.theme.filter.cardImage};
 `;
 
 type ImageCellProps = { image: ImageCell_image$key; idx: number };
@@ -32,14 +38,17 @@ const ImageCell = (props: ImageCellProps) => {
     if (navigator.clipboard && image) {
       navigator.clipboard.writeText(`![${image.alt}](${image.url})`);
     }
-    addToast(`image markdown copied`, {
+    addToast(`${image.alt} markdown copied`, {
       appearance: 'info',
     });
   }, [image, addToast]);
 
   return (
     <BaseImageCell onClick={copyImageMarkdown} idx={idx} {...rest}>
-      <BaseImage objectFit="cover" layout="fixed" width="130px" height="130px" src={image.url} />
+      <BaseImage layout="fixed" objectFit="cover" width="130px" height="130px" src={image.url} />
+      <ImageOverlay>
+        <H5>{image.alt}</H5>
+      </ImageOverlay>
     </BaseImageCell>
   );
 };
