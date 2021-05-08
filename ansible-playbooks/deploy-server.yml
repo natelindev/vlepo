@@ -102,5 +102,6 @@
 
     - name: run server
       shell:
-        cmd: 'source /root/.zshrc && NODE_ENV=production pm2 start {{ vlepo_server_dir }}/server/build/app.js --name vlepo-server'
+        cmd: 'source /root/.zshrc && yarn start'
         executable: /usr/bin/zsh
+        chdir: '{{ vlepo_server_dir }}/server/build/'

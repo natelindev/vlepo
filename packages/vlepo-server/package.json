@@ -19,6 +19,7 @@
     "generate:prisma": "prisma generate",
     "lint": "eslint src --ext .ts,.tsx",
     "spellcheck": "cspell src/**/*.{ts,tsx}",
+    "start": "NODE_ENV=production DEBUG=vlepo:* pm2 start app.js --name vlepo-server",
     "ts-node": "ts-node --transpile-only",
     "typecheck": "tsc --noEmit",
     "zip": "rm -rf ../../artifact && mkdir -p ../../artifact && zip -r ../../artifact/vlepo-server.zip build"
