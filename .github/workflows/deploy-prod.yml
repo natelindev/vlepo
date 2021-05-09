@@ -35,13 +35,13 @@ jobs:
           fi
 
       - name: use Node.js ${{ matrix.node_version }}
-        if: env.DEPLOY_SHARED == 'true' || env.DEPLOY_SERVER == 'true' || env.DEPLOY_CLIENT == 'true'
+        if: env.DEPLOY_SHARED == 'true' || env.DEPLOY_SERVER == 'true'
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node_version }}
 
       - name: install dependencies
-        if: env.DEPLOY_SHARED == 'true' || env.DEPLOY_SERVER == 'true' || env.DEPLOY_CLIENT == 'true'
+        if: env.DEPLOY_SHARED == 'true' || env.DEPLOY_SERVER == 'true'
         run: yarn --frozen-lockfile
 
       - name: deploy shared
