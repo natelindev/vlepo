@@ -19,7 +19,11 @@ jobs:
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - run: |
+        with:
+          fetch-depth: 2
+
+      - name: determine what need to be deployed
+        run: |
           if ! git diff HEAD^ HEAD --quiet ./packages/vlepo-shared; then
               echo "DEPLOY_SHARED=true" >> "$GITHUB_ENV"
           fi
@@ -31,6 +35,7 @@ jobs:
           fi
 
       - name: use Node.js ${{ matrix.node_version }}
+        if: env.DEPLOY_SHARED == 'true' || env.DEPLOY_SERVER == 'true' || env.DEPLOY_CLIENT == 'true'
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node_version }}
