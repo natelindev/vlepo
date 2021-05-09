@@ -25,29 +25,30 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
 
-      - name: install dependencies
-        run: yarn --frozen-lockfile
-
       - name: determine what need to be deployed
         run: |
-          if [[ git diff HEAD^ HEAD --quiet ./packages/vlepo-shared ]]; then
+          if ! git diff HEAD^ HEAD --quiet ./packages/vlepo-shared; then
               echo "DEPLOY_SHARED=true" >> "$GITHUB_ENV"
           fi
-          if [[ git diff HEAD^ HEAD --quiet ./packages/vlepo-server ]]; then
+          if ! git diff HEAD^ HEAD --quiet ./packages/vlepo-server; then
               echo "DEPLOY_SERVER=true" >> "$GITHUB_ENV"
           fi
-          if [[ git diff HEAD^ HEAD --quiet ./packages/vlepo-client ]]; then
+          if ! git diff HEAD^ HEAD --quiet ./packages/vlepo-client; then
               echo "DEPLOY_CLIENT=true" >> "$GITHUB_ENV"
           fi
 
+      - name: install dependencies
+        if: env.DEPLOY_SHARED == 'true' || env.DEPLOY_SERVER == 'true' || env.DEPLOY_CLIENT == 'true'
+        run: yarn --frozen-lockfile
+
       - name: deploy shared
-        if: env.DEPLOY_SHARED
+        if: env.DEPLOY_SHARED == 'true'
         run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
       - name: deploy server
-        if: env.DEPLOY_SERVER
+        if: env.DEPLOY_SERVER == 'true'
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: deploy-server.yml
@@ -58,7 +59,7 @@ jobs:
             ${{secrets.SERVER_URL}} ansible_port=${{secrets.SERVER_SSH_PORT}}
 
       - name: deploy client
-        if: env.DEPLOY_CLIENT
+        if: env.DEPLOY_CLIENT == 'true'
         uses: wei/curl@master
         with:
           args: ${{ secrets.VERCEL_WEBHOOK_URL }}
