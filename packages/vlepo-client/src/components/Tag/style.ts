@@ -12,6 +12,8 @@ export const BaseTag = styled.a<BaseTagProps>`
   color: ${(props) => props.mainColor ?? props.theme.colors.muted};
 
   font-size: ${(props) => `${props.theme.fontSizes[1]}px`};
+
+  margin-top: 0.2rem;
   margin-bottom: auto;
 
   margin-left: 0.3rem;
