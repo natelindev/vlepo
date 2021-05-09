@@ -12,6 +12,9 @@ jobs:
       matrix:
         node-version: ['14']
 
+    environment:
+      name: Production
+
     steps:
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -25,14 +28,26 @@ jobs:
       - name: install dependencies
         run: yarn --frozen-lockfile
 
-      - name: publish shared
-        if: git diff HEAD^ HEAD --quiet ./packages/vlepo-shared
+      - name: determine what need to be deployed
+        run: |
+          if [[ git diff HEAD^ HEAD --quiet ./packages/vlepo-shared ]]; then
+              echo "DEPLOY_SHARED=true" >> "$GITHUB_ENV"
+          fi
+          if [[ git diff HEAD^ HEAD --quiet ./packages/vlepo-server ]]; then
+              echo "DEPLOY_SERVER=true" >> "$GITHUB_ENV"
+          fi
+          if [[ git diff HEAD^ HEAD --quiet ./packages/vlepo-client ]]; then
+              echo "DEPLOY_CLIENT=true" >> "$GITHUB_ENV"
+          fi
+
+      - name: deploy shared
+        if: env.DEPLOY_SHARED
         run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
       - name: deploy server
-        if: git diff HEAD^ HEAD --quiet ./packages/vlepo-shared
+        if: env.DEPLOY_SERVER
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: deploy-server.yml
@@ -43,7 +58,7 @@ jobs:
             ${{secrets.SERVER_URL}} ansible_port=${{secrets.SERVER_SSH_PORT}}
 
       - name: deploy client
-        if: git diff HEAD^ HEAD --quiet ./packages/vlepo-shared
+        if: env.DEPLOY_CLIENT
         uses: wei/curl@master
         with:
           args: ${{ secrets.VERCEL_WEBHOOK_URL }}
