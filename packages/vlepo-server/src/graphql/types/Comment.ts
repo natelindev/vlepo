@@ -1,3 +1,4 @@
+import { serialize } from 'next-mdx-remote/serialize';
 import { interfaceType, mutationField, nonNull, objectType, stringArg } from 'nexus';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
@@ -35,6 +36,11 @@ export const Comment = objectType({
     });
     t.model.owner();
     t.model.content();
+    t.string('renderedContent', {
+      async resolve({ content }) {
+        return JSON.stringify(await serialize(content));
+      },
+    });
     t.model.post();
     t.model.thought();
     t.model.parent();

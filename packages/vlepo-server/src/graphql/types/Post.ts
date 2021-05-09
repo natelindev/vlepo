@@ -1,3 +1,4 @@
+import { serialize } from 'next-mdx-remote/serialize';
 import {
   enumType,
   inputObjectType,
@@ -97,10 +98,20 @@ export const Post = objectType({
           () => ctx.prisma.comment.count(customArgs),
           args,
         );
-        ctx.state.totalCount = await ctx.prisma.comment.count(customArgs);
-        return {
+        const renderedResult = {
           ...result,
+          edges: await Promise.all(
+            result.edges.map(async (e) => ({
+              ...e,
+              node: {
+                ...e.node,
+                renderedContent: JSON.stringify(await serialize(e.node.content)),
+              },
+            })),
+          ),
         };
+        ctx.state.totalCount = await ctx.prisma.comment.count(customArgs);
+        return renderedResult;
       },
       totalCount: (_source, _args, ctx) => ctx.state.totalCount,
     });

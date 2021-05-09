@@ -151,7 +151,7 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
         <Row>
           <ArticleBody>
             <Content>
-              <MDXRemote {...mdxSource} components={mdxComponents} lazy />
+              <MDXRemote {...mdxSource} components={mdxComponents} />
             </Content>
           </ArticleBody>
         </Row>

@@ -1,8 +1,5 @@
 import { css, Global } from '@emotion/react';
 
-import { vsDark } from './theme/vsDark';
-import { vsLight } from './theme/vsLight';
-
 export const globalStyles = (
   <Global
     styles={(theme) => css`
@@ -53,8 +50,6 @@ export const globalStyles = (
         color: ${theme.colors.whiteText};
         background: ${theme.colors.selection};
       }
-
-      ${theme.name === 'dark' ? vsDark : vsLight}
     `}
   />
 );
