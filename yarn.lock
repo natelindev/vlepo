@@ -3423,6 +3423,13 @@
   dependencies:
     "@vibrant/types" "^3.2.1-alpha.1"
 
+"@vlepo/shared@latest":
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/@vlepo/shared/-/shared-1.0.0.tgz#fa074f4702f5d36bcfa72f7a809088ab043fc82f"
+  integrity sha512-FC6Rxx7esr/fclMLvjNNa+Y+htQ1HtHp1moHRvLZqueeCpll4aEt9lDDwHx2mg/MSwPhV1QTyVUqaJqMyiILEw==
+  dependencies:
+    debug "4.3.1"
+
 JSONStream@^1.0.4:
   version "1.3.5"
   resolved "https://registry.npmjs.org/JSONStream/-/JSONStream-1.3.5.tgz#3208c1f08d3a4d99261ab64f92302bc15e111ca0"

@@ -22,7 +22,7 @@
     "@emotion-icons/material-outlined": "3.8.0",
     "@emotion/react": "11.4.0",
     "@emotion/styled": "11.3.0",
-    "@vlepo/shared": "1.0.0",
+    "@vlepo/shared": "latest",
     "algoliasearch": "4.9.1",
     "bezier-easing": "2.1.0",
     "body-scroll-lock": "3.1.5",

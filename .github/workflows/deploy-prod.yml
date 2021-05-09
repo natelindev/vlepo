@@ -1,0 +1,49 @@
+name: deploy-prod
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: ['14']
+
+    steps:
+
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: use Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node_version }}
+
+      - name: install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: publish shared
+        if: git diff HEAD^ HEAD --quiet ./packages/vlepo-shared
+        run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+      - name: deploy server
+        if: git diff HEAD^ HEAD --quiet ./packages/vlepo-shared
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: deploy-server.yml
+          directory: ./ansible-playbooks/
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+          inventory: |
+            [web]
+            ${{secrets.SERVER_URL}} ansible_port=${{secrets.SERVER_SSH_PORT}}
+
+      - name: deploy client
+        if: git diff HEAD^ HEAD --quiet ./packages/vlepo-shared
+        uses: wei/curl@master
+        with:
+          args: ${{ secrets.VERCEL_WEBHOOK_URL }}
