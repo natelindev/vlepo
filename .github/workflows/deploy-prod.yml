@@ -52,7 +52,7 @@ jobs:
       - name: build server
         if: env.DEPLOY_SERVER == 'true'
         run:
-          lerna run build --scope=@vlepo/server
+          yarn build:server
 
       - name: deploy server
         if: env.DEPLOY_SERVER == 'true'
