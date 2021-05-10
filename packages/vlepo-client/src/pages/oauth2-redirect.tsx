@@ -9,7 +9,10 @@ const Container = styled.div`
 `;
 const LoginSuccessMessage = styled.h1`
   margin: auto;
+  margin-left: 2rem;
+  margin-right: 2rem;
 `;
+
 const Oauth2Redirect = () => {
   const [message, setMessage] = useState<string | null>();
   const [closeTime, setCloseTime] = useState(1);
