@@ -80,7 +80,7 @@ const blogQuery = graphql`
   }
 `;
 
-export const getServerSideProps = async ({ res, req }: GetServerSidePropsContext) => {
+export const getServerSideProps = async ({ req }: GetServerSidePropsContext) => {
   const { environment, relaySSR } = initEnvironment(req.cookies.accessToken);
   await new Promise((resolve, reject) => {
     fetchQuery(environment, blogQuery, {
@@ -92,8 +92,6 @@ export const getServerSideProps = async ({ res, req }: GetServerSidePropsContext
   });
   const [relayData] = await relaySSR.getCache();
   const [queryString, queryPayload] = relayData ?? [];
-
-  res.setHeader('Cache-Control', 's-maxage=604800, stale-while-revalidate');
 
   return {
     props: {
