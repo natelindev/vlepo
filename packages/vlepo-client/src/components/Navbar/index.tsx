@@ -100,7 +100,7 @@ const Navbar: React.FC = () => {
             href="/"
             mr="auto"
           >
-            {title}
+            {title ?? process.env.NEXT_PUBLIC_DEFAULT_BLOG_NAME}
           </NavBrand>
         </Link>
         <LeftNavCollapse display={['none', 'none', 'block']}>
