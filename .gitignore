@@ -69,6 +69,15 @@ artifact
 # ignore npm files
 package-lock.json
 
+# yarn berry
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
 # ignore generated files
 schema.graphql
 json-schema.json

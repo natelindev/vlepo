@@ -79,7 +79,7 @@ jobs:
             github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/client-deployment-${{ steps.date.outputs.date }}",
+              ref: "refs/tags/deployment-${{ steps.date.outputs.date }}",
               sha: context.sha
             })
 

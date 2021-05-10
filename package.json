@@ -7,9 +7,6 @@
   "workspaces": {
     "packages": [
       "packages/*"
-    ],
-    "nohoist": [
-      "**/esbuild"
     ]
   },
   "scripts": {
