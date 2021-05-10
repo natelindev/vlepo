@@ -47,7 +47,8 @@
         "typegen",
         "unoptimized",
         "VERCEL",
-        "vlepo"
+        "vlepo",
+        "yarnpkg"
     ],
     "ignorePaths": [
         "node_modules/**"
