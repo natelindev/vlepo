@@ -79,3 +79,12 @@ export const NewComment = styled.div`
   padding-right: 1rem;
   padding-bottom: 0.5rem;
 `;
+
+export const MarkdownPowered = styled.div`
+  cursor: pointer;
+  display: flex;
+  transition: 0.2s color ease-in-out;
+  &:hover {
+    color: ${(props) => props.theme.colors.link};
+  }
+`;

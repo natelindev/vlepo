@@ -57,7 +57,6 @@ const Comment = (props: CommentProps) => {
               <H6 ml="auto">{format(parseISO(comment.createdAt), 'MMM d')}</H6>
             </Row>
             <CommentContent>
-              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               <MDXRemote
                 {...JSON.parse(comment.renderedContent ?? 'null')}
                 components={mdxComponents}

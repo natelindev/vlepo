@@ -20,7 +20,7 @@ import { Row } from '../Layout/style';
 import Loading from '../Loading';
 import PlaceHolder from '../PlaceHolder';
 import { H3, H4, H5 } from '../Typography';
-import { BaseCommentSection, NewComment } from './style';
+import { BaseCommentSection, MarkdownPowered, NewComment } from './style';
 
 const commentFragmentSpec = graphql`
   fragment CommentSection_commendable on Commendable
@@ -168,8 +168,14 @@ const CommentSection = (props: CommentSectionProps) => {
                 onChange={(e) => setCommentContent(e.currentTarget.value)}
               />
               <Row mt="0.5rem" alignItems="center">
-                <Markdown size={24} />
-                <H5 ml="0.5rem">markdown powered</H5>
+                <MarkdownPowered
+                  onClick={() =>
+                    window.open('https://guides.github.com/features/mastering-markdown/')
+                  }
+                >
+                  <Markdown size={24} />
+                  <H5 ml="0.5rem">markdown powered</H5>
+                </MarkdownPowered>
                 <GradientButton
                   ml="auto"
                   mr="0.5rem"
