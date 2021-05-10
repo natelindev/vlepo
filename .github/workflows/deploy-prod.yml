@@ -49,6 +49,11 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
+      - name: build server
+        if: env.DEPLOY_SERVER == 'true'
+        run:
+          lerna run build --scope=@vlepo/server
+
       - name: deploy server
         if: env.DEPLOY_SERVER == 'true'
         uses: dawidd6/action-ansible-playbook@v2
@@ -80,6 +85,5 @@ jobs:
 
       - name: deploy client
         if: env.DEPLOY_CLIENT == 'true'
-        uses: wei/curl@master
-        with:
-          args: ${{ secrets.VERCEL_WEBHOOK_URL }}
+        run:
+          curl ${{ secrets.VERCEL_WEBHOOK_URL }}
