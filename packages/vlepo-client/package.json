@@ -5,6 +5,7 @@
   "scripts": {
     "prebuild": "yarn generate",
     "build": "next build",
+    "build:vercel": "yarn get-schema && yarn generate && yarn build",
     "debug": "NODE_OPTIONS='--inspect=5009' next dev",
     "dev": "DEBUG=* next dev",
     "generate": "yarn relay",
