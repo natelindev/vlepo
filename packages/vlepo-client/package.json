@@ -1,6 +1,6 @@
 {
   "name": "@vlepo/client",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "scripts": {
     "prebuild": "yarn generate",
