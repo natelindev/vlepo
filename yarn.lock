@@ -1528,18 +1528,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-cli/codegen@npm:1.17.23":
-  version: 1.17.23
-  resolution: "@graphql-cli/codegen@npm:1.17.23"
-  dependencies:
-    "@graphql-cli/common": 4.1.0
-    "@graphql-codegen/cli": 1.21.4
-  peerDependencies:
-    graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
-  checksum: 72213749ef7edc607de5b5b7f93dfb7cb1f815196935916970b135ea96ce2027253d0df7e1cd3b84b405288ea8c19d575182bcb9fc446836a01e5ba02c3709bd
-  languageName: node
-  linkType: hard
-
 "@graphql-cli/common@npm:4.1.0":
   version: 4.1.0
   resolution: "@graphql-cli/common@npm:4.1.0"
@@ -4639,7 +4627,7 @@ __metadata:
     "@emotion-icons/material-outlined": 3.8.0
     "@emotion/react": 11.4.0
     "@emotion/styled": 11.3.0
-    "@graphql-cli/codegen": 1.17.23
+    "@graphql-codegen/cli": 1.21.4
     "@graphql-codegen/schema-ast": 1.18.2
     "@next/bundle-analyzer": 10.2.0
     "@types/body-scroll-lock": 2.6.1

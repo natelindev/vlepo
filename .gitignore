@@ -83,3 +83,4 @@ schema.graphql
 json-schema.json
 generated-types.d.ts
 __generated__
+.vercel

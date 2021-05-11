@@ -8,7 +8,7 @@
     "debug": "NODE_OPTIONS='--inspect=5009' next dev",
     "dev": "DEBUG=* next dev",
     "generate": "yarn relay",
-    "get-schema": "npx graphql-codegen --config .graphqlrc.yml",
+    "get-schema": "graphql-codegen --config .graphqlrc.yml",
     "lint": "eslint src --ext .ts,.tsx",
     "relay": "relay-compiler",
     "relay:watch": "yarn relay --watch",
@@ -55,7 +55,7 @@
     "zen-observable": "0.8.15"
   },
   "devDependencies": {
-    "@graphql-cli/codegen": "1.17.23",
+    "@graphql-codegen/cli": "1.21.4",
     "@graphql-codegen/schema-ast": "1.18.2",
     "@next/bundle-analyzer": "10.2.0",
     "@types/body-scroll-lock": "2.6.1",
