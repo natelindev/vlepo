@@ -23,7 +23,7 @@ jobs:
           node-version: ${{ matrix.node_version }}
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: yarn --immutable
 
       - name: Run `generate`
         run: yarn generate

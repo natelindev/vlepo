@@ -65,24 +65,6 @@ jobs:
             [web]
             ${{secrets.SERVER_URL}} ansible_port=${{secrets.SERVER_SSH_PORT}}
 
-      - name: Get current date
-        if: env.DEPLOY_CLIENT == 'true'
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d-%H-%M-%S')"
-
-      - name: create git tag for client
-        if: env.DEPLOY_CLIENT == 'true'
-        uses: actions/github-script@v4
-        with:
-          github-token: ${{ github.token }}
-          script: |
-            github.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: "refs/tags/github-deployment-${{ steps.date.outputs.date }}",
-              sha: context.sha
-            })
-
       - name: deploy client
         if: env.DEPLOY_CLIENT == 'true'
         run:

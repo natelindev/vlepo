@@ -13,7 +13,7 @@
     "bootstrap": "lerna bootstrap && yarn env",
     "prebuild": "yarn generate && lerna link",
     "build": "lerna run build",
-    "build:server": "lerna run build --scope=@vlepo/server && lerna run zip --scope=@vlepo/server",
+    "build:server": "lerna run generate --scope=@vlepo/server && lerna run build --scope=@vlepo/server && lerna run zip --scope=@vlepo/server",
     "deploy": "yarn build:server && ansible-playbook -i ansible-playbooks/hosts ansible-playbooks/deploy-server.yml",
     "dev": "lerna run dev --parallel",
     "env": "lerna exec -- ln -s ../../.env",
