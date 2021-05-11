@@ -4652,7 +4652,6 @@ __metadata:
     date-fns: 2.21.3
     debug: 4.3.1
     dotenv: 9.0.2
-    esbuild: 0.11.20
     eslint: 7.26.0
     eslint-plugin-relay: 1.8.2
     graphql: 15.5.0
@@ -4719,7 +4718,6 @@ __metadata:
     date-fns: 2.21.3
     debug: 4.3.1
     dotenv: 9.0.2
-    esbuild: 0.11.20
     eslint: 7.26.0
     eslint-config-prettier: 8.3.0
     eslint-plugin-prettier: 3.4.0
@@ -7811,15 +7809,6 @@ __metadata:
   version: 3.3.1
   resolution: "es6-promise@npm:3.3.1"
   checksum: 49fefad27ef0cb6a6cdf62dd0040c96596a50b5e0d3901ca1fa1faa5caa690068d5c789c8bcd1d71f917311f67d0d11f617d97957551936575dad0c5154c721e
-  languageName: node
-  linkType: hard
-
-"esbuild@npm:0.11.20":
-  version: 0.11.20
-  resolution: "esbuild@npm:0.11.20"
-  bin:
-    esbuild: bin/esbuild
-  checksum: 553f88218a18d018d690f6512b10f4a37b6e7545b48aad02a1ed77e4b7a01d0261dc4213557d694c55f9e130527a064ed1db872c878a2133a0b3a90122299c82
   languageName: node
   linkType: hard
 
