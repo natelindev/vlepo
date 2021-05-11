@@ -14,7 +14,7 @@
     "db:reset": "prisma migrate reset",
     "db:seed": "DEBUG=* ts-node --transpile-only prisma/seed.ts -s",
     "dev": "NODE_ENV=development DEBUG=* ts-node-dev -r dotenv/config --exit-child --tree-kill --respawn --transpile-only src/app.ts",
-    "generate": "yarn -s generate:prisma && yarn -s generate:nexus",
+    "generate": "yarn generate:prisma && yarn generate:nexus",
     "generate:nexus": "NODE_ENV=development ts-node --transpile-only src/graphql",
     "generate:prisma": "prisma generate",
     "lint": "eslint src --ext .ts,.tsx",

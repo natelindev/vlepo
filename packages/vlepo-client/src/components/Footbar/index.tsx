@@ -9,7 +9,7 @@ const Footbar: React.FC = () => (
     <Logo display={['none', 'none', 'flex']} size="42px" />
     <BottomText>
       <CenteredText mx="auto">
-        © 2019-
+        © 2016-
         {new Date().getFullYear()}
         {'  '}
         Nathaniel&#39;s Blog. CC-BY 4.0
