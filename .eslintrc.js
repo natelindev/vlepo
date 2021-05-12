@@ -18,6 +18,9 @@ module.exports = {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
     },
+    react: {
+      version: '17.0.2',
+    },
   },
   rules: {
     'prettier/prettier': [

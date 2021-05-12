@@ -80,7 +80,7 @@ const blogQuery = graphql`
   }
 `;
 
-export const getServerSideProps = async ({ req }: GetServerSidePropsContext) => {
+export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext) => {
   const { environment, relaySSR } = initEnvironment(req.cookies.accessToken);
   await new Promise((resolve, reject) => {
     fetchQuery(environment, blogQuery, {
@@ -92,6 +92,8 @@ export const getServerSideProps = async ({ req }: GetServerSidePropsContext) => 
   });
   const [relayData] = await relaySSR.getCache();
   const [queryString, queryPayload] = relayData ?? [];
+
+  res.setHeader('Cache-Control', 's-maxage=604800, stale-while-revalidate');
 
   return {
     props: {
@@ -149,15 +151,9 @@ const PostsSection = (props: PostSectionProps) => {
 };
 
 export default function Home() {
-  const { error, data } = useQuery<pages_Index_BlogQuery>(
-    blogQuery,
-    {
-      id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
-    },
-    {
-      fetchPolicy: 'store-and-network',
-    },
-  );
+  const { error, data } = useQuery<pages_Index_BlogQuery>(blogQuery, {
+    id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
+  });
 
   const { setTitle } = useTitle();
 

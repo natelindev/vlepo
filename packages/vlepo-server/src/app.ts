@@ -103,7 +103,6 @@ const graphqlServer = graphqlHTTP((_req, _res, ctx) => ({
 router.all('/playground', koaPlayground({ endpoint: '/graphql' }));
 router.all('/graphql/batch', graphqlBatchHTTPWrapper(graphqlServer));
 router.all('/graphql', graphqlServer);
-router.get('/graphql/health', (ctx) => ctx.response.status = 200);
 
 app.use(graphqlUploadKoa({ maxFileSize: 100000000, maxFiles: 5 }));
 app.use(router.routes());
