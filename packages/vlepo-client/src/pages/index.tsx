@@ -93,7 +93,11 @@ export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext
   const [relayData] = await relaySSR.getCache();
   const [queryString, queryPayload] = relayData ?? [];
 
-  res.setHeader('Cache-Control', 's-maxage=604800, stale-while-revalidate');
+  if(req.cookies.accessToken){
+    res.setHeader('Cache-Control', 'no-cache');
+  }else{
+    res.setHeader('Cache-Control', 'max-age=0,s-maxage=604800, stale-while-revalidate');
+  }
 
   return {
     props: {
