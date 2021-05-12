@@ -483,15 +483,16 @@ model Translation {
 }
 
 model Project {
-  id        String        @id @default(uuid())
-  name      String
-  content   String
-  status    ProjectStatus @default(DRAFT)
-  url       String?
-  tags      Tag[]
-  images    Image[]
-  reactions Reaction[]
-  ratings   Rating[]
+  id             String        @id @default(uuid())
+  name           String
+  content        String
+  headerImageUrl String?
+  status         ProjectStatus @default(DRAFT)
+  url            String?
+  tags           Tag[]
+  images         Image[]
+  reactions      Reaction[]
+  ratings        Rating[]
 
   blog   Blog?   @relation(fields: [blogId], references: [id])
   blogId String?

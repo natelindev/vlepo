@@ -4543,6 +4543,7 @@ __metadata:
     prism-react-renderer: 1.2.0
     react: 17.0.2
     react-dom: 17.0.2
+    react-github-btn: 1.2.0
     react-hook-form: 7.5.2
     react-instantsearch-dom: 6.11.0
     react-intersection-observer: 8.31.1
@@ -8849,6 +8850,13 @@ fsevents@~2.3.1:
   dependencies:
     ini: ^1.3.2
   checksum: ef296938992352fe55ef67c4ede360a194ef501cf29a53b2cbc73d30a37c76259192ce6a20d7e8fe0711fe4f67fad713adb75a17ae90795bd159a8b4f10f8fc0
+  languageName: node
+  linkType: hard
+
+"github-buttons@npm:^2.8.0":
+  version: 2.17.0
+  resolution: "github-buttons@npm:2.17.0"
+  checksum: dec1cc24b29ffcd35ab0e076c1b592c483731bca6704230a9432e6f0c644756c7be7eaebdb64a34513d63049539e3c24cc1b4898b31ccb8adf94f83067def7da
   languageName: node
   linkType: hard
 
@@ -14190,6 +14198,15 @@ fsevents@~2.3.1:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0
   checksum: 92df64722be6f06b93c1246fa1fddb2897e5fc977d1d1c166ac14a19e272ec4e65908cee5780e3bc45f3be4c32717470900b61eeec061090ef4e08e08f37d8ae
+  languageName: node
+  linkType: hard
+
+"react-github-btn@npm:1.2.0":
+  version: 1.2.0
+  resolution: "react-github-btn@npm:1.2.0"
+  dependencies:
+    github-buttons: ^2.8.0
+  checksum: d08a78843bf1168e87bdbdd2722d36f2ebce6e1bbcc3781c71b217e2e3e0856f4adc7870d58d780b4c7d2559039f0bdae6db7245ab3b7cf1c5cbc4006513bcf6
   languageName: node
   linkType: hard
 
