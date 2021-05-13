@@ -3,7 +3,7 @@ import { match } from 'ts-pattern';
 
 import styled from '@emotion/styled';
 
-import { OverlayLink } from '../Card/style';
+import { OverlayLink } from '../Link';
 
 type SearchResultProp = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

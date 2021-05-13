@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
+import { useMetaData } from 'src/hooks/useMetaData';
 import { useProgressBar } from 'src/hooks/useProgressBar';
-import { useTitle } from 'src/hooks/useTitle';
 
 import Footbar from '../Footbar';
 import Navbar from '../Navbar';
@@ -16,7 +16,7 @@ const Layout = (props: LayoutProps) => {
   const { children } = props;
   const widthLoading = useProgressBar({ loading: true });
   // const widthScrolling = useProgressBar({ scrolling: true });
-  const { title } = useTitle();
+  const { title } = useMetaData();
 
   return (
     <>

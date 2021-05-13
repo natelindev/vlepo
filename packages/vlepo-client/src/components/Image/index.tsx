@@ -14,6 +14,7 @@ type ImageProps = {
 const Image = (props: ImageProps) => {
   const {
     src,
+    variant,
     unoptimized,
     priority,
     loading,
@@ -54,6 +55,7 @@ const Image = (props: ImageProps) => {
           css={css`
             filter: ${filter};
           `}
+          variant={variant}
           layout="fill"
         />
       ) : (

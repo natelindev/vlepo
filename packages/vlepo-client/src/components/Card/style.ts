@@ -11,21 +11,21 @@ import {
   width,
   WidthProps,
 } from 'styled-system';
+import { match } from 'ts-pattern';
 
 import styled from '@emotion/styled';
 
-export const CardImage = styled(Image, {
-  shouldForwardProp: (propName) =>
-    propName !== 'top' && propName !== 'bottom' && propName !== 'left' && propName !== 'right',
-})<CardImgProps>`
-  border-top-left-radius: ${(props) =>
-    props.left || props.top ? `${props.theme.radii.default}px` : `0`};
-  border-top-right-radius: ${(props) =>
-    props.right || props.top ? `${props.theme.radii.default}px` : `0`};
-  border-bottom-right-radius: ${(props) =>
-    props.right || props.bottom ? `${props.theme.radii.default}px` : `0`};
-  border-bottom-left-radius: ${(props) =>
-    props.left || props.bottom ? `${props.theme.radii.default}px` : `0`};
+export type CardImgProps = {
+  variant: 'top' | 'left' | 'right' | 'bottom';
+};
+export const CardImage = styled(Image)<CardImgProps>`
+  border-radius: ${(props) =>
+    match(props.variant)
+      .with('top', () => `${props.theme.radii.default}px ${props.theme.radii.default}px 0 0`)
+      .with('bottom', () => `0 0 ${props.theme.radii.default}px ${props.theme.radii.default}px`)
+      .with('left', () => `${props.theme.radii.default}px 0 0 ${props.theme.radii.default}px`)
+      .with('right', () => `0 ${props.theme.radii.default}px ${props.theme.radii.default}px 0`)
+      .run()};
 `;
 
 type BaseCardProps = { direction?: string } & WidthProps &
@@ -54,20 +54,3 @@ export const CardBody = styled.div`
   min-height: 1px;
   padding: 1.25rem;
 `;
-
-export const OverlayLink = styled.a`
-  font-size: 0;
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  z-index: ${(props) => props.theme.zIndices.CardLink};
-`;
-
-export type CardImgProps = {
-  left?: boolean;
-  right?: boolean;
-  top?: boolean;
-  bottom?: boolean;
-};

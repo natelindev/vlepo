@@ -1,7 +1,5 @@
 import { useRouter } from 'next/router';
 import React from 'react';
-import { graphql } from 'react-relay';
-import { UserSection_user$key } from 'src/__generated__/UserSection_user.graphql';
 import Dropdown from 'src/components/Dropdown';
 import { NavItem } from 'src/components/Navbar/style';
 import NavLink from 'src/components/NavLink';
@@ -16,19 +14,8 @@ type UserSectionProps = {
   setShowLoginModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const currentUserFragment = graphql`
-  fragment UserSection_user on User {
-    id
-    name
-    profileImageUrl
-    roles {
-      value
-    }
-  }
-`;
-
 const UserSection = (props: UserSectionProps) => {
-  const currentUser = useCurrentUser<UserSection_user$key>(currentUserFragment);
+  const currentUser = useCurrentUser();
   const { setShowLoginModal } = props;
   const router = useRouter();
 

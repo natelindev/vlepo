@@ -10,6 +10,7 @@ import { PostRefetchQuery } from 'src/__generated__/PostRefetchQuery.graphql';
 import ClientOnly from 'src/components/ClientOnly';
 import PostCard from 'src/components/Dashboard/PostCard';
 import GradientButton from 'src/components/GradientButton';
+import { ErrorText } from 'src/components/Input';
 import { Column, Row } from 'src/components/Layout/style';
 import CreatePostModal from 'src/components/Modals/CreatePostModal';
 import PlaceHolder from 'src/components/PlaceHolder';
@@ -66,7 +67,7 @@ const BlogSection = () => {
     id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
   });
 
-  if (error) return <div>{error.message}</div>;
+  if (error) return <ErrorText>{error.message}</ErrorText>;
   if (!data || isLoading) return <PlaceHolder />;
 
   const { postViewCount, postReactionCount, postCommentCount, userCount } = data.blog
@@ -103,10 +104,12 @@ type PostSectionProps = {
 };
 
 const PostSection = (props: PostSectionProps) => {
-  const { data: user, isLoadingNext, hasNext, loadNext } = usePagination<
-    PostRefetchQuery,
-    Entity_user$key
-  >(fragmentSpec, props.user);
+  const {
+    data: user,
+    isLoadingNext,
+    hasNext,
+    loadNext,
+  } = usePagination<PostRefetchQuery, Entity_user$key>(fragmentSpec, props.user);
   const [showCreatePostModal, setShowCreatePostModal] = useState(false);
 
   return (

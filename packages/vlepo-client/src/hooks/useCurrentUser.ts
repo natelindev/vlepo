@@ -1,42 +1,30 @@
+/* eslint-disable relay/unused-fields */
 /* eslint-disable relay/must-colocate-fragment-spreads */
-import { graphql, GraphQLTaggedNode } from 'react-relay';
-import { useFragment, useQuery } from 'relay-hooks';
-import { CommentSection_user$key } from 'src/__generated__/CommentSection_user.graphql';
-import { CreatePostModal_user$key } from 'src/__generated__/CreatePostModal_user.graphql';
-import { profile_user$key } from 'src/__generated__/profile_user.graphql';
+import { graphql } from 'react-relay';
+import { useQuery } from 'relay-hooks';
 import { useCurrentUser_viewerQuery } from 'src/__generated__/useCurrentUser_viewerQuery.graphql';
-import { UserSection_user$key } from 'src/__generated__/UserSection_user.graphql';
 
 import { getCookie } from './useCookie';
 
 const viewerQuery = graphql`
   query useCurrentUser_viewerQuery {
     viewer {
-      ...CreatePostModal_user
-      ...UserSection_user
-      ...profile_user
-      ...CommentSection_user
+      id
+      name
+      profileImageUrl
+      roles {
+        value
+      }
     }
   }
 `;
 
-export const useCurrentUser = <
-  T extends
-    | CreatePostModal_user$key
-    | UserSection_user$key
-    | profile_user$key
-    | CommentSection_user$key
->(
-  fragmentNode: GraphQLTaggedNode,
-): T[' $data'] => {
+export const useCurrentUser = () => {
   const { data } = useQuery<useCurrentUser_viewerQuery>(
     viewerQuery,
     {},
     { skip: !getCookie<string>('accessToken')?.length },
   );
-  const user = data?.viewer ?? null;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const currentUser = useFragment<T>(fragmentNode, user as any);
 
-  return currentUser;
+  return data?.viewer ?? null;
 };

@@ -4543,7 +4543,6 @@ __metadata:
     prism-react-renderer: 1.2.0
     react: 17.0.2
     react-dom: 17.0.2
-    react-github-btn: 1.2.0
     react-hook-form: 7.5.2
     react-instantsearch-dom: 6.11.0
     react-intersection-observer: 8.31.1
@@ -4612,7 +4611,6 @@ __metadata:
     koa: 2.13.1
     koa-bodyparser: 4.3.0
     koa-graphql: 0.8.0
-    koa-graphql-batch: 1.1.0
     koa-mount: 4.0.0
     koa-router: 10.0.0
     koa-send: 5.0.1
@@ -8853,13 +8851,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"github-buttons@npm:^2.8.0":
-  version: 2.17.0
-  resolution: "github-buttons@npm:2.17.0"
-  checksum: dec1cc24b29ffcd35ab0e076c1b592c483731bca6704230a9432e6f0c644756c7be7eaebdb64a34513d63049539e3c24cc1b4898b31ccb8adf94f83067def7da
-  languageName: node
-  linkType: hard
-
 "glob-parent@npm:^5.0.0, glob-parent@npm:^5.1.0, glob-parent@npm:^5.1.1, glob-parent@npm:~5.1.0":
   version: 5.1.2
   resolution: "glob-parent@npm:5.1.2"
@@ -10852,17 +10843,6 @@ fsevents@~2.3.1:
     co: ^4.6.0
     koa-compose: ^3.0.0
   checksum: d74bafebae527ef5b26f9f7d66928ca9f62cabba2eb8cc8fff1742a5ed5de21a32ca9ddb0a63b0e6a3e3ae04163be95b3a0efdaed662303f921c655527e16955
-  languageName: node
-  linkType: hard
-
-"koa-graphql-batch@npm:1.1.0":
-  version: 1.1.0
-  resolution: "koa-graphql-batch@npm:1.1.0"
-  peerDependencies:
-    graphql: ^0.8.2
-    koa: ^2.0.0
-    koa-graphql: ^0.6.0
-  checksum: bd4337f122f5f2635c42ab14b0f1b1c62c42a5d61d33747ec81a8bda2a9a049ce3146f83b01508058d6492d8f2cd151f790ba7d2448aed43d889710d4a08b51c
   languageName: node
   linkType: hard
 
@@ -14198,15 +14178,6 @@ fsevents@~2.3.1:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0
   checksum: 92df64722be6f06b93c1246fa1fddb2897e5fc977d1d1c166ac14a19e272ec4e65908cee5780e3bc45f3be4c32717470900b61eeec061090ef4e08e08f37d8ae
-  languageName: node
-  linkType: hard
-
-"react-github-btn@npm:1.2.0":
-  version: 1.2.0
-  resolution: "react-github-btn@npm:1.2.0"
-  dependencies:
-    github-buttons: ^2.8.0
-  checksum: d08a78843bf1168e87bdbdd2722d36f2ebce6e1bbcc3781c71b217e2e3e0856f4adc7870d58d780b4c7d2559039f0bdae6db7245ab3b7cf1c5cbc4006513bcf6
   languageName: node
   linkType: hard
 

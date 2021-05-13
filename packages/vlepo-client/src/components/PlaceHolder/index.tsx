@@ -35,4 +35,6 @@ const PlaceHolder = styled.div<WidthProps & HeightProps & MarginProps & BorderRa
   overflow: hidden;
 `;
 
+export const Loading = () => <PlaceHolder />;
+
 export default PlaceHolder;

@@ -1,5 +1,6 @@
 import { Masonry } from 'masonic';
-import React, { useEffect } from 'react';
+import dynamic from 'next/dynamic';
+import React from 'react';
 import { graphql } from 'react-relay';
 import Typist from 'react-typist';
 import { usePagination, useQuery } from 'relay-hooks';
@@ -8,12 +9,10 @@ import { ArticleCard_post$key } from 'src/__generated__/ArticleCard_post.graphql
 import { IndexPostRefetchQuery } from 'src/__generated__/IndexPostRefetchQuery.graphql';
 import { pages_Index_BlogQuery } from 'src/__generated__/pages_Index_BlogQuery.graphql';
 import { pages_Index_Posts$key } from 'src/__generated__/pages_Index_Posts.graphql';
-import ArticleCard from 'src/components/ArticleCard';
-import ClientOnly from 'src/components/ClientOnly';
-import GradientButton from 'src/components/GradientButton';
+import { ErrorText } from 'src/components/Input';
 import { Row } from 'src/components/Layout/style';
-import PlaceHolder from 'src/components/PlaceHolder';
-import { useTitle } from 'src/hooks/useTitle';
+import PlaceHolder, { Loading } from 'src/components/PlaceHolder';
+import { useMetaData } from 'src/hooks/useMetaData';
 import { initEnvironment } from 'src/relay';
 import { fontSize, FontSizeProps, margin, MarginProps } from 'styled-system';
 
@@ -21,6 +20,10 @@ import { ExpandMore } from '@emotion-icons/material-outlined';
 import styled from '@emotion/styled';
 
 import type { GetServerSidePropsContext } from 'next';
+
+const ArticleCard = dynamic(() => import('src/components/ArticleCard'), { loading: Loading });
+const ClientOnly = dynamic(() => import('src/components/ClientOnly'), { loading: Loading });
+const GradientButton = dynamic(() => import('src/components/GradientButton'), { loading: Loading });
 
 const IndexMasonry = styled(Masonry)`
   width: 100%;
@@ -74,7 +77,6 @@ const indexFragmentSpec = graphql`
 const blogQuery = graphql`
   query pages_Index_BlogQuery($id: String!) {
     blog(where: { id: $id }) {
-      name
       ...pages_Index_Posts
     }
   }
@@ -159,15 +161,11 @@ export default function Home() {
     id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
   });
 
-  const { setTitle } = useTitle();
+  const { subtitle } = useMetaData();
 
-  useEffect(() => {
-    if (data?.blog?.name) {
-      setTitle?.(data?.blog?.name);
-    }
-  }, [data?.blog?.name, setTitle]);
-
-  if (error) return <div>{error.message}</div>;
+  if (error) {
+    return <ErrorText>{error.message}</ErrorText>;
+  }
 
   return (
     <>
@@ -177,7 +175,7 @@ export default function Home() {
         mb={['4rem', '5rem', '6rem']}
         fontSize={[2, 3, 4]}
       >
-        <Slogan>I code, Therefore I am</Slogan>
+        <Slogan>{subtitle}</Slogan>
       </IndexSlogan>
       {data && <PostsSection blog={data.blog!} />}
     </>

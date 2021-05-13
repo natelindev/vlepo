@@ -77,7 +77,7 @@ const ArticleCard = (props: ArticleCardProps) => {
             objectFit="cover"
             src={headerImageUrl}
             alt={title}
-            top
+            variant="top"
           />
           {!imageLoaded && (
             <ImageOverlay>

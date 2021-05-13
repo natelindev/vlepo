@@ -10,7 +10,6 @@ import {
   createPostInput,
   CreatePostModal_Mutation,
 } from 'src/__generated__/CreatePostModal_Mutation.graphql';
-import { CreatePostModal_user$key } from 'src/__generated__/CreatePostModal_user.graphql';
 import { ImageUpload_MutationResponse } from 'src/__generated__/ImageUpload_Mutation.graphql';
 import GradientButton from 'src/components/GradientButton';
 import ImageGrid from 'src/components/ImageGrid';
@@ -37,12 +36,6 @@ const imagesFragment = graphql`
   fragment CreatePostModal_images on Image @relay(plural: true) {
     id
     url
-  }
-`;
-
-const currentUserFragment = graphql`
-  fragment CreatePostModal_user on User {
-    id
   }
 `;
 
@@ -73,7 +66,7 @@ const CreatePostModal = (props: CreatePostModalProps) => {
     images as CreatePostModal_images$key,
   );
 
-  const currentUser = useCurrentUser<CreatePostModal_user$key>(currentUserFragment);
+  const currentUser = useCurrentUser();
 
   const dashboard_postConnectionId = ConnectionHandler.getConnectionID(
     currentUser!.id as string,
