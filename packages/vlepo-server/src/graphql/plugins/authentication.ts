@@ -54,7 +54,7 @@ export const defaultFormatError = ({ error }: FieldAuthenticationPluginErrorConf
 export type FieldAuthenticationPluginConfigFn<
   TypeName extends string,
   FieldName extends string,
-  Result
+  Result,
 > = (
   root: core.RootValueField<TypeName, FieldName>,
   args: core.ArgsValue<TypeName, FieldName>,
@@ -108,23 +108,20 @@ export function fieldAuthenticationPlugin(pluginConfig: FieldAuthenticationPlugi
     onFailedAuthentication,
   } = pluginConfig;
 
-  const ensureError = (
-    root: unknown,
-    args: unknown,
-    ctx: core.GetGen<'context'>,
-    info: GraphQLResolveInfo,
-  ) => (error: Error) => {
-    const finalErr = formatError({ error, root, args, ctx, info });
-    if (finalErr instanceof Error) {
-      throw finalErr;
-    }
-    (ctx.logger || console).error(
-      `Non-Error value ${JSON.stringify(
-        finalErr,
-      )} returned from custom formatError in field authentication plugin`,
-    );
-    throw new Error(defaultErrorMessage);
-  };
+  const ensureError =
+    (root: unknown, args: unknown, ctx: core.GetGen<'context'>, info: GraphQLResolveInfo) =>
+    (error: Error) => {
+      const finalErr = formatError({ error, root, args, ctx, info });
+      if (finalErr instanceof Error) {
+        throw finalErr;
+      }
+      (ctx.logger || console).error(
+        `Non-Error value ${JSON.stringify(
+          finalErr,
+        )} returned from custom formatError in field authentication plugin`,
+      );
+      throw new Error(defaultErrorMessage);
+    };
 
   return plugin({
     name: 'FieldAuthentication',

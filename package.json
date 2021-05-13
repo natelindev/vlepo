@@ -19,6 +19,7 @@
     "env": "lerna exec -- ln -s ../../.env",
     "generate": "lerna run build --scope=@vlepo/shared && lerna run generate --scope=@vlepo/server && lerna run generate --scope=@vlepo/client",
     "lint": "lerna run lint --parallel",
+    "lintFix": "lerna exec -- eslint src --fix",
     "prepublishOnly": "lerna run build --scope=@vlepo/shared",
     "publish": "yarn lerna publish from-package --yes",
     "spellcheck": "lerna run spellcheck --parallel",
