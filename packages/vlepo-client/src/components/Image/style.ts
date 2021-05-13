@@ -58,7 +58,7 @@ export const ImageContainer = styled.div<ImageContainerProps>`
   ${borderRadius}
 `;
 
-type BaseImageProps = BorderRadiusProps & { variant: 'top' | 'left' | 'right' | 'bottom' };
+type BaseImageProps = BorderRadiusProps & { variant?: 'top' | 'left' | 'right' | 'bottom' };
 export const BaseImage = styled(NextImage, {
   shouldForwardProp: (propName) => propName !== 'borderRadius',
 })<BaseImageProps>`
@@ -71,7 +71,7 @@ export const BaseImage = styled(NextImage, {
       .with('bottom', () => `0 0 ${props.theme.radii.default}px ${props.theme.radii.default}px`)
       .with('left', () => `${props.theme.radii.default}px 0 0 ${props.theme.radii.default}px`)
       .with('right', () => `0 ${props.theme.radii.default}px ${props.theme.radii.default}px 0`)
-      .run()};
+      .otherwise(() => `0 0 0 0`)};
   ${borderRadius}
 `;
 
