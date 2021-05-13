@@ -5,7 +5,6 @@ import { useMutation, usePagination } from 'relay-hooks';
 import { CommentRefetchQuery } from 'src/__generated__/CommentRefetchQuery.graphql';
 import { CommentSection_commendable$key } from 'src/__generated__/CommentSection_commendable.graphql';
 import { CommentSection_Mutation } from 'src/__generated__/CommentSection_Mutation.graphql';
-import { CommentSection_user$key } from 'src/__generated__/CommentSection_user.graphql';
 import Comment from 'src/components/Comment';
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
 import { match } from 'ts-pattern';
@@ -39,14 +38,6 @@ const commentFragmentSpec = graphql`
   }
 `;
 
-const CommentSection_user = graphql`
-  fragment CommentSection_user on User {
-    id
-    name
-    profileImageUrl
-  }
-`;
-
 type CommentSectionProps = {
   parent: CommentSection_commendable$key;
   variant: 'profile' | 'post';
@@ -54,7 +45,7 @@ type CommentSectionProps = {
 
 const CommentSection = (props: CommentSectionProps) => {
   const { parent, variant, ...rest } = props;
-  const currentUser = useCurrentUser<CommentSection_user$key>(CommentSection_user);
+  const currentUser = useCurrentUser();
   const { data, isLoadingNext, hasNext, loadNext } = usePagination<
     CommentRefetchQuery,
     CommentSection_commendable$key
@@ -65,7 +56,7 @@ const CommentSection = (props: CommentSectionProps) => {
   const { addToast } = useToasts();
 
   const commentSection_commentsConnectionId = ConnectionHandler.getConnectionID(
-    ((parent as unknown) as { __id: string }).__id,
+    (parent as unknown as { __id: string }).__id,
     'CommentSection_commentsConnection',
   );
 
@@ -130,7 +121,6 @@ const CommentSection = (props: CommentSectionProps) => {
             e &&
             e.node && (
               <Comment
-                currentUser={currentUser}
                 variant={variant}
                 px={match(variant)
                   .with('profile', () => '2rem')
@@ -184,7 +174,7 @@ const CommentSection = (props: CommentSectionProps) => {
                       mutate({
                         variables: {
                           connections: [commentSection_commentsConnectionId],
-                          parentId: ((parent as unknown) as { __id: string }).__id,
+                          parentId: (parent as unknown as { __id: string }).__id,
                           content: commentContent,
                         },
                       });

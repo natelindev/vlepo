@@ -2,6 +2,7 @@ import { format, parseISO } from 'date-fns';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -9,13 +10,10 @@ import { graphql } from 'react-relay';
 import { useMutation, useQuery } from 'relay-hooks';
 import { fetchQuery } from 'relay-runtime';
 import { PostSlugViewMutation } from 'src/__generated__/PostSlugViewMutation.graphql';
-import Avatar from 'src/components/Avatar';
-import CommentSection from 'src/components/Comment/CommentSection';
-import HoverShare from 'src/components/HoverShare/HoverShare';
 import Image from 'src/components/Image';
 import { Column, Row } from 'src/components/Layout/style';
 import mdxComponents from 'src/components/MDXComponents';
-import PlaceHolder from 'src/components/PlaceHolder';
+import PlaceHolder, { Loading } from 'src/components/PlaceHolder';
 import { H5 } from 'src/components/Typography';
 import { initEnvironment } from 'src/relay';
 
@@ -24,6 +22,16 @@ import { css, useTheme } from '@emotion/react';
 
 import { PostSlugQuery } from '../../__generated__/PostSlugQuery.graphql';
 import { ArticleBody, Back, Content, Header, Title } from './style';
+
+const CommentSection = dynamic(() => import('src/components/Comment/CommentSection'), {
+  loading: Loading,
+});
+const HoverShare = dynamic(() => import('src/components/HoverShare'), {
+  loading: Loading,
+});
+const Avatar = dynamic(() => import('src/components/Avatar'), {
+  loading: Loading,
+});
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const { query, res } = context;
@@ -84,7 +92,7 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
   const router = useRouter();
   const postSlug = router.query.postSlug as string;
   const { mdxSource } = props;
-  const { error, data } = useQuery<PostSlugQuery>(postSlugQuery, { slug: postSlug });
+  const { error, data, isLoading } = useQuery<PostSlugQuery>(postSlugQuery, { slug: postSlug });
   const [fullUrl, setFullUrl] = useState('');
   const theme = useTheme();
 
@@ -96,7 +104,7 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
   }, [postSlug, mutate]);
 
   if (error) return <div>{error.message}</div>;
-  if (!data || !data.post || router.isFallback) return <PlaceHolder />;
+  if (!data || !mdxSource || isLoading || !data.post || router.isFallback) return <PlaceHolder />;
 
   const { headerImageUrl, title, owner, tags, createdAt, minuteRead } = data.post;
 

@@ -4,8 +4,8 @@ import React, { useContext, useRef, useState } from 'react';
 import { a, useSpring, useSprings } from 'react-spring';
 import Dropdown from 'src/components/Dropdown';
 import Logo from 'src/components/Logo';
+import { useMetaData } from 'src/hooks/useMetaData';
 import { useOnClickOutside } from 'src/hooks/useOnClickOutside';
-import { useTitle } from 'src/hooks/useTitle';
 import { ThemeContext } from 'src/pages/_app';
 import { shapes } from 'src/shared/shapes';
 import { darkTheme, lightTheme } from 'src/shared/theme';
@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
   const [showSearch, setShowSearch] = useState(false);
   const togglerRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
-  const { title } = useTitle();
+  const { title } = useMetaData();
 
   const { x } = useSpring({ config: { duration: 300 }, x: theme?.name === 'dark' ? 1 : 0 });
 
@@ -105,7 +105,7 @@ const Navbar: React.FC = () => {
         </Link>
         <LeftNavCollapse display={['none', 'none', 'block']}>
           <NavbarNav>
-            <NavLink href="/portfolio">Portfolio</NavLink>
+            <NavLink href="/projects">Projects</NavLink>
             <NavLink href="/papers">Papers</NavLink>
             <NavLink href="/about">About</NavLink>
             <Dropdown mt="4px">

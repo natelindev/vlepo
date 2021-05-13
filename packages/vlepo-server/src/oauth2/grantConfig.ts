@@ -2,7 +2,7 @@ import { GrantConfig } from 'grant';
 
 export const grantConfig: GrantConfig = {
   defaults: {
-    origin: process.env.NEXT_PUBLIC_API_ENDPOINT,
+    origin: process.env.CLIENT_URL,
     transport: 'session',
     nonce: true,
     prefix: '/api/connect',

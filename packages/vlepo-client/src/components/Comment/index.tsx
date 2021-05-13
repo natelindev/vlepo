@@ -4,9 +4,9 @@ import React from 'react';
 import { graphql } from 'react-relay';
 import { useFragment } from 'relay-hooks';
 import { Comment_comment$key } from 'src/__generated__/Comment_comment.graphql';
-import { CommentSection_user } from 'src/__generated__/CommentSection_user.graphql';
 import mdxComponents from 'src/components/MDXComponents';
 import { H4, H5, H6 } from 'src/components/Typography';
+import { useCurrentUser } from 'src/hooks/useCurrentUser';
 import { match } from 'ts-pattern';
 
 import Avatar from '../Avatar';
@@ -33,12 +33,11 @@ const commentFragment = graphql`
 type CommentProps = {
   comment: Comment_comment$key;
   variant: 'profile' | 'post';
-  currentUser?: CommentSection_user;
 } & React.ComponentProps<typeof BaseComment>;
 
 const Comment = (props: CommentProps) => {
-  const { comment: fullComment, variant, currentUser, ...rest } = props;
-
+  const { comment: fullComment, variant, ...rest } = props;
+  const currentUser = useCurrentUser();
   const comment = useFragment(commentFragment, fullComment);
   return (
     <BaseComment variant={variant} {...rest}>

@@ -23,6 +23,7 @@ import {
   width,
   WidthProps,
 } from 'styled-system';
+import { match } from 'ts-pattern';
 
 import styled from '@emotion/styled';
 
@@ -57,12 +58,20 @@ export const ImageContainer = styled.div<ImageContainerProps>`
   ${borderRadius}
 `;
 
+type BaseImageProps = BorderRadiusProps & { variant: 'top' | 'left' | 'right' | 'bottom' };
 export const BaseImage = styled(NextImage, {
   shouldForwardProp: (propName) => propName !== 'borderRadius',
-})<BorderRadiusProps>`
+})<BaseImageProps>`
   width: 100% !important;
   position: relative !important;
   height: unset !important;
+  border-radius: ${(props) =>
+    match(props.variant)
+      .with('top', () => `${props.theme.radii.default}px ${props.theme.radii.default}px 0 0`)
+      .with('bottom', () => `0 0 ${props.theme.radii.default}px ${props.theme.radii.default}px`)
+      .with('left', () => `${props.theme.radii.default}px 0 0 ${props.theme.radii.default}px`)
+      .with('right', () => `0 ${props.theme.radii.default}px ${props.theme.radii.default}px 0`)
+      .run()};
   ${borderRadius}
 `;
 

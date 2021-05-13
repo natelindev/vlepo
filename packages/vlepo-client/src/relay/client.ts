@@ -1,7 +1,6 @@
 import RelaySSR from 'react-relay-network-modern-ssr/node8/client';
 import {
   authMiddleware,
-  batchMiddleware,
   cacheMiddleware,
   errorMiddleware,
   RelayNetworkLayer,
@@ -40,10 +39,6 @@ export function createEnvironment(relayData: SSRCache): Environment {
       authMiddleware({
         token: getCookie<string>('accessToken'),
         allowEmptyToken: true,
-      }),
-      batchMiddleware({
-        batchUrl: '/graphql/batch',
-        credentials: 'include',
       }),
       errorMiddleware(),
       uploadMiddleware(),

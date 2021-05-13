@@ -53,17 +53,8 @@ const articlePostFragment = graphql`
 const ArticleCard = (props: ArticleCardProps) => {
   const { post: fullPost, width } = props;
   const post = useFragment(articlePostFragment, fullPost);
-  const {
-    title,
-    headerImageUrl,
-    abstract,
-    createdAt,
-    slug,
-    tags,
-    status,
-    owner,
-    minuteRead,
-  } = post;
+  const { title, headerImageUrl, abstract, createdAt, slug, tags, status, owner, minuteRead } =
+    post;
   const createDate = parseISO(createdAt);
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -86,7 +77,7 @@ const ArticleCard = (props: ArticleCardProps) => {
             objectFit="cover"
             src={headerImageUrl}
             alt={title}
-            top
+            variant="top"
           />
           {!imageLoaded && (
             <ImageOverlay>

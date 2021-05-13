@@ -4611,7 +4611,6 @@ __metadata:
     koa: 2.13.1
     koa-bodyparser: 4.3.0
     koa-graphql: 0.8.0
-    koa-graphql-batch: 1.1.0
     koa-mount: 4.0.0
     koa-router: 10.0.0
     koa-send: 5.0.1
@@ -10844,17 +10843,6 @@ fsevents@~2.3.1:
     co: ^4.6.0
     koa-compose: ^3.0.0
   checksum: d74bafebae527ef5b26f9f7d66928ca9f62cabba2eb8cc8fff1742a5ed5de21a32ca9ddb0a63b0e6a3e3ae04163be95b3a0efdaed662303f921c655527e16955
-  languageName: node
-  linkType: hard
-
-"koa-graphql-batch@npm:1.1.0":
-  version: 1.1.0
-  resolution: "koa-graphql-batch@npm:1.1.0"
-  peerDependencies:
-    graphql: ^0.8.2
-    koa: ^2.0.0
-    koa-graphql: ^0.6.0
-  checksum: bd4337f122f5f2635c42ab14b0f1b1c62c42a5d61d33747ec81a8bda2a9a049ce3146f83b01508058d6492d8f2cd151f790ba7d2448aed43d889710d4a08b51c
   languageName: node
   linkType: hard
 

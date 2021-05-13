@@ -7,7 +7,6 @@ import { graphqlUploadKoa } from 'graphql-upload';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import graphqlHTTP from 'koa-graphql';
-import graphqlBatchHTTPWrapper from 'koa-graphql-batch';
 import mount from 'koa-mount';
 import Router from 'koa-router';
 import session from 'koa-session';
@@ -101,7 +100,6 @@ const graphqlServer = graphqlHTTP((_req, _res, ctx) => ({
 }));
 
 router.all('/playground', koaPlayground({ endpoint: '/graphql' }));
-router.all('/graphql/batch', graphqlBatchHTTPWrapper(graphqlServer));
 router.all('/graphql', graphqlServer);
 
 app.use(graphqlUploadKoa({ maxFileSize: 100000000, maxFiles: 5 }));

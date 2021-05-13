@@ -43,7 +43,7 @@ const Profile = () => {
 
   const profileUser = useFragment<profile_user$key>(profileUserFragment, data?.user ?? null);
   if (error) {
-    return <ErrorText>{error}</ErrorText>;
+    return <ErrorText>{error.message}</ErrorText>;
   }
   return (
     <Column mx="auto" width={[0.9, 0.8, 0.7, 0.5]}>

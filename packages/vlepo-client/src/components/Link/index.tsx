@@ -33,3 +33,17 @@ export const AnimatedLink = styled.a`
 export const AnimatedExternalLink = (props: React.ComponentProps<typeof AnimatedLink>) => {
   return <AnimatedLink target="_blank" rel="noopener noreferrer" {...props} />;
 };
+
+export const OverlayLink = styled.a`
+  font-size: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: ${(props) => props.theme.zIndices.CardLink};
+`;
+
+export const OverlayExternalLink = (props: React.ComponentProps<typeof OverlayLink>) => {
+  return <OverlayLink target="_blank" rel="noopener noreferrer" {...props} />;
+};

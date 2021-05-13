@@ -4,6 +4,7 @@ import { ToastProvider } from 'react-toast-notifications';
 import { RelayEnvironmentProvider } from 'relay-hooks';
 import Layout from 'src/components/Layout';
 import { Toast } from 'src/components/Toast';
+import { MetaDataContext } from 'src/hooks/useMetaData';
 import { createEnvironment } from 'src/relay';
 import { globalStyles } from 'src/shared/globalStyles';
 import { defaultTheme, ThemeType } from 'src/shared/theme';
@@ -24,25 +25,20 @@ export const ThemeContext = React.createContext<
   | Record<string, never>
 >({});
 
-export const TitleContext = React.createContext<
-  | {
-      title?: string | null | undefined;
-      setTitle?: React.Dispatch<React.SetStateAction<string | undefined | null>>;
-    }
-  | Record<string, never>
->({});
-
 function App({ Component, pageProps }: PageProps) {
   const [theme, setTheme] = useState(defaultTheme);
   const [title, setTitle] = useState<string | undefined | null>(
     process.env.NEXT_PUBLIC_DEFAULT_BLOG_NAME,
+  );
+  const [subtitle, setSubtitle] = useState<string | undefined | null>(
+    process.env.NEXT_PUBLIC_DEFAULT_BLOG_SUBTITLE,
   );
 
   return (
     <React.StrictMode>
       <RelayEnvironmentProvider environment={createEnvironment(pageProps.relayData)}>
         <ThemeContext.Provider value={{ theme, setTheme }}>
-          <TitleContext.Provider value={{ title, setTitle }}>
+          <MetaDataContext.Provider value={{ title, setTitle, subtitle, setSubtitle }}>
             <ThemeProvider theme={theme}>
               {globalStyles}
               <ToastProvider
@@ -56,7 +52,7 @@ function App({ Component, pageProps }: PageProps) {
                 </Layout>
               </ToastProvider>
             </ThemeProvider>
-          </TitleContext.Provider>
+          </MetaDataContext.Provider>
         </ThemeContext.Provider>
       </RelayEnvironmentProvider>
     </React.StrictMode>

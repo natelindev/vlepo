@@ -14,6 +14,7 @@ export const Project = objectType({
     t.model.name();
     t.model.content();
     t.model.url();
+    t.model.headerImageUrl();
     t.model.tags();
     t.model.images();
     t.model.reactions();
