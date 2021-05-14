@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
-import { graphql, useFragment } from 'react-relay';
+import { graphql } from 'react-relay';
 import { useQuery } from 'relay-hooks';
-import { profile_user$key } from 'src/__generated__/profile_user.graphql';
 import { profile_userQuery } from 'src/__generated__/profile_userQuery.graphql';
 import Avatar from 'src/components/Avatar';
 import Card from 'src/components/Card';
@@ -17,19 +16,13 @@ const UserCard = styled(Card)`
   flex-direction: column;
 `;
 
-const profileUserFragment = graphql`
-  fragment profile_user on User {
-    name
-    description
-    profileImageUrl
-    ...CommentSection_commendable
-  }
-`;
-
 const profileUserQuery = graphql`
   query profile_userQuery($id: String!) {
     user(where: { id: $id }) {
-      ...profile_user
+      name
+      description
+      profileImageUrl
+      ...CommentSection_commendable
     }
   }
 `;
@@ -41,13 +34,12 @@ const Profile = () => {
     id: userId,
   });
 
-  const profileUser = useFragment<profile_user$key>(profileUserFragment, data?.user ?? null);
   if (error) {
     return <ErrorText>{error.message}</ErrorText>;
   }
   return (
     <Column mx="auto" width={[0.9, 0.8, 0.7, 0.5]}>
-      {!isLoading && profileUser ? (
+      {!isLoading && data?.user ? (
         <>
           <UserCard p="2rem" mt="10rem">
             <Row mt="-5rem">
@@ -55,14 +47,14 @@ const Profile = () => {
                 variant="round"
                 size={96}
                 mx="auto"
-                src={profileUser.profileImageUrl ?? '/images/avatar/bot.svg'}
+                src={data.user.profileImageUrl ?? '/images/avatar/bot.svg'}
               />
             </Row>
-            <Row mt="2rem">{profileUser.name && <H2 mx="auto">{profileUser.name}</H2>}</Row>
-            <Row>{profileUser.description && <H4 mx="auto">{profileUser.description}</H4>}</Row>
+            <Row mt="2rem">{data.user.name && <H2 mx="auto">{data.user.name}</H2>}</Row>
+            <Row>{data.user.description && <H4 mx="auto">{data.user.description}</H4>}</Row>
           </UserCard>
           <Card my="2rem" width="100%">
-            <CommentSection variant="profile" parent={profileUser} />
+            <CommentSection variant="profile" parent={data.user} />
           </Card>
         </>
       ) : (

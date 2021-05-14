@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { useState } from 'react';
 import { ConnectionHandler, graphql } from 'react-relay';
 import { useToasts } from 'react-toast-notifications';
@@ -5,8 +6,10 @@ import { useMutation, usePagination } from 'relay-hooks';
 import { CommentRefetchQuery } from 'src/__generated__/CommentRefetchQuery.graphql';
 import { CommentSection_commendable$key } from 'src/__generated__/CommentSection_commendable.graphql';
 import { CommentSection_Mutation } from 'src/__generated__/CommentSection_Mutation.graphql';
+import { OauthButton, OauthButtonSection } from 'src/components/Button';
 import Comment from 'src/components/Comment';
 import { useCurrentUser } from 'src/hooks/useCurrentUser';
+import { usePopupWindow } from 'src/hooks/usePopupWindow';
 import { match } from 'ts-pattern';
 
 import { Markdown } from '@emotion-icons/fa-brands/Markdown';
@@ -92,6 +95,8 @@ const CommentSection = (props: CommentSectionProps) => {
       },
     },
   );
+
+  const { createWindow: openOauthWindow } = usePopupWindow();
 
   return (
     <BaseCommentSection
@@ -188,7 +193,36 @@ const CommentSection = (props: CommentSectionProps) => {
           ) : (
             <>
               <Row justifyContent="center" alignItems="center" height="5rem">
-                Please Login to comment
+                Continue with{' '}
+                {
+                  <OauthButtonSection>
+                    {process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS &&
+                      process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS.split(',').map(
+                        (provider) => (
+                          <OauthButton
+                            key={provider}
+                            type="button"
+                            onClick={() =>
+                              openOauthWindow(
+                                `/api/connect/${provider}`,
+                                `User Oauth`,
+                                provider === 'reddit' ? 1000 : 400,
+                                600,
+                              )
+                            }
+                          >
+                            <Image
+                              src={`/images/logo/${provider}.svg`}
+                              height={24}
+                              width={24}
+                              layout="fixed"
+                            />
+                          </OauthButton>
+                        ),
+                      )}
+                  </OauthButtonSection>
+                }{' '}
+                to comment
               </Row>
             </>
           )}
