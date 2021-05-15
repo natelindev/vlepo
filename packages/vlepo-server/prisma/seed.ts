@@ -2,7 +2,7 @@
 import argon2 from 'argon2';
 import cryptoRandomString from 'crypto-random-string';
 import debugInit from 'debug';
-import { lorem, name } from 'faker';
+import { image, lorem, name } from 'faker';
 import meow from 'meow';
 
 import { OAuthGrant, PostStatus, PrismaClient } from '@prisma/client';
@@ -167,7 +167,7 @@ const seedBD = async (prisma: PrismaClient) => {
     });
     debug(`seeded default blog`);
 
-    const posts = Array(5)
+    const posts = Array(100)
       .fill(null)
       .map(() => {
         const title = name.title();

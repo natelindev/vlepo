@@ -1,4 +1,4 @@
-import { Masonry } from 'masonic';
+import { Masonry, useInfiniteLoader } from 'masonic';
 import dynamic from 'next/dynamic';
 import React from 'react';
 import { graphql } from 'react-relay';
@@ -10,20 +10,17 @@ import { IndexPostRefetchQuery } from 'src/__generated__/IndexPostRefetchQuery.g
 import { pages_Index_BlogQuery } from 'src/__generated__/pages_Index_BlogQuery.graphql';
 import { pages_Index_Posts$key } from 'src/__generated__/pages_Index_Posts.graphql';
 import { ErrorText } from 'src/components/Input';
-import { Row } from 'src/components/Layout/style';
 import PlaceHolder, { Loading } from 'src/components/PlaceHolder';
 import { useMetaData } from 'src/hooks/useMetaData';
 import { initEnvironment } from 'src/relay';
 import { fontSize, FontSizeProps, margin, MarginProps } from 'styled-system';
 
-import { ExpandMore } from '@emotion-icons/material-outlined';
 import styled from '@emotion/styled';
 
 import type { GetServerSidePropsContext } from 'next';
 
 const ArticleCard = dynamic(() => import('src/components/ArticleCard'), { loading: Loading });
 const ClientOnly = dynamic(() => import('src/components/ClientOnly'), { loading: Loading });
-const GradientButton = dynamic(() => import('src/components/GradientButton'), { loading: Loading });
 
 const IndexMasonry = styled(Masonry)`
   width: 100%;
@@ -120,10 +117,15 @@ type PostSectionProps = {
 };
 const PostsSection = (props: PostSectionProps) => {
   const { blog } = props;
+
   const { data, isLoadingNext, hasNext, loadNext } = usePagination<
     IndexPostRefetchQuery,
     pages_Index_Posts$key
   >(indexFragmentSpec, blog!);
+
+  const maybeLoadMore = useInfiniteLoader(() => hasNext && loadNext(10), {
+    isItemLoaded: (index) => (data?.postsConnection?.edges?.length ?? 0) - 1 > index,
+  });
 
   if (!data) return <PlaceHolder />;
 
@@ -142,15 +144,9 @@ const PostsSection = (props: PostSectionProps) => {
           columnGutter={20}
           overscanBy={2}
           render={MasonryCard}
+          onRender={maybeLoadMore}
         />
         {isLoadingNext && <PlaceHolder width="100%" />}
-        {hasNext && !isLoadingNext && (
-          <Row>
-            <GradientButton width="100%" mb="2rem" onClick={() => loadNext(5)}>
-              <ExpandMore size={24} />
-            </GradientButton>
-          </Row>
-        )}
       </ClientOnly>
     </IndexRow>
   );
