@@ -1161,12 +1161,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@devoxa/prisma-relay-cursor-connection@npm:1.1.1":
-  version: 1.1.1
-  resolution: "@devoxa/prisma-relay-cursor-connection@npm:1.1.1"
+"@devoxa/prisma-relay-cursor-connection@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@devoxa/prisma-relay-cursor-connection@npm:1.2.0"
   peerDependencies:
     "@prisma/client": ^2.0.0
-  checksum: 7f33f890f88e55d288de1af8385edf3a00d164eb2c35fa28d47f363e94ffb48a117a13bc37dd651e15f571ff33779244790db57ee41cd41158d827cba07bfe7a
+  checksum: 9c70c9ed0b5fca239aa018e0c0a965d20ab78bb54e94320edd61c041ad9fa8f735bc4a9fd99e8345c89f324edc291d671c73919ee86471ea31f8abc13c6812b7
   languageName: node
   linkType: hard
 
@@ -4016,10 +4016,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:15.0.3":
-  version: 15.0.3
-  resolution: "@types/node@npm:15.0.3"
-  checksum: 72bfbac4282443a7b5d5b43c7c39fe855aa1687b5fa5629b735fd2ceacf371b711ccfc956c8af1b1cbd9c74c79be845a801a4c7275048f340aa0df3beec6b10f
+"@types/node@npm:15.3.0":
+  version: 15.3.0
+  resolution: "@types/node@npm:15.3.0"
+  checksum: 44039665ab71a6ec12e6637a9db4ec3123fdfaf52952ca8028a6f1b37c41c2d380e88d28a41e02693bf9d4815307e0ad938815bf8ffedc5f4d045855fa28db06
   languageName: node
   linkType: hard
 
@@ -4433,7 +4433,7 @@ __metadata:
     "@types/body-scroll-lock": 2.6.1
     "@types/debug": 4.1.5
     "@types/eslint": 7.2.10
-    "@types/node": 15.0.3
+    "@types/node": 15.3.0
     "@types/react": 17.0.5
     "@types/react-instantsearch-dom": 6.10.0
     "@types/react-relay": 11.0.1
@@ -4456,7 +4456,7 @@ __metadata:
     prism-react-renderer: 1.2.0
     react: 17.0.2
     react-dom: 17.0.2
-    react-hook-form: 7.5.3
+    react-hook-form: 7.6.0
     react-instantsearch-dom: 6.11.0
     react-relay: 11.0.2
     react-relay-network-modern: 6.0.0
@@ -4485,7 +4485,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@vlepo/server@workspace:packages/vlepo-server"
   dependencies:
-    "@devoxa/prisma-relay-cursor-connection": 1.1.1
+    "@devoxa/prisma-relay-cursor-connection": 1.2.0
     "@koa/cors": 3.1.0
     "@prisma/client": 2.22.1
     "@types/debug": 4.1.5
@@ -4501,7 +4501,7 @@ __metadata:
     "@types/koa-session": 5.10.3
     "@types/koa-static": 4.0.1
     "@types/koa__cors": 3.0.2
-    "@types/node": 15.0.3
+    "@types/node": 15.3.0
     "@types/node-fetch": 2.5.10
     "@types/uuid": 8.3.0
     "@vlepo/shared": latest
@@ -4963,7 +4963,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"array.prototype.flat@npm:^1.2.3":
+"array.prototype.flat@npm:^1.2.4":
   version: 1.2.4
   resolution: "array.prototype.flat@npm:1.2.4"
   dependencies:
@@ -6320,10 +6320,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"contains-path@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "contains-path@npm:0.1.0"
-  checksum: 59920a59a0c7d1244235d76b8cfd2b2e7a8dcc463fa578ef9d4d5a5a73eeb14d75dada6b21188e0b35f2474ae9efd10c3698372e674db9c6a904b281998b97d6
+"contains-path@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "contains-path@npm:1.0.0"
+  dependencies:
+    normalize-path: ^2.1.1
+    path-starts-with: ^1.0.0
+  checksum: d8ed140161cfa7ff308a75b08f7380fbec3e7884fdfbb54192b45da241c242bbe3e527d9725dec7e05dac513401712831aa2d8a640d94c39a4523c228bb66403
   languageName: node
   linkType: hard
 
@@ -6907,7 +6910,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^3.1.0":
+"debug@npm:^3.1.0, debug@npm:^3.2.7":
   version: 3.2.7
   resolution: "debug@npm:3.2.7"
   dependencies:
@@ -7166,16 +7169,6 @@ __metadata:
   dependencies:
     path-type: ^4.0.0
   checksum: 687fa3bd604f264042f325d9460e1298447fb32782f30cddc47cb302b742684d13e8ffce4c6f455e0ae92099d71e29f72387379c10b8fd3f6f1bf8992d7c0997
-  languageName: node
-  linkType: hard
-
-"doctrine@npm:1.5.0":
-  version: 1.5.0
-  resolution: "doctrine@npm:1.5.0"
-  dependencies:
-    esutils: ^2.0.2
-    isarray: ^1.0.0
-  checksum: aaffea02f963b8b07a78b1e27d7cef29be65d31be2c6681cb2872c2fb3781e14615bd05d4dff6036f75dcf3f191216058409fbfec805d3a7277a8647cd5bdee1
   languageName: node
   linkType: hard
 
@@ -7577,36 +7570,39 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-module-utils@npm:^2.6.0":
-  version: 2.6.0
-  resolution: "eslint-module-utils@npm:2.6.0"
+"eslint-module-utils@npm:^2.6.1":
+  version: 2.6.1
+  resolution: "eslint-module-utils@npm:2.6.1"
   dependencies:
-    debug: ^2.6.9
+    debug: ^3.2.7
     pkg-dir: ^2.0.0
-  checksum: f584af176480a702eedcdb3f610797f8b8d1293c3835ed71fadb579ec28400b91ded5283729418f63d48dc27c6358bd66f2bd839614d565a1b78d3c3440ee8f7
+  checksum: 3de93ecfd7a0b803a2cd91afd5cbb32dca559f58c22e92f95ec4700ff75e008035587ee032b9196d6565fbd73f799992122a8dc8ea0b979c07229b51735a8bed
   languageName: node
   linkType: hard
 
-"eslint-plugin-import@npm:2.22.1":
-  version: 2.22.1
-  resolution: "eslint-plugin-import@npm:2.22.1"
+"eslint-plugin-import@npm:2.23.1":
+  version: 2.23.1
+  resolution: "eslint-plugin-import@npm:2.23.1"
   dependencies:
-    array-includes: ^3.1.1
-    array.prototype.flat: ^1.2.3
-    contains-path: ^0.1.0
+    array-includes: ^3.1.3
+    array.prototype.flat: ^1.2.4
+    contains-path: ^1.0.0
     debug: ^2.6.9
-    doctrine: 1.5.0
+    doctrine: ^2.1.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-module-utils: ^2.6.0
+    eslint-module-utils: ^2.6.1
+    find-up: ^2.0.0
     has: ^1.0.3
+    is-core-module: ^2.4.0
     minimatch: ^3.0.4
-    object.values: ^1.1.1
-    read-pkg-up: ^2.0.0
-    resolve: ^1.17.0
+    object.values: ^1.1.3
+    pkg-up: ^2.0.0
+    read-pkg-up: ^3.0.0
+    resolve: ^1.20.0
     tsconfig-paths: ^3.9.0
   peerDependencies:
     eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0
-  checksum: 35ae09ceae6f0fe239f6b72e134d58d74762ad1ed0f57aa989affb856354e46bc082bb6df9399b624989107efb9ab9af2c91c08f03c0c70c5cb46a37676591ec
+  checksum: e063ea32506453cc8c906f1faec18807646117781bcc02d2f2f80341c3fc938778918bba20daacdf5ec30fdab9c43e0339ee0e4379c9036c110fdd5083826849
   languageName: node
   linkType: hard
 
@@ -9625,6 +9621,15 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"is-core-module@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "is-core-module@npm:2.4.0"
+  dependencies:
+    has: ^1.0.3
+  checksum: caa2b30873ed14dff76e5351e3c55a677b890cf19cc4263e9894702eb4bd64f81ce78552daad878ba72adcdc9e62cad45ca57928fc8b4bdc84a7ff8acf934389
+  languageName: node
+  linkType: hard
+
 "is-date-object@npm:^1.0.1":
   version: 1.0.3
   resolution: "is-date-object@npm:1.0.3"
@@ -10682,18 +10687,6 @@ fsevents@~2.3.1:
     pinkie-promise: ^2.0.0
     strip-bom: ^2.0.0
   checksum: 3966dbc0c48f14df4091d89f4daf1e44b156f2c4e0870bf737b99e5925e0179277fc34226f03b7137a2e277d4e641cf626c6108c28910bbdce01e3d85e0d70b9
-  languageName: node
-  linkType: hard
-
-"load-json-file@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "load-json-file@npm:2.0.0"
-  dependencies:
-    graceful-fs: ^4.1.2
-    parse-json: ^2.2.0
-    pify: ^2.0.0
-    strip-bom: ^3.0.0
-  checksum: c6ea93d36099dd6e778c6c018c9e184ad65d278a9538c2280f959b040b1a9a756d8856bdaf8a38c8f1454eca19bf4798ea59f79ccd8bb1c33aa8b7ecbe157f0c
   languageName: node
   linkType: hard
 
@@ -12213,7 +12206,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"object.values@npm:^1.1.1, object.values@npm:^1.1.3":
+"object.values@npm:^1.1.3":
   version: 1.1.3
   resolution: "object.values@npm:1.1.3"
   dependencies:
@@ -12778,6 +12771,15 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"path-starts-with@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "path-starts-with@npm:1.0.0"
+  dependencies:
+    normalize-path: ^2.1.1
+  checksum: 40b1d54ad6a09a14b983a10607383d7f38d4811e3fed9b19c81a79814485adc747c67627c7af4bd89379c89da15bab717a30586bff1738f4b6a8dfc8dae9b8f1
+  languageName: node
+  linkType: hard
+
 "path-to-regexp@npm:^6.1.0":
   version: 6.2.0
   resolution: "path-to-regexp@npm:6.2.0"
@@ -12793,15 +12795,6 @@ fsevents@~2.3.1:
     pify: ^2.0.0
     pinkie-promise: ^2.0.0
   checksum: c6ac7d4c7d613331ae1837a10c96a0f4fe76dc9273f98e37ce589c06b7ea6f811479ac735dbae06327d93cc6340d0cba944e9d38b0365b7b0bc0438f3fb242e0
-  languageName: node
-  linkType: hard
-
-"path-type@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "path-type@npm:2.0.0"
-  dependencies:
-    pify: ^2.0.0
-  checksum: d028f828dffe48a0062dc4370d5118a0c45f5fb075b013a1dfb13eadd1426eba0c8c2a13fa78f19fc4fd8771ef2012e9d062f8f970c8e56df36d4fbbe5073b26
   languageName: node
   linkType: hard
 
@@ -13013,6 +13006,15 @@ fsevents@~2.3.1:
   dependencies:
     find-up: ^5.0.0
   checksum: 86f6ecee1787d8fe1606fd831f823f967c6ea0d760ce714af6afd2fec076ce71fbedcb57b339d93b84edf90ccdd81d4e6e2c10fcde21684ef3ffee5e05fd37dc
+  languageName: node
+  linkType: hard
+
+"pkg-up@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "pkg-up@npm:2.0.0"
+  dependencies:
+    find-up: ^2.1.0
+  checksum: 0a8fcbebf0f1aadc7a52c576352a698abef6c389cb00a0847db2d370d05d4c005f855e196d29618b088062f1394711ca6dadd232692ed225511d7e75a198d246
   languageName: node
   linkType: hard
 
@@ -13467,12 +13469,12 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:7.5.3":
-  version: 7.5.3
-  resolution: "react-hook-form@npm:7.5.3"
+"react-hook-form@npm:7.6.0":
+  version: 7.6.0
+  resolution: "react-hook-form@npm:7.6.0"
   peerDependencies:
     react: ^16.8.0 || ^17
-  checksum: 286cf290ba19865fa3018d27fe38606aa0c30aa9b0c6558c53fe27ee6a198cca807669263d6bdebb16a3ca0c156d209c5b89e1059f406ac1765bda7280c7b778
+  checksum: 099b1f1074cc5c8047607b95706138c88c563d336ab00d363c71b4341723ef70067b0c609c89481f3797708b020f8d6a4dcf967ccb22f745fd659f2996280cd3
   languageName: node
   linkType: hard
 
@@ -13711,16 +13713,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"read-pkg-up@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "read-pkg-up@npm:2.0.0"
-  dependencies:
-    find-up: ^2.0.0
-    read-pkg: ^2.0.0
-  checksum: f35e4cb4577b994fc9497886672c748de766ab034e24f029111b6bbbfe757b2e27b6d2b82a28a38f45d9d89ea8a9b1d3c04854e5f991d5deed48f4c9ff7baeb9
-  languageName: node
-  linkType: hard
-
 "read-pkg-up@npm:^3.0.0":
   version: 3.0.0
   resolution: "read-pkg-up@npm:3.0.0"
@@ -13750,17 +13742,6 @@ fsevents@~2.3.1:
     normalize-package-data: ^2.3.2
     path-type: ^1.0.0
   checksum: 01fdadf10e5643baffe30c294d06d8cb6dab9724f2cff0cdccbadcfab74a0050c968a0faa7a1d5191fc89eb27ab9dbec1f90ff9ac489cb77b9c0f81c630720ec
-  languageName: node
-  linkType: hard
-
-"read-pkg@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "read-pkg@npm:2.0.0"
-  dependencies:
-    load-json-file: ^2.0.0
-    normalize-package-data: ^2.3.2
-    path-type: ^2.0.0
-  checksum: ddf911317fba54abb447b1d76dd1785c37e1360f7b1e39d83201f6f3807572391ab7392f11727a9c4d90600ebc6616d22e72514d2291688c89ebd440148840b4
   languageName: node
   linkType: hard
 
@@ -14276,7 +14257,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"resolve@^1.0.0, resolve@^1.1.6, resolve@^1.10.0, resolve@^1.12.0, resolve@^1.13.1, resolve@^1.17.0, resolve@^1.20.0, resolve@^1.3.2, resolve@^1.9.0":
+"resolve@^1.0.0, resolve@^1.1.6, resolve@^1.10.0, resolve@^1.12.0, resolve@^1.13.1, resolve@^1.20.0, resolve@^1.3.2, resolve@^1.9.0":
   version: 1.20.0
   resolution: "resolve@npm:1.20.0"
   dependencies:
@@ -14296,7 +14277,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@^1.0.0#builtin<compat/resolve>, resolve@patch:resolve@^1.1.6#builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#builtin<compat/resolve>, resolve@patch:resolve@^1.13.1#builtin<compat/resolve>, resolve@patch:resolve@^1.17.0#builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#builtin<compat/resolve>, resolve@patch:resolve@^1.9.0#builtin<compat/resolve>":
+"resolve@patch:resolve@^1.0.0#builtin<compat/resolve>, resolve@patch:resolve@^1.1.6#builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#builtin<compat/resolve>, resolve@patch:resolve@^1.13.1#builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#builtin<compat/resolve>, resolve@patch:resolve@^1.9.0#builtin<compat/resolve>":
   version: 1.20.0
   resolution: "resolve@patch:resolve@npm%3A1.20.0#builtin<compat/resolve>::version=1.20.0&hash=3388aa"
   dependencies:
@@ -14724,9 +14705,9 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sort-package-json@npm:1.48.0":
-  version: 1.48.0
-  resolution: "sort-package-json@npm:1.48.0"
+"sort-package-json@npm:1.50.0":
+  version: 1.50.0
+  resolution: "sort-package-json@npm:1.50.0"
   dependencies:
     detect-indent: ^6.0.0
     detect-newline: 3.1.0
@@ -14736,7 +14717,7 @@ resolve@^2.0.0-next.3:
     sort-object-keys: ^1.1.3
   bin:
     sort-package-json: cli.js
-  checksum: 42cba5356ead7ae6c51f4d3d35d3ed730b1416d55d68d713363d62cceebbbd6cba2936c35117897d03d07038cddd53fb8fdafcf7a79539cf500c16bce7a6dc10
+  checksum: cdc8046479f6677e18c34421d875e3f90b92ef89aff084bbb69ffa3fda9ef09f6858bb3d29654f23ad3cf8b4ade8538000674c92338e324750b5a879feb9a861
   languageName: node
   linkType: hard
 
@@ -16451,7 +16432,7 @@ typescript@4.2.4:
   resolution: "vlepo@workspace:."
   dependencies:
     "@types/eslint": 7.2.10
-    "@types/node": 15.0.3
+    "@types/node": 15.3.0
     "@types/react": 17.0.5
     "@typescript-eslint/eslint-plugin": 4.23.0
     "@typescript-eslint/parser": 4.23.0
@@ -16459,7 +16440,7 @@ typescript@4.2.4:
     eslint: 7.26.0
     eslint-config-airbnb: 18.2.1
     eslint-config-prettier: 8.3.0
-    eslint-plugin-import: 2.22.1
+    eslint-plugin-import: 2.23.1
     eslint-plugin-jsx-a11y: 6.4.1
     eslint-plugin-prettier: 3.4.0
     eslint-plugin-react: 7.23.2
@@ -16467,7 +16448,7 @@ typescript@4.2.4:
     eslint-plugin-relay: 1.8.2
     lerna: 4.0.0
     prettier: 2.3.0
-    sort-package-json: 1.48.0
+    sort-package-json: 1.50.0
     typescript: 4.2.4
   languageName: unknown
   linkType: soft

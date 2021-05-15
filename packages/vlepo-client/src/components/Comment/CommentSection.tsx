@@ -193,35 +193,31 @@ const CommentSection = (props: CommentSectionProps) => {
           ) : (
             <>
               <Row justifyContent="center" alignItems="center" height="5rem">
-                Continue with{' '}
-                {
-                  <OauthButtonSection>
-                    {process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS &&
-                      process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS.split(',').map(
-                        (provider) => (
-                          <OauthButton
-                            key={provider}
-                            type="button"
-                            onClick={() =>
-                              openOauthWindow(
-                                `/api/connect/${provider}`,
-                                `User Oauth`,
-                                provider === 'reddit' ? 1000 : 400,
-                                600,
-                              )
-                            }
-                          >
-                            <Image
-                              src={`/images/logo/${provider}.svg`}
-                              height={24}
-                              width={24}
-                              layout="fixed"
-                            />
-                          </OauthButton>
-                        ),
-                      )}
-                  </OauthButtonSection>
-                }{' '}
+                Continue with
+                <OauthButtonSection>
+                  {process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS &&
+                    process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS.split(',').map((provider) => (
+                      <OauthButton
+                        key={provider}
+                        type="button"
+                        onClick={() =>
+                          openOauthWindow(
+                            `/api/connect/${provider}`,
+                            `User Oauth`,
+                            provider === 'reddit' ? 1000 : 400,
+                            600,
+                          )
+                        }
+                      >
+                        <Image
+                          src={`/images/logo/${provider}.svg`}
+                          height={24}
+                          width={24}
+                          layout="fixed"
+                        />
+                      </OauthButton>
+                    ))}
+                </OauthButtonSection>
                 to comment
               </Row>
             </>

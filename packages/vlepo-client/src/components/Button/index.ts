@@ -5,6 +5,8 @@ import {
   borderRadius,
   color,
   fontSize,
+  margin,
+  MarginProps,
   space,
   variant,
   width,
@@ -84,12 +86,13 @@ export const Button = styled.button<ButtonBaseProps>`
   ${border}
 `;
 
-export const OauthButtonSection = styled.div`
+export const OauthButtonSection = styled.div<MarginProps>`
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   justify-content: flex-start;
   display: flex;
   flex-wrap: wrap;
+  ${margin}
 `;
 
 export const OauthButton = styled(Button)`
@@ -100,6 +103,9 @@ export const OauthButton = styled(Button)`
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   margin-left: 0.5rem;
+  &:last-of-type {
+    margin-right: 0.5rem;
+  }
   background-color: ${(props) => props.theme.colors.backgroundMuted};
   border-radius: 0.25rem;
   transition: all 0.3s ease-in-out;
