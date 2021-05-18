@@ -4452,7 +4452,7 @@ __metadata:
     graphql: 15.5.0
     masonic: 3.4.1
     next: 10.2.0
-    next-mdx-remote: 3.0.1
+    next-mdx-remote: 3.0.2
     prism-react-renderer: 1.2.0
     react: 17.0.2
     react-dom: 17.0.2
@@ -4512,14 +4512,14 @@ __metadata:
     debug: 4.3.1
     dotenv: 9.0.2
     faker: 5.5.3
-    grant: 5.4.13
+    grant: 5.4.14
     graphql: 15.5.0
     graphql-depth-limit: 1.1.0
     graphql-playground-middleware-koa: 1.6.21
     graphql-scalars: 1.9.3
     graphql-upload: 12.0.0
     image-size: 1.0.0
-    knex: 0.95.5
+    knex: 0.95.6
     koa: 2.13.1
     koa-bodyparser: 4.3.0
     koa-graphql: 0.8.0
@@ -4528,7 +4528,7 @@ __metadata:
     koa-session: 6.2.0
     koa-static: 5.0.0
     meow: 9.0.0
-    next-mdx-remote: 3.0.1
+    next-mdx-remote: 3.0.2
     nexus: 1.0.0
     nexus-plugin-prisma: 0.34.1
     node-fetch: 2.6.1
@@ -8709,16 +8709,16 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"grant@npm:5.4.13":
-  version: 5.4.13
-  resolution: "grant@npm:5.4.13"
+"grant@npm:5.4.14":
+  version: 5.4.14
+  resolution: "grant@npm:5.4.14"
   dependencies:
     cookie: ^0.4.1
     cookie-signature: ^1.1.0
-    jwk-to-pem: ^2.0.3
+    jwk-to-pem: ^2.0.5
     jws: ^4.0.0
-    qs: ^6.10.0
-    request-compose: ^2.1.3
+    qs: ^6.10.1
+    request-compose: ^2.1.4
     request-oauth: ^1.0.1
   dependenciesMeta:
     cookie:
@@ -8729,7 +8729,7 @@ fsevents@~2.3.1:
       optional: true
     jws:
       optional: true
-  checksum: 35d0395256adf12ea263621a962d445b3e55545414973974aaf391326551b4a793851282b6ac61efbbfbeafbb192564b97f989b57b717c9c27e7b52f05b2408e
+  checksum: 6efaea548dc6e020dbe177f163bcb3f88e101b34ea6f8049cd86a748078af2a8086f32d535cd9c80563a621397c35aa627c14376e8a6f35221f1188ced731de2
   languageName: node
   linkType: hard
 
@@ -10285,7 +10285,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"jwk-to-pem@npm:^2.0.3":
+"jwk-to-pem@npm:^2.0.5":
   version: 2.0.5
   resolution: "jwk-to-pem@npm:2.0.5"
   dependencies:
@@ -10341,9 +10341,9 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"knex@npm:0.95.5":
-  version: 0.95.5
-  resolution: "knex@npm:0.95.5"
+"knex@npm:0.95.6":
+  version: 0.95.6
+  resolution: "knex@npm:0.95.6"
   dependencies:
     colorette: 1.2.1
     commander: ^7.1.0
@@ -10371,7 +10371,7 @@ fsevents@~2.3.1:
       optional: true
   bin:
     knex: bin/cli.js
-  checksum: b839e60d8c59aa9bdeba5b2629ce3d143e2a1e66a8bd6eb5466e1aee7897325e0148ee7f498566e42103a58a4ce185e0197d6ccbdc5e1f6a9aee09104979e5bb
+  checksum: c4d8cae48acae446fae25f6f7a2af0553bbab5817e747d2e14b67e5dccd6f044fbdafe9a603ebc8844a53300866a9c6ef290440f5a82ae016652c789a21a755c
   languageName: node
   linkType: hard
 
@@ -11619,9 +11619,9 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"next-mdx-remote@npm:3.0.1":
-  version: 3.0.1
-  resolution: "next-mdx-remote@npm:3.0.1"
+"next-mdx-remote@npm:3.0.2":
+  version: 3.0.2
+  resolution: "next-mdx-remote@npm:3.0.2"
   dependencies:
     "@mdx-js/mdx": ^1.6.22
     "@mdx-js/react": ^1.6.22
@@ -11630,7 +11630,7 @@ fsevents@~2.3.1:
   peerDependencies:
     react: ">=16.x <=17.x"
     react-dom: ">=16.x <=17.x"
-  checksum: 304112c76938a0aa7686c50ab7672b82dec78938b4cd0f0f0ef63425f367b3ad9edacae68020f9942bbee48ac6632805d4b6e282f030a3e0e802fa0ab53dfddf
+  checksum: ec7908828a21d55cab40f7584ea93208e72fcf3422b4ad5a6e3d447d7b1a9cc64f1c96aa3f2c432aa7b77c3cbe596ba68269bdd257645a82e86b742e2fa1b4fc
   languageName: node
   linkType: hard
 
@@ -13291,7 +13291,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"qs@npm:^6.10.0, qs@npm:^6.5.2, qs@npm:^6.9.4, qs@npm:^6.9.6":
+"qs@npm:^6.10.1, qs@npm:^6.5.2, qs@npm:^6.9.4, qs@npm:^6.9.6":
   version: 6.10.1
   resolution: "qs@npm:6.10.1"
   dependencies:
@@ -14134,10 +14134,10 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"request-compose@npm:^2.1.3":
-  version: 2.1.3
-  resolution: "request-compose@npm:2.1.3"
-  checksum: 1c0002588c4845855e39174aed374335de8398c2a5d8541057c412ff17273b13bbb72930cc7545ccae941d1264f74e5da20d311a5562a8a3b90fe5d73c4287ba
+"request-compose@npm:^2.1.4":
+  version: 2.1.4
+  resolution: "request-compose@npm:2.1.4"
+  checksum: 63611707d0fa91878a8699bbdbae87cca759b81a9fcddb634c2af7ac922a621eb8dec15969dfebb62ce79f42aa4f279289e73fab14c43957090c7c515417690e
   languageName: node
   linkType: hard
 
