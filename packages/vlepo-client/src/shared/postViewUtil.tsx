@@ -20,7 +20,7 @@ const postViewQuery = graphql`
   }
 `;
 
-const postViewUtilMutation = graphql`
+const postViewMutation = graphql`
   mutation postViewUtilMutation($slug: String!) {
     viewPost(slug: $slug)
   }
@@ -65,7 +65,7 @@ export const genPostViewComponent = (slug?: string) => (props: genPostViewCompon
   const { mdxSource } = props;
   const { error, data, isLoading } = useQuery<postViewUtilQuery>(postViewQuery, { slug: postSlug });
 
-  const [mutate] = useMutation<postViewUtilMutation>(postViewUtilMutation);
+  const [mutate] = useMutation<postViewUtilMutation>(postViewMutation);
 
   useEffect(() => {
     mutate({ variables: { slug: postSlug } });
