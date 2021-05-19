@@ -12,6 +12,7 @@ import readingTime from 'reading-time';
 import remark from 'remark';
 import mdx from 'remark-mdx';
 import strip from 'remark-mdx-to-plain-text';
+import { __, match } from 'ts-pattern';
 import { v4 } from 'uuid';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
@@ -236,25 +237,28 @@ export const creatPostResponse = objectType({
 export const viewPostMutation = mutationField('viewPost', {
   type: Void,
   args: {
+    id: stringArg(),
     slug: stringArg(),
   },
-  resolve: async (_root, { slug }, ctx) => {
-    if (!slug) {
+  resolve: async (_root, { id, slug }, ctx) => {
+    if (!slug && !id) {
       return;
     }
     const dbPost = await ctx.prisma.post.findFirst({
       select: {
         viewCount: true,
       },
-      where: {
-        slug,
-      },
+      where: match({ id, slug })
+        .with({ id: __.string }, (v) => ({ id: v.id }))
+        .with({ slug: __.string }, (v) => ({ slug: v.slug }))
+        .run(),
     });
     if (dbPost) {
       await ctx.prisma.post.update({
-        where: {
-          slug,
-        },
+        where: match({ id, slug })
+          .with({ id: __.string }, (v) => ({ id: v.id }))
+          .with({ slug: __.string }, (v) => ({ slug: v.slug }))
+          .run(),
         data: {
           viewCount: dbPost.viewCount + 1,
         },

@@ -86,7 +86,7 @@ const CreatePostModal = (props: CreatePostModalProps) => {
         input: {
           ...rest,
           images: inputImages.map((i) => ({ url: i.url })),
-          tags: tags && tags.length > 0 ? tags.split(',').map((t) => ({ name: t })) : [],
+          tags: tags && tags.length > 0 ? tags.split(',').map((t) => ({ name: t.trim() })) : [],
         },
       },
     });

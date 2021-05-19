@@ -48,6 +48,7 @@
         "typecheck",
         "typegen",
         "unoptimized",
+        "upsert",
         "VERCEL",
         "vlepo",
         "yarnpkg"
