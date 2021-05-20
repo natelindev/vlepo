@@ -1,6 +1,7 @@
-import { genPostViewComponent, genPostViewGetServerSideProps } from 'src/shared/postViewUtil';
+import { postViewComponent } from 'src/shared/postView';
+import { postViewSSR } from 'src/shared/postViewSSR';
 
-export const getServerSideProps = genPostViewGetServerSideProps();
-const Post = genPostViewComponent();
+export const getServerSideProps = postViewSSR();
+const Post = postViewComponent();
 
 export default Post;
