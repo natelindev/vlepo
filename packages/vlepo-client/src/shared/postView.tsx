@@ -11,7 +11,7 @@ import PlaceHolder from 'src/components/PlaceHolder';
 
 export const postQuery = graphql`
   query postViewQuery($slug: String!) {
-    post(where: { id: $slug }) {
+    post(where: { slug: $slug }) {
       content
       ...Article_post
     }
