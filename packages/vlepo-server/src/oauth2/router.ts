@@ -180,9 +180,6 @@ router.get('/callback', async (ctx) => {
           provider: OAuthProviders.github,
           openid: profile?.id.toString(),
         },
-        include: {
-          roles: true,
-        },
       });
       if (existingUser) {
         return existingUser;
@@ -217,11 +214,8 @@ router.get('/callback', async (ctx) => {
       const profile: RedditProfileResponse = await profileResponse.json();
       const existingUser = await ctx.prisma.user.findFirst({
         where: {
-          provider: OAuthProviders.github,
-          openid: profile?.id.toString(),
-        },
-        include: {
-          roles: true,
+          provider: OAuthProviders.reddit,
+          openid: profile.id,
         },
       });
       if (existingUser) {
@@ -252,10 +246,7 @@ router.get('/callback', async (ctx) => {
       const existingUser = await ctx.prisma.user.findFirst({
         where: {
           provider: OAuthProviders.disqus,
-          openid: profile?.id.toString(),
-        },
-        include: {
-          roles: true,
+          openid: profile.id,
         },
       });
       if (existingUser) {

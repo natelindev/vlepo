@@ -6,6 +6,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 module.exports = withBundleAnalyzer({
   images: {
     domains: [
+      "disqus.com",
       "api.nate-lin.com",
       "dev-to-uploads.s3.amazonaws.com",
       'placeholder.pics',
