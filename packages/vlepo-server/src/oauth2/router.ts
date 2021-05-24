@@ -82,7 +82,39 @@ type RedditProfileResponse = {
   name: string;
 };
 
-type GrantDisqusResponse = any;
+type GrantDisqusResponse = {
+  access_token: string;
+  profile: {
+    isFollowing: boolean;
+    disable3rdPartyTrackers: boolean;
+    isPowerContributor: boolean;
+    isFollowedBy: boolean;
+    isPrimary: boolean;
+    id: string;
+    numFollowers: number;
+    rep: number;
+    numFollowing: number;
+    numPosts: number;
+    location: number;
+    isPrivate: false;
+    joinedAt: string;
+    username: string;
+    numLikesReceived: number;
+    reputationLabel: string;
+    about: string;
+    name: string;
+    url: string;
+    isBlocked: false;
+    numForumsFollowing: number;
+    profileUrl: string;
+    reputation: number;
+    avatar: {
+      permalink: string;
+    };
+    signedUrl: string;
+    isAnonymous: boolean;
+  };
+};
 
 type GrantErrorResponse = {
   access_token: undefined;
@@ -212,7 +244,6 @@ router.get('/callback', async (ctx) => {
     })
     .with(OAuthProviders.disqus, async () => {
       const { profile } = response as GrantDisqusResponse;
-      console.log(profile);
       const existingUser = await ctx.prisma.user.findFirst({
         where: {
           provider: OAuthProviders.disqus,
@@ -227,9 +258,9 @@ router.get('/callback', async (ctx) => {
       }
       return ctx.prisma.user.create({
         data: {
-          email: profile.email,
+          website: profile.url,
           name: profile.name,
-          openid: profile.id.toString(),
+          openid: profile.id,
           roles: {
             connectOrCreate: {
               where: { value: 'visitor' },
@@ -237,7 +268,7 @@ router.get('/callback', async (ctx) => {
             },
           },
           provider,
-          profileImageUrl: profile.avatar_url,
+          profileImageUrl: profile.avatar.permalink,
         },
         include: {
           roles: true,
