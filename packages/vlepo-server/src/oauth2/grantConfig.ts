@@ -34,4 +34,10 @@ export const grantConfig: GrantConfig = {
     scope: ['identity'],
     response: ['tokens'],
   },
+  disqus: {
+    key: process.env.DISQUS_OAUTH_CLIENT_ID,
+    secret: process.env.DISQUS_OAUTH_CLIENT_SECRET,
+    scope: ['read'],
+    response: ['tokens', 'profile'],
+  },
 };

@@ -192,8 +192,13 @@ const CommentSection = (props: CommentSectionProps) => {
             </>
           ) : (
             <>
-              <Row justifyContent="center" alignItems="center" height="5rem">
-                Continue with
+              <Row
+                flexDirection={['column', 'row']}
+                justifyContent="center"
+                alignItems="center"
+                height="8rem"
+              >
+                <H5>Continue with</H5>
                 <OauthButtonSection>
                   {process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS &&
                     process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS.split(',').map((provider) => (
@@ -218,7 +223,7 @@ const CommentSection = (props: CommentSectionProps) => {
                       </OauthButton>
                     ))}
                 </OauthButtonSection>
-                to comment
+                <H5>to comment</H5>
               </Row>
             </>
           )}

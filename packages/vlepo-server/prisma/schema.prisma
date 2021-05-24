@@ -230,6 +230,7 @@ enum OAuthProviders {
   google
   github
   reddit
+  disqus
 }
 
 model User {

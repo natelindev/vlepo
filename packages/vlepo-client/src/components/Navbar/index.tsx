@@ -77,7 +77,7 @@ const Navbar: React.FC = () => {
               <TogglerBar key={key} style={styles} />
             ))}
           </NavbarToggler>
-          <NavLink href="/portfolio">Portfolio</NavLink>
+          <NavLink href="/projects">Projects</NavLink>
           <NavLink href="/papers">Papers</NavLink>
           <NavLink href="/about">About</NavLink>
           <NavLink href="/thoughts">Thoughts</NavLink>
@@ -141,7 +141,7 @@ const Navbar: React.FC = () => {
                 <a.path
                   d={x.to({
                     range: [0, 1],
-                    output: [shapes.darkMode, shapes.lightMode],
+                    output: [shapes.lightMode, shapes.darkMode],
                   })}
                 />
               </svg>
