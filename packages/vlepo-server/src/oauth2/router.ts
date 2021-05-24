@@ -84,35 +84,38 @@ type RedditProfileResponse = {
 
 type GrantDisqusResponse = {
   access_token: string;
+  refresh_token: string;
   profile: {
-    isFollowing: boolean;
-    disable3rdPartyTrackers: boolean;
-    isPowerContributor: boolean;
-    isFollowedBy: boolean;
-    isPrimary: boolean;
-    id: string;
-    numFollowers: number;
-    rep: number;
-    numFollowing: number;
-    numPosts: number;
-    location: number;
-    isPrivate: false;
-    joinedAt: string;
-    username: string;
-    numLikesReceived: number;
-    reputationLabel: string;
-    about: string;
-    name: string;
-    url: string;
-    isBlocked: false;
-    numForumsFollowing: number;
-    profileUrl: string;
-    reputation: number;
-    avatar: {
-      permalink: string;
+    response: {
+      isFollowing: boolean;
+      disable3rdPartyTrackers: boolean;
+      isPowerContributor: boolean;
+      isFollowedBy: boolean;
+      isPrimary: boolean;
+      id: string;
+      numFollowers: number;
+      rep: number;
+      numFollowing: number;
+      numPosts: number;
+      location: number;
+      isPrivate: false;
+      joinedAt: string;
+      username: string;
+      numLikesReceived: number;
+      reputationLabel: string;
+      about: string;
+      name: string;
+      url: string;
+      isBlocked: false;
+      numForumsFollowing: number;
+      profileUrl: string;
+      reputation: number;
+      avatar: {
+        permalink: string;
+      };
+      signedUrl: string;
+      isAnonymous: boolean;
     };
-    signedUrl: string;
-    isAnonymous: boolean;
   };
 };
 
@@ -243,7 +246,9 @@ router.get('/callback', async (ctx) => {
       });
     })
     .with(OAuthProviders.disqus, async () => {
-      const { profile } = response as GrantDisqusResponse;
+      const {
+        profile: { response: profile },
+      } = response as GrantDisqusResponse;
       const existingUser = await ctx.prisma.user.findFirst({
         where: {
           provider: OAuthProviders.disqus,
