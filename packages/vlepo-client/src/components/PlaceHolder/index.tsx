@@ -33,6 +33,7 @@ const PlaceHolder = styled.div<WidthProps & HeightProps & MarginProps & BorderRa
   background-size: 200%;
   position: relative;
   overflow: hidden;
+  z-index: ${(props) => props.theme.zIndices.PlaceHolder};
 `;
 
 export const Loading = () => <PlaceHolder />;
