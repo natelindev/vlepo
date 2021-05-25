@@ -1161,12 +1161,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@devoxa/prisma-relay-cursor-connection@npm:2.0.0":
-  version: 2.0.0
-  resolution: "@devoxa/prisma-relay-cursor-connection@npm:2.0.0"
+"@devoxa/prisma-relay-cursor-connection@npm:2.0.1":
+  version: 2.0.1
+  resolution: "@devoxa/prisma-relay-cursor-connection@npm:2.0.1"
   peerDependencies:
     "@prisma/client": ^2.0.0
-  checksum: a3b42794b0dc8124e1fc64ec0543a433f8434a693a14fdb90490d9377bfb03d426ab63b6426d824a76fee6ef7f79a174ed6dfcca53ab0148d19699487b2e7a40
+  checksum: bd1538a8423cdf270e4ddb7ec55c88a7951b12b56e73abca7ec9fcc498b09d9f236a6847444bbd1cdd9f2d2b474f1facaa797be086a3661d42a3b6bed57de8a4
   languageName: node
   linkType: hard
 
@@ -4151,6 +4151,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react@npm:17.0.7":
+  version: 17.0.7
+  resolution: "@types/react@npm:17.0.7"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: 0b550ae747c254c8117cf92b99fb1e98ad71d073f0661d4119aa422487da06ab2f3e6e3523389ff3c54a0f2c59d9fb8f03e729001839490fcc473b0f7e275ff3
+  languageName: node
+  linkType: hard
+
 "@types/relay-runtime@npm:*, @types/relay-runtime@npm:11.0.0":
   version: 11.0.0
   resolution: "@types/relay-runtime@npm:11.0.0"
@@ -4462,7 +4473,7 @@ __metadata:
     "@types/debug": 4.1.5
     "@types/eslint": 7.2.11
     "@types/node": 15.6.1
-    "@types/react": 17.0.6
+    "@types/react": 17.0.7
     "@types/react-instantsearch-dom": 6.10.0
     "@types/react-relay": 11.0.1
     "@types/react-typist": 2.0.1
@@ -4513,7 +4524,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@vlepo/server@workspace:packages/vlepo-server"
   dependencies:
-    "@devoxa/prisma-relay-cursor-connection": 2.0.0
+    "@devoxa/prisma-relay-cursor-connection": 2.0.1
     "@koa/cors": 3.1.0
     "@prisma/client": 2.23.0
     "@types/debug": 4.1.5

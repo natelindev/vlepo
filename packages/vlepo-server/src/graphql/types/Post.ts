@@ -20,7 +20,6 @@ import { PostStatus as DBPostStatus } from '@prisma/client';
 
 import { OAuthCheckScope } from '../../oauth2/nexus';
 import { genPostSlug } from '../../util/genPostSlug';
-import { toGlobalId } from '../plugins/relayGlobalId';
 import { connectionArgsValidator, orderByArgs } from '../util/connectionArgsValidator';
 import { Comment } from './Comment';
 import { createImageInput, Image } from './Image';
@@ -357,8 +356,9 @@ export const creatPostMutation = mutationField('creatPostMutation', {
       // only index published posts
       if (post.status === DBPostStatus.PUBLISHED) {
         ctx.searchIndex.saveObject({
-          objectID: toGlobalId('Post', post.id),
+          objectID: post.id,
           ...post,
+          content: undefined,
           __typename: 'Post',
         });
       }
