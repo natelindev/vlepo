@@ -60,7 +60,7 @@
     "remark": "13.0.0",
     "remark-mdx": "1.6.22",
     "remark-mdx-to-plain-text": "3.0.0",
-    "ts-pattern": "3.1.5",
+    "ts-pattern": "3.1.6",
     "uuid": "8.3.2"
   },
   "devDependencies": {
@@ -85,6 +85,6 @@
     "prisma": "2.23.0",
     "ts-node": "10.0.0",
     "ts-node-dev": "1.1.6",
-    "typescript": "4.2.4"
+    "typescript": "4.3.2"
   }
 }
