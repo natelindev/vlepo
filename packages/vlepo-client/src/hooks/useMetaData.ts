@@ -11,7 +11,10 @@ export const MetaDataContext = React.createContext<
       setSubtitle?: React.Dispatch<React.SetStateAction<string | undefined | null>>;
     }
   | Record<string, never>
->({});
+>({
+  title: process.env.NEXT_PUBLIC_DEFAULT_BLOG_NAME,
+  subtitle: process.env.NEXT_PUBLIC_DEFAULT_BLOG_SUBTITLE,
+});
 
 const blogQuery = graphql`
   query useMetaData_BlogQuery($id: String!) {

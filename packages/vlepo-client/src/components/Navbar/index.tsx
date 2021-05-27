@@ -12,7 +12,6 @@ import { darkTheme, lightTheme } from 'src/shared/theme';
 
 import { css } from '@emotion/react';
 
-import ClientOnly from '../ClientOnly';
 import LoginModal from '../Modals/LoginModal';
 import NavLink from '../NavLink';
 import UserSection from '../UserSection';
@@ -146,9 +145,7 @@ const Navbar: React.FC = () => {
                 />
               </svg>
             </NavItem>
-            <ClientOnly>
-              <UserSection setShowLoginModal={setShowLoginModal} />
-            </ClientOnly>
+            <UserSection setShowLoginModal={setShowLoginModal} />
           </NavbarNav>
         </RightNavCollapse>
         <LoginModal open={showLoginModal} onClose={() => setShowLoginModal(false)} />

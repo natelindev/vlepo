@@ -31,7 +31,11 @@ const PlaceHolder = styled.div<WidthProps & HeightProps & MarginProps & BorderRa
   background: ${(props) =>
     `linear-gradient(90deg, ${props.theme.colors.backgroundMuted}, ${props.theme.colors.backgroundDarker}, ${props.theme.colors.backgroundMuted})`};
   background-size: 200%;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   overflow: hidden;
   z-index: ${(props) => props.theme.zIndices.PlaceHolder};
 `;

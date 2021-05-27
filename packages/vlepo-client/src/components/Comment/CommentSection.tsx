@@ -120,30 +120,28 @@ const CommentSection = (props: CommentSectionProps) => {
       {data &&
       data.commentsConnection &&
       data.commentsConnection.edges &&
-      data.commentsConnection.edges.length > 0 ? (
-        data.commentsConnection.edges.map(
-          (e) =>
-            e &&
-            e.node && (
-              <Comment
-                variant={variant}
-                px={match(variant)
-                  .with('profile', () => '2rem')
-                  .with('post', () => '1rem')
-                  .run()}
-                py="1rem"
-                my={match(variant)
-                  .with('profile', () => '0')
-                  .with('post', () => '0.5rem')
-                  .run()}
-                key={e.node.id}
-                comment={e.node}
-              />
-            ),
-        )
-      ) : (
-        <PlaceHolder />
-      )}
+      data.commentsConnection.edges.length > 0
+        ? data.commentsConnection.edges.map(
+            (e) =>
+              e &&
+              e.node && (
+                <Comment
+                  variant={variant}
+                  px={match(variant)
+                    .with('profile', () => '2rem')
+                    .with('post', () => '1rem')
+                    .run()}
+                  py="1rem"
+                  my={match(variant)
+                    .with('profile', () => '0')
+                    .with('post', () => '0.5rem')
+                    .run()}
+                  key={e.node.id}
+                  comment={e.node}
+                />
+              ),
+          )
+        : null}
       {isLoadingNext && <PlaceHolder />}
       {hasNext && (
         <GradientButton mb="1rem" onClick={() => loadNext(5)}>

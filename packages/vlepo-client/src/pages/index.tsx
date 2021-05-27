@@ -20,7 +20,6 @@ import styled from '@emotion/styled';
 import type { GetServerSidePropsContext } from 'next';
 
 const ArticleCard = dynamic(() => import('src/components/ArticleCard'), { loading: Loading });
-const ClientOnly = dynamic(() => import('src/components/ClientOnly'), { loading: Loading });
 
 const IndexMasonry = styled(Masonry)`
   width: 100%;
@@ -131,23 +130,21 @@ const PostsSection = (props: PostSectionProps) => {
 
   return (
     <IndexRow mx={['0.3rem', '2rem', '6rem']}>
-      <ClientOnly>
-        <IndexMasonry<ArticleCard_post$key>
-          columnWidth={350}
-          items={
-            data && data.postsConnection && data.postsConnection.edges
-              ? data.postsConnection.edges
-                  .filter((e) => e !== null && e.node !== null)
-                  .map((e) => e!.node!)
-              : []
-          }
-          columnGutter={20}
-          overscanBy={2}
-          render={MasonryCard}
-          onRender={maybeLoadMore}
-        />
-        {isLoadingNext && <PlaceHolder width="100%" />}
-      </ClientOnly>
+      <IndexMasonry<ArticleCard_post$key>
+        columnWidth={350}
+        items={
+          data && data.postsConnection && data.postsConnection.edges
+            ? data.postsConnection.edges
+                .filter((e) => e !== null && e.node !== null)
+                .map((e) => e!.node!)
+            : []
+        }
+        columnGutter={20}
+        overscanBy={2}
+        render={MasonryCard}
+        onRender={maybeLoadMore}
+      />
+      {isLoadingNext && <PlaceHolder width="100%" />}
     </IndexRow>
   );
 };
