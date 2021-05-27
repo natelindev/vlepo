@@ -274,7 +274,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
   authentication: true,
   authorize: OAuthCheckScope('post:create'),
   resolve: async (_root, { createPostInput }, ctx) => {
-    const currentUser = ctx.currentUser!;
+    const currentUser = ctx.state.user!;
     return ctx.knex.transaction(async (trx) => {
       const post = (
         await trx('Post')

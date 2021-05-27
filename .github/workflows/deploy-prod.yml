@@ -40,7 +40,7 @@ jobs:
 
       - name: install dependencies
         if: env.DEPLOY_SHARED == 'true' || env.DEPLOY_SERVER == 'true'
-        run: yarn --immutable
+        run: yarn --frozen-lockfile
 
       - name: deploy shared
         if: env.DEPLOY_SHARED == 'true'

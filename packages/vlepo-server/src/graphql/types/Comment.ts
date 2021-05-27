@@ -103,7 +103,7 @@ export const creatCommentMutation = mutationField('creatCommentMutation', {
   authentication: true,
   authorize: OAuthCheckScope('comment:create'),
   resolve: async (_root, { parentId, content }, ctx) => {
-    const currentUser = ctx.currentUser!;
+    const currentUser = ctx.state.user!;
 
     // extract language code
     const language =

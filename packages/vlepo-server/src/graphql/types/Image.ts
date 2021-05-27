@@ -42,7 +42,7 @@ export const uploadImages = mutationField('uploadImages', {
   authentication: true,
   authorize: OAuthCheckScope('image:create'),
   resolve: async (_root, args, ctx) => {
-    const currentUser = ctx.currentUser!;
+    const currentUser = ctx.state.user!;
     const files = await Promise.all(args.files);
 
     if (files && files.length > 0) {

@@ -104,7 +104,7 @@ export function fieldAuthenticationPlugin(pluginConfig: FieldAuthenticationPlugi
     throwErrorOnFailedAuthenticationByDefault = false,
     defaultErrorMessage = 'Not Authenticated',
     defaultResolveValue = null,
-    isLoggedIn = (_root, _args, ctx) => !!ctx?.state?.user,
+    isLoggedIn = (_root, _args, ctx) => Boolean(ctx?.state?.user),
     onFailedAuthentication,
   } = pluginConfig;
 
