@@ -27,6 +27,14 @@ export const postViewSSR = (slug?: string) => async (context: GetServerSideProps
 
   const mdxSource = await serialize(queryPayload?.data?.post?.content);
 
+  if (!mdxSource) {
+    return {
+      redirect: {
+        destination: '/404',
+        permanent: false,
+      },
+    };
+  }
   return {
     props: {
       relayData: relayData && 'json' in queryPayload ? [[queryString, queryPayload.json]] : null,

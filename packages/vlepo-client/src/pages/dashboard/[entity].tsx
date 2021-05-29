@@ -1,7 +1,8 @@
+import { GetServerSidePropsContext } from 'next';
 /* eslint-disable react/destructuring-assignment */
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { graphql } from 'react-relay';
+import { fetchQuery, graphql } from 'react-relay';
 import { usePagination, useQuery } from 'relay-hooks';
 import { Entity_blogSectionQuery } from 'src/__generated__/Entity_blogSectionQuery.graphql';
 import { Entity_user$key } from 'src/__generated__/Entity_user.graphql';
@@ -15,9 +16,11 @@ import { Column, Row } from 'src/components/Layout/style';
 import CreatePostModal from 'src/components/Modals/CreatePostModal';
 import PlaceHolder from 'src/components/PlaceHolder';
 import Sidebar from 'src/components/Sidebar';
+import { initEnvironment } from 'src/relay';
 import { match } from 'ts-pattern';
 
 import { AddCircle, ExpandMore } from '@emotion-icons/material-outlined';
+import { envDetect } from '@vlepo/shared';
 
 import { Container, DashboardCard, DashboardMain, Numbers, NumbersLabel } from './style';
 
@@ -51,15 +54,73 @@ const viewerQuery = graphql`
   query Entity_viewerQuery {
     viewer {
       id
+      scopes
       ...Entity_user
     }
   }
 `;
 
-export const getServerSideProps = () => {
+export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext) => {
+  if (!req.cookies.accessToken) {
+    return {
+      redirect: {
+        destination: '/401',
+        permanent: false,
+      },
+    };
+  }
+
+  if (res?.statusCode >= 400) {
+    const statusCode = res?.statusCode;
+    return { statusCode };
+  }
+
+  const { environment, relaySSR } = initEnvironment(req.cookies.accessToken);
+  await new Promise((resolve, reject) => {
+    fetchQuery(environment, viewerQuery, {}).subscribe({
+      complete: () => resolve(undefined),
+      error: (err: Error) => reject(err),
+    });
+  });
+  const [relayData] = await relaySSR.getCache();
+  const [queryString, queryPayload] = relayData ?? [];
+
   return {
-    props: {},
+    props: {
+      relayData: relayData && 'json' in queryPayload ? [[queryString, queryPayload.json]] : null,
+    },
   };
+};
+
+const Dashboard = () => {
+  const router = useRouter();
+  const entity = router.query.entity as string;
+
+  const { data, isLoading } = useQuery<Entity_viewerQuery>(viewerQuery);
+
+  if (!data || isLoading || !data.viewer) {
+    return <PlaceHolder />;
+  }
+
+  if (envDetect.isBrowser && !data.viewer.scopes.includes('blog')) {
+    router.replace('/403');
+  }
+
+  return (
+    <>
+      <Container>
+        <Sidebar />
+        <ClientOnly>
+          <DashboardMain>
+            {match(entity)
+              .with('blog', () => <BlogSection />)
+              .with('post', () => data.viewer && <PostSection user={data.viewer} />)
+              .otherwise(() => null)}
+          </DashboardMain>
+        </ClientOnly>
+      </Container>
+    </>
+  );
 };
 
 const BlogSection = () => {
@@ -68,7 +129,7 @@ const BlogSection = () => {
   });
 
   if (error) return <ErrorText>{error.message}</ErrorText>;
-  if (!data || isLoading) return <PlaceHolder />;
+  if (!data || !data.blog || isLoading) return <PlaceHolder />;
 
   const { postViewCount, postReactionCount, postCommentCount, userCount } = data.blog
     ? data.blog
@@ -112,6 +173,9 @@ const PostSection = (props: PostSectionProps) => {
   } = usePagination<PostRefetchQuery, Entity_user$key>(fragmentSpec, props.user);
   const [showCreatePostModal, setShowCreatePostModal] = useState(false);
 
+  if (!user) {
+    return <PlaceHolder />;
+  }
   return (
     <>
       <CreatePostModal open={showCreatePostModal} onClose={() => setShowCreatePostModal(false)} />
@@ -148,37 +212,6 @@ const PostSection = (props: PostSectionProps) => {
           </GradientButton>
         </Row>
       )}
-    </>
-  );
-};
-
-const Dashboard = () => {
-  const router = useRouter();
-  const entity = router.query.entity as string;
-
-  const { error, data, isLoading } = useQuery<Entity_viewerQuery>(viewerQuery);
-
-  if (error) {
-    router.replace('/401');
-  }
-
-  if (!data || isLoading || !data.viewer) {
-    return <PlaceHolder />;
-  }
-
-  return (
-    <>
-      <Container>
-        <Sidebar />
-        <ClientOnly>
-          <DashboardMain>
-            {match(entity)
-              .with('blog', () => <BlogSection />)
-              .with('post', () => data.viewer && <PostSection user={data.viewer} />)
-              .otherwise(() => null)}
-          </DashboardMain>
-        </ClientOnly>
-      </Container>
     </>
   );
 };

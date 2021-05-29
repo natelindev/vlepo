@@ -1,10 +1,10 @@
 import { Section } from 'src/components/Layout/style';
 import { H1 } from 'src/components/Typography';
 
-const Custom401 = () => (
+const Custom403 = () => (
   <Section mx="auto" my="auto">
-    <H1 mx="2rem">401 - You need to be authenticated to view this page</H1>
+    <H1 mx="2rem">403 - You do not have the permission to view this page</H1>
   </Section>
 );
 
-export default Custom401;
+export default Custom403;
