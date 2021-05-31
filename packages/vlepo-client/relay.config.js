@@ -15,6 +15,7 @@ module.exports = {
     DateTime: 'String',
     Upload: 'File',
     Void: 'null',
+    Json: 'String',
   },
   artifactDirectory: './src/__generated__',
 };

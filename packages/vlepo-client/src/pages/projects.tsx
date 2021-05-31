@@ -25,6 +25,7 @@ const projectFragmentSpec = graphql`
       @connection(key: "projects_projectsConnection") {
       edges {
         node {
+          id
           ...ProjectCard_project
         }
       }
@@ -50,6 +51,7 @@ export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext
       error: (err: Error) => reject(err),
     });
   });
+
   const [relayData] = await relaySSR.getCache();
   const [queryString, queryPayload] = relayData ?? [];
 
@@ -102,12 +104,12 @@ const ProjectList = (props: ProjectListProps) => {
   } = usePagination<ProjectRefetchQuery, projects_Projects$key>(projectFragmentSpec, fullBlog);
 
   return (
-    <Column mx={['0.3rem', '2rem', '6rem']} my="3rem">
+    <Column mx={['0.3rem', '6rem', '12rem']} my="3rem">
       {project &&
         project.projectsConnection &&
         project.projectsConnection.edges &&
         project.projectsConnection.edges.map(
-          (e) => e && e.node && <ProjectCard project={e.node} />,
+          (e) => e && e.node && <ProjectCard key={e.node.id} project={e.node} />,
         )}
       {isLoadingNext && <>{Array(5).fill(<ProjectCard project={null} />)}</>}
       {hasNext && !isLoadingNext && (

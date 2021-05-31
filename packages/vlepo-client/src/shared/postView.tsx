@@ -24,13 +24,9 @@ export const postMutation = graphql`
   }
 `;
 
-type genPostViewComponentProps = {
-  mdxSource: MDXRemoteSerializeResult;
-};
-export const postViewComponent = (slug?: string) => (props: genPostViewComponentProps) => {
+export const postViewComponent = (slug?: string) => () => {
   const router = useRouter();
   const postSlug = slug ?? (router.query.postSlug as string);
-  const { mdxSource } = props;
   const { error, data, isLoading } = useQuery<postViewQuery>(postQuery, { slug: postSlug });
 
   const [mutate] = useMutation<postViewMutation>(postMutation);
@@ -40,7 +36,7 @@ export const postViewComponent = (slug?: string) => (props: genPostViewComponent
   }, [postSlug, mutate]);
 
   if (error) return <div>{error.message}</div>;
-  if (!data || !mdxSource || isLoading || !data.post || router.isFallback) return <PlaceHolder />;
+  if (!data || isLoading || !data.post || router.isFallback) return <PlaceHolder />;
 
-  return <Article post={data.post} mdxSource={mdxSource} />;
+  return <Article post={data.post} />;
 };

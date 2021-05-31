@@ -7,6 +7,7 @@ import { Column, Row } from 'src/components/Layout/style';
 import { match } from 'ts-pattern';
 
 import { Article, Lock } from '@emotion-icons/material-outlined';
+import { envDetect } from '@vlepo/shared';
 
 import { ImageOverlay } from '../Image/style';
 import PlaceHolder from '../PlaceHolder';
@@ -79,7 +80,7 @@ const ArticleCard = (props: ArticleCardProps) => {
             alt={title}
             variant="top"
           />
-          {!imageLoaded && (
+          {!imageLoaded && envDetect.isBrowser && (
             <ImageOverlay>
               <PlaceHolder />
             </ImageOverlay>

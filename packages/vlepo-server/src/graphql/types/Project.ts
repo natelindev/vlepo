@@ -1,4 +1,5 @@
-import { objectType } from 'nexus';
+import { serialize } from 'next-mdx-remote/serialize';
+import { nonNull, objectType } from 'nexus';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 
@@ -13,6 +14,12 @@ export const Project = objectType({
     t.relayGlobalId('id', { description: 'ID for a resource' });
     t.model.name();
     t.model.content();
+    t.field('renderedContent', {
+      type: nonNull('Json'),
+      async resolve({ content }) {
+        return JSON.stringify(await serialize(content));
+      },
+    });
     t.model.url();
     t.model.headerImageUrl();
     t.model.tags();

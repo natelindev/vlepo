@@ -1,5 +1,4 @@
 import { GetServerSidePropsContext } from 'next';
-import { serialize } from 'next-mdx-remote/serialize';
 import { fetchQuery } from 'relay-hooks';
 import { postViewQuery } from 'src/__generated__/postViewQuery.graphql';
 import { initEnvironment } from 'src/relay';
@@ -25,20 +24,9 @@ export const postViewSSR = (slug?: string) => async (context: GetServerSideProps
 
   res.setHeader('Cache-Control', 's-maxage=604800, stale-while-revalidate');
 
-  const mdxSource = await serialize(queryPayload?.data?.post?.content);
-
-  if (!mdxSource) {
-    return {
-      redirect: {
-        destination: '/404',
-        permanent: false,
-      },
-    };
-  }
   return {
     props: {
       relayData: relayData && 'json' in queryPayload ? [[queryString, queryPayload.json]] : null,
-      mdxSource,
     },
   };
 };

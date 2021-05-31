@@ -36,7 +36,8 @@ export const Comment = objectType({
     });
     t.model.owner();
     t.model.content();
-    t.string('renderedContent', {
+    t.field('renderedContent', {
+      type: nonNull('Json'),
       async resolve({ content }) {
         return JSON.stringify(await serialize(content));
       },

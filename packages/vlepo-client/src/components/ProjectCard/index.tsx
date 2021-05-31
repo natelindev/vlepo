@@ -1,11 +1,14 @@
 import { addDays, compareAsc, parseISO } from 'date-fns';
+import { MDXRemote } from 'next-mdx-remote';
 import { useState } from 'react';
 import { graphql } from 'react-relay';
 import { useFragment } from 'relay-hooks';
 import { ProjectCard_project$key } from 'src/__generated__/ProjectCard_project.graphql';
+import mdxComponents from 'src/components/MDXComponents';
 import Tag from 'src/components/Tag';
 
 import styled from '@emotion/styled';
+import { envDetect } from '@vlepo/shared';
 
 import Badge from '../Badge';
 import Card from '../Card';
@@ -21,7 +24,7 @@ const ProjectFragment = graphql`
     id
     name
     url
-    content
+    renderedContent
     headerImageUrl
     createdAt
     tags {
@@ -56,14 +59,14 @@ const ProjectName = styled(H3)``;
 export type ProjectCardProps = { project: ProjectCard_project$key | null };
 const ProjectCard = (props: ProjectCardProps) => {
   const { project: fullProject } = props;
-  const post = useFragment(ProjectFragment, fullProject);
+  const project = useFragment(ProjectFragment, fullProject);
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  if (!post) {
+  if (!project) {
     return <PlaceHolder />;
   }
 
-  const { name, headerImageUrl, createdAt, content, tags, url } = post ?? {};
+  const { name, headerImageUrl, createdAt, renderedContent, tags, url } = project ?? {};
   const createDate = parseISO(createdAt);
 
   return (
@@ -86,7 +89,7 @@ const ProjectCard = (props: ProjectCardProps) => {
             src={headerImageUrl}
             alt={name}
           />
-          {!imageLoaded && (
+          {!imageLoaded && envDetect.isBrowser && (
             <ImageOverlay>
               <PlaceHolder />
             </ImageOverlay>
@@ -99,7 +102,7 @@ const ProjectCard = (props: ProjectCardProps) => {
             <Row>
               <ProjectName mr="0.5rem">{name}</ProjectName>
             </Row>
-            <Row>{content}</Row>
+            <MDXRemote {...JSON.parse(renderedContent)} components={mdxComponents} />
           </>
         )}
       </CardBody>

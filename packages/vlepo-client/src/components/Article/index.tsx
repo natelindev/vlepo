@@ -1,5 +1,5 @@
 import { format, parseISO } from 'date-fns';
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
+import { MDXRemote } from 'next-mdx-remote';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -31,6 +31,7 @@ const Avatar = dynamic(() => import('src/components/Avatar'), {
 const articleFragment = graphql`
   fragment Article_post on Post {
     title
+    renderedContent
     owner {
       name
       profileImageUrl
@@ -47,11 +48,10 @@ const articleFragment = graphql`
 
 type ArticleProps = {
   post: Article_post$key;
-  mdxSource: MDXRemoteSerializeResult;
 };
 
 const Article = (props: ArticleProps) => {
-  const { post: fullPost, mdxSource } = props;
+  const { post: fullPost } = props;
   const router = useRouter();
   const data = useFragment(articleFragment, fullPost);
   const [fullUrl, setFullUrl] = useState('');
@@ -61,7 +61,7 @@ const Article = (props: ArticleProps) => {
     setFullUrl(window.location.href);
   }, []);
 
-  const { headerImageUrl, title, owner, tags, createdAt, minuteRead } = data;
+  const { headerImageUrl, title, renderedContent, owner, tags, createdAt, minuteRead } = data;
 
   return (
     <>
@@ -114,7 +114,7 @@ const Article = (props: ArticleProps) => {
         <Row>
           <ArticleBody>
             <Content>
-              <MDXRemote {...mdxSource} components={mdxComponents} />
+              <MDXRemote {...JSON.parse(renderedContent)} components={mdxComponents} />
             </Content>
           </ArticleBody>
         </Row>
