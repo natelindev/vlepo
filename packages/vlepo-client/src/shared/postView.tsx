@@ -1,5 +1,4 @@
 /* eslint-disable relay/unused-fields */
-import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { graphql } from 'react-relay';
