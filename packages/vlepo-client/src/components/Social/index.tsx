@@ -1,10 +1,10 @@
-import SocialIcon from './SocialIcon';
+import SocialButton from './SocialButton';
 import { SocialLinkWrapper } from './style';
 
 const Social = (props: React.ComponentProps<typeof SocialLinkWrapper>) => (
   <SocialLinkWrapper {...props}>
-    <SocialIcon name="github" href="https://github.com/llldar" />
-    <SocialIcon name="telegram" href="https://t.me/llldar" />
+    <SocialButton variant="github" href="https://github.com/llldar" />
+    <SocialButton variant="telegram" href="https://t.me/llldar" />
   </SocialLinkWrapper>
 );
 

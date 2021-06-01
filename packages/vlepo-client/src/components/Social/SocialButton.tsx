@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import { MarginProps } from 'styled-system';
 
 import { useTheme } from '@emotion/react';
 
@@ -10,7 +11,7 @@ import {
   SocialSvg,
 } from './style';
 
-const TelegramSocialIcon = ({ color }: { color: string }) => {
+const TelegramSocialButton = ({ color }: { color: string }) => {
   const theme = useTheme();
   return (
     <g fill="none" fillRule="evenodd">
@@ -25,7 +26,7 @@ const TelegramSocialIcon = ({ color }: { color: string }) => {
   );
 };
 
-const GithubSocialIcon = ({ color }: { color: string }): React.ReactElement => {
+const GithubSocialButton = ({ color }: { color: string }): React.ReactElement => {
   const theme = useTheme();
   return (
     <g fill="none" fillRule="evenodd">
@@ -46,34 +47,34 @@ const GithubSocialIcon = ({ color }: { color: string }): React.ReactElement => {
   );
 };
 
-interface SocialIconProps {
-  name: 'telegram' | 'github';
+type SocialButtonProps = {
+  variant: 'telegram' | 'github';
   href?: string;
-}
+} & MarginProps;
 
-const SocialIcon = (props: SocialIconProps): ReactElement => {
-  const { name, href } = props;
+const SocialButton = (props: SocialButtonProps): ReactElement => {
+  const { variant, href, ...rest } = props;
 
   const theme = useTheme();
 
-  const [size, color, SocialIconContent] = ((): [number, string, React.FC<{ color: string }>] => {
-    switch (name) {
+  const [size, color, SocialButtonContent] = ((): [number, string, React.FC<{ color: string }>] => {
+    switch (variant) {
       case 'github':
-        return [600, theme.colors.text, GithubSocialIcon];
+        return [600, theme.colors.text, GithubSocialButton];
       case 'telegram':
-        return [100, '#139BD0', TelegramSocialIcon];
+        return [100, '#139BD0', TelegramSocialButton];
       default:
         return [0, '#000', () => null];
     }
   })();
 
   return (
-    <SocialLink color={color} href={href} target="_blank" rel="noopener noreferrer">
+    <SocialLink {...rest} color={color} href={href} target="_blank" rel="noopener noreferrer">
       <SocialSvg viewBox={`0 0 ${size} ${size}`} xmlns="http://www.w3.org/2000/svg">
-        <title>{name}</title>
-        <SocialIconContent color={color} />
+        <title>{variant}</title>
+        <SocialButtonContent color={color} />
       </SocialSvg>
     </SocialLink>
   );
 };
-export default SocialIcon;
+export default SocialButton;

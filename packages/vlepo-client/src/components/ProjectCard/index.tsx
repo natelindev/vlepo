@@ -1,6 +1,5 @@
 import { addDays, compareAsc, parseISO } from 'date-fns';
 import { MDXRemote } from 'next-mdx-remote';
-import { useState } from 'react';
 import { graphql } from 'react-relay';
 import { useFragment } from 'relay-hooks';
 import { ProjectCard_project$key } from 'src/__generated__/ProjectCard_project.graphql';
@@ -8,15 +7,14 @@ import mdxComponents from 'src/components/MDXComponents';
 import Tag from 'src/components/Tag';
 
 import styled from '@emotion/styled';
-import { envDetect } from '@vlepo/shared';
 
 import Badge from '../Badge';
 import Card from '../Card';
 import { CardBody } from '../Card/style';
 import Image from '../Image';
-import { ImageOverlay } from '../Image/style';
 import { Row } from '../Layout/style';
 import PlaceHolder from '../PlaceHolder';
+import SocialButton from '../Social/SocialButton';
 import { H3 } from '../Typography';
 
 const ProjectFragment = graphql`
@@ -60,7 +58,6 @@ export type ProjectCardProps = { project: ProjectCard_project$key | null };
 const ProjectCard = (props: ProjectCardProps) => {
   const { project: fullProject } = props;
   const project = useFragment(ProjectFragment, fullProject);
-  const [imageLoaded, setImageLoaded] = useState(false);
 
   if (!project) {
     return <PlaceHolder />;
@@ -70,7 +67,7 @@ const ProjectCard = (props: ProjectCardProps) => {
   const createDate = parseISO(createdAt);
 
   return (
-    <BaseProjectCard href={url} external>
+    <BaseProjectCard>
       {compareAsc(new Date(), addDays(createDate, 1)) === -1 && (
         <Row height="0">
           <Badge height="1.2rem" variant="accent" mt="-0.5rem" ml="auto" mr="-0.5rem">
@@ -82,18 +79,12 @@ const ProjectCard = (props: ProjectCardProps) => {
         <>
           <Image
             variant="top"
-            onLoad={() => setImageLoaded(true)}
             height="15rem"
             width="100%"
             objectFit="cover"
             src={headerImageUrl}
             alt={name}
           />
-          {!imageLoaded && envDetect.isBrowser && (
-            <ImageOverlay>
-              <PlaceHolder />
-            </ImageOverlay>
-          )}
         </>
       )}
       <CardBody>
@@ -118,6 +109,7 @@ const ProjectCard = (props: ProjectCardProps) => {
               href={`/tags/${t.name}`}
             />
           ))}
+        {url && <SocialButton ml="auto" variant="github" href={url} />}
       </ProjectCardFooter>
     </BaseProjectCard>
   );

@@ -1,8 +1,9 @@
 import React from 'react';
+import { margin, MarginProps, padding, PaddingProps } from 'styled-system';
 
 import styled from '@emotion/styled';
 
-export const AnimatedLink = styled.a`
+export const AnimatedLink = styled.a<MarginProps & PaddingProps>`
   position: relative;
   color: ${(props) => props.theme.colors.link};
   text-decoration: none !important;
@@ -28,6 +29,9 @@ export const AnimatedLink = styled.a`
     transform: scaleX(0);
     transition: all 0.3s ease-in-out 0s;
   }
+
+  ${padding}
+  ${margin}
 `;
 
 export const AnimatedExternalLink = (props: React.ComponentProps<typeof AnimatedLink>) => {

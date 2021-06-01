@@ -1,11 +1,13 @@
-import { margin, MarginProps } from 'styled-system';
+import { margin, MarginProps, size, SizeProps } from 'styled-system';
 
 import styled from '@emotion/styled';
 
-export const SocialLink = styled.a`
+export const SocialLink = styled.a<MarginProps & SizeProps>`
   width: 2.5rem;
   height: 2.5rem;
   color: ${(props) => props.color};
+  ${margin}
+  ${size}
 `;
 
 export const SocialLinkWrapper = styled.div<MarginProps>`

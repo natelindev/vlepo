@@ -22,6 +22,14 @@ export const postViewSSR = (slug?: string) => async (context: GetServerSideProps
   const [relayData] = await relaySSR.getCache();
   const [queryString, queryPayload] = relayData ?? [];
 
+  if (!queryPayload?.data?.post) {
+    return {
+      redirect: {
+        destination: '/404',
+        permanent: false,
+      },
+    };
+  }
   res.setHeader('Cache-Control', 's-maxage=604800, stale-while-revalidate');
 
   return {
