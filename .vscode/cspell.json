@@ -49,6 +49,7 @@
         "Titillium",
         "typecheck",
         "typegen",
+        "unist",
         "unoptimized",
         "upsert",
         "VERCEL",

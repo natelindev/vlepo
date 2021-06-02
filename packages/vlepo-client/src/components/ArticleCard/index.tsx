@@ -1,5 +1,4 @@
 import { addDays, compareAsc, format, parseISO } from 'date-fns';
-import { useState } from 'react';
 import { graphql, useFragment } from 'react-relay';
 import Badge from 'src/components/Badge';
 import { CardBody, CardImage } from 'src/components/Card/style';
@@ -7,10 +6,7 @@ import { Column, Row } from 'src/components/Layout/style';
 import { match } from 'ts-pattern';
 
 import { Article, Lock } from '@emotion-icons/material-outlined';
-import { envDetect } from '@vlepo/shared';
 
-import { ImageOverlay } from '../Image/style';
-import PlaceHolder from '../PlaceHolder';
 import Tag from '../Tag';
 import {
   Abstract,
@@ -57,7 +53,6 @@ const ArticleCard = (props: ArticleCardProps) => {
   const { title, headerImageUrl, abstract, createdAt, slug, tags, status, owner, minuteRead } =
     post;
   const createDate = parseISO(createdAt);
-  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <BaseArticleCard href={`/posts/${slug}`} width={width}>
@@ -71,7 +66,6 @@ const ArticleCard = (props: ArticleCardProps) => {
       {headerImageUrl && (
         <>
           <CardImage
-            onLoad={() => setImageLoaded(true)}
             layout="responsive"
             height={100}
             width={200}
@@ -80,11 +74,6 @@ const ArticleCard = (props: ArticleCardProps) => {
             alt={title}
             variant="top"
           />
-          {!imageLoaded && envDetect.isBrowser && (
-            <ImageOverlay>
-              <PlaceHolder />
-            </ImageOverlay>
-          )}
         </>
       )}
 

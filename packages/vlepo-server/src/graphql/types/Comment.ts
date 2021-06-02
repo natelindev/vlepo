@@ -5,6 +5,7 @@ import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection
 import { Language } from '@prisma/client';
 
 import { OAuthCheckScope } from '../../oauth2/nexus';
+import { mdxToMd } from '../plugins/mdxToMd';
 import { fromGlobalId } from '../plugins/relayGlobalId';
 import { Image } from './Image';
 
@@ -39,7 +40,10 @@ export const Comment = objectType({
     t.field('renderedContent', {
       type: nonNull('Json'),
       async resolve({ content }) {
-        return JSON.stringify(await serialize(content));
+        return JSON.stringify(
+          // @ts-expect-error plugin type workaround
+          await serialize(content, { mdxOptions: { remarkPlugins: [mdxToMd] } }),
+        );
       },
     });
     t.model.post();
