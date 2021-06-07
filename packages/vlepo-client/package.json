@@ -37,7 +37,7 @@
     "prism-react-renderer": "1.2.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-hook-form": "7.7.1",
+    "react-hook-form": "7.8.1",
     "react-instantsearch-dom": "6.11.0",
     "react-relay": "11.0.2",
     "react-relay-network-modern": "6.0.0",
@@ -61,7 +61,7 @@
     "@types/body-scroll-lock": "2.6.1",
     "@types/debug": "4.1.5",
     "@types/eslint": "7.2.13",
-    "@types/node": "15.6.2",
+    "@types/node": "15.12.1",
     "@types/react": "17.0.9",
     "@types/react-instantsearch-dom": "6.10.0",
     "@types/react-relay": "11.0.1",
@@ -74,7 +74,7 @@
     "relay-compiler-language-typescript": "14.0.0",
     "relay-config": "11.0.2",
     "typescript": "4.3.2",
-    "typescript-styled-plugin": "0.17.0",
+    "typescript-styled-plugin": "0.18.0",
     "vscode-apollo-relay": "1.5.1"
   }
 }
