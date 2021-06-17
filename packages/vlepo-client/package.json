@@ -30,6 +30,7 @@
     "date-fns": "2.22.1",
     "debug": "4.3.1",
     "dotenv": "10.0.0",
+    "eslint-config-next": "11.0.0",
     "graphql": "15.5.0",
     "masonic": "3.4.1",
     "next": "11.0.0",
