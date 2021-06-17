@@ -30,9 +30,7 @@ module.exports = withBundleAnalyzer({
       'localhost',
     ],
   },
-  future: {
-    webpack5: true,
-  },
+  webpack5: true,
   pageExtensions: ['tsx'],
   // Proxy to Backend
   async rewrites() {
