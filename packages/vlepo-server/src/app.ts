@@ -23,7 +23,6 @@ import * as oauth from './oauth2/model';
 import authRouter from './oauth2/router';
 
 import type { PrismaClient, User } from '@prisma/client';
-import type { Knex } from 'knex';
 
 const debug = debugInit('vlepo:app');
 const client = algoliasearch(process.env.NEXT_PUBLIC_ALGOLIA_APP_ID, process.env.ALGOLIA_API_KEY);
@@ -33,7 +32,6 @@ const index = client.initIndex(process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME);
 export type ExtendedContext = {
   prisma: PrismaClient;
   oauth: typeof oauth;
-  knex: Knex;
   searchIndex: SearchIndex;
   currentUser?: User;
 } & Koa.Context &
@@ -51,7 +49,6 @@ if (!hasFields(process.env, requiredEnv)) {
 app.keys = [process.env.SECRET_KEY!];
 app.context.prisma = db.prisma;
 app.context.oauth = oauth;
-app.context.knex = db.knexConnection;
 app.context.searchIndex = index;
 
 app.use(bodyParser());
@@ -116,5 +113,4 @@ app
   })
   .on('close', () => {
     db.prisma.$disconnect();
-    db.knexConnection.destroy();
   });

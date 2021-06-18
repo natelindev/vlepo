@@ -13,7 +13,6 @@ import remark from 'remark';
 import mdx from 'remark-mdx';
 import strip from 'remark-mdx-to-plain-text';
 import { __, match } from 'ts-pattern';
-import { v4 } from 'uuid';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { PostStatus as DBPostStatus } from '@prisma/client';
@@ -280,100 +279,64 @@ export const creatPostMutation = mutationField('creatPostMutation', {
   authorize: OAuthCheckScope('post:create'),
   resolve: async (_root, { createPostInput }, ctx) => {
     const currentUser = ctx.state.user!;
-    return ctx.knex.transaction(async (trx) => {
-      const post = (
-        await trx('Post')
-          .insert({
-            id: v4(),
-            blogId: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
-            ownerId: currentUser.id,
-            status: createPostInput.status,
-            title: createPostInput.title,
-            slug: genPostSlug(createPostInput.title),
-            content: createPostInput.content,
-            headerImageUrl: createPostInput.headerImageUrl,
-            minuteRead: Math.ceil(readingTime(createPostInput.content).minutes),
-            createdAt: new Date(),
-            updatedAt: new Date(),
-          })
-          .returning('*')
-      )[0];
 
-      if (createPostInput.tags && createPostInput.tags.length > 0) {
-        const existingTags = await trx('Tag')
-          .whereIn(
-            'name',
-            createPostInput.tags.map((t) => t.name),
-          )
-          .returning(['id', 'name']);
-
-        const newTags = createPostInput.tags.filter((t) =>
-          existingTags.every((et) => et.name !== t.name),
-        );
-
-        const newTagIds =
-          newTags.length > 0
-            ? await trx('Tag')
-                .insert(
-                  newTags.map((t) => ({
-                    id: v4(),
-                    blogId: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
-                    name: t.name,
-                    createdAt: new Date(),
-                    updatedAt: new Date(),
-                  })),
-                )
-                .returning('id')
-            : [];
-
-        const tagIds = [...existingTags.map((t) => t.id), ...newTagIds];
-
-        await trx('_PostToTag').insert(
-          tagIds.map((tid) => ({
-            A: post.id,
-            B: tid,
-          })),
-        );
-      }
-
-      // connect the images including header image
-      if (
-        createPostInput.headerImageUrl ||
-        (createPostInput.images && createPostInput.images.length > 0)
-      ) {
-        await trx('Image')
-          .insert(
-            [...(createPostInput.images ?? []), { url: createPostInput.headerImageUrl }]
-              .filter((i): i is { url: string } => Boolean(i.url))
-              .map((image) => ({
-                id: v4(),
-                url: image.url,
-                postId: post.id,
-                ownerId: currentUser.id,
-                createdAt: new Date(),
-                updatedAt: new Date(),
-              })),
-          )
-          .onConflict('url')
-          .merge(['url', 'postId']);
-      }
-
-      // only index published posts
-      if (post.status === DBPostStatus.PUBLISHED) {
-        ctx.searchIndex.saveObject({
-          objectID: post.id,
-          ...post,
-          content: undefined,
-          __typename: 'Post',
-        });
-      }
-
-      return {
-        createPostEdge: {
-          cursor: post.id,
-          node: { ...post, __typename: 'Post' },
+    const post = await ctx.prisma.post.create({
+      data: {
+        blog: {
+          connect: {
+            id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
+          },
         },
-      };
+        owner: {
+          connect: {
+            id: currentUser.id,
+          },
+        },
+        tags: {
+          connectOrCreate: createPostInput.tags?.map((t) => ({
+            where: {
+              name: t.name,
+            },
+            create: {
+              blog: {
+                connect: {
+                  id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
+                },
+              },
+              name: t.name,
+            },
+          })),
+        },
+        images: {
+          connect: [...(createPostInput.images ?? []), { url: createPostInput.headerImageUrl }]
+            .filter((i): i is { url: string } => Boolean(i.url))
+            .map((i) => ({
+              url: i.url,
+            })),
+        },
+        status: createPostInput.status,
+        title: createPostInput.title,
+        slug: genPostSlug(createPostInput.title),
+        content: createPostInput.content,
+        headerImageUrl: createPostInput.headerImageUrl,
+        minuteRead: Math.ceil(readingTime(createPostInput.content).minutes),
+      },
     });
+
+    // only index published posts
+    if (post.status === DBPostStatus.PUBLISHED) {
+      ctx.searchIndex.saveObject({
+        objectID: post.id,
+        ...post,
+        content: undefined,
+      });
+    }
+
+    return {
+      createPostEdge: {
+        cursor: post.id,
+        node: post,
+      },
+    };
   },
 });

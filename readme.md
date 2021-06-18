@@ -33,7 +33,7 @@ Here's the one of them to show off technologies I learned.
   - Supports openid connect that connects with external OAuth providers by [grant](https://github.com/simov/grant)
   - Implemented spec-compliant OAuth2.0 authentication & authorization
 - [PostgreSQL](https://www.postgresql.org/)
-  - Designed entire complex relational DB schema with the help of [Prisma](https://github.com/prisma/prisma) and [knex](https://github.com/knex/knex)
+  - Designed entire complex relational DB schema with the help of [Prisma](https://github.com/prisma/prisma)
 
 #### Shared
 

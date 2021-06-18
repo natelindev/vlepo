@@ -42,7 +42,6 @@
         "graphql-scalars": "1.10.0",
         "graphql-upload": "12.0.0",
         "image-size": "1.0.0",
-        "knex": "0.95.6",
         "koa": "2.13.1",
         "koa-bodyparser": "4.3.0",
         "koa-graphql": "0.8.0",
