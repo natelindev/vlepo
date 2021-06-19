@@ -1,8 +1,119 @@
-## My unnecessarily complex personal blog
+<p align="center">
+  <img width="300" height="200" src="./banner.svg">
+</p>
+
+<p align="center">
+  <a aria-label="Actions" href="https://github.com/llldar/vlepo/actions">
+    <img alt="Github actions" src="https://img.shields.io/github/workflow/status/llldar/vlepo/deploy-prod?color=green&label=actions&logo=github&logoColor=green&style=for-the-badge">
+  </a>
+  <a aria-label="License" href="https://github.com/llldar/vlepo/blob/master/LICENSE">
+    <img alt="MIT License" src="https://img.shields.io/github/license/llldar/vlepo?style=for-the-badge">
+  </a>
+</p>
+
+## Features
+
+- Generate modern clean looking blog with ease.
+- MDX powered, allowing for interactive content creation.
+- Graphql API and OAuth2.0 Model for permission control
+- Image upload, auto optimize
+- Out-of-the-box light and dark theme support
+
+## Generate a MDX powered blog in 5 minutes
 
 Data has shown that 99% of use cases for all developer tooling are building unnecessarily complex personal blogs.
 
-Here's the one of them to show off technologies I learned.
+Vlepo allows you to setup your state-of-the-art blog within minutes
+
+Here are steps you need to have your own blog setup:
+
+### clone the code
+
+```bash
+git clone https://github.com/llldar/vlepo.git
+```
+
+### install dependencies
+
+```bash
+yarn
+```
+
+after install you might need db migration and generation
+
+```
+yarn generate
+yarn db:migrate
+```
+
+### setup environment variables
+
+copy `env-example`, rename it to `.env`
+
+fill in all the secrets
+
+### run
+
+at root directory
+
+```bash
+yarn dev
+```
+
+### deploy
+
+To deploy this blog you need
+
+- a vercel account
+- a remote server that you can ssh to
+
+#### frontend
+
+first you need to install `vercel cli tool` by
+
+```bash
+npm i -g vercel
+```
+
+then you can
+
+```bash
+cd packages/vlepo-client
+vercel
+```
+
+#### backend
+
+you need to create a `hosts` file under `ansible-playbooks` folder with content
+
+```
+[web]
+YOUR_SERVER_ADDRESS ansible_port=YOUR_SERVER_SSH_PORT ansible_ssh_private_key_file=PATH/TO/SSH_PRIVATE_KEY
+```
+
+then
+
+```ts
+yarn deploy
+```
+
+#### automatic deploy
+
+With github actions, the deploy process can be automatic
+
+fork the project and setup your own github actions.
+
+### Customize
+
+#### custom components
+
+create your components under `packages/vlepo-client/src/components`, and make sure to import them to the `packages/vlepo-client/src/components/MDXComponents`,
+now you will be able to use them in your MDX content.
+
+#### custom theme
+
+goto `packages/vlepo-client/src/shared/theme` and you will be able to edit all the themes,
+you can even create your own theme.
 
 ### Technologies used
 

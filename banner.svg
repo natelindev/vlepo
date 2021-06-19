@@ -1,0 +1,18 @@
+<svg width="305px" height="154px" viewBox="0 0 305 154" version="1.1" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-family="Poppins-Bold, Poppins"
+        font-weight="bold">
+        <g id="Artboard" transform="translate(-147.000000, -86.000000)">
+            <text id="Slogans" fill="url(#linearGradient-1)" fill-rule="nonzero" font-size="96">
+                <tspan x="147" y="158">Vlepo</tspan>
+            </text>
+            <linearGradient id="linearGradient-1">
+                <stop offset="0%" stop-color="#7E5EF2" />
+                <stop offset="100%" stop-color="#E09BED" />
+            </linearGradient>
+            <text id="next-gen-blog-genera" font-size="24" fill="#8A72E0">
+                <tspan x="147" y="233">next-gen blog generator</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
