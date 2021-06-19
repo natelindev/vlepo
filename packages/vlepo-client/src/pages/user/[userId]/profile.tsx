@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-import { graphql } from 'react-relay';
 import { useQuery } from 'relay-hooks';
+import { graphql } from 'relay-runtime';
 import { profile_userQuery } from 'src/__generated__/profile_userQuery.graphql';
 import Avatar from 'src/components/Avatar';
 import Card from 'src/components/Card';

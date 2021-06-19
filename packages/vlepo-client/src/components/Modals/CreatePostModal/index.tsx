@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useFragment } from 'react-relay';
 import { useToasts } from 'react-toast-notifications';
-import { useMutation } from 'relay-hooks';
+import { useFragment, useMutation } from 'relay-hooks';
 import { ConnectionHandler, graphql } from 'relay-runtime';
 import { CreatePostModal_headerImage$key } from 'src/__generated__/CreatePostModal_headerImage.graphql';
 import { CreatePostModal_images$key } from 'src/__generated__/CreatePostModal_images.graphql';

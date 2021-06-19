@@ -1,5 +1,5 @@
 import { addDays, compareAsc, format, parseISO } from 'date-fns';
-import { graphql, useFragment } from 'react-relay';
+import { graphql, useFragment } from 'relay-hooks';
 import Badge from 'src/components/Badge';
 import { CardBody, CardImage } from 'src/components/Card/style';
 import { Column, Row } from 'src/components/Layout/style';

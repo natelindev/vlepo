@@ -1,7 +1,7 @@
 import { addDays, compareAsc, parseISO } from 'date-fns';
 import { MDXRemote } from 'next-mdx-remote';
-import { graphql } from 'react-relay';
 import { useFragment } from 'relay-hooks';
+import { graphql } from 'relay-runtime';
 import { PaperCard_paper$key } from 'src/__generated__/PaperCard_paper.graphql';
 import { AnimatedExternalLink } from 'src/components/Link';
 import mdxComponents from 'src/components/MDXComponents';

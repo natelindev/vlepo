@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { graphql } from 'react-relay';
 import { useToasts } from 'react-toast-notifications';
 import { useMutation } from 'relay-hooks';
+import { graphql } from 'relay-runtime';
 import { OauthButton, OauthButtonSection } from 'src/components/Button';
 import GradientButton from 'src/components/GradientButton';
 import { ErrorText, Form, Input, InputGroup, Label } from 'src/components/Input';

@@ -1,7 +1,7 @@
 /* eslint-disable relay/unused-fields */
-/* eslint-disable relay/must-colocate-fragment-spreads */
-import { graphql } from 'react-relay';
 import { useQuery } from 'relay-hooks';
+/* eslint-disable relay/must-colocate-fragment-spreads */
+import { graphql } from 'relay-runtime';
 import { useCurrentUser_viewerQuery } from 'src/__generated__/useCurrentUser_viewerQuery.graphql';
 
 import { getCookie } from './useCookie';

@@ -1,8 +1,8 @@
 import { GetServerSidePropsContext } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import { fetchQuery, graphql } from 'react-relay';
 import { usePagination, useQuery } from 'relay-hooks';
+import { fetchQuery, graphql } from 'relay-runtime';
 import { PaperRefetchQuery } from 'src/__generated__/PaperRefetchQuery.graphql';
 import { papers_BlogQuery } from 'src/__generated__/papers_BlogQuery.graphql';
 import { papers_Papers$key } from 'src/__generated__/papers_Papers.graphql';

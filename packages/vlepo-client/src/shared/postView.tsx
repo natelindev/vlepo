@@ -1,8 +1,8 @@
 /* eslint-disable relay/unused-fields */
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { graphql } from 'react-relay';
 import { useMutation, useQuery } from 'relay-hooks';
+import { graphql } from 'relay-runtime';
 import { postViewMutation } from 'src/__generated__/postViewMutation.graphql';
 import { postViewQuery } from 'src/__generated__/postViewQuery.graphql';
 import Article from 'src/components/Article';

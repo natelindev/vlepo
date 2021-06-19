@@ -1,7 +1,7 @@
 import { ChangeEvent, useRef } from 'react';
-import { graphql } from 'react-relay';
 import { useToasts } from 'react-toast-notifications';
 import { useMutation } from 'relay-hooks';
+import { graphql } from 'relay-runtime';
 import {
   ImageUpload_Mutation,
   ImageUpload_MutationResponse,

@@ -31,7 +31,7 @@ const PlaceHolder = styled.div<WidthProps & HeightProps & MarginProps & BorderRa
   background: ${(props) =>
     `linear-gradient(90deg, ${props.theme.colors.backgroundMuted}, ${props.theme.colors.backgroundDarker}, ${props.theme.colors.backgroundMuted})`};
   background-size: 200%;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;

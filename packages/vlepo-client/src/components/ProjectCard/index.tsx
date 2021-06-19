@@ -1,7 +1,7 @@
 import { addDays, compareAsc, parseISO } from 'date-fns';
 import { MDXRemote } from 'next-mdx-remote';
-import { graphql } from 'react-relay';
 import { useFragment } from 'relay-hooks';
+import { graphql } from 'relay-runtime';
 import { ProjectCard_project$key } from 'src/__generated__/ProjectCard_project.graphql';
 import mdxComponents from 'src/components/MDXComponents';
 import Tag from 'src/components/Tag';

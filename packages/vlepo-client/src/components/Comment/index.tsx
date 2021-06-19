@@ -1,8 +1,8 @@
 import { format, parseISO } from 'date-fns';
 import { MDXRemote } from 'next-mdx-remote';
 import React from 'react';
-import { graphql } from 'react-relay';
 import { useFragment } from 'relay-hooks';
+import { graphql } from 'relay-runtime';
 import { Comment_comment$key } from 'src/__generated__/Comment_comment.graphql';
 import mdxComponents from 'src/components/MDXComponents';
 import { H4, H5, H6 } from 'src/components/Typography';

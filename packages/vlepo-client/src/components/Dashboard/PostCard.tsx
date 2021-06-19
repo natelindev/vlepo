@@ -1,7 +1,7 @@
 import { format, parseISO } from 'date-fns';
 import Link from 'next/link';
-import { graphql } from 'react-relay';
 import { useFragment } from 'relay-hooks';
+import { graphql } from 'relay-runtime';
 import { PostCard_post$key } from 'src/__generated__/PostCard_post.graphql';
 import Badge from 'src/components/Badge';
 import { Row, Section } from 'src/components/Layout/style';

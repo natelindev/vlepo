@@ -1,13 +1,24 @@
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import React from 'react';
+import { Loading } from 'src/components/PlaceHolder';
 import { useMetaData } from 'src/hooks/useMetaData';
 import { useProgressBar } from 'src/hooks/useProgressBar';
 
-import Footbar from '../Footbar';
-import Navbar from '../Navbar';
-import ProgressBar from '../ProgressBar';
-import ScrollToTop from '../ScrollToTop';
 import { Footer, Header, Main } from './style';
+
+const Footbar = dynamic(() => import('../Footbar'), {
+  loading: Loading,
+});
+const ProgressBar = dynamic(() => import('../ProgressBar'), {
+  loading: Loading,
+});
+const Navbar = dynamic(() => import('../Navbar'), {
+  loading: Loading,
+});
+const ScrollToTop = dynamic(() => import('../ScrollToTop'), {
+  loading: Loading,
+});
 
 type LayoutProps = {
   children?: React.ReactNode;

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useCallback } from 'react';
-import { graphql, useFragment } from 'react-relay';
 import { useToasts } from 'react-toast-notifications';
+import { graphql, useFragment } from 'relay-hooks';
 import { ImageCell_image$key } from 'src/__generated__/ImageCell_image.graphql';
 import { H5 } from 'src/components/Typography';
 

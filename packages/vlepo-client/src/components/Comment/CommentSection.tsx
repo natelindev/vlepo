@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
-import { ConnectionHandler, graphql } from 'react-relay';
 import { useToasts } from 'react-toast-notifications';
 import { useMutation, usePagination } from 'relay-hooks';
+import { ConnectionHandler, graphql } from 'relay-runtime';
 import { CommentRefetchQuery } from 'src/__generated__/CommentRefetchQuery.graphql';
 import { CommentSection_commendable$key } from 'src/__generated__/CommentSection_commendable.graphql';
 import { CommentSection_Mutation } from 'src/__generated__/CommentSection_Mutation.graphql';

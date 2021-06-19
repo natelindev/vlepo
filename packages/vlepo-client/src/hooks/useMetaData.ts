@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import { graphql } from 'react-relay';
 import { useQuery } from 'relay-hooks';
+import { graphql } from 'relay-runtime';
 import { useMetaData_BlogQuery } from 'src/__generated__/useMetaData_BlogQuery.graphql';
 
 export const MetaDataContext = React.createContext<

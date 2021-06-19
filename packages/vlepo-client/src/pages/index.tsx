@@ -1,10 +1,9 @@
 import { Masonry, useInfiniteLoader } from 'masonic';
 import dynamic from 'next/dynamic';
 import React from 'react';
-import { graphql } from 'react-relay';
 import Typist from 'react-typist';
 import { usePagination, useQuery } from 'relay-hooks';
-import { fetchQuery } from 'relay-runtime';
+import { fetchQuery, graphql } from 'relay-runtime';
 import { ArticleCard_post$key } from 'src/__generated__/ArticleCard_post.graphql';
 import { IndexPostRefetchQuery } from 'src/__generated__/IndexPostRefetchQuery.graphql';
 import { pages_Index_BlogQuery } from 'src/__generated__/pages_Index_BlogQuery.graphql';

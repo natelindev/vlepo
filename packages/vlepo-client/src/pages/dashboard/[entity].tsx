@@ -2,8 +2,8 @@ import { GetServerSidePropsContext } from 'next';
 /* eslint-disable react/destructuring-assignment */
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { fetchQuery, graphql } from 'react-relay';
 import { usePagination, useQuery } from 'relay-hooks';
+import { fetchQuery, graphql } from 'relay-runtime';
 import { Entity_blogSectionQuery } from 'src/__generated__/Entity_blogSectionQuery.graphql';
 import { Entity_user$key } from 'src/__generated__/Entity_user.graphql';
 import { Entity_viewerQuery } from 'src/__generated__/Entity_viewerQuery.graphql';
