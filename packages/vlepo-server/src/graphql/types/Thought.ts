@@ -14,7 +14,7 @@ export const Thought = objectType({
     t.implements('Node');
     t.relayGlobalId('id', { description: 'ID for a resource' });
     t.model.content();
-    t.model.status();
+    t.model.visibility();
     t.model.images();
     t.model.comments();
     t.model.reactions();

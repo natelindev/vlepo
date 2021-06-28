@@ -4,7 +4,7 @@ export const lightTheme = {
   name: 'light',
   colors: {
     accent: '#9932ff',
-    background: '#f0f2f5',
+    background: '#fcfcfc',
     backgroundSecondary: '#ffffff',
     backgroundMuted: '#f0f2f5',
     backgroundDarker: '#b1b3b8',

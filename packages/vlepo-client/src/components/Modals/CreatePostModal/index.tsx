@@ -145,7 +145,7 @@ const CreatePostModal = (props: CreatePostModalProps) => {
 
   useEffect(() => setValue('headerImageUrl', headerImage?.url), [setValue, headerImage]);
 
-  const { ref, ...statusRest } = register('status');
+  const { ref, ...visibilityRest } = register('visibility');
 
   type ImagesType = typeof images;
   type ImageItemType = ImagesType[number];
@@ -162,13 +162,13 @@ const CreatePostModal = (props: CreatePostModalProps) => {
         </InputGroup>
         <Row justifyContent="space-between">
           <InputGroup>
-            <Label>Status</Label>
+            <Label>visibility</Label>
             <Select
-              {...statusRest}
+              {...visibilityRest}
               innerRef={ref}
               options={['PUBLISHED', 'PRIVATE', 'DRAFT'].map((v) => ({ key: v, value: v }))}
             />
-            {errors.status && <ErrorText>{errors.status.message}</ErrorText>}
+            {errors.visibility && <ErrorText>{errors.visibility.message}</ErrorText>}
           </InputGroup>
           <InputGroup mx="1rem">
             <Label>Header Image</Label>

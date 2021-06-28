@@ -14,6 +14,7 @@ export const Paper = objectType({
     t.relayGlobalId('id', { description: 'ID for a resource' });
     t.model.name();
     t.model.content();
+    t.model.visibility();
     t.field('renderedContent', {
       type: nonNull('Json'),
       async resolve({ content }) {

@@ -99,13 +99,13 @@ export const Blog = objectType({
                       ownerId: u.id,
                     },
                     {
-                      status: 'PUBLISHED' as const,
+                      visibility: 'PUBLISHED' as const,
                     },
                   ],
                 };
               })
               .with(undefined, () => ({
-                status: 'PUBLISHED' as const,
+                visibility: 'PUBLISHED' as const,
               }))
               .run(),
           },
