@@ -5946,7 +5946,7 @@ fast-diff@^1.1.2:
   resolved "https://registry.npmjs.org/fast-diff/-/fast-diff-1.2.0.tgz#73ee11982d86caaf7959828d519cfe927fac5f03"
   integrity sha512-xJuoT5+L99XlZ8twedaRf6Ax2TgQVxvgZOYoPKqZufmJib0tL2tegPBOZb1pVNgIhlqDlA0eO0c3wBvQcmzx4w==
 
-fast-glob@^3.0.3, fast-glob@^3.1.0, fast-glob@^3.1.1:
+fast-glob@^3.0.3, fast-glob@^3.1.1:
   version "3.2.5"
   resolved "https://registry.npmjs.org/fast-glob/-/fast-glob-3.2.5.tgz#7939af2a656de79a4f1901903ee8adcaa7cb9661"
   integrity sha512-2DtFcgT68wiTTiwZ2hNdJfcHNke9XOfnwmBRWXhmeKM8rF0TGwmC/Qto3S7RoZKp5cilZbxzO5iTNTQsJ+EeDg==
@@ -10379,14 +10379,6 @@ relay-compiler-language-typescript@14.0.0:
     immutable "^4.0.0-rc.12"
     invariant "^2.2.4"
 
-relay-compiler-webpack-plugin@9.1.0:
-  version "9.1.0"
-  resolved "https://registry.npmjs.org/relay-compiler-webpack-plugin/-/relay-compiler-webpack-plugin-9.1.0.tgz#8dc11d6ffbfd4550c6349da7f60afde79818c000"
-  integrity sha512-gFLAzw8qqYQ5etROAV/q7Gh9fXZZ1lChn+/J3tS+y5mgZ4viEOdEVXJEQZMhT7L6O4fIYG3D75NGhVS0gqdMAQ==
-  dependencies:
-    fast-glob "^3.1.0"
-    tapable "^1.1.3"
-
 relay-compiler@11.0.2:
   version "11.0.2"
   resolved "https://registry.npmjs.org/relay-compiler/-/relay-compiler-11.0.2.tgz#e1e09a1c881d169a7a524ead728ad6a89c7bd4af"
@@ -11439,11 +11431,6 @@ table@^6.0.9:
     slice-ansi "^4.0.0"
     string-width "^4.2.0"
     strip-ansi "^6.0.0"
-
-tapable@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.npmjs.org/tapable/-/tapable-1.1.3.tgz#a1fccc06b58db61fd7a45da2da44f5f3a3e67ba2"
-  integrity sha512-4WK/bYZmj8xLr+HUCODHGF1ZFzsYffasLUgEiMBY4fgtltdO6B4WJtlSbPaDTLpYTcGVwM2qLnFTICEcNxs3kA==
 
 tar@^4.4.12:
   version "4.4.13"

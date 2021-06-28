@@ -9,7 +9,7 @@ import { papers_Papers$key } from 'src/__generated__/papers_Papers.graphql';
 import { ErrorText } from 'src/components/Input';
 import { Column, Row } from 'src/components/Layout/style';
 import PlaceHolder, { Loading } from 'src/components/PlaceHolder';
-import { H1 } from 'src/components/Typography';
+import { Slogan, SloganContainer } from 'src/components/Slogan';
 import { initEnvironment } from 'src/relay';
 
 import { ExpandMore } from '@emotion-icons/material-outlined';
@@ -82,9 +82,15 @@ const Papers = () => {
       <Head>
         <title key="title">Papers</title>
       </Head>
-      <H1 mx="auto" mt="5rem" mb="6rem">
-        Papers
-      </H1>
+
+      <SloganContainer
+        cursor={{ show: false }}
+        mt={['5rem', '4rem', '3rem']}
+        mb={['4rem', '5rem', '6rem']}
+        fontSize={[2, 3, 4]}
+      >
+        <Slogan>Papers</Slogan>
+      </SloganContainer>
       <PaperList blog={data!.blog!} />
     </>
   );

@@ -3,6 +3,7 @@ import { graphql, useFragment } from 'relay-hooks';
 import Badge from 'src/components/Badge';
 import { CardBody, CardImage } from 'src/components/Card/style';
 import { Column, Row } from 'src/components/Layout/style';
+import { useTilt } from 'src/hooks/useTilt';
 import { match } from 'ts-pattern';
 
 import { Article, Lock } from '@emotion-icons/material-outlined';
@@ -54,8 +55,12 @@ const ArticleCard = (props: ArticleCardProps) => {
     post;
   const createDate = parseISO(createdAt);
 
+  const [ref, styles] = useTilt<HTMLDivElement>({
+    scale: 150,
+  });
+
   return (
-    <BaseArticleCard href={`/posts/${slug}`} width={width}>
+    <BaseArticleCard ref={ref} href={`/posts/${slug}`} width={width} {...styles}>
       {compareAsc(new Date(), addDays(createDate, 1)) === -1 && (
         <Row height="0">
           <Badge height="1.2rem" variant="accent" mt="-0.5rem" ml="auto" mr="-0.5rem">

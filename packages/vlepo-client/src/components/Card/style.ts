@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { a } from 'react-spring';
 import {
   flexbox,
   FlexboxProps,
@@ -33,11 +34,13 @@ type BaseCardProps = { direction?: string } & WidthProps &
   PaddingProps &
   MarginProps &
   FlexboxProps;
-export const BaseCard = styled.div<BaseCardProps>`
+
+export const BaseCard = styled(a.div)<BaseCardProps>`
   background-color: ${(props) => props.theme.colors.backgroundSecondary};
   border-radius: ${(props) => `${props.theme.radii.default}px`};
   box-shadow: ${(props) => props.theme.shadows.Card};
   display: flex;
+  will-change: transform;
   ${width}
   ${height}
   ${margin}
