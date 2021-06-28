@@ -4,6 +4,7 @@ import Badge from 'src/components/Badge';
 import { CardBody, CardImage } from 'src/components/Card/style';
 import { Column, Row } from 'src/components/Layout/style';
 import { useTilt } from 'src/hooks/useTilt';
+import { MarginProps } from 'styled-system';
 import { match } from 'ts-pattern';
 
 import { Article, Lock } from '@emotion-icons/material-outlined';
@@ -23,7 +24,11 @@ import {
 
 import type { ArticleCard_post$key } from '../../__generated__/ArticleCard_post.graphql';
 
-export type ArticleCardProps = { post: ArticleCard_post$key; width?: string };
+export type ArticleCardProps = {
+  post: ArticleCard_post$key;
+  width?: string;
+  showProfile?: boolean;
+} & MarginProps;
 
 const articlePostFragment = graphql`
   fragment ArticleCard_post on Post {
@@ -31,7 +36,7 @@ const articlePostFragment = graphql`
     title
     slug
     abstract
-    status
+    visibility
     headerImageUrl
     createdAt
     minuteRead
@@ -49,9 +54,9 @@ const articlePostFragment = graphql`
 `;
 
 const ArticleCard = (props: ArticleCardProps) => {
-  const { post: fullPost, width } = props;
+  const { post: fullPost, width, showProfile = true, ...rest } = props;
   const post = useFragment(articlePostFragment, fullPost);
-  const { title, headerImageUrl, abstract, createdAt, slug, tags, status, owner, minuteRead } =
+  const { title, headerImageUrl, abstract, createdAt, slug, tags, visibility, owner, minuteRead } =
     post;
   const createDate = parseISO(createdAt);
 
@@ -60,7 +65,7 @@ const ArticleCard = (props: ArticleCardProps) => {
   });
 
   return (
-    <BaseArticleCard ref={ref} href={`/posts/${slug}`} width={width} {...styles}>
+    <BaseArticleCard {...rest} ref={ref} href={`/posts/${slug}`} width={width} {...styles}>
       {compareAsc(new Date(), addDays(createDate, 1)) === -1 && (
         <Row height="0">
           <Badge height="1.2rem" variant="accent" mt="-0.5rem" ml="auto" mr="-0.5rem">
@@ -88,7 +93,7 @@ const ArticleCard = (props: ArticleCardProps) => {
             <ArticleCardTitle mr="0.5rem">{title}</ArticleCardTitle>
           </Row>
         )}
-        {owner && (
+        {owner && showProfile && (
           <AuthorSection>
             <AuthorProfileImageContainer>
               <AuthorProfileImage
@@ -132,7 +137,7 @@ const ArticleCard = (props: ArticleCardProps) => {
             />
           ))}
         <Column ml="auto">
-          {match(status)
+          {match(visibility)
             .with('DRAFT', () => <Article size={18} />)
             .with('PRIVATE', () => <Lock size={18} />)
             .with('PUBLISHED', () => null)

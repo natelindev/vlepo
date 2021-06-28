@@ -22,7 +22,7 @@ const fragmentSpec = graphql`
   fragment PostCard_post on Post {
     slug
     title
-    status
+    visibility
     createdAt
     editedAt
     viewCount
@@ -35,16 +35,17 @@ const PostCard = (props: PostCardProps) => {
   const { post: fullPost } = props;
 
   const post = useFragment(fragmentSpec, fullPost);
-  const { slug, title, status, reactionCount, commentCount, viewCount, createdAt, editedAt } = post;
+  const { slug, title, visibility, reactionCount, commentCount, viewCount, createdAt, editedAt } =
+    post;
   return (
     <BasePostCard>
       <Row mb="auto">
-        {status === 'DRAFT' && (
+        {visibility === 'DRAFT' && (
           <Badge variant="secondary" ml="auto" mr="-2.5rem" mt="-2rem" mb="auto">
             Draft
           </Badge>
         )}
-        {status === 'PRIVATE' && (
+        {visibility === 'PRIVATE' && (
           <Badge variant="accent" ml="auto" mr="-2.5rem" mt="-2rem" mb="auto">
             Private
           </Badge>

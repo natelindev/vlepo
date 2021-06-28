@@ -213,7 +213,7 @@ model Blog {
   papers   Paper[]
   tags     Tag[]
   links    Link[]
-  Design   Design[]
+  designs  Design[]
 }
 
 model UserRole {
@@ -265,7 +265,7 @@ model Post {
   id             String     @id @default(uuid())
   ownerId        String
   content        String
-  status         PostStatus @default(DRAFT)
+  visibility     Visibility @default(DRAFT)
   title          String
   slug           String     @unique
   headerImageUrl String?
@@ -286,34 +286,12 @@ model Post {
   blogId     String
 }
 
-enum PostStatus {
+enum Visibility {
   DRAFT
   PRIVATE
   PUBLISHED
-}
 
-enum ThoughtStatus {
-  DRAFT
-  PRIVATE
-  PUBLISHED
-}
-
-enum ProjectStatus {
-  DRAFT
-  PRIVATE
-  PUBLISHED
-}
-
-enum PaperStatus {
-  DRAFT
-  PRIVATE
-  PUBLISHED
-}
-
-enum DesignStatus {
-  DRAFT
-  PRIVATE
-  PUBLISHED
+  @@map("visibility")
 }
 
 model Tag {
@@ -397,19 +375,17 @@ model Link {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
 }
 
 model Thought {
-  id      String        @id @default(uuid())
-  content String
-  owner   User          @relation(fields: [ownerId], references: [id])
-  ownerId String
-  status  ThoughtStatus @default(DRAFT)
-
-  editedAt  DateTime?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id         String     @id @default(uuid())
+  content    String
+  owner      User       @relation(fields: [ownerId], references: [id])
+  ownerId    String
+  visibility Visibility @default(DRAFT)
+  editedAt   DateTime?
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
 
   images    Image[]
   comments  Comment[]
@@ -421,11 +397,11 @@ model Thought {
 }
 
 model Design {
-  id      String       @id @default(uuid())
-  content String
-  owner   User         @relation(fields: [ownerId], references: [id])
-  ownerId String
-  status  DesignStatus @default(DRAFT)
+  id         String     @id @default(uuid())
+  content    String
+  owner      User       @relation(fields: [ownerId], references: [id])
+  ownerId    String
+  visibility Visibility @default(DRAFT)
 
   editedAt  DateTime?
   createdAt DateTime  @default(now())
@@ -481,7 +457,7 @@ enum TranslationType {
   THOUGHT
   TAG
   USER
-  USERROLE
+  USER_ROLE
   PROJECT
   PAPER
 }
@@ -522,11 +498,11 @@ model Translation {
 }
 
 model Project {
-  id             String        @id @default(uuid())
+  id             String     @id @default(uuid())
   name           String
   content        String
   headerImageUrl String?
-  status         ProjectStatus @default(DRAFT)
+  visibility     Visibility @default(DRAFT)
   url            String?
   tags           Tag[]
   images         Image[]
@@ -541,10 +517,10 @@ model Project {
 }
 
 model Paper {
-  id             String      @id @default(uuid())
+  id             String     @id @default(uuid())
   name           String
   content        String
-  status         PaperStatus @default(DRAFT)
+  visibility     Visibility @default(DRAFT)
   url            String?
   tags           Tag[]
   headerImageUrl String?
