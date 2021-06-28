@@ -81,7 +81,7 @@ export const Blog = objectType({
     t.model.links();
     t.model.papers();
     t.model.projects();
-    t.model.subtitle();
+    t.model.slogan();
 
     t.connectionField('postsConnection', {
       type: Post,

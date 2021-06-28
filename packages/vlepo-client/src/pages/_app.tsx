@@ -30,15 +30,15 @@ function App({ Component, pageProps }: PageProps) {
   const [title, setTitle] = useState<string | undefined | null>(
     process.env.NEXT_PUBLIC_DEFAULT_BLOG_NAME,
   );
-  const [subtitle, setSubtitle] = useState<string | undefined | null>(
-    process.env.NEXT_PUBLIC_DEFAULT_BLOG_SUBTITLE,
+  const [slogan, setSlogan] = useState<string | undefined | null>(
+    process.env.NEXT_PUBLIC_DEFAULT_BLOG_SLOGAN,
   );
 
   return (
     <React.StrictMode>
       <RelayEnvironmentProvider environment={createEnvironment(pageProps.relayData)}>
         <ThemeContext.Provider value={{ theme, setTheme }}>
-          <MetaDataContext.Provider value={{ title, setTitle, subtitle, setSubtitle }}>
+          <MetaDataContext.Provider value={{ title, setTitle, slogan, setSlogan }}>
             <ThemeProvider theme={theme}>
               {globalStyles}
               <ToastProvider

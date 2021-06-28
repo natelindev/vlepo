@@ -195,9 +195,9 @@ enum Language {
 }
 
 model Blog {
-  id       String  @id @default(uuid())
-  name     String?
-  subtitle String?
+  id     String  @id @default(uuid())
+  name   String?
+  slogan String?
 
   owner   User   @relation(fields: [ownerId], references: [id])
   ownerId String
@@ -213,6 +213,7 @@ model Blog {
   papers   Paper[]
   tags     Tag[]
   links    Link[]
+  Design   Design[]
 }
 
 model UserRole {
@@ -248,6 +249,7 @@ model User {
   comments  Comment[]
   images    Image[]
   thoughts  Thought[]
+  designs   Design[]
   provider  OAuthProviders?
   openid    String?
   createdAt DateTime        @default(now())
@@ -290,7 +292,7 @@ enum PostStatus {
   PUBLISHED
 }
 
-enum ToughtStatus {
+enum ThoughtStatus {
   DRAFT
   PRIVATE
   PUBLISHED
@@ -308,6 +310,12 @@ enum PaperStatus {
   PUBLISHED
 }
 
+enum DesignStatus {
+  DRAFT
+  PRIVATE
+  PUBLISHED
+}
+
 model Tag {
   id           String  @id @default(uuid())
   name         String  @unique
@@ -320,12 +328,12 @@ model Tag {
   thoughts Thought[]
   projects Project[]
   papers   Paper[]
+  designs  Design[]
   blog     Blog      @relation(fields: [blogId], references: [id])
   blogId   String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
 }
 
 model Comment {
@@ -340,11 +348,14 @@ model Comment {
   thoughtId     String?
   post          Post?     @relation(fields: [postId], references: [id])
   postId        String?
+  design        Design?   @relation(fields: [designId], references: [id])
+  designId      String?
   images        Image[]
   language      Language
   editedAt      DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+
 }
 
 model Image {
@@ -372,6 +383,8 @@ model Image {
   projectId String?
   paper     Paper?   @relation(fields: [paperId], references: [id])
   paperId   String?
+  design    Design?  @relation(fields: [designId], references: [id])
+  designId  String?
 }
 
 model Link {
@@ -388,11 +401,31 @@ model Link {
 }
 
 model Thought {
+  id      String        @id @default(uuid())
+  content String
+  owner   User          @relation(fields: [ownerId], references: [id])
+  ownerId String
+  status  ThoughtStatus @default(DRAFT)
+
+  editedAt  DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  images    Image[]
+  comments  Comment[]
+  reactions Reaction[]
+  shares    ShareCount[]
+  tags      Tag[]
+  blog      Blog         @relation(fields: [blogId], references: [id])
+  blogId    String
+}
+
+model Design {
   id      String       @id @default(uuid())
   content String
   owner   User         @relation(fields: [ownerId], references: [id])
   ownerId String
-  status  ToughtStatus @default(DRAFT)
+  status  DesignStatus @default(DRAFT)
 
   editedAt  DateTime?
   createdAt DateTime  @default(now())
@@ -423,6 +456,8 @@ model Reaction {
   projectId String?
   paper     Paper?   @relation(fields: [paperId], references: [id])
   paperId   String?
+  design    Design?  @relation(fields: [designId], references: [id])
+  designId  String?
 }
 
 model Rating {
@@ -470,6 +505,8 @@ model ShareCount {
   postId    String?
   thought   Thought? @relation(fields: [thoughtId], references: [id])
   thoughtId String?
+  design    Design?  @relation(fields: [designId], references: [id])
+  designId  String?
 }
 
 model Translation {

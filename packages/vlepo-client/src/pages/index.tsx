@@ -1,9 +1,12 @@
 import dynamic from 'next/dynamic';
-import { usePagination, useQuery } from 'relay-hooks';
+import { useFragment, useQuery } from 'relay-hooks';
 import { fetchQuery, graphql } from 'relay-runtime';
 import { pages_Index_BlogQuery } from 'src/__generated__/pages_Index_BlogQuery.graphql';
+import { pages_Index_Posts$key } from 'src/__generated__/pages_Index_Posts.graphql';
 import { ErrorText } from 'src/components/Input';
-import { Loading } from 'src/components/PlaceHolder';
+import { Column, Row } from 'src/components/Layout/style';
+import PlaceHolder, { Loading } from 'src/components/PlaceHolder';
+import { H3 } from 'src/components/Typography';
 import { useMetaData } from 'src/hooks/useMetaData';
 import { initEnvironment } from 'src/relay';
 
@@ -32,6 +35,11 @@ const indexPostsFragment = graphql`
     }
   }
 `;
+
+const IndexSlogan = styled.h1`
+  font-size: ${(props) => props.theme.fontSizes[8]};
+`;
+
 export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext) => {
   const { environment, relaySSR } = initEnvironment(req.cookies.accessToken);
   await new Promise((resolve, reject) => {
@@ -61,39 +69,45 @@ export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext
 type PostSectionProps = {
   blog: pages_Index_Posts$key;
 };
+
 const PostsSection = (props: PostSectionProps) => {
   const { blog } = props;
 
-  const { data, hasNext } = usePagination<IndexPostRefetchQuery, pages_Index_Posts$key>(
-    indexFragmentSpec,
-    blog!,
-  );
-
-  const maybeLoadMore = useInfiniteLoader(() => hasNext && loadNext(10), {
-    isItemLoaded: (index) => (data?.postsConnection?.edges?.length ?? 0) - 1 > index,
-  });
+  const data = useFragment<pages_Index_Posts$key>(indexPostsFragment, blog!);
 
   if (!data) return <PlaceHolder />;
 
-  return (
-    <IndexRow mx={['0.3rem', '2rem', '6rem']}>
-      <IndexMasonry<ArticleCard_post$key>
-        columnWidth={350}
-        items={
-          data && data.postsConnection && data.postsConnection.edges
-            ? data.postsConnection.edges
-                .filter((e) => e !== null && e.node !== null)
-                .map((e) => e!.node!)
-            : []
-        }
-        columnGutter={20}
-        overscanBy={2}
-        render={MasonryCard}
-        onRender={maybeLoadMore}
-      />
-      {isLoadingNext && <PlaceHolder width="100%" />}
-    </IndexRow>
-  );
+  return <></>;
+};
+
+const ProjectsSection = (props: PostSectionProps) => {
+  const { blog } = props;
+
+  const data = useFragment<pages_Index_Posts$key>(indexPostsFragment, blog!);
+
+  if (!data) return <PlaceHolder />;
+
+  return <></>;
+};
+
+const PapersSection = (props: PostSectionProps) => {
+  const { blog } = props;
+
+  const data = useFragment<pages_Index_Posts$key>(indexPostsFragment, blog!);
+
+  if (!data) return <PlaceHolder />;
+
+  return <></>;
+};
+
+const DesignSection = (props: PostSectionProps) => {
+  const { blog } = props;
+
+  const data = useFragment<pages_Index_Posts$key>(indexPostsFragment, blog!);
+
+  if (!data) return <PlaceHolder />;
+
+  return <></>;
 };
 
 export default function Home() {
@@ -101,15 +115,35 @@ export default function Home() {
     id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
   });
 
-  const { subtitle } = useMetaData();
+  const { slogan } = useMetaData();
 
   if (error) {
     return <ErrorText>{error.message}</ErrorText>;
   }
 
+  if (!data || !data.blog) {
+    return <PlaceHolder />;
+  }
+
   return (
     <>
-      <h1>Test</h1>
+      <IndexSlogan>{slogan}</IndexSlogan>
+      <Column>
+        <H3>Posts</H3>
+        <PostsSection blog={data.blog} />
+      </Column>
+      <Column>
+        <H3>Papers</H3>
+        <PapersSection blog={data.blog} />
+      </Column>
+      <Row>Projects</Row>
+      <Row>
+        <ProjectsSection blog={data.blog} />
+      </Row>
+      <Row>Designs</Row>
+      <Row>
+        <DesignSection blog={data.blog} />
+      </Row>
     </>
   );
 }
