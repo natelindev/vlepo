@@ -2572,22 +2572,22 @@
   resolved "https://registry.npmjs.org/@polka/url/-/url-1.0.0-next.15.tgz#6a9d143f7f4f49db2d782f9e1c8839a29b43ae23"
   integrity sha512-15spi3V28QdevleWBNXE4pIls3nFZmBbUGrW9IVPwiQczuSb9n76TCB4bsk8TSel+I1OkHEdPhu5QKMfY6rQHA==
 
-"@prisma/client@2.25.0":
-  version "2.25.0"
-  resolved "https://registry.npmjs.org/@prisma/client/-/client-2.25.0.tgz#a81cdf93ce93128eb35298cf8935480f3da6cca3"
-  integrity sha512-JDrAJ+oemiYAwgpYNJvCVT59S9bMbqkx78q2OT54xmmBoyYWWnn6t6oS6q8gKMiKHS6rzm/jdh3sy+2E0R+NAQ==
+"@prisma/client@2.26.0":
+  version "2.26.0"
+  resolved "https://registry.npmjs.org/@prisma/client/-/client-2.26.0.tgz#a23a83bc5c931243ee20b78d9ded423e158aa4c1"
+  integrity sha512-iwhjdUV/MEQZ7RzTEcZ/D+ewxx/pGExWJ2LypfHioJIvEMyK0saPiR0tjMvMT2I2SVzrIM5dXGhBHWi2JksWrQ==
   dependencies:
-    "@prisma/engines-version" "2.25.0-36.c838e79f39885bc8e1611849b1eb28b5bb5bc922"
+    "@prisma/engines-version" "2.26.0-23.9b816b3aa13cc270074f172f30d6eda8a8ce867d"
 
-"@prisma/engines-version@2.25.0-36.c838e79f39885bc8e1611849b1eb28b5bb5bc922":
-  version "2.25.0-36.c838e79f39885bc8e1611849b1eb28b5bb5bc922"
-  resolved "https://registry.npmjs.org/@prisma/engines-version/-/engines-version-2.25.0-36.c838e79f39885bc8e1611849b1eb28b5bb5bc922.tgz#b353576a97d0c1952fd4f4201189e845aaafbea8"
-  integrity sha512-uZaonv3ZzLYAi99AooOe2BOBmb3k+ibVsJyZ5J3F6U1uFHTtTI9AVzC51mE09iNcgq3ZBt2CZNi5CDQZedMWyA==
+"@prisma/engines-version@2.26.0-23.9b816b3aa13cc270074f172f30d6eda8a8ce867d":
+  version "2.26.0-23.9b816b3aa13cc270074f172f30d6eda8a8ce867d"
+  resolved "https://registry.npmjs.org/@prisma/engines-version/-/engines-version-2.26.0-23.9b816b3aa13cc270074f172f30d6eda8a8ce867d.tgz#aa707f4496ab92ef1eaf17758274f63b86d2ff9f"
+  integrity sha512-8tygPkPxag3myF5fgNQ60zwnNSZzFf4J+DXGKykXaBLLt9W2FLkaE5sVL8/OqAGhLAnVsKj83CqPms35bKrTKw==
 
-"@prisma/engines@2.25.0-36.c838e79f39885bc8e1611849b1eb28b5bb5bc922":
-  version "2.25.0-36.c838e79f39885bc8e1611849b1eb28b5bb5bc922"
-  resolved "https://registry.npmjs.org/@prisma/engines/-/engines-2.25.0-36.c838e79f39885bc8e1611849b1eb28b5bb5bc922.tgz#68d7850d311df6d017e1b878adb19ec21483bcf0"
-  integrity sha512-vjLCk8AFRZu3D8h/SMcWDzTo0xkMuUDyXQzXekn8gzAGjb47B6LQXGR6rDoZ3/uPM13JNTLPvF62mtVaY6fVeQ==
+"@prisma/engines@2.26.0-23.9b816b3aa13cc270074f172f30d6eda8a8ce867d":
+  version "2.26.0-23.9b816b3aa13cc270074f172f30d6eda8a8ce867d"
+  resolved "https://registry.npmjs.org/@prisma/engines/-/engines-2.26.0-23.9b816b3aa13cc270074f172f30d6eda8a8ce867d.tgz#cfdacfad3acc0f3bf1d7710aa8f3852fd85ac6d9"
+  integrity sha512-a0jIhLvw9rFh6nZTr5Y3uzP28I2xNDu3pqxANvwMNnmIoYr1wYEcO1pMXn/36BGXldDdAWMmAbhfloHA3IB8DA==
 
 "@react-hook/debounce@^3.0.0":
   version "3.0.0"
@@ -5274,14 +5274,6 @@ dateformat@^3.0.0:
   version "3.0.3"
   resolved "https://registry.npmjs.org/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
-
-dateformat@~1.0.4-1.2.3:
-  version "1.0.12"
-  resolved "https://registry.npmjs.org/dateformat/-/dateformat-1.0.12.tgz#9f124b67594c937ff706932e4a642cca8dbbfee9"
-  integrity sha1-nxJLZ1lMk3/3BpMuSmQsyo27/uk=
-  dependencies:
-    get-stdin "^4.0.1"
-    meow "^3.3.0"
 
 debounce@^1.2.0:
   version "1.2.1"
@@ -9979,12 +9971,12 @@ prism-react-renderer@1.2.1:
   resolved "https://registry.npmjs.org/prism-react-renderer/-/prism-react-renderer-1.2.1.tgz#392460acf63540960e5e3caa699d851264e99b89"
   integrity sha512-w23ch4f75V1Tnz8DajsYKvY5lF7H1+WvzvLUcF0paFxkTHSp42RS0H5CttdN2Q8RR3DRGZ9v5xD/h3n8C8kGmg==
 
-prisma@2.25.0:
-  version "2.25.0"
-  resolved "https://registry.npmjs.org/prisma/-/prisma-2.25.0.tgz#1ebfef3e945a22c673b3e3c5100f098da475700d"
-  integrity sha512-AdAlP+PShvugljIx62Omu+eLKu6Cozz06dehmClIHSb0/yFiVnyBtrRVV4LZus+QX6Ayg7CTDvtzroACAWl+Zw==
+prisma@2.26.0:
+  version "2.26.0"
+  resolved "https://registry.npmjs.org/prisma/-/prisma-2.26.0.tgz#48f7b8fa166900ae20f2383da711ac8712a56b86"
+  integrity sha512-MXTQlF8X9mabkdTRb9x5nF6jvo1kT85d9hqIpYjLLZy+5tlvEaCaLBj+ok8GINdfYBS7gwQERZ9MHx0tb5dCdg==
   dependencies:
-    "@prisma/engines" "2.25.0-36.c838e79f39885bc8e1611849b1eb28b5bb5bc922"
+    "@prisma/engines" "2.26.0-23.9b816b3aa13cc270074f172f30d6eda8a8ce867d"
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
@@ -11839,13 +11831,12 @@ ts-log@^2.2.3:
   resolved "https://registry.npmjs.org/ts-log/-/ts-log-2.2.3.tgz#4da5640fe25a9fb52642cd32391c886721318efb"
   integrity sha512-XvB+OdKSJ708Dmf9ore4Uf/q62AYDTzFcAdxc8KNML1mmAWywRFVt/dn1KYJH8Agt5UJNujfM3znU5PxgAzA2w==
 
-ts-node-dev@1.1.6:
-  version "1.1.6"
-  resolved "https://registry.npmjs.org/ts-node-dev/-/ts-node-dev-1.1.6.tgz#ee2113718cb5a92c1c8f4229123ad6afbeba01f8"
-  integrity sha512-RTUi7mHMNQospArGz07KiraQcdgUVNXKsgO2HAi7FoiyPMdTDqdniB6K1dqyaIxT7c9v/VpSbfBZPS6uVpaFLQ==
+ts-node-dev@1.1.7:
+  version "1.1.7"
+  resolved "https://registry.npmjs.org/ts-node-dev/-/ts-node-dev-1.1.7.tgz#f157c25235e86a9e8ce3470b1ec04b89bacd90ff"
+  integrity sha512-/YvByJdIw/p88RXmaRB3Kkk+PiUP7g/EAbBvQjDIG+kkm0CMvhdHSB21yEiws22Uls4uFAfCiuEZM4929yjWjg==
   dependencies:
     chokidar "^3.5.1"
-    dateformat "~1.0.4-1.2.3"
     dynamic-dedupe "^0.3.0"
     minimist "^1.2.5"
     mkdirp "^1.0.4"
