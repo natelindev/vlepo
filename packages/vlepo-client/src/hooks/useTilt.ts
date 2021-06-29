@@ -7,6 +7,7 @@ type Params = {
   mass?: number;
   tension?: number;
   friction?: number;
+  zoom?: number;
 };
 export const useTilt = <T = HTMLElement>(
   params: Params,
@@ -28,7 +29,7 @@ export const useTilt = <T = HTMLElement>(
     };
   },
 ] => {
-  const { ref, scale = 200, mass = 10, tension = 400, friction = 40 } = params;
+  const { ref, scale = 200, mass = 10, tension = 400, friction = 40, zoom = 1.05 } = params;
   const tiltRef = useRef<HTMLElement & T>(null);
 
   const calc = useCallback((x: number, y: number) => {
@@ -40,7 +41,7 @@ export const useTilt = <T = HTMLElement>(
       x: window.innerWidth / 2,
       y: window.innerHeight / 2,
     };
-    return [-(y - rect.top) / rect.height, (x - rect.left) / rect.width, 1.03];
+    return [-(y - rect.top) / rect.height, (x - rect.left) / rect.width, zoom];
   }, []);
   const trans = (x: number, y: number, s: number) =>
     `perspective(${scale}px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
