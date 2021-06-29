@@ -15,7 +15,7 @@ import styled from '@emotion/styled';
 
 import type { GetServerSidePropsContext } from 'next';
 
-const ArticleCard = dynamic(() => import('src/components/ArticleCard'), { loading: Loading });
+const IndexPostCard = dynamic(() => import('src/components/IndexPostCard'), { loading: Loading });
 
 const blogQuery = graphql`
   query pages_Index_BlogQuery($id: String!) {
@@ -27,11 +27,12 @@ const blogQuery = graphql`
 
 const indexPostsFragment = graphql`
   fragment pages_Index_Posts on Blog {
-    postsConnection(first: 5) @connection(key: "Index_postsConnection") {
+    postsConnection(first: 5, orderBy: { key: "createdAt", order: desc })
+      @connection(key: "Index_postsConnection") {
       edges {
         node {
           id
-          ...ArticleCard_post
+          ...IndexPostCard_post
         }
       }
     }
@@ -90,7 +91,7 @@ type PostSectionProps = {
 
 const IndexPostRow = styled.div`
   display: flex;
-  height: 18rem;
+  height: 20rem;
   margin-top: 0.5rem;
   margin-bottom: 2rem;
 `;
@@ -113,10 +114,10 @@ const PostsSection = (props: PostSectionProps) => {
         (e) =>
           e &&
           e.node && (
-            <ArticleCard
+            <IndexPostCard
               mr="1rem"
               showProfile={false}
-              width="18rem"
+              width="20rem"
               key={e.node.id}
               post={e.node}
             />
