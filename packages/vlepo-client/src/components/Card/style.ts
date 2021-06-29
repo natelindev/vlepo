@@ -9,6 +9,7 @@ import {
   MarginProps,
   padding,
   PaddingProps,
+  TextShadowProps,
   width,
   WidthProps,
 } from 'styled-system';
@@ -17,16 +18,20 @@ import { match } from 'ts-pattern';
 import styled from '@emotion/styled';
 
 export type CardImgProps = {
-  variant: 'top' | 'left' | 'right' | 'bottom';
+  variant?: 'top' | 'left' | 'right' | 'bottom';
 };
-export const CardImage = styled(Image)<CardImgProps>`
+
+export const CardImage = styled(Image)<CardImgProps & TextShadowProps>`
   border-radius: ${(props) =>
     match(props.variant)
       .with('top', () => `${props.theme.radii.default}px ${props.theme.radii.default}px 0 0`)
       .with('bottom', () => `0 0 ${props.theme.radii.default}px ${props.theme.radii.default}px`)
       .with('left', () => `${props.theme.radii.default}px 0 0 ${props.theme.radii.default}px`)
       .with('right', () => `0 ${props.theme.radii.default}px ${props.theme.radii.default}px 0`)
-      .run()};
+      .otherwise(
+        () =>
+          `${props.theme.radii.default}px ${props.theme.radii.default}px ${props.theme.radii.default}px ${props.theme.radii.default}px`,
+      )};
 `;
 
 type BaseCardProps = { direction?: string } & WidthProps &
