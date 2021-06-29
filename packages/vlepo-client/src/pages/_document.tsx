@@ -11,7 +11,7 @@ class CustomDocument extends Document {
       <Html lang="en">
         <Head>
           <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Titillium+Web:wght@300;400;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Roboto&family=Poppins:wght@400;700&display=swap"
             rel="stylesheet"
           />
           <link rel="icon" href="/favicon.ico" />

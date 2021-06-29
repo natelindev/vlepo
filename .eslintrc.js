@@ -95,5 +95,7 @@ module.exports = {
     // needed for interface merging
     '@typescript-eslint/no-empty-interface': 'off',
     'relay/generated-flow-types': 'off',
+    // typescript covered
+    'react/prop-types': 'off',
   },
 };

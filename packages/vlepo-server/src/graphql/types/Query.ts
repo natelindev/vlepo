@@ -2,7 +2,7 @@ import { inputObjectType, nonNull, queryField } from 'nexus';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 
-import { OAuthCheckScope, OAuthResolve } from '../../oauth2/nexus';
+import { OAuthCheckScope } from '../../oauth2/nexus';
 import { fromGlobalId } from '../plugins/relayGlobalId';
 import { connectionArgsValidator, orderByArgs } from '../util/connectionArgsValidator';
 import { Blog } from './Blog';
@@ -76,7 +76,7 @@ export const Query = queryField((t) => {
   });
 
   t.crud.post();
-  t.crud.tag(OAuthResolve('tag'));
+  t.crud.tag();
   t.crud.comment();
   t.crud.image();
   t.crud.link();

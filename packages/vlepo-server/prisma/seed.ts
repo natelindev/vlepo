@@ -2,10 +2,10 @@
 import argon2 from 'argon2';
 import cryptoRandomString from 'crypto-random-string';
 import debugInit from 'debug';
-import { image, lorem, name } from 'faker';
+import { lorem, name } from 'faker';
 import meow from 'meow';
 
-import { OAuthGrant, PostStatus, PrismaClient } from '@prisma/client';
+import { OAuthGrant, PrismaClient, Visibility } from '@prisma/client';
 import { OAuthConsts } from '@vlepo/shared';
 
 import { genPostSlug } from '../src/util/genPostSlug';
@@ -174,7 +174,7 @@ const seedBD = async (prisma: PrismaClient) => {
         return {
           title,
           content: lorem.paragraphs(5),
-          status: PostStatus.PUBLISHED,
+          visibility: Visibility.PUBLISHED,
           ownerId: admin.id,
           blogId: defaultBlog.id,
           slug: genPostSlug(title),

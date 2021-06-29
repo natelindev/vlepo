@@ -81,7 +81,7 @@ export const Blog = objectType({
     t.model.links();
     t.model.papers();
     t.model.projects();
-    t.model.subtitle();
+    t.model.slogan();
 
     t.connectionField('postsConnection', {
       type: Post,
@@ -99,13 +99,13 @@ export const Blog = objectType({
                       ownerId: u.id,
                     },
                     {
-                      status: 'PUBLISHED' as const,
+                      visibility: 'PUBLISHED' as const,
                     },
                   ],
                 };
               })
               .with(undefined, () => ({
-                status: 'PUBLISHED' as const,
+                visibility: 'PUBLISHED' as const,
               }))
               .run(),
           },

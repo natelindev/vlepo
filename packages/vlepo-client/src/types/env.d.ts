@@ -9,7 +9,7 @@ declare global {
       NEXT_PUBLIC_ALGOLIA_API_KEY: string;
       NEXT_PUBLIC_ALGOLIA_INDEX_NAME: string;
       NEXT_PUBLIC_DEFAULT_BLOG_NAME: string;
-      NEXT_PUBLIC_DEFAULT_BLOG_SUBTITLE: string;
+      NEXT_PUBLIC_DEFAULT_BLOG_SLOGAN: string;
       PORT: string;
     }
   }
