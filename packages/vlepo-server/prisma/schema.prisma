@@ -4,7 +4,8 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["nApi"]
 }
 
 enum Language {
@@ -195,9 +196,9 @@ enum Language {
 }
 
 model Blog {
-  id       String  @id @default(uuid())
-  name     String?
-  subtitle String?
+  id     String  @id @default(uuid())
+  name   String?
+  slogan String?
 
   owner   User   @relation(fields: [ownerId], references: [id])
   ownerId String
@@ -213,6 +214,7 @@ model Blog {
   papers   Paper[]
   tags     Tag[]
   links    Link[]
+  designs  Design[]
 }
 
 model UserRole {
@@ -248,6 +250,7 @@ model User {
   comments  Comment[]
   images    Image[]
   thoughts  Thought[]
+  designs   Design[]
   provider  OAuthProviders?
   openid    String?
   createdAt DateTime        @default(now())
@@ -263,7 +266,7 @@ model Post {
   id             String     @id @default(uuid())
   ownerId        String
   content        String
-  status         PostStatus @default(DRAFT)
+  visibility     Visibility @default(DRAFT)
   title          String
   slug           String     @unique
   headerImageUrl String?
@@ -284,28 +287,12 @@ model Post {
   blogId     String
 }
 
-enum PostStatus {
+enum Visibility {
   DRAFT
   PRIVATE
   PUBLISHED
-}
 
-enum ToughtStatus {
-  DRAFT
-  PRIVATE
-  PUBLISHED
-}
-
-enum ProjectStatus {
-  DRAFT
-  PRIVATE
-  PUBLISHED
-}
-
-enum PaperStatus {
-  DRAFT
-  PRIVATE
-  PUBLISHED
+  @@map("visibility")
 }
 
 model Tag {
@@ -320,12 +307,12 @@ model Tag {
   thoughts Thought[]
   projects Project[]
   papers   Paper[]
+  designs  Design[]
   blog     Blog      @relation(fields: [blogId], references: [id])
   blogId   String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
 }
 
 model Comment {
@@ -340,11 +327,14 @@ model Comment {
   thoughtId     String?
   post          Post?     @relation(fields: [postId], references: [id])
   postId        String?
+  design        Design?   @relation(fields: [designId], references: [id])
+  designId      String?
   images        Image[]
   language      Language
   editedAt      DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+
 }
 
 model Image {
@@ -372,6 +362,8 @@ model Image {
   projectId String?
   paper     Paper?   @relation(fields: [paperId], references: [id])
   paperId   String?
+  design    Design?  @relation(fields: [designId], references: [id])
+  designId  String?
 }
 
 model Link {
@@ -384,15 +376,33 @@ model Link {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
 }
 
 model Thought {
-  id      String       @id @default(uuid())
-  content String
-  owner   User         @relation(fields: [ownerId], references: [id])
-  ownerId String
-  status  ToughtStatus @default(DRAFT)
+  id         String     @id @default(uuid())
+  content    String
+  owner      User       @relation(fields: [ownerId], references: [id])
+  ownerId    String
+  visibility Visibility @default(DRAFT)
+  editedAt   DateTime?
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  images    Image[]
+  comments  Comment[]
+  reactions Reaction[]
+  shares    ShareCount[]
+  tags      Tag[]
+  blog      Blog         @relation(fields: [blogId], references: [id])
+  blogId    String
+}
+
+model Design {
+  id         String     @id @default(uuid())
+  content    String
+  owner      User       @relation(fields: [ownerId], references: [id])
+  ownerId    String
+  visibility Visibility @default(DRAFT)
 
   editedAt  DateTime?
   createdAt DateTime  @default(now())
@@ -423,6 +433,8 @@ model Reaction {
   projectId String?
   paper     Paper?   @relation(fields: [paperId], references: [id])
   paperId   String?
+  design    Design?  @relation(fields: [designId], references: [id])
+  designId  String?
 }
 
 model Rating {
@@ -446,7 +458,7 @@ enum TranslationType {
   THOUGHT
   TAG
   USER
-  USERROLE
+  USER_ROLE
   PROJECT
   PAPER
 }
@@ -470,6 +482,8 @@ model ShareCount {
   postId    String?
   thought   Thought? @relation(fields: [thoughtId], references: [id])
   thoughtId String?
+  design    Design?  @relation(fields: [designId], references: [id])
+  designId  String?
 }
 
 model Translation {
@@ -485,11 +499,11 @@ model Translation {
 }
 
 model Project {
-  id             String        @id @default(uuid())
+  id             String     @id @default(uuid())
   name           String
   content        String
   headerImageUrl String?
-  status         ProjectStatus @default(DRAFT)
+  visibility     Visibility @default(DRAFT)
   url            String?
   tags           Tag[]
   images         Image[]
@@ -504,10 +518,10 @@ model Project {
 }
 
 model Paper {
-  id             String      @id @default(uuid())
+  id             String     @id @default(uuid())
   name           String
   content        String
-  status         PaperStatus @default(DRAFT)
+  visibility     Visibility @default(DRAFT)
   url            String?
   tags           Tag[]
   headerImageUrl String?

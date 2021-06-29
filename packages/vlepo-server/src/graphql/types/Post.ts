@@ -12,10 +12,11 @@ import readingTime from 'reading-time';
 import remark from 'remark';
 import mdx from 'remark-mdx';
 import strip from 'remark-mdx-to-plain-text';
+import { DBComment, DBTag } from 'src/types/db';
 import { __, match } from 'ts-pattern';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
-import { PostStatus as DBPostStatus } from '@prisma/client';
+import { Visibility as DBVisibility } from '@prisma/client';
 
 import { OAuthCheckScope } from '../../oauth2/nexus';
 import { genPostSlug } from '../../util/genPostSlug';
@@ -27,8 +28,6 @@ import { Reaction } from './Reaction';
 import { Void } from './Scalars';
 import { ShareCount } from './ShareCount';
 import { createTagInput, Tag } from './Tag';
-
-import type { DBComment, DBTag } from 'src/types/db';
 
 export const Post = objectType({
   name: 'Post',
@@ -52,7 +51,7 @@ export const Post = objectType({
     t.model.reactions();
     t.model.minuteRead();
     t.model.tags();
-    t.model.status();
+    t.model.visibility();
     t.model.images();
     t.model.editedAt();
     t.model.createdAt();
@@ -213,9 +212,9 @@ export const Post = objectType({
   },
 });
 
-export const PostStatus = enumType({
-  name: 'PostStatus',
-  members: Object.values(DBPostStatus),
+export const Visibility = enumType({
+  name: 'Visibility',
+  members: Object.values(DBVisibility),
 });
 
 export const createPostInput = inputObjectType({
@@ -226,7 +225,7 @@ export const createPostInput = inputObjectType({
     t.field('tags', { type: list(nonNull(createTagInput)) });
     t.field('images', { type: list(nonNull(createImageInput)) });
     t.nonNull.string('content');
-    t.nonNull.field('status', { type: PostStatus });
+    t.nonNull.field('visibility', { type: Visibility });
   },
 });
 
@@ -314,7 +313,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
               url: i.url,
             })),
         },
-        status: createPostInput.status,
+        visibility: createPostInput.visibility,
         title: createPostInput.title,
         slug: genPostSlug(createPostInput.title),
         content: createPostInput.content,
@@ -324,7 +323,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
     });
 
     // only index published posts
-    if (post.status === DBPostStatus.PUBLISHED) {
+    if (post.visibility === DBVisibility.PUBLISHED) {
       ctx.searchIndex.saveObject({
         objectID: post.id,
         ...post,

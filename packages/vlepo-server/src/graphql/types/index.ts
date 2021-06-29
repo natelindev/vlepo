@@ -19,3 +19,4 @@ export * as Login from './Login';
 export * as Node from './Node';
 export * as Scalars from './Scalars';
 export * as Viewer from './Viewer';
+export * as Design from './Design';

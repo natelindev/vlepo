@@ -6,6 +6,7 @@ import { PaperCard_paper$key } from 'src/__generated__/PaperCard_paper.graphql';
 import { AnimatedExternalLink } from 'src/components/Link';
 import mdxComponents from 'src/components/MDXComponents';
 import Tag from 'src/components/Tag';
+import { useTilt } from 'src/hooks/useTilt';
 
 import styled from '@emotion/styled';
 
@@ -60,6 +61,12 @@ const PaperCard = (props: PaperCardProps) => {
   const { paper: fullPaper } = props;
   const paper = useFragment(PaperFragment, fullPaper);
 
+  const [ref, styles] = useTilt<HTMLDivElement>({
+    scale: 400,
+    mass: 10,
+    tension: 200,
+  });
+
   if (!paper) {
     return <PlaceHolder />;
   }
@@ -68,7 +75,7 @@ const PaperCard = (props: PaperCardProps) => {
   const createDate = parseISO(createdAt);
 
   return (
-    <BasePaperCard>
+    <BasePaperCard ref={ref} {...styles}>
       {compareAsc(new Date(), addDays(createDate, 1)) === -1 && (
         <Row height="0">
           <Badge height="1.2rem" variant="accent" mt="-0.5rem" ml="auto" mr="-0.5rem">

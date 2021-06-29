@@ -14,4 +14,5 @@ export type {
   Translation as DBTranslation,
   Project as DBProject,
   Paper as DBPaper,
+  Design as DBDesign,
 } from '@prisma/client';

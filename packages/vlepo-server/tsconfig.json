@@ -6,8 +6,7 @@
     "declaration": false,
     "resolveJsonModule": true,
     "baseUrl": ".",
-    "noImplicitThis": true,
-    "typeRoots": ["node_modules/@types", "src/types"]
+    "noImplicitThis": true
   },
   "lib": ["esnext"],
   "include": ["src"],

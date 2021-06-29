@@ -7,20 +7,20 @@ export const MetaDataContext = React.createContext<
   | {
       title?: string | null | undefined;
       setTitle?: React.Dispatch<React.SetStateAction<string | undefined | null>>;
-      subtitle?: string | null | undefined;
-      setSubtitle?: React.Dispatch<React.SetStateAction<string | undefined | null>>;
+      slogan?: string | null | undefined;
+      setSlogan?: React.Dispatch<React.SetStateAction<string | undefined | null>>;
     }
   | Record<string, never>
 >({
   title: process.env.NEXT_PUBLIC_DEFAULT_BLOG_NAME,
-  subtitle: process.env.NEXT_PUBLIC_DEFAULT_BLOG_SUBTITLE,
+  slogan: process.env.NEXT_PUBLIC_DEFAULT_BLOG_SLOGAN,
 });
 
 const blogQuery = graphql`
   query useMetaData_BlogQuery($id: String!) {
     blog(where: { id: $id }) {
       name
-      subtitle
+      slogan
     }
   }
 `;
@@ -30,12 +30,12 @@ export const useMetaData = () => {
     id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
   });
 
-  const { title, subtitle, setTitle, setSubtitle } = useContext(MetaDataContext);
+  const { title, slogan, setTitle, setSlogan } = useContext(MetaDataContext);
 
   useEffect(() => {
     setTitle?.(data?.blog?.name ?? process.env.NEXT_PUBLIC_DEFAULT_BLOG_NAME);
-    setSubtitle?.(data?.blog?.subtitle ?? process.env.NEXT_PUBLIC_DEFAULT_BLOG_SUBTITLE);
-  }, [data?.blog, setTitle, setSubtitle]);
+    setSlogan?.(data?.blog?.slogan ?? process.env.NEXT_PUBLIC_DEFAULT_BLOG_SLOGAN);
+  }, [data?.blog, setTitle, setSlogan]);
 
-  return { title, subtitle, setTitle, setSubtitle };
+  return { title, slogan, setTitle, setSlogan };
 };

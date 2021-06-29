@@ -20,6 +20,7 @@ export const Project = objectType({
         return JSON.stringify(await serialize(content));
       },
     });
+    t.model.visibility();
     t.model.url();
     t.model.headerImageUrl();
     t.model.tags();

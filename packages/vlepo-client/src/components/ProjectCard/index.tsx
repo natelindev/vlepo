@@ -5,6 +5,7 @@ import { graphql } from 'relay-runtime';
 import { ProjectCard_project$key } from 'src/__generated__/ProjectCard_project.graphql';
 import mdxComponents from 'src/components/MDXComponents';
 import Tag from 'src/components/Tag';
+import { useTilt } from 'src/hooks/useTilt';
 
 import styled from '@emotion/styled';
 
@@ -58,6 +59,11 @@ export type ProjectCardProps = { project: ProjectCard_project$key | null };
 const ProjectCard = (props: ProjectCardProps) => {
   const { project: fullProject } = props;
   const project = useFragment(ProjectFragment, fullProject);
+  const [ref, styles] = useTilt<HTMLDivElement>({
+    scale: 400,
+    mass: 10,
+    tension: 200,
+  });
 
   if (!project) {
     return <PlaceHolder />;
@@ -67,7 +73,7 @@ const ProjectCard = (props: ProjectCardProps) => {
   const createDate = parseISO(createdAt);
 
   return (
-    <BaseProjectCard>
+    <BaseProjectCard ref={ref} {...styles}>
       {compareAsc(new Date(), addDays(createDate, 1)) === -1 && (
         <Row height="0">
           <Badge height="1.2rem" variant="accent" mt="-0.5rem" ml="auto" mr="-0.5rem">
