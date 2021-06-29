@@ -76,6 +76,7 @@ const Navbar: React.FC = () => {
               <TogglerBar key={key} style={styles} />
             ))}
           </NavbarToggler>
+          <NavLink href="/posts">Posts</NavLink>
           <NavLink href="/projects">Projects</NavLink>
           <NavLink href="/papers">Papers</NavLink>
           <NavLink href="/about">About</NavLink>
@@ -104,6 +105,7 @@ const Navbar: React.FC = () => {
         </Link>
         <LeftNavCollapse display={['none', 'none', 'block']}>
           <NavbarNav>
+            <NavLink href="/posts">Posts</NavLink>
             <NavLink href="/projects">Projects</NavLink>
             <NavLink href="/papers">Papers</NavLink>
             <NavLink href="/about">About</NavLink>
