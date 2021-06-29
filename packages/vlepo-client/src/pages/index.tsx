@@ -7,7 +7,7 @@ import { pages_Index_Posts$key } from 'src/__generated__/pages_Index_Posts.graph
 import { pages_Index_Projects$key } from 'src/__generated__/pages_Index_Projects.graphql';
 import Card from 'src/components/Card';
 import { ErrorText } from 'src/components/Input';
-import { Column, Row } from 'src/components/Layout/style';
+import { Row } from 'src/components/Layout/style';
 import PlaceHolder, { Loading } from 'src/components/PlaceHolder';
 import { H2, H3 } from 'src/components/Typography';
 import { useMetaData } from 'src/hooks/useMetaData';
