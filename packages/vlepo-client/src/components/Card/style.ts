@@ -9,7 +9,6 @@ import {
   MarginProps,
   padding,
   PaddingProps,
-  TextShadowProps,
   width,
   WidthProps,
 } from 'styled-system';
@@ -21,7 +20,7 @@ export type CardImgProps = {
   variant?: 'top' | 'left' | 'right' | 'bottom';
 };
 
-export const CardImage = styled(Image)<CardImgProps & TextShadowProps>`
+export const CardImage = styled(Image)<CardImgProps>`
   border-radius: ${(props) =>
     match(props.variant)
       .with('top', () => `${props.theme.radii.default}px ${props.theme.radii.default}px 0 0`)

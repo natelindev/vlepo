@@ -1,33 +1,32 @@
 import { graphql, useFragment } from 'relay-hooks';
-import { IndexPostCard_post$key } from 'src/__generated__/IndexPostCard_post.graphql';
+import { IndexProjectCard_project$key } from 'src/__generated__/IndexProjectCard_project.graphql';
 import { CardBody, CardImage } from 'src/components/Card/style';
 import { Row } from 'src/components/Layout/style';
 import { HeightProps, MarginProps, WidthProps } from 'styled-system';
 
-import { Abstract, BasePostCard, IndexImageOverlay, PostCardTitle } from './style';
+import { BasePostCard, IndexImageOverlay, PostCardTitle } from './style';
 
 export type ArticleCardProps = {
-  post: IndexPostCard_post$key;
+  project: IndexProjectCard_project$key;
 } & MarginProps &
   WidthProps &
   HeightProps;
 
-const indexPostCardFragment = graphql`
-  fragment IndexPostCard_post on Post {
-    title
-    slug
-    abstract
+const indexProjectCardFragment = graphql`
+  fragment IndexProjectCard_project on Project {
+    name
+    url
     headerImageUrl
   }
 `;
 
-const IndexPostCard = (props: ArticleCardProps) => {
-  const { post: fullPost, ...rest } = props;
-  const post = useFragment(indexPostCardFragment, fullPost);
-  const { title, headerImageUrl, abstract, slug } = post;
+const IndexProjectCard = (props: ArticleCardProps) => {
+  const { project: fullProject, ...rest } = props;
+  const project = useFragment(indexProjectCardFragment, fullProject);
+  const { name, headerImageUrl, url } = project;
 
   return (
-    <BasePostCard {...rest} href={`/posts/${slug}`}>
+    <BasePostCard external {...rest} href={`${url}`}>
       {headerImageUrl && (
         <>
           <CardImage
@@ -36,23 +35,22 @@ const IndexPostCard = (props: ArticleCardProps) => {
             width={200}
             objectFit="cover"
             src={headerImageUrl}
-            alt={title}
+            alt={name}
           />
         </>
       )}
 
       <IndexImageOverlay textShadow={headerImageUrl ? 'rgba(0,0,0, 0.3) 0 0 8px' : 'none'}>
         <CardBody>
-          {title && (
+          {name && (
             <Row>
-              <PostCardTitle mr="0.5rem">{title}</PostCardTitle>
+              <PostCardTitle mr="0.5rem">{name}</PostCardTitle>
             </Row>
           )}
-          {abstract && <Abstract>{abstract}</Abstract>}
         </CardBody>
       </IndexImageOverlay>
     </BasePostCard>
   );
 };
 
-export default IndexPostCard;
+export default IndexProjectCard;

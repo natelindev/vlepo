@@ -80,7 +80,7 @@ export const Transparent = styled.div`
   position: relative;
 `;
 
-type ImageOverlayProps = PaddingProps & MarginProps & FlexboxProps;
+type ImageOverlayProps = PaddingProps & MarginProps & FlexboxProps & TextShadowProps;
 export const ImageOverlay = styled.div<ImageOverlayProps>`
   position: absolute;
   top: 0;
@@ -93,4 +93,5 @@ export const ImageOverlay = styled.div<ImageOverlayProps>`
   ${padding}
   ${margin}
   ${flexbox}
+  ${textShadow}
 `;

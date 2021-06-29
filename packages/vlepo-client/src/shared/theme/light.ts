@@ -32,7 +32,7 @@ export const lightTheme = {
   },
   filter: {
     headerImage: 'brightness(70%) saturate(110%)',
-    cardImage: 'brightness(90%) saturate(105%)',
+    cardImage: 'brightness(85%) saturate(100%)',
   },
   ...shared,
 };
