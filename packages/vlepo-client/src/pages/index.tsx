@@ -16,7 +16,22 @@ import PlaceHolder, { Loading } from 'src/components/PlaceHolder';
 import { H2, H3 } from 'src/components/Typography';
 import { useMetaData } from 'src/hooks/useMetaData';
 import { initEnvironment } from 'src/relay';
-import { fontSize, FontSizeProps, height, HeightProps } from 'styled-system';
+import {
+  flexDirection,
+  FlexDirectionProps,
+  fontSize,
+  FontSizeProps,
+  height,
+  HeightProps,
+  margin,
+  MarginProps,
+  minHeight,
+  MinHeightProps,
+  minWidth,
+  MinWidthProps,
+  width,
+  WidthProps,
+} from 'styled-system';
 
 import { East } from '@emotion-icons/material-outlined';
 import styled from '@emotion/styled';
@@ -97,11 +112,11 @@ const IndexSlogan = styled.h1<FontSizeProps>`
   ${fontSize}
 `;
 
-export const BasePage = styled.div`
+export const BasePage = styled.div<MarginProps>`
   display: flex;
 
   flex-direction: column;
-  padding: 5rem;
+  ${margin}
 `;
 
 export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext) => {
@@ -130,9 +145,8 @@ export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext
   };
 };
 
-const IndexCardRow = styled.div`
+const IndexCardRow = styled.div<FlexDirectionProps & HeightProps>`
   display: flex;
-  height: 22rem;
   width: calc(100% + 2rem);
   margin-top: 0.5rem;
   margin-bottom: 2rem;
@@ -146,6 +160,8 @@ const IndexCardRow = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+  ${flexDirection}
+  ${height}
 `;
 
 const IndexViewAllArrow = styled(East)`
@@ -156,11 +172,15 @@ const IndexViewAllArrow = styled(East)`
   transition: all 0.3s ease-in-out;
 `;
 
-const IndexViewAllCard = styled(Card)`
-  height: 20rem;
-  width: 20rem;
-  min-height: 20rem;
-  min-width: 20rem;
+const IndexViewAllCard = styled(Card)<
+  HeightProps & WidthProps & MinHeightProps & MinWidthProps & MarginProps
+>`
+  ${height}
+  ${width}
+  ${minHeight}
+  ${minWidth}
+
+  ${margin}
 
   &:hover {
     ${IndexViewAllArrow} {
@@ -172,30 +192,36 @@ const IndexViewAllCard = styled(Card)`
 
 type PostSectionProps = {
   blog: pages_Index_Posts$key;
-};
+} & React.ComponentProps<typeof IndexCardRow>;
 
 const PostsSection = (props: PostSectionProps) => {
-  const { blog } = props;
+  const { blog, ...rest } = props;
 
   const data = useFragment<pages_Index_Posts$key>(indexPostsFragment, blog!);
 
   if (!data || !data.postsConnection)
     return (
-      <IndexCardRow>
+      <IndexCardRow height={['auto', '22rem']}>
         <PlaceHolder />
       </IndexCardRow>
     );
 
   return (
-    <IndexCardRow>
+    <IndexCardRow height={['auto', '22rem']} {...rest}>
       {data.postsConnection.edges?.map(
         (e) =>
           e &&
           e.node && (
-            <IndexPostCard mr="1rem" height="20rem" width="20rem" key={e.node.id} post={e.node} />
+            <IndexPostCard
+              mr="1rem"
+              height={['10rem', '20rem']}
+              width="20rem"
+              key={e.node.id}
+              post={e.node}
+            />
           ),
       ) ?? null}
-      <IndexViewAllCard href="/posts">
+      <IndexViewAllCard height={['10rem', '20rem']} width="20rem" mr="1rem" href="/posts">
         <H3 ml="4.5rem" my="auto">
           View all Posts
         </H3>
@@ -207,36 +233,36 @@ const PostsSection = (props: PostSectionProps) => {
 
 type ProjectSectionProps = {
   blog: pages_Index_Projects$key;
-};
+} & React.ComponentProps<typeof IndexCardRow>;
 
 const ProjectsSection = (props: ProjectSectionProps) => {
-  const { blog } = props;
+  const { blog, ...rest } = props;
 
   const data = useFragment<pages_Index_Projects$key>(indexProjectsFragment, blog!);
 
   if (!data || !data.projectsConnection)
     return (
-      <IndexCardRow>
+      <IndexCardRow height={['auto', '22rem']}>
         <PlaceHolder />
       </IndexCardRow>
     );
 
   return (
-    <IndexCardRow>
+    <IndexCardRow height={['auto', '22rem']} {...rest}>
       {data.projectsConnection.edges?.map(
         (e) =>
           e &&
           e.node && (
             <IndexProjectCard
               mr="1rem"
-              height="20rem"
+              height={['10rem', '20rem']}
               width="20rem"
               key={e.node.id}
               project={e.node}
             />
           ),
       ) ?? null}
-      <IndexViewAllCard href="/projects">
+      <IndexViewAllCard height={['10rem', '20rem']} width="20rem" mr="1rem" href="/projects">
         <H3 ml="3rem" my="auto">
           View all Projects
         </H3>
@@ -248,24 +274,30 @@ const ProjectsSection = (props: ProjectSectionProps) => {
 
 type PaperSectionProps = {
   blog: pages_Index_Papers$key;
-};
+} & React.ComponentProps<typeof IndexCardRow>;
 const PapersSection = (props: PaperSectionProps) => {
-  const { blog } = props;
+  const { blog, ...rest } = props;
 
   const data = useFragment<pages_Index_Papers$key>(indexPapersFragment, blog!);
 
   if (!data || !data.papersConnection) return <PlaceHolder />;
 
   return (
-    <IndexCardRow>
+    <IndexCardRow height={['auto', '22rem']} {...rest}>
       {data.papersConnection.edges?.map(
         (e) =>
           e &&
           e.node && (
-            <IndexPaperCard mr="1rem" height="20rem" width="20rem" key={e.node.id} paper={e.node} />
+            <IndexPaperCard
+              mr="1rem"
+              height={['10rem', '20rem']}
+              width="20rem"
+              key={e.node.id}
+              paper={e.node}
+            />
           ),
       ) ?? null}
-      <IndexViewAllCard href="/papers">
+      <IndexViewAllCard height={['10rem', '20rem']} width="20rem" mr="1rem" href="/papers">
         <H3 ml="4rem" my="auto">
           View all Papers
         </H3>
@@ -296,7 +328,7 @@ export default function Home() {
   }
 
   return (
-    <BasePage>
+    <BasePage mx={['0', '3rem', '5rem']}>
       <IndexSlogan fontSize={[5, 6, 6, 7]}>{slogan}</IndexSlogan>
       <ClientOnly>
         <CanvasContainer height={['300px', '400px', '500px']}>
@@ -320,24 +352,18 @@ export default function Home() {
           </Canvas>
         </CanvasContainer>
       </ClientOnly>
-      <Row>
+      <Row ml={['2rem', '0']}>
         <H2>Posts</H2>
       </Row>
-      <Row>
-        <PostsSection blog={data.blog} />
-      </Row>
-      <Row>
+      <PostsSection blog={data.blog} flexDirection={['column', 'row']} />
+      <Row ml={['2rem', '0']}>
         <H2>Papers</H2>
       </Row>
-      <Row>
-        <PapersSection blog={data.blog} />
-      </Row>
-      <Row>
+      <PapersSection blog={data.blog} flexDirection={['column', 'row']} />
+      <Row ml={['2rem', '0']}>
         <H2>Projects</H2>
       </Row>
-      <Row>
-        <ProjectsSection blog={data.blog} />
-      </Row>
+      <ProjectsSection blog={data.blog} flexDirection={['column', 'row']} />
     </BasePage>
   );
 }

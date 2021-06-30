@@ -22,12 +22,20 @@ const indexPostCardFragment = graphql`
 `;
 
 const IndexPostCard = (props: ArticleCardProps) => {
-  const { post: fullPost, ...rest } = props;
+  const { post: fullPost, height, width, ...rest } = props;
   const post = useFragment(indexPostCardFragment, fullPost);
   const { title, headerImageUrl, abstract, slug } = post;
 
   return (
-    <BasePostCard {...rest} color={headerImageUrl ? 'whiteText' : 'text'} href={`/posts/${slug}`}>
+    <BasePostCard
+      minHeight={height}
+      minWidth={width}
+      maxHeight={height}
+      maxWidth={width}
+      {...rest}
+      color={headerImageUrl ? 'whiteText' : 'text'}
+      href={`/posts/${slug}`}
+    >
       {headerImageUrl && (
         <>
           <CardImage

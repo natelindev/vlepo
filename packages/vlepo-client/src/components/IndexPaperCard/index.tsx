@@ -21,12 +21,21 @@ const indexPaperCardFragment = graphql`
 `;
 
 const IndexPaperCard = (props: ArticleCardProps) => {
-  const { paper: fullPaper, ...rest } = props;
+  const { paper: fullPaper, height, width, ...rest } = props;
   const paper = useFragment(indexPaperCardFragment, fullPaper);
   const { name, headerImageUrl, url } = paper;
 
   return (
-    <BasePostCard external {...rest} color={headerImageUrl ? 'whiteText' : 'text'} href={`${url}`}>
+    <BasePostCard
+      external
+      {...rest}
+      minHeight={height}
+      minWidth={width}
+      maxHeight={height}
+      maxWidth={width}
+      color={headerImageUrl ? 'whiteText' : 'text'}
+      href={`${url}`}
+    >
       {headerImageUrl && (
         <>
           <CardImage

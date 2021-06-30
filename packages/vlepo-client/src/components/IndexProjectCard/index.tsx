@@ -21,12 +21,21 @@ const indexProjectCardFragment = graphql`
 `;
 
 const IndexProjectCard = (props: ArticleCardProps) => {
-  const { project: fullProject, ...rest } = props;
+  const { project: fullProject, height, width, ...rest } = props;
   const project = useFragment(indexProjectCardFragment, fullProject);
   const { name, headerImageUrl, url } = project;
 
   return (
-    <BasePostCard external {...rest} color={headerImageUrl ? 'whiteText' : 'text'} href={`${url}`}>
+    <BasePostCard
+      external
+      minHeight={height}
+      minWidth={width}
+      maxHeight={height}
+      maxWidth={width}
+      {...rest}
+      color={headerImageUrl ? 'whiteText' : 'text'}
+      href={`${url}`}
+    >
       {headerImageUrl && (
         <>
           <CardImage

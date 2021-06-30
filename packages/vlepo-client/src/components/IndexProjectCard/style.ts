@@ -1,3 +1,18 @@
+import {
+  height,
+  HeightProps,
+  maxHeight,
+  MaxHeightProps,
+  maxWidth,
+  MaxWidthProps,
+  minHeight,
+  MinHeightProps,
+  minWidth,
+  MinWidthProps,
+  width,
+  WidthProps,
+} from 'styled-system';
+
 import styled from '@emotion/styled';
 
 import Card from '../Card';
@@ -20,11 +35,17 @@ export const IndexImageOverlay = styled(ImageOverlay)`
   transition: all 0.3s ease-in-out;
 `;
 
-export const BasePostCard = styled(Card)`
+export const BasePostCard = styled(Card)<
+  HeightProps & WidthProps & MinHeightProps & MinWidthProps & MaxHeightProps & MaxWidthProps
+>`
   flex-direction: column;
 
-  min-width: 20rem;
-  min-height: 20rem;
+  ${height}
+  ${width}
+  ${minWidth}
+  ${minHeight}
+  ${maxHeight}
+  ${maxWidth}
 
   border-radius: ${(props) => `${props.theme.radii.default}px`};
   box-shadow: ${(props) => props.theme.shadows.Card};
