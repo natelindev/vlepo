@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import { ReactNode, useRef } from 'react';
 import { useFragment, useQuery } from 'relay-hooks';
 import { fetchQuery, graphql } from 'relay-runtime';
 import { pages_Index_BlogQuery } from 'src/__generated__/pages_Index_BlogQuery.graphql';
@@ -6,16 +7,21 @@ import { pages_Index_Papers$key } from 'src/__generated__/pages_Index_Papers.gra
 import { pages_Index_Posts$key } from 'src/__generated__/pages_Index_Posts.graphql';
 import { pages_Index_Projects$key } from 'src/__generated__/pages_Index_Projects.graphql';
 import Card from 'src/components/Card';
+import ClientOnly from 'src/components/ClientOnly';
 import { ErrorText } from 'src/components/Input';
 import { Row } from 'src/components/Layout/style';
+import Model from 'src/components/Model';
 import PlaceHolder, { Loading } from 'src/components/PlaceHolder';
 import { H2, H3 } from 'src/components/Typography';
 import { useMetaData } from 'src/hooks/useMetaData';
 import { initEnvironment } from 'src/relay';
 import { fontSize, FontSizeProps } from 'styled-system';
+import * as THREE from 'three';
 
 import { East } from '@emotion-icons/material-outlined';
 import styled from '@emotion/styled';
+import { ContactShadows } from '@react-three/drei';
+import { Canvas, GroupProps, useFrame } from '@react-three/fiber';
 
 import type { GetServerSidePropsContext } from 'next';
 
@@ -265,6 +271,30 @@ const PapersSection = (props: PaperSectionProps) => {
   );
 };
 
+type RigProps = {
+  children: ReactNode;
+};
+
+function Rig(props: RigProps) {
+  const { children } = props;
+  const ref = useRef<GroupProps | null>(null);
+  useFrame((state) => {
+    if (ref.current) {
+      ref.current.rotation.y = THREE.MathUtils.lerp(
+        ref.current.rotation.y,
+        (state.mouse.x * Math.PI) / 20,
+        0.05,
+      );
+      ref.current.rotation.x = THREE.MathUtils.lerp(
+        ref.current.rotation.x,
+        (state.mouse.y * Math.PI) / 20,
+        0.05,
+      );
+    }
+  });
+  return <group ref={ref}>{children}</group>;
+}
+
 export default function Home() {
   const { error, data } = useQuery<pages_Index_BlogQuery>(blogQuery, {
     id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
@@ -282,6 +312,31 @@ export default function Home() {
 
   return (
     <BasePage>
+      <Canvas camera={{ position: [0, -10, 65], fov: 50 }} dpr={[1, 2]}>
+        <pointLight position={[100, 100, 100]} intensity={0.8} />
+        <hemisphereLight
+          color="#ffffff"
+          groundColor={new THREE.Color('#b9b9b9')}
+          position={[-7, 25, 13]}
+          intensity={0.85}
+        />
+        <ClientOnly>
+          <group position={[0, 10, 0]}>
+            <Rig>
+              <Model url="/compressed.glb" />
+            </Rig>
+            <ContactShadows
+              rotation-x={Math.PI / 2}
+              position={[0, -35, 0]}
+              opacity={0.25}
+              width={100}
+              height={100}
+              blur={2}
+              far={50}
+            />
+          </group>
+        </ClientOnly>
+      </Canvas>
       <IndexSlogan fontSize={[5, 6, 6, 7]}>{slogan}</IndexSlogan>
       <Row>
         <H2>Posts</H2>
