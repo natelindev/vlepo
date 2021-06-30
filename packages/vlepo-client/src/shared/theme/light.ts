@@ -34,5 +34,8 @@ export const lightTheme = {
     headerImage: 'brightness(70%) saturate(110%)',
     cardImage: 'brightness(85%) saturate(100%)',
   },
+  textShadows: {
+    default: 'rgba(0, 0, 0, 0.3) 0 0 8px',
+  },
   ...shared,
 };

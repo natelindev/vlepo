@@ -1,5 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import dynamic from 'next/dynamic';
-import { ReactNode, useRef } from 'react';
+import { Suspense } from 'react';
 import { useFragment, useQuery } from 'relay-hooks';
 import { fetchQuery, graphql } from 'relay-runtime';
 import { pages_Index_BlogQuery } from 'src/__generated__/pages_Index_BlogQuery.graphql';
@@ -15,13 +16,13 @@ import PlaceHolder, { Loading } from 'src/components/PlaceHolder';
 import { H2, H3 } from 'src/components/Typography';
 import { useMetaData } from 'src/hooks/useMetaData';
 import { initEnvironment } from 'src/relay';
-import { fontSize, FontSizeProps } from 'styled-system';
-import * as THREE from 'three';
+import { fontSize, FontSizeProps, height, HeightProps } from 'styled-system';
 
 import { East } from '@emotion-icons/material-outlined';
 import styled from '@emotion/styled';
-import { ContactShadows } from '@react-three/drei';
-import { Canvas, GroupProps, useFrame } from '@react-three/fiber';
+import { a as three } from '@react-spring/three';
+import { ContactShadows, Environment } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
 
 import type { GetServerSidePropsContext } from 'next';
 
@@ -86,13 +87,13 @@ const indexPapersFragment = graphql`
 const IndexSlogan = styled.h1<FontSizeProps>`
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10rem;
-  height: 60vh;
+  margin-bottom: -2rem;
   text-align: center;
   display: flex;
   flex-wrap: wrap;
   font-size: ${(props) => `${props.theme.fontSizes[7]}px`};
   font-weight: ${(props) => props.theme.fontWeights.bold};
+  z-index: ${(props) => props.theme.zIndices.Badge};
   ${fontSize}
 `;
 
@@ -271,29 +272,10 @@ const PapersSection = (props: PaperSectionProps) => {
   );
 };
 
-type RigProps = {
-  children: ReactNode;
-};
-
-function Rig(props: RigProps) {
-  const { children } = props;
-  const ref = useRef<GroupProps | null>(null);
-  useFrame((state) => {
-    if (ref.current) {
-      ref.current.rotation.y = THREE.MathUtils.lerp(
-        ref.current.rotation.y,
-        (state.mouse.x * Math.PI) / 20,
-        0.05,
-      );
-      ref.current.rotation.x = THREE.MathUtils.lerp(
-        ref.current.rotation.x,
-        (state.mouse.y * Math.PI) / 20,
-        0.05,
-      );
-    }
-  });
-  return <group ref={ref}>{children}</group>;
-}
+const CanvasContainer = styled.div<HeightProps>`
+  width: 100%;
+  ${height}
+`;
 
 export default function Home() {
   const { error, data } = useQuery<pages_Index_BlogQuery>(blogQuery, {
@@ -312,32 +294,29 @@ export default function Home() {
 
   return (
     <BasePage>
-      <Canvas camera={{ position: [0, -10, 65], fov: 50 }} dpr={[1, 2]}>
-        <pointLight position={[100, 100, 100]} intensity={0.8} />
-        <hemisphereLight
-          color="#ffffff"
-          groundColor={new THREE.Color('#b9b9b9')}
-          position={[-7, 25, 13]}
-          intensity={0.85}
-        />
-        <ClientOnly>
-          <group position={[0, 10, 0]}>
-            <Rig>
-              <Model url="/compressed.glb" />
-            </Rig>
+      <IndexSlogan fontSize={[5, 6, 6, 7]}>{slogan}</IndexSlogan>
+      <ClientOnly>
+        <CanvasContainer height={['300px', '400px', '500px']}>
+          <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 0], fov: 35 }}>
+            <three.pointLight position={[10, 10, 10]} intensity={1.5} />
+            <Suspense fallback={null}>
+              <group rotation={[0, Math.PI, 0]}>
+                <Model open hinge={-0.425} />
+              </group>
+              <Environment preset="city" />
+            </Suspense>
             <ContactShadows
               rotation-x={Math.PI / 2}
-              position={[0, -35, 0]}
-              opacity={0.25}
-              width={100}
-              height={100}
+              position={[0, -4.5, 0]}
+              opacity={0.4}
+              width={20}
+              height={20}
               blur={2}
-              far={50}
+              far={4.5}
             />
-          </group>
-        </ClientOnly>
-      </Canvas>
-      <IndexSlogan fontSize={[5, 6, 6, 7]}>{slogan}</IndexSlogan>
+          </Canvas>
+        </CanvasContainer>
+      </ClientOnly>
       <Row>
         <H2>Posts</H2>
       </Row>
