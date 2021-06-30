@@ -28,7 +28,6 @@ export const BasePostCard = styled(Card)`
 
   border-radius: ${(props) => `${props.theme.radii.default}px`};
   box-shadow: ${(props) => props.theme.shadows.Card};
-  color: ${(props) => props.theme.colors.whiteText};
   background-color: ${(props) => props.theme.colors.backgroundSecondary};
 
   ${PostCardTitle} {

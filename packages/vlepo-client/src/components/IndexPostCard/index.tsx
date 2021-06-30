@@ -27,7 +27,7 @@ const IndexPostCard = (props: ArticleCardProps) => {
   const { title, headerImageUrl, abstract, slug } = post;
 
   return (
-    <BasePostCard {...rest} href={`/posts/${slug}`}>
+    <BasePostCard {...rest} color={headerImageUrl ? 'whiteText' : 'text'} href={`/posts/${slug}`}>
       {headerImageUrl && (
         <>
           <CardImage

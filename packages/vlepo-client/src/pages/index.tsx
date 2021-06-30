@@ -1,4 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 import { useFragment, useQuery } from 'relay-hooks';
 import { fetchQuery, graphql } from 'relay-runtime';
 import { pages_Index_BlogQuery } from 'src/__generated__/pages_Index_BlogQuery.graphql';
@@ -6,16 +8,21 @@ import { pages_Index_Papers$key } from 'src/__generated__/pages_Index_Papers.gra
 import { pages_Index_Posts$key } from 'src/__generated__/pages_Index_Posts.graphql';
 import { pages_Index_Projects$key } from 'src/__generated__/pages_Index_Projects.graphql';
 import Card from 'src/components/Card';
+import ClientOnly from 'src/components/ClientOnly';
 import { ErrorText } from 'src/components/Input';
 import { Row } from 'src/components/Layout/style';
+import Model from 'src/components/Model';
 import PlaceHolder, { Loading } from 'src/components/PlaceHolder';
 import { H2, H3 } from 'src/components/Typography';
 import { useMetaData } from 'src/hooks/useMetaData';
 import { initEnvironment } from 'src/relay';
-import { fontSize, FontSizeProps } from 'styled-system';
+import { fontSize, FontSizeProps, height, HeightProps } from 'styled-system';
 
 import { East } from '@emotion-icons/material-outlined';
 import styled from '@emotion/styled';
+import { a as three } from '@react-spring/three';
+import { ContactShadows, Environment } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
 
 import type { GetServerSidePropsContext } from 'next';
 
@@ -80,13 +87,13 @@ const indexPapersFragment = graphql`
 const IndexSlogan = styled.h1<FontSizeProps>`
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10rem;
-  height: 60vh;
+  margin-bottom: -2rem;
   text-align: center;
   display: flex;
   flex-wrap: wrap;
   font-size: ${(props) => `${props.theme.fontSizes[7]}px`};
   font-weight: ${(props) => props.theme.fontWeights.bold};
+  z-index: ${(props) => props.theme.zIndices.Badge};
   ${fontSize}
 `;
 
@@ -125,12 +132,15 @@ export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext
 
 const IndexCardRow = styled.div`
   display: flex;
-  height: 20rem;
-  width: 100%;
+  height: 22rem;
+  width: calc(100% + 2rem);
   margin-top: 0.5rem;
   margin-bottom: 2rem;
   overflow-x: scroll;
   overflow-y: hidden;
+  align-items: center;
+  padding-left: 0.2rem;
+  padding-right: 0.5rem;
 
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -265,6 +275,11 @@ const PapersSection = (props: PaperSectionProps) => {
   );
 };
 
+const CanvasContainer = styled.div<HeightProps>`
+  width: 100%;
+  ${height}
+`;
+
 export default function Home() {
   const { error, data } = useQuery<pages_Index_BlogQuery>(blogQuery, {
     id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
@@ -283,6 +298,28 @@ export default function Home() {
   return (
     <BasePage>
       <IndexSlogan fontSize={[5, 6, 6, 7]}>{slogan}</IndexSlogan>
+      <ClientOnly>
+        <CanvasContainer height={['300px', '400px', '500px']}>
+          <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 0], fov: 35 }}>
+            <three.pointLight position={[10, 10, 10]} intensity={1.5} />
+            <Suspense fallback={null}>
+              <group rotation={[0, Math.PI, 0]}>
+                <Model open hinge={-0.425} />
+              </group>
+              <Environment preset="city" />
+            </Suspense>
+            <ContactShadows
+              rotation-x={Math.PI / 2}
+              position={[0, -4.5, 0]}
+              opacity={0.4}
+              width={20}
+              height={20}
+              blur={2}
+              far={4.5}
+            />
+          </Canvas>
+        </CanvasContainer>
+      </ClientOnly>
       <Row>
         <H2>Posts</H2>
       </Row>

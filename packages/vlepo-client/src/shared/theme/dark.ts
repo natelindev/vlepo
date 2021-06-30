@@ -34,5 +34,8 @@ export const darkTheme = {
     headerImage: 'brightness(50%) saturate(120%)',
     cardImage: 'brightness(65%) saturate(105%)',
   },
+  textShadows: {
+    default: 'rgba(255, 255, 255, 0.3) 0 0 8px',
+  },
   ...shared,
 };
