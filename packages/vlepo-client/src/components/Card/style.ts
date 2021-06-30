@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { a } from 'react-spring';
 import {
+  color,
   flexbox,
   FlexboxProps,
   height,
@@ -15,6 +16,7 @@ import {
 import { match } from 'ts-pattern';
 
 import styled from '@emotion/styled';
+import { ColorProps } from '@react-three/fiber';
 
 export type CardImgProps = {
   variant?: 'top' | 'left' | 'right' | 'bottom';
@@ -37,6 +39,7 @@ type BaseCardProps = { direction?: string } & WidthProps &
   HeightProps &
   PaddingProps &
   MarginProps &
+  ColorProps &
   FlexboxProps;
 
 export const BaseCard = styled(a.div)<BaseCardProps>`
@@ -45,6 +48,7 @@ export const BaseCard = styled(a.div)<BaseCardProps>`
   box-shadow: ${(props) => props.theme.shadows.Card};
   display: flex;
   will-change: transform;
+  ${color}
   ${width}
   ${height}
   ${margin}

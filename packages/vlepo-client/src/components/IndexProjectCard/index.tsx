@@ -26,7 +26,7 @@ const IndexProjectCard = (props: ArticleCardProps) => {
   const { name, headerImageUrl, url } = project;
 
   return (
-    <BasePostCard external {...rest} href={`${url}`}>
+    <BasePostCard external {...rest} color={headerImageUrl ? 'whiteText' : 'text'} href={`${url}`}>
       {headerImageUrl && (
         <>
           <CardImage

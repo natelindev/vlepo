@@ -132,12 +132,15 @@ export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext
 
 const IndexCardRow = styled.div`
   display: flex;
-  height: 20rem;
-  width: 100%;
+  height: 22rem;
+  width: calc(100% + 2rem);
   margin-top: 0.5rem;
   margin-bottom: 2rem;
   overflow-x: scroll;
   overflow-y: hidden;
+  align-items: center;
+  padding-left: 0.2rem;
+  padding-right: 0.5rem;
 
   scrollbar-width: none;
   &::-webkit-scrollbar {

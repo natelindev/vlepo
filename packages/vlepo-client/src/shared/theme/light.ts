@@ -25,7 +25,7 @@ export const lightTheme = {
   shadows: {
     Tag: '0 1px 2px rgba(0, 0, 0, 0.2)',
     Navbar: '0 0.1rem 0.1rem hsla(0,0%,20%,0.1)',
-    Card: '0 1px 2px rgba(0, 0, 0, 0.2)',
+    Card: '1px 0px 4px 1px rgba(0, 0, 0, 0.2)',
     OauthButton: '0 0 7px hsla(0,0%,100%,0.1)',
     Input: '0 0 7px rgba(50, 50, 255, 0.3)',
     Dropdown: '0 1px 4px 0 hsla(0,0%,100%,0.1)',
