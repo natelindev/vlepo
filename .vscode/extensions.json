@@ -10,6 +10,7 @@
     "jpoissonnier.vscode-styled-components",
     "emeraldwalk.runonsave",
     "mikestead.dotenv",
-    "howardzuo.vscode-npm-dependency"
+    "cesium.gltf-vscode",
+    "gruntfuggly.todo-tree"
   ]
 }
