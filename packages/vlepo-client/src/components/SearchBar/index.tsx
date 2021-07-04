@@ -56,7 +56,6 @@ const SearchBar = (): React.ReactElement => {
         indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME}
         searchClient={searchClient}
       >
-        {/** @ts-expect-error algolia search typing inaccurate */}
         <SearchInput inputRef={searchInputRef} />
         <Hits hitComponent={SearchResult} />
       </InstantSearch>
