@@ -25,6 +25,8 @@ import {
   HeightProps,
   margin,
   MarginProps,
+  maxHeight,
+  maxWidth,
   minHeight,
   MinHeightProps,
   minWidth,
@@ -147,7 +149,7 @@ export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext
 
 const IndexCardRow = styled.div<FlexDirectionProps & HeightProps>`
   display: flex;
-  width: calc(100% + 2rem);
+  width: auto;
   margin-top: 0.5rem;
   margin-bottom: 2rem;
   overflow-x: scroll;
@@ -179,6 +181,8 @@ const IndexViewAllCard = styled(Card)<
   ${width}
   ${minHeight}
   ${minWidth}
+  ${maxWidth}
+  ${maxHeight}
 
   ${margin}
 
@@ -221,7 +225,13 @@ const PostsSection = (props: PostSectionProps) => {
             />
           ),
       ) ?? null}
-      <IndexViewAllCard height={['10rem', '20rem']} width="20rem" mr="1rem" href="/posts">
+      <IndexViewAllCard
+        height={['10rem', '20rem']}
+        width="20rem"
+        minWidth="20rem"
+        mr="1rem"
+        href="/posts"
+      >
         <H3 ml="4.5rem" my="auto">
           View all Posts
         </H3>
@@ -262,7 +272,13 @@ const ProjectsSection = (props: ProjectSectionProps) => {
             />
           ),
       ) ?? null}
-      <IndexViewAllCard height={['10rem', '20rem']} width="20rem" mr="1rem" href="/projects">
+      <IndexViewAllCard
+        height={['10rem', '20rem']}
+        width="20rem"
+        minWidth="20rem"
+        mr="1rem"
+        href="/projects"
+      >
         <H3 ml="3rem" my="auto">
           View all Projects
         </H3>
@@ -297,7 +313,13 @@ const PapersSection = (props: PaperSectionProps) => {
             />
           ),
       ) ?? null}
-      <IndexViewAllCard height={['10rem', '20rem']} width="20rem" mr="1rem" href="/papers">
+      <IndexViewAllCard
+        height={['10rem', '20rem']}
+        width="20rem"
+        minWidth="20rem"
+        mr="1rem"
+        href="/papers"
+      >
         <H3 ml="4rem" my="auto">
           View all Papers
         </H3>

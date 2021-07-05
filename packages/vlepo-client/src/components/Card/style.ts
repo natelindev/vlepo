@@ -8,6 +8,10 @@ import {
   HeightProps,
   margin,
   MarginProps,
+  maxHeight,
+  maxWidth,
+  minHeight,
+  minWidth,
   padding,
   PaddingProps,
   width,
@@ -51,6 +55,10 @@ export const BaseCard = styled(a.div)<BaseCardProps>`
   ${color}
   ${width}
   ${height}
+  ${maxHeight}
+  ${maxWidth}
+  ${minWidth}
+  ${minHeight}
   ${margin}
   ${padding}
   ${flexbox}
