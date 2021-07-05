@@ -14,10 +14,10 @@
     "watch": "tsc --watch"
   },
   "dependencies": {
-    "debug": "4.3.1"
+    "debug": "4.3.2"
   },
   "devDependencies": {
-    "@types/debug": "4.1.5",
+    "@types/debug": "4.1.6",
     "typescript": "4.3.5"
   },
   "publishConfig": {

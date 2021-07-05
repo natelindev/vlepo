@@ -1,6 +1,5 @@
 /* eslint-disable relay/unused-fields */
 import { useQuery } from 'relay-hooks';
-/* eslint-disable relay/must-colocate-fragment-spreads */
 import { graphql } from 'relay-runtime';
 import { useCurrentUser_viewerQuery } from 'src/__generated__/useCurrentUser_viewerQuery.graphql';
 
