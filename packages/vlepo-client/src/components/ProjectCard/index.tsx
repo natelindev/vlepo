@@ -55,9 +55,11 @@ const ProjectCardFooter = styled.div`
 
 const ProjectName = styled(H3)``;
 
-export type ProjectCardProps = { project: ProjectCard_project$key | null };
+export type ProjectCardProps = { project: ProjectCard_project$key | null } & React.ComponentProps<
+  typeof BaseProjectCard
+>;
 const ProjectCard = (props: ProjectCardProps) => {
-  const { project: fullProject } = props;
+  const { project: fullProject, ...rest } = props;
   const project = useFragment(ProjectFragment, fullProject);
   const [ref, styles] = useTilt<HTMLDivElement>({
     scale: 400,
@@ -73,7 +75,7 @@ const ProjectCard = (props: ProjectCardProps) => {
   const createDate = parseISO(createdAt);
 
   return (
-    <BaseProjectCard ref={ref} {...styles}>
+    <BaseProjectCard ref={ref} {...styles} {...rest}>
       {compareAsc(new Date(), addDays(createDate, 1)) === -1 && (
         <Row height="0">
           <Badge height="1.2rem" variant="accent" mt="-0.5rem" ml="auto" mr="-0.5rem">

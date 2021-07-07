@@ -114,7 +114,8 @@ const ProjectList = (props: ProjectListProps) => {
         project.projectsConnection &&
         project.projectsConnection.edges &&
         project.projectsConnection.edges.map(
-          (e) => e && e.node && <ProjectCard key={e.node.id} project={e.node} />,
+          (e) =>
+            e && e.node && e.node.id && <ProjectCard key={e.node.id} mb="1rem" project={e.node} />,
         )}
       {isLoadingNext && <>{Array(5).fill(<ProjectCard project={null} />)}</>}
       {hasNext && !isLoadingNext && (

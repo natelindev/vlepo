@@ -56,9 +56,11 @@ const PaperCardFooter = styled.div`
 
 const PaperName = styled(H3)``;
 
-export type PaperCardProps = { paper: PaperCard_paper$key | null };
+export type PaperCardProps = { paper: PaperCard_paper$key | null } & React.ComponentProps<
+  typeof BasePaperCard
+>;
 const PaperCard = (props: PaperCardProps) => {
-  const { paper: fullPaper } = props;
+  const { paper: fullPaper, ...rest } = props;
   const paper = useFragment(PaperFragment, fullPaper);
 
   const [ref, styles] = useTilt<HTMLDivElement>({
@@ -75,7 +77,7 @@ const PaperCard = (props: PaperCardProps) => {
   const createDate = parseISO(createdAt);
 
   return (
-    <BasePaperCard ref={ref} {...styles}>
+    <BasePaperCard ref={ref} {...styles} {...rest}>
       {compareAsc(new Date(), addDays(createDate, 1)) === -1 && (
         <Row height="0">
           <Badge height="1.2rem" variant="accent" mt="-0.5rem" ml="auto" mr="-0.5rem">

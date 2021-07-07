@@ -114,7 +114,7 @@ const PaperList = (props: PaperListProps) => {
         paper.papersConnection &&
         paper.papersConnection.edges &&
         paper.papersConnection.edges.map(
-          (e) => e && e.node && <PaperCard key={e.node.id} paper={e.node} />,
+          (e) => e && e.node && e.node.id && <PaperCard key={e.node.id} mb="1rem" paper={e.node} />,
         )}
       {isLoadingNext && <>{Array(5).fill(<PaperCard paper={null} />)}</>}
       {hasNext && !isLoadingNext && (
