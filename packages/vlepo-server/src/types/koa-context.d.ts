@@ -7,5 +7,6 @@ declare module 'koa' {
   export interface BaseContext extends ExtendedContext {}
   export interface DefaultState extends DefaultStateExtends {
     user?: User;
+    totalCount: number | null;
   }
 }
