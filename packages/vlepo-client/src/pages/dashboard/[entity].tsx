@@ -201,7 +201,14 @@ const PostSection = (props: PostSectionProps) => {
       {isLoadingNext && (
         <Column mt="1rem">
           {Array(5).fill(
-            <PlaceHolder ml="1rem" mr="2.5rem" height="105px" my="0.5rem" borderRadius="default" />,
+            <PlaceHolder
+              variant="inline"
+              ml="1rem"
+              mr="2.5rem"
+              height="105px"
+              my="0.5rem"
+              borderRadius="default"
+            />,
           )}
         </Column>
       )}

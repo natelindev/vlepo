@@ -99,10 +99,10 @@ type PostSectionProps = {
 const PostsSection = (props: PostSectionProps) => {
   const { blog } = props;
 
-  const { data, isLoadingNext, hasNext, loadNext } = usePagination<
-    postsPostRefetchQuery,
-    posts_Posts$key
-  >(postFragmentSpec, blog!);
+  const { data, hasNext, loadNext } = usePagination<postsPostRefetchQuery, posts_Posts$key>(
+    postFragmentSpec,
+    blog!,
+  );
 
   const maybeLoadMore = useInfiniteLoader(() => hasNext && loadNext(10), {
     isItemLoaded: (index) => (data?.postsConnection?.edges?.length ?? 0) - 1 > index,
@@ -126,7 +126,6 @@ const PostsSection = (props: PostSectionProps) => {
         render={MasonryCard}
         onRender={maybeLoadMore}
       />
-      {isLoadingNext && <PlaceHolder width="100%" />}
     </PostRow>
   );
 };

@@ -54,7 +54,7 @@
     "relay-runtime": "11.0.2",
     "styled-modal": "7.1.4",
     "styled-system": "5.1.5",
-    "three": "0.130.0",
+    "three": "0.130.1",
     "ts-pattern": "3.2.1",
     "zen-observable": "0.8.15"
   },
@@ -72,7 +72,7 @@
     "@types/react-typist": "2.0.1",
     "@types/relay-runtime": "11.0.0",
     "@types/styled-system": "5.1.12",
-    "@types/three": "0.129.2",
+    "@types/three": "0.130.0",
     "@types/zen-observable": "0.8.3",
     "babel-plugin-relay": "11.0.2",
     "relay-compiler": "11.0.2",

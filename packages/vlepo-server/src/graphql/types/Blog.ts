@@ -59,16 +59,8 @@ export const Blog = objectType({
       },
     });
     t.int('userCount', {
-      async resolve({ id }, _args, ctx) {
-        return ctx.prisma.user.count({
-          where: {
-            blogs: {
-              some: {
-                id,
-              },
-            },
-          },
-        });
+      async resolve(_root, _args, ctx) {
+        return ctx.prisma.user.count();
       },
     });
     t.model.visitorCount();

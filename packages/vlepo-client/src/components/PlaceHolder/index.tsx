@@ -5,13 +5,16 @@ import {
   HeightProps,
   margin,
   MarginProps,
+  variant,
   width,
   WidthProps,
 } from 'styled-system';
 
 import styled from '@emotion/styled';
 
-const PlaceHolder = styled.div<WidthProps & HeightProps & MarginProps & BorderRadiusProps>`
+const PlaceHolder = styled.div<
+  { variant?: 'fixed' | 'inline' } & WidthProps & HeightProps & MarginProps & BorderRadiusProps
+>`
   width: 100%;
   height: 100%;
   ${width}
@@ -32,6 +35,16 @@ const PlaceHolder = styled.div<WidthProps & HeightProps & MarginProps & BorderRa
     `linear-gradient(90deg, ${props.theme.colors.backgroundMuted}, ${props.theme.colors.backgroundDarker}, ${props.theme.colors.backgroundMuted})`};
   background-size: 200%;
   position: fixed;
+  ${variant({
+    variants: {
+      fixed: {
+        position: 'fixed',
+      },
+      inline: {
+        position: 'absolute',
+      },
+    },
+  })};
   top: 0;
   left: 0;
   right: 0;
