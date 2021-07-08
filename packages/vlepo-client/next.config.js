@@ -16,6 +16,7 @@ module.exports = withBundleAnalyzer({
       'dev-to-uploads.s3.amazonaws.com',
       'placeholder.pics',
       'images.unsplash.com',
+      'images.pexels.com',
       'avatars.githubusercontent.com',
       'www.redditstatic.com',
       'lh1.googleusercontent.com',
