@@ -1,8 +1,11 @@
 import { objectType } from 'nexus';
+import { DBPaper, DBPost, DBProject } from 'src/types/db';
 import { __, match } from 'ts-pattern';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 
+import { connectionArgsValidator, orderByArgs } from '../util/connectionArgsValidator';
+import { getVisibilityArgs } from '../util/visiblityArgs';
 import { Paper } from './Paper';
 import { Post } from './Post';
 import { Project } from './Project';
@@ -77,33 +80,19 @@ export const Blog = objectType({
 
     t.connectionField('postsConnection', {
       type: Post,
+      validateArgs: connectionArgsValidator<DBPost>([
+        'viewCount',
+        'editedAt',
+        'createdAt',
+        'updatedAt',
+      ]),
       async resolve({ id }, args, ctx) {
-        const accessToken = await ctx.oauth.extractAccessToken(ctx, true);
-        const currentUser = accessToken?.user;
         const customArgs = {
           where: {
             blogId: id,
-            ...match<typeof currentUser>(currentUser)
-              .with({ id: __.string }, (u) => {
-                return {
-                  OR: [
-                    {
-                      ownerId: u.id,
-                    },
-                    {
-                      visibility: 'PUBLISHED' as const,
-                    },
-                  ],
-                };
-              })
-              .with(undefined, () => ({
-                visibility: 'PUBLISHED' as const,
-              }))
-              .run(),
+            ...getVisibilityArgs(ctx),
           },
-          orderBy: {
-            createdAt: 'desc' as const,
-          },
+          orderBy: orderByArgs(args.orderBy),
         };
         const result = await findManyCursorConnection(
           (args) => ctx.prisma.post.findMany({ ...args, ...customArgs }),
@@ -150,11 +139,14 @@ export const Blog = objectType({
     });
     t.connectionField('papersConnection', {
       type: Paper,
+      validateArgs: connectionArgsValidator<DBPaper>(['createdAt', 'updatedAt']),
       async resolve({ id }, args, ctx) {
         const customArgs = {
           where: {
             blogId: id,
+            ...getVisibilityArgs(ctx),
           },
+          orderBy: orderByArgs(args.orderBy),
         };
         const result = await findManyCursorConnection(
           (args) => ctx.prisma.paper.findMany({ ...args, ...customArgs }),
@@ -167,11 +159,14 @@ export const Blog = objectType({
     });
     t.connectionField('projectsConnection', {
       type: Project,
+      validateArgs: connectionArgsValidator<DBProject>(['createdAt', 'updatedAt']),
       async resolve({ id }, args, ctx) {
         const customArgs = {
           where: {
             blogId: id,
+            ...getVisibilityArgs(ctx),
           },
+          orderBy: orderByArgs(args.orderBy),
         };
         const result = await findManyCursorConnection(
           (args) => ctx.prisma.project.findMany({ ...args, ...customArgs }),

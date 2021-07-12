@@ -21,7 +21,8 @@ const paperFragmentSpec = graphql`
   fragment papers_Papers on Blog
   @argumentDefinitions(count: { type: "Int", defaultValue: 10 }, cursor: { type: "String" })
   @refetchable(queryName: "PaperRefetchQuery") {
-    papersConnection(first: $count, after: $cursor) @connection(key: "papers_papersConnection") {
+    papersConnection(first: $count, after: $cursor, orderBy: { key: "createdAt", order: desc })
+      @connection(key: "papers_papersConnection") {
       edges {
         node {
           id

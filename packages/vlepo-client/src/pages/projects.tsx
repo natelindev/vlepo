@@ -21,7 +21,7 @@ const projectFragmentSpec = graphql`
   fragment projects_Projects on Blog
   @argumentDefinitions(count: { type: "Int", defaultValue: 10 }, cursor: { type: "String" })
   @refetchable(queryName: "ProjectRefetchQuery") {
-    projectsConnection(first: $count, after: $cursor)
+    projectsConnection(first: $count, after: $cursor, orderBy: { key: "createdAt", order: desc })
       @connection(key: "projects_projectsConnection") {
       edges {
         node {

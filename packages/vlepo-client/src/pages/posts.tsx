@@ -42,7 +42,8 @@ const postFragmentSpec = graphql`
   fragment posts_Posts on Blog
   @argumentDefinitions(count: { type: "Int", defaultValue: 10 }, cursor: { type: "String" })
   @refetchable(queryName: "postsPostRefetchQuery") {
-    postsConnection(first: $count, after: $cursor) @connection(key: "posts_postsConnection") {
+    postsConnection(first: $count, after: $cursor, orderBy: { key: "createdAt", order: desc })
+      @connection(key: "posts_postsConnection") {
       edges {
         node {
           ...ArticleCard_post
