@@ -109,7 +109,7 @@ const Navbar: React.FC = () => {
             <NavLink href="/projects">Projects</NavLink>
             <NavLink href="/papers">Papers</NavLink>
             <NavLink href="/about">About</NavLink>
-            <Dropdown mt="4px">
+            {/* <Dropdown mt="4px">
               <NavLink href="">More</NavLink>
               <NavLink href="/thoughts">
                 <NavItem>Thoughts</NavItem>
@@ -120,7 +120,7 @@ const Navbar: React.FC = () => {
               <NavLink href="/tags">
                 <NavItem>Tags</NavItem>
               </NavLink>
-            </Dropdown>
+            </Dropdown> */}
           </NavbarNav>
         </LeftNavCollapse>
         <RightNavCollapse>

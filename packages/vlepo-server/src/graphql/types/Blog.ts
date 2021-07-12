@@ -1,6 +1,5 @@
 import { objectType } from 'nexus';
 import { DBPaper, DBPost, DBProject } from 'src/types/db';
-import { __, match } from 'ts-pattern';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 
