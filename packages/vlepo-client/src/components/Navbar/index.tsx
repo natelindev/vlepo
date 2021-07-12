@@ -80,9 +80,9 @@ const Navbar: React.FC = () => {
           <NavLink href="/projects">Projects</NavLink>
           <NavLink href="/papers">Papers</NavLink>
           <NavLink href="/about">About</NavLink>
-          <NavLink href="/thoughts">Thoughts</NavLink>
+          {/* <NavLink href="/thoughts">Thoughts</NavLink>
           <NavLink href="/friends">Friends</NavLink>
-          <NavLink href="/tags">Tags</NavLink>
+          <NavLink href="/tags">Tags</NavLink> */}
         </Dropdown>
         <Logo
           size="32px"
