@@ -5,6 +5,7 @@ import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection
 import { OAuthCheckScope } from '../../oauth2/nexus';
 import { fromGlobalId } from '../plugins/relayGlobalId';
 import { connectionArgsValidator, orderByArgs } from '../util/connectionArgsValidator';
+import { getVisibilityArgs } from '../util/visibilityArgs';
 import { Blog } from './Blog';
 import { Comment } from './Comment';
 import { Image } from './Image';
@@ -116,6 +117,9 @@ export const Query = queryField((t) => {
     async resolve(_root, args, ctx) {
       const customArgs = {
         orderBy: orderByArgs(args.orderBy),
+        where: {
+          ...(await getVisibilityArgs(ctx)),
+        },
       };
 
       const result = await findManyCursorConnection(
@@ -132,6 +136,9 @@ export const Query = queryField((t) => {
     validateArgs: connectionArgsValidator<DBThought>(['editedAt', 'createdAt', 'updatedAt']),
     async resolve(_root, args, ctx) {
       const customArgs = {
+        where: {
+          ...(await getVisibilityArgs(ctx)),
+        },
         orderBy: orderByArgs(args.orderBy),
       };
       const result = await findManyCursorConnection(
@@ -244,6 +251,9 @@ export const Query = queryField((t) => {
     validateArgs: connectionArgsValidator<DBPaper>(['createdAt', 'updatedAt']),
     async resolve(_root, args, ctx) {
       const customArgs = {
+        where: {
+          ...(await getVisibilityArgs(ctx)),
+        },
         orderBy: orderByArgs(args.orderBy),
       };
       const result = await findManyCursorConnection(
@@ -260,6 +270,9 @@ export const Query = queryField((t) => {
     validateArgs: connectionArgsValidator<DBProject>(['createdAt', 'updatedAt']),
     async resolve(_root, args, ctx) {
       const customArgs = {
+        where: {
+          ...(await getVisibilityArgs(ctx)),
+        },
         orderBy: orderByArgs(args.orderBy),
       };
       const result = await findManyCursorConnection(

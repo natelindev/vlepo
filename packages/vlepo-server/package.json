@@ -28,7 +28,7 @@
   "dependencies": {
     "@devoxa/prisma-relay-cursor-connection": "2.0.2",
     "@koa/cors": "3.1.0",
-    "@prisma/client": "2.26.0",
+    "@prisma/client": "2.27.0",
     "@vlepo/shared": "latest",
     "algoliasearch": "4.10.3",
     "argon2": "0.28.2",
@@ -80,11 +80,11 @@
     "@types/node": "16.3.1",
     "@types/node-fetch": "2.5.11",
     "@types/uuid": "8.3.1",
-    "@typescript-eslint/eslint-plugin": "4.28.2",
-    "@typescript-eslint/parser": "4.28.2",
+    "@typescript-eslint/eslint-plugin": "4.28.3",
+    "@typescript-eslint/parser": "4.28.3",
     "faker": "5.5.3",
     "meow": "9.0.0",
-    "prisma": "2.26.0",
+    "prisma": "2.27.0",
     "ts-node": "10.1.0",
     "ts-node-dev": "1.1.8",
     "typescript": "4.3.5"

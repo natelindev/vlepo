@@ -25,14 +25,15 @@
     "spellcheck": "lerna run spellcheck --parallel",
     "start": "pm2 start ./pm2.yml",
     "typecheck": "lerna run typecheck --parallel",
-    "watch": "lerna run watch --parallel"
+    "watch": "lerna run watch --parallel",
+    "up": "yarn upgrade-interactive --latest"
   },
   "devDependencies": {
-    "@types/eslint": "7.2.14",
+    "@types/eslint": "7.28.0",
     "@types/node": "16.3.1",
     "@types/react": "17.0.14",
-    "@typescript-eslint/eslint-plugin": "4.28.2",
-    "@typescript-eslint/parser": "4.28.2",
+    "@typescript-eslint/eslint-plugin": "4.28.3",
+    "@typescript-eslint/parser": "4.28.3",
     "cspell": "5.6.6",
     "eslint": "7.30.0",
     "eslint-config-airbnb": "18.2.1",

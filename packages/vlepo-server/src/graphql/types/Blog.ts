@@ -4,7 +4,7 @@ import { DBPaper, DBPost, DBProject } from 'src/types/db';
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 
 import { connectionArgsValidator, orderByArgs } from '../util/connectionArgsValidator';
-import { getVisibilityArgs } from '../util/visiblityArgs';
+import { getVisibilityArgs } from '../util/visibilityArgs';
 import { Paper } from './Paper';
 import { Post } from './Post';
 import { Project } from './Project';
@@ -89,7 +89,7 @@ export const Blog = objectType({
         const customArgs = {
           where: {
             blogId: id,
-            ...getVisibilityArgs(ctx),
+            ...(await getVisibilityArgs(ctx)),
           },
           orderBy: orderByArgs(args.orderBy),
         };
@@ -143,7 +143,7 @@ export const Blog = objectType({
         const customArgs = {
           where: {
             blogId: id,
-            ...getVisibilityArgs(ctx),
+            ...(await getVisibilityArgs(ctx)),
           },
           orderBy: orderByArgs(args.orderBy),
         };
@@ -163,7 +163,7 @@ export const Blog = objectType({
         const customArgs = {
           where: {
             blogId: id,
-            ...getVisibilityArgs(ctx),
+            ...(await getVisibilityArgs(ctx)),
           },
           orderBy: orderByArgs(args.orderBy),
         };
