@@ -251,6 +251,8 @@ model User {
   images    Image[]
   thoughts  Thought[]
   designs   Design[]
+  papers    Paper[]
+  projects  Project[]
   provider  OAuthProviders?
   openid    String?
   createdAt DateTime        @default(now())
@@ -501,6 +503,8 @@ model Translation {
 model Project {
   id             String     @id @default(uuid())
   name           String
+  owner          User?      @relation(fields: [ownerId], references: [id])
+  ownerId        String?
   content        String
   headerImageUrl String?
   visibility     Visibility @default(DRAFT)
@@ -520,6 +524,8 @@ model Project {
 model Paper {
   id             String     @id @default(uuid())
   name           String
+  owner          User?      @relation(fields: [ownerId], references: [id])
+  ownerId        String?
   content        String
   visibility     Visibility @default(DRAFT)
   url            String?
