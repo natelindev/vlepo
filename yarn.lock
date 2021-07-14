@@ -2781,10 +2781,10 @@
     "@react-spring/shared" "~9.2.0"
     "@react-spring/types" "~9.2.0"
 
-"@react-three/drei@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.npmjs.org/@react-three/drei/-/drei-7.1.0.tgz#828c7aabe8bb6f7d0db363b86f0bf81c471e6e43"
-  integrity sha512-26WCVEnlnLlkcNsjT5f6G0ttSSdEjRdDBIUZLfvVmYdLUuEshDUn+8P70XUQ0dp/GCGfynomYcCseNm2njfHPA==
+"@react-three/drei@7.1.1":
+  version "7.1.1"
+  resolved "https://registry.npmjs.org/@react-three/drei/-/drei-7.1.1.tgz#76505bea6caa0b4f56caac896a7bb80c7b5a4b5a"
+  integrity sha512-rx0xoQ0nqy+HGY05+/iFyTv0bjSUVaGhj9xFrAL4ec6k42PLhtIhhKCtWMe+gDcR2dlLLpIEu+XELo1Ur1SmvA==
   dependencies:
     "@babel/runtime" "^7.11.2"
     blob-polyfill "^5.0.20210201"
@@ -2801,10 +2801,10 @@
     utility-types "^3.10.0"
     zustand "^3.5.1"
 
-"@react-three/fiber@7.0.4":
-  version "7.0.4"
-  resolved "https://registry.yarnpkg.com/@react-three/fiber/-/fiber-7.0.4.tgz#1db16bf936fd894c94598fbdf743533bba3a43dd"
-  integrity sha512-6dscg4m4f+zFmHGqpmWNNrWM+3h197pTd1HQ9bcOCODe3hMIQnQJjr9VX3PJug7hAaxVNwD4N6HcNPnGZu2CxA==
+"@react-three/fiber@7.0.5":
+  version "7.0.5"
+  resolved "https://registry.npmjs.org/@react-three/fiber/-/fiber-7.0.5.tgz#a129e5b5394fd559b560d37124e67fe64f4adb8f"
+  integrity sha512-IKNlitH2C8vQI3HUU88Dd/QMXkwgoxYJu9wfHAlHBbWGHmu1GHGrYQr2T0HoRAAz+sLlcGS1sC9VfZIlDaHngw==
   dependencies:
     "@babel/runtime" "^7.13.10"
     react-merge-refs "^1.1.0"
@@ -3259,10 +3259,10 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-16.0.0.tgz#067a6c49dc7a5c2412a505628e26902ae967bf6f"
   integrity sha512-TmCW5HoZ2o2/z2EYi109jLqIaPIi9y/lc2LmDCWzuCi35bcaQ+OtUh6nwBiFK7SOu25FAU5+YKdqFZUwtqGSdg==
 
-"@types/node@16.3.1":
-  version "16.3.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.3.1.tgz#24691fa2b0c3ec8c0d34bfcfd495edac5593ebb4"
-  integrity sha512-N87VuQi7HEeRJkhzovao/JviiqKjDKMVKxKMfUvSKw+MbkbW8R0nA3fi/MQhhlxV2fQ+2ReM+/Nt4efdrJx3zA==
+"@types/node@16.3.2":
+  version "16.3.2"
+  resolved "https://registry.npmjs.org/@types/node/-/node-16.3.2.tgz#655432817f83b51ac869c2d51dd8305fb8342e16"
+  integrity sha512-jJs9ErFLP403I+hMLGnqDRWT0RYKSvArxuBVh2veudHV7ifEC1WAmjJADacZ7mRbA2nWgHtn8xyECMAot0SkAw==
 
 "@types/node@^10.12.18":
   version "10.17.60"
@@ -5897,10 +5897,10 @@ es6-object-assign@^1.1.0:
   resolved "https://registry.npmjs.org/es6-object-assign/-/es6-object-assign-1.1.0.tgz#c2c3582656247c39ea107cb1e6652b6f9f24523c"
   integrity sha1-wsNYJlYkfDnqEHyx5mUrb58kUjw=
 
-esbuild@^0.11.12:
-  version "0.11.23"
-  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.11.23.tgz#c42534f632e165120671d64db67883634333b4b8"
-  integrity sha512-iaiZZ9vUF5wJV8ob1tl+5aJTrwDczlvGP0JoMmnpC2B0ppiMCu8n8gmy5ZTGl5bcG081XBVn+U+jP+mPFm5T5Q==
+esbuild@^0.12.9:
+  version "0.12.15"
+  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.12.15.tgz#9d99cf39aeb2188265c5983e983e236829f08af0"
+  integrity sha512-72V4JNd2+48eOVCXx49xoSWHgC3/cCy96e7mbXKY+WOWghN00cCmlGnwVLRhRHorvv0dgCyuMYBZlM2xDM5OQw==
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -9029,14 +9029,14 @@ neo-async@^2.6.0:
   resolved "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-next-mdx-remote@3.0.2:
-  version "3.0.2"
-  resolved "https://registry.npmjs.org/next-mdx-remote/-/next-mdx-remote-3.0.2.tgz#7e1159b4eb8a6bdd4000c0b6e6631f94d8683f04"
-  integrity sha512-imLrrw6c/Hi1BKRyJE9yLhk45N5zzw+/CxSQRHOAByYUSOhd+DNjUaqm2jtd+/GgxJeYB1d3fJPXmvUZTez1MQ==
+next-mdx-remote@3.0.4:
+  version "3.0.4"
+  resolved "https://registry.npmjs.org/next-mdx-remote/-/next-mdx-remote-3.0.4.tgz#c9b4aff4ec0780b08f34ccd6be966e569d6d4fda"
+  integrity sha512-n/xN6GaeBgJiuTJDrG6iqJ2EY5rEZ99Vf2H1nc75MNn1a6XnZLgT6uQJxqbSN84svc9aU3CSxfRlOqgqVVPHIg==
   dependencies:
     "@mdx-js/mdx" "^1.6.22"
     "@mdx-js/react" "^1.6.22"
-    esbuild "^0.11.12"
+    esbuild "^0.12.9"
     pkg-dir "^5.0.0"
 
 next@11.0.1:
@@ -10460,10 +10460,10 @@ react-share@4.4.0:
     classnames "^2.2.5"
     jsonp "^0.2.1"
 
-react-spring@9.2.3:
-  version "9.2.3"
-  resolved "https://registry.npmjs.org/react-spring/-/react-spring-9.2.3.tgz#ff644f8857782389b47171239ee8dead372ebd46"
-  integrity sha512-D3fx9A7UjX4yp35TM3YxbhzKhjq6nFaEs4/RkKT+/Ch732opG6iUek9jt+mwR1bST29aa9Da6mWipAtQbD2U3g==
+react-spring@9.2.4:
+  version "9.2.4"
+  resolved "https://registry.npmjs.org/react-spring/-/react-spring-9.2.4.tgz#9d89b0321664d594f957dca9459b13d94b3dfa39"
+  integrity sha512-bMjbyTW0ZGd+/h9cjtohLqCwOGqX2OuaTvalOVfLCGmhzEg/u3GgopI3LAm4UD2Br3MNdVdGgNVoESg4MGqKFQ==
   dependencies:
     "@react-spring/core" "~9.2.0"
     "@react-spring/konva" "~9.2.0"
