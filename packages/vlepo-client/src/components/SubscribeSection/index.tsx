@@ -6,7 +6,7 @@ import {
   SubscribeSectionMutation,
   SubscribeSectionMutationVariables,
 } from 'src/__generated__/SubscribeSectionMutation.graphql';
-import { ErrorText, Form, Input, InputGroup, Label, TextArea } from 'src/components/Input';
+import { ErrorText, Form, Input, InputGroup, Label } from 'src/components/Input';
 
 import GradientButton from '../GradientButton';
 import { Row } from '../Layout/style';
