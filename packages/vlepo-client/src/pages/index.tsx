@@ -48,6 +48,9 @@ const IndexProjectCard = dynamic(() => import('src/components/IndexProjectCard')
   loading: Loading,
 });
 const IndexPaperCard = dynamic(() => import('src/components/IndexPaperCard'), { loading: Loading });
+const SubscribeSection = dynamic(() => import('src/components/SubscribeSection'), {
+  loading: Loading,
+});
 
 const blogQuery = graphql`
   query pages_Index_BlogQuery($id: String!) {
@@ -386,6 +389,7 @@ export default function Home() {
         <H2>Projects</H2>
       </Row>
       <ProjectsSection blog={data.blog} flexDirection={['column', 'row']} />
+      <SubscribeSection />
     </BasePage>
   );
 }

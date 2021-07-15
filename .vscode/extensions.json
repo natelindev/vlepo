@@ -11,6 +11,7 @@
     "emeraldwalk.runonsave",
     "mikestead.dotenv",
     "cesium.gltf-vscode",
-    "gruntfuggly.todo-tree"
+    "gruntfuggly.todo-tree",
+    "attilabuti.vscode-mjml"
   ]
 }

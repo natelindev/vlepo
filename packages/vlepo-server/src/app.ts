@@ -11,6 +11,7 @@ import mount from 'koa-mount';
 import Router from 'koa-router';
 import session from 'koa-session';
 import serve from 'koa-static';
+import mailgun from 'mailgun-js';
 
 import cors from '@koa/cors';
 import { envDetect } from '@vlepo/shared';
@@ -28,11 +29,13 @@ const debug = debugInit('vlepo:app');
 const client = algoliasearch(process.env.NEXT_PUBLIC_ALGOLIA_APP_ID, process.env.ALGOLIA_API_KEY);
 
 const index = client.initIndex(process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME);
+const mg = mailgun({ apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN });
 
 export type ExtendedContext = {
   prisma: PrismaClient;
   oauth: typeof oauth;
   searchIndex: SearchIndex;
+  email: mailgun.Mailgun;
   currentUser?: User;
 } & Koa.Context &
   Koa.BaseContext;
@@ -50,6 +53,7 @@ app.keys = [process.env.SECRET_KEY!];
 app.context.prisma = db.prisma;
 app.context.oauth = oauth;
 app.context.searchIndex = index;
+app.context.email = mg;
 
 app.use(bodyParser());
 app.use(

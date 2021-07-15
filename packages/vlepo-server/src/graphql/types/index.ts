@@ -20,3 +20,4 @@ export * as Node from './Node';
 export * as Scalars from './Scalars';
 export * as Viewer from './Viewer';
 export * as Design from './Design';
+export * as Subscriber from './Subscriber';

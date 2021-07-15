@@ -1,0 +1,86 @@
+<mjml>
+  <mj-head>
+    <mj-font name="Roboto" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"></mj-font>
+    <mj-font name="Poppins" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"></mj-font>
+    <mj-style inline="inline">
+      a {
+        color: #bbbbbb;
+      }
+    </mj-style>
+  </mj-head>
+  <mj-body background-color="#000000">
+    <mj-section padding="30px 0 20px 0">
+      <mj-column width="50px">
+        <mj-image width="50px" height="50px" padding="20px 0 10px 0" alt="logo" href="https://blog.nate-lin.com" src="https://blog.nate-lin.com/logo.svg"></mj-image>
+      </mj-column>
+      <mj-column width="500px">
+        <mj-text font-family="poppins" font-size="48px" color="#e5e6eb" font-weight="300" padding="0px 25px">Nathaniel's latest Posts</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#141414" padding="20px 0 0 0">
+      <mj-column></mj-column>
+    </mj-section>
+    <mj-section background-color="#141414">
+      <mj-column>
+        <mj-raw>
+          <!-- Welcome -->
+        </mj-raw>
+        <mj-text font-size="14px" line-height="22px" font-weight="300" padding="0px 25px" color="#bbbbbb" font-family="Roboto">
+          <multiline>Hi [user],<br /><br />
+            Welcome to Nathaniel's Lab, here you can see latest posts of mine.
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section padding="0px">
+      <mj-column>
+        <mj-divider border-color="#1c1c1c" border-width="2px" width="99%" padding="0px"></mj-divider>
+        <mj-divider border-color="#000000" border-width="2px"></mj-divider>
+      </mj-column>
+    </mj-section>
+    <mj-raw>
+      <repeater>
+    </mj-raw>
+    <mj-section background-color="#141414">
+      <mj-column>
+        <mj-image padding="20px 0px 20px 0" alt="Post title" href="#" src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1502&q=80"></mj-image>
+      </mj-column>
+      <mj-column>
+        <mj-text font-size="22px" color="#e5e6eb" font-family="poppins" font-weight="bold" align="left">
+          <singleline>Heading title.</singleline>
+        </mj-text>
+        <mj-text font-family="Roboto" font-size="14px" line-height="22px" font-weight="300" padding="0px 25px" color="#bbbbbb">
+          <multiline>
+            Tempor non elit eu exercitation ullamco. Esse dolore officia occaecat id officia est. Ut ut excepteur ad cillum aute. Adipisicing adipisicing officia cillum adipisicing ut excepteur eiusmod. Ex sunt amet ea anim culpa minim.
+          </multiline>
+        </mj-text>
+        <mj-button padding-top="30px" background-color="#007bff" href="#" align="center">Read more</mj-button>
+      </mj-column>
+    </mj-section>
+    <mj-section padding="0px">
+      <mj-column>
+        <mj-divider border-color="#1c1c1c" border-width="2px" width="99%" padding="0px"></mj-divider>
+        <mj-divider border-color="#000000" border-width="2px"></mj-divider>
+      </mj-column>
+    </mj-section>
+    <mj-raw>
+      </repeater>
+    </mj-raw>
+    <mj-section background-color="#141414">
+      <mj-column>
+        <mj-raw>
+          <!-- Footer left -->
+        </mj-raw>
+        <mj-text padding="0px 25px" font-size="12px" font-weight="300" line-height="30px" align="center" color="#bbbbbb"><a href="https://telegram.me/llldar"><img src="images/telegram.png" width="25" height="25" style="width: 25px; height: 25px;" /></a>&nbsp;&nbsp;
+          <a href="https://github.com/llldar"><img src="images/github.png" width="25" height="25" style="width: 25px; height: 25px;" /></a>&nbsp;&nbsp;</mj-text>
+        <mj-text font-family="Roboto" font-size="12px" line-height="20px" font-weight="300" align="center" color="#bbbbbb">
+          <multiline>© 2016-2021 Nathaniel's Lab.<br>
+            <multiline>Made by Nathaniel with ❤️ and effort<br>
+              <a href="http://blog.nate-lin.com/unsubscribe" style="color: #bbbbbb;">Unsubscribe</unsubscribe>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#141414" padding="20px 0 0 0">
+      <mj-column></mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
