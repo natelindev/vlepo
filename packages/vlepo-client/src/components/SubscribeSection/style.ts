@@ -3,6 +3,8 @@ import {
   HeightProps,
   margin,
   MarginProps,
+  maxWidth,
+  MaxWidthProps,
   padding,
   PaddingProps,
   width,
@@ -11,7 +13,11 @@ import {
 
 import styled from '@emotion/styled';
 
-type BaseSubscribeSectionProps = WidthProps & HeightProps & MarginProps & PaddingProps;
+type BaseSubscribeSectionProps = WidthProps &
+  HeightProps &
+  MarginProps &
+  PaddingProps &
+  MaxWidthProps;
 export const BaseSubscribeSection = styled.div<BaseSubscribeSectionProps>`
   display: flex;
   flex-direction: column;
@@ -22,6 +28,7 @@ export const BaseSubscribeSection = styled.div<BaseSubscribeSectionProps>`
   border-radius: ${(props) => props.theme.radii.default};
   ${width}
   ${height}
-   ${margin}
-   ${padding};
+  ${margin}
+  ${padding}
+  ${maxWidth}
 `;

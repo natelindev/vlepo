@@ -61,11 +61,17 @@ const SubscribeSection = () => {
   };
 
   return (
-    <BaseSubscribeSection mx="auto" mb="5rem" p="4rem" width={[0.9, 0.8, 0.7, 0.6]}>
+    <BaseSubscribeSection
+      mx="auto"
+      mb="5rem"
+      p="4rem"
+      width={[0.9, 0.8, 0.7, 0.6]}
+      maxWidth="40rem"
+    >
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <H2 mb="1rem">Get latest lab news!</H2>
+        <H2 mb="1rem">Get latest lab news</H2>
         <H4 my="1rem">Get my latest post every week. No spam, unsubscribe at any time.</H4>
-        <Row>
+        <Row alignItems="flex-end">
           <InputGroup mr="1rem">
             <Label>First Name</Label>
             <Input autoComplete="first name" {...register('firstName', { required: true })} />
