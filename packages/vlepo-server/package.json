@@ -80,7 +80,7 @@
     "@types/koa-static": "4.0.2",
     "@types/koa__cors": "3.0.3",
     "@types/mailgun-js": "0.22.12",
-    "@types/node": "16.3.3",
+    "@types/node": "16.4.0",
     "@types/node-fetch": "2.5.11",
     "@types/uuid": "8.3.1",
     "@typescript-eslint/eslint-plugin": "4.28.4",
