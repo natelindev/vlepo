@@ -42,7 +42,7 @@
       {
         "match": "schema.prisma",
         "isAsync": true,
-        "cmd": "yarn prisma format"
+        "cmd": "yarn prisma format --schema ${file}"
       },
       {
         "match": "package.json",
