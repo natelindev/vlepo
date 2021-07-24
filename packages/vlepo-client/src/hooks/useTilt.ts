@@ -62,8 +62,8 @@ export const useTilt = <T = HTMLElement>(
     tiltRef,
     {
       onMouseMove: ({ clientX: x, clientY: y }: { clientX: number; clientY: number }) =>
-        set({ xys: calc(x, y) }),
-      onMouseLeave: () => set({ xys: [0, 0, 1] }),
+        set.start({ xys: calc(x, y) }),
+      onMouseLeave: () => set.start({ xys: [0, 0, 1] }),
       style: { transform: springProps.xys.to(trans) },
     },
   ];

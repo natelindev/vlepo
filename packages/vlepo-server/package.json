@@ -45,7 +45,7 @@
     "image-size": "1.0.0",
     "koa": "2.13.1",
     "koa-bodyparser": "4.3.0",
-    "koa-graphql": "0.8.0",
+    "koa-graphql": "0.9.0",
     "koa-mount": "4.0.0",
     "koa-router": "10.0.0",
     "koa-session": "6.2.0",
@@ -66,7 +66,7 @@
     "uuid": "8.3.2"
   },
   "devDependencies": {
-    "@types/debug": "4.1.6",
+    "@types/debug": "4.1.7",
     "@types/faker": "5.5.7",
     "@types/graphql-depth-limit": "1.1.2",
     "@types/graphql-upload": "8.0.6",
@@ -80,7 +80,7 @@
     "@types/koa-static": "4.0.2",
     "@types/koa__cors": "3.0.3",
     "@types/mailgun-js": "0.22.12",
-    "@types/node": "16.4.1",
+    "@types/node": "16.4.2",
     "@types/node-fetch": "2.5.12",
     "@types/uuid": "8.3.1",
     "@typescript-eslint/eslint-plugin": "4.28.4",
