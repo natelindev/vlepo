@@ -186,7 +186,6 @@ const IndexViewAllCard = styled(Card)<
   ${minWidth}
   ${maxWidth}
   ${maxHeight}
-
   ${margin}
 
   &:hover {

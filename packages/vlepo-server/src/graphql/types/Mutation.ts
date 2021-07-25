@@ -77,11 +77,4 @@ export const Mutation = mutationField((t) => {
   t.crud.upsertOneThought();
   t.crud.deleteOneThought();
   t.crud.deleteManyThought();
-
-  t.crud.createOneTranslation();
-  t.crud.updateOneTranslation();
-  t.crud.updateManyTranslation();
-  t.crud.upsertOneTranslation();
-  t.crud.deleteOneTranslation();
-  t.crud.deleteManyTranslation();
 });

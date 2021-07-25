@@ -21,7 +21,7 @@
     "lint": "lerna run lint --parallel",
     "lintFix": "lerna exec -- eslint src --fix",
     "prepublishOnly": "lerna run build --scope=@vlepo/shared",
-    "publish": "yarn lerna publish from-package --yes --no-verify-access",
+    "publish": "yarn lerna publish from-git --yes --no-verify-access",
     "spellcheck": "lerna run spellcheck --parallel",
     "start": "pm2 start ./pm2.yml",
     "typecheck": "lerna run typecheck --parallel",
