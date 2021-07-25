@@ -38,6 +38,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node_version }}
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@vlepo'
 
       - name: install dependencies
         if: env.DEPLOY_SHARED == 'true' || env.DEPLOY_SERVER == 'true'
