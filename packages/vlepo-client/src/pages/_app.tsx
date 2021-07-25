@@ -35,27 +35,25 @@ function App({ Component, pageProps }: PageProps) {
   );
 
   return (
-    <React.StrictMode>
-      <RelayEnvironmentProvider environment={createEnvironment(pageProps.relayData)}>
-        <ThemeContext.Provider value={{ theme, setTheme }}>
-          <MetaDataContext.Provider value={{ title, setTitle, slogan, setSlogan }}>
-            <ThemeProvider theme={theme}>
-              {globalStyles}
-              <ToastProvider
-                components={{ Toast }}
-                autoDismiss
-                autoDismissTimeout={6000}
-                placement="top-right"
-              >
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-              </ToastProvider>
-            </ThemeProvider>
-          </MetaDataContext.Provider>
-        </ThemeContext.Provider>
-      </RelayEnvironmentProvider>
-    </React.StrictMode>
+    <RelayEnvironmentProvider environment={createEnvironment(pageProps.relayData)}>
+      <ThemeContext.Provider value={{ theme, setTheme }}>
+        <MetaDataContext.Provider value={{ title, setTitle, slogan, setSlogan }}>
+          <ThemeProvider theme={theme}>
+            {globalStyles}
+            <ToastProvider
+              components={{ Toast }}
+              autoDismiss
+              autoDismissTimeout={6000}
+              placement="top-right"
+            >
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </ToastProvider>
+          </ThemeProvider>
+        </MetaDataContext.Provider>
+      </ThemeContext.Provider>
+    </RelayEnvironmentProvider>
   );
 }
 
