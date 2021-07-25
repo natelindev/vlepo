@@ -19,6 +19,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 2
+          always-auth: true
 
       - name: determine what need to be deployed
         run: |
@@ -37,8 +38,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node_version }}
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
       - name: install dependencies
         if: env.DEPLOY_SHARED == 'true' || env.DEPLOY_SERVER == 'true'
@@ -47,6 +46,8 @@ jobs:
       - name: deploy shared
         if: env.DEPLOY_SHARED == 'true'
         run: yarn run publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
       - name: build server
         if: env.DEPLOY_SERVER == 'true'
