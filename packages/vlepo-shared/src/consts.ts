@@ -2,6 +2,7 @@ const OAuthConsts = {
   entities: [
     'blog',
     'comment',
+    'design',
     'image',
     'link',
     'paper',

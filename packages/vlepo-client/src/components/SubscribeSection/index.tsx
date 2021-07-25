@@ -71,7 +71,7 @@ const SubscribeSection = () => {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <H2 mb="1rem">Get latest lab news</H2>
         <H4 my="1rem">Get my latest post every week. No spam, unsubscribe at any time.</H4>
-        <Row alignItems="flex-end">
+        <Row flexDirection={['column', 'row']} alignItems={['center', 'flex-end']}>
           <InputGroup mr="1rem">
             <Label>First Name</Label>
             <Input autoComplete="first name" {...register('firstName', { required: true })} />

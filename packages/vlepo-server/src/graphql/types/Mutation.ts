@@ -84,18 +84,4 @@ export const Mutation = mutationField((t) => {
   t.crud.upsertOneTranslation();
   t.crud.deleteOneTranslation();
   t.crud.deleteManyTranslation();
-
-  t.crud.createOneUser();
-  t.crud.updateOneUser();
-  t.crud.updateManyUser();
-  t.crud.upsertOneUser();
-  t.crud.deleteOneUser();
-  t.crud.deleteManyUser();
-
-  t.crud.createOneUserRole();
-  t.crud.updateOneUserRole();
-  t.crud.updateManyUserRole();
-  t.crud.upsertOneUserRole();
-  t.crud.deleteOneUserRole();
-  t.crud.deleteManyUserRole();
 });
