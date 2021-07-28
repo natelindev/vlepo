@@ -4,7 +4,6 @@ import { ToastProvider } from 'react-toast-notifications';
 import { RelayEnvironmentProvider } from 'relay-hooks';
 import Layout from 'src/components/Layout';
 import { Toast } from 'src/components/Toast';
-import { MetaDataContext } from 'src/hooks/useMetaData';
 import { createEnvironment } from 'src/relay';
 import { globalStyles } from 'src/shared/globalStyles';
 import { defaultTheme, ThemeType } from 'src/shared/theme';
@@ -27,31 +26,23 @@ export const ThemeContext = React.createContext<
 
 function App({ Component, pageProps }: PageProps) {
   const [theme, setTheme] = useState(defaultTheme);
-  const [title, setTitle] = useState<string | undefined | null>(
-    process.env.NEXT_PUBLIC_DEFAULT_BLOG_NAME,
-  );
-  const [slogan, setSlogan] = useState<string | undefined | null>(
-    process.env.NEXT_PUBLIC_DEFAULT_BLOG_SLOGAN,
-  );
 
   return (
     <RelayEnvironmentProvider environment={createEnvironment(pageProps.relayData)}>
       <ThemeContext.Provider value={{ theme, setTheme }}>
-        <MetaDataContext.Provider value={{ title, setTitle, slogan, setSlogan }}>
-          <ThemeProvider theme={theme}>
-            {globalStyles}
-            <ToastProvider
-              components={{ Toast }}
-              autoDismiss
-              autoDismissTimeout={6000}
-              placement="top-right"
-            >
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            </ToastProvider>
-          </ThemeProvider>
-        </MetaDataContext.Provider>
+        <ThemeProvider theme={theme}>
+          {globalStyles}
+          <ToastProvider
+            components={{ Toast }}
+            autoDismiss
+            autoDismissTimeout={6000}
+            placement="top-right"
+          >
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ToastProvider>
+        </ThemeProvider>
       </ThemeContext.Provider>
     </RelayEnvironmentProvider>
   );

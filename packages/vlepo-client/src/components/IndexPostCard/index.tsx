@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { graphql, useFragment } from 'relay-hooks';
 import { IndexPostCard_post$key } from 'src/__generated__/IndexPostCard_post.graphql';
 import { CardBody, CardImage } from 'src/components/Card/style';
@@ -25,6 +27,11 @@ const IndexPostCard = (props: ArticleCardProps) => {
   const { post: fullPost, height, width, ...rest } = props;
   const post = useFragment(indexPostCardFragment, fullPost);
   const { title, headerImageUrl, abstract, slug } = post;
+  const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch(`/posts/${slug}`);
+  }, [router, slug]);
 
   return (
     <BasePostCard

@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import React from 'react';
 import { Loading } from 'src/components/PlaceHolder';
-import { useMetaData } from 'src/hooks/useMetaData';
 import { useProgressBar } from 'src/hooks/useProgressBar';
 
 import { Footer, Header, Main } from './style';
@@ -27,12 +26,11 @@ const Layout = (props: LayoutProps) => {
   const { children } = props;
   const widthLoading = useProgressBar({ loading: true });
   // const widthScrolling = useProgressBar({ scrolling: true });
-  const { title } = useMetaData();
 
   return (
     <>
       <Head>
-        <title key="title">{title}</title>
+        <title key="title">{process.env.NEXT_PUBLIC_DEFAULT_BLOG_NAME}</title>
       </Head>
       <Header>
         <Navbar />

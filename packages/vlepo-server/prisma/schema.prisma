@@ -196,9 +196,8 @@ enum Language {
 }
 
 model Blog {
-  id     String  @id @default(uuid())
-  name   String?
-  slogan String?
+  id   String  @id @default(uuid())
+  name String?
 
   owner   User   @relation(fields: [ownerId], references: [id])
   ownerId String

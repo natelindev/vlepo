@@ -14,7 +14,6 @@ import { Row } from 'src/components/Layout/style';
 import Model from 'src/components/Model';
 import PlaceHolder, { Loading } from 'src/components/PlaceHolder';
 import { H2, H3 } from 'src/components/Typography';
-import { useMetaData } from 'src/hooks/useMetaData';
 import { initEnvironment } from 'src/relay';
 import {
   flexDirection,
@@ -341,8 +340,6 @@ export default function Home() {
     id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
   });
 
-  const { slogan } = useMetaData();
-
   if (error) {
     return <ErrorText>{error.message}</ErrorText>;
   }
@@ -353,7 +350,9 @@ export default function Home() {
 
   return (
     <BasePage mx={['0', '3rem', '5rem']}>
-      <IndexSlogan fontSize={[5, 6, 6, 7]}>{slogan}</IndexSlogan>
+      <IndexSlogan fontSize={[5, 6, 6, 7]}>
+        {process.env.NEXT_PUBLIC_DEFAULT_BLOG_SLOGAN}
+      </IndexSlogan>
       <ClientOnly>
         <CanvasContainer height={['300px', '400px', '500px']}>
           <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 0], fov: 35 }}>

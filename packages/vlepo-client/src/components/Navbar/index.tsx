@@ -4,7 +4,6 @@ import React, { useContext, useRef, useState } from 'react';
 import { a, useSpring, useSprings } from 'react-spring';
 import Dropdown from 'src/components/Dropdown';
 import Logo from 'src/components/Logo';
-import { useMetaData } from 'src/hooks/useMetaData';
 import { useOnClickOutside } from 'src/hooks/useOnClickOutside';
 import { ThemeContext } from 'src/pages/_app';
 import { shapes } from 'src/shared/shapes';
@@ -39,7 +38,6 @@ const Navbar: React.FC = () => {
   const [showSearch, setShowSearch] = useState(false);
   const togglerRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
-  const { title } = useMetaData();
 
   const { x } = useSpring({ config: { duration: 300 }, x: theme?.name === 'dark' ? 1 : 0 });
 
@@ -100,7 +98,7 @@ const Navbar: React.FC = () => {
             href="/"
             mr="auto"
           >
-            {title ?? process.env.NEXT_PUBLIC_DEFAULT_BLOG_NAME}
+            {process.env.NEXT_PUBLIC_DEFAULT_BLOG_NAME}
           </NavBrand>
         </Link>
         <LeftNavCollapse display={['none', 'none', 'block']}>

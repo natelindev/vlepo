@@ -1,11 +1,8 @@
-import { useMetaData } from 'src/hooks/useMetaData';
-
 import Logo from '../Logo';
 import Social from '../Social';
 import { BaseFootbar, BottomText, CenteredText, LoveIcon } from './style';
 
 const Footbar = () => {
-  const { title } = useMetaData();
   return (
     <BaseFootbar flexDirection={['column', 'column', 'row']}>
       <Logo display={['none', 'none', 'flex']} size="42px" />
@@ -14,7 +11,7 @@ const Footbar = () => {
           © 2016-
           {new Date().getFullYear()}
           {'  '}
-          {title}. CC-BY 4.0
+          {process.env.NEXT_PUBLIC_DEFAULT_BLOG_NAME}. CC-BY 4.0
         </CenteredText>
         <CenteredText>
           Made by Nathaniel with
