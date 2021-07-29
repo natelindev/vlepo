@@ -4,7 +4,7 @@ import { CardBody, CardImage } from 'src/components/Card/style';
 import { Row } from 'src/components/Layout/style';
 import { HeightProps, MarginProps, WidthProps } from 'styled-system';
 
-import { BasePostCard, IndexImageOverlay, PostCardTitle } from './style';
+import { BaseProjectCard, IndexImageOverlay, ProjectCardTitle } from './style';
 
 export type ArticleCardProps = {
   project: IndexProjectCard_project$key;
@@ -26,7 +26,7 @@ const IndexProjectCard = (props: ArticleCardProps) => {
   const { name, headerImageUrl, url } = project;
 
   return (
-    <BasePostCard
+    <BaseProjectCard
       external
       minHeight={height}
       minWidth={width}
@@ -53,12 +53,12 @@ const IndexProjectCard = (props: ArticleCardProps) => {
         <CardBody>
           {name && (
             <Row>
-              <PostCardTitle mr="0.5rem">{name}</PostCardTitle>
+              <ProjectCardTitle>{name}</ProjectCardTitle>
             </Row>
           )}
         </CardBody>
       </IndexImageOverlay>
-    </BasePostCard>
+    </BaseProjectCard>
   );
 };
 

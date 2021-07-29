@@ -68,17 +68,19 @@ export const BasePostCard = styled(Card)<
     opacity: 0;
   }
 
-  &:hover {
-    ${Abstract} {
-      opacity: 1;
-    }
-    ${PostCardTitle} {
-      margin-top: unset;
-      margin-bottom: unset;
-    }
+  @media only screen and (min-width: ${(props) => `${props.theme.breakpoints[0]}`}) {
+    &:hover {
+      ${Abstract} {
+        opacity: 1;
+      }
+      ${PostCardTitle} {
+        margin-top: unset;
+        margin-bottom: unset;
+      }
 
-    ${IndexImageOverlay} {
-      top: 0;
+      ${IndexImageOverlay} {
+        top: 0;
+      }
     }
   }
 `;

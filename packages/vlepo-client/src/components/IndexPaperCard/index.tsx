@@ -4,7 +4,7 @@ import { CardBody, CardImage } from 'src/components/Card/style';
 import { Row } from 'src/components/Layout/style';
 import { HeightProps, MarginProps, WidthProps } from 'styled-system';
 
-import { BasePostCard, IndexImageOverlay, PostCardTitle } from './style';
+import { BasePaperCard, IndexImageOverlay, PaperCardTitle } from './style';
 
 export type ArticleCardProps = {
   paper: IndexPaperCard_paper$key;
@@ -26,7 +26,7 @@ const IndexPaperCard = (props: ArticleCardProps) => {
   const { name, headerImageUrl, url } = paper;
 
   return (
-    <BasePostCard
+    <BasePaperCard
       external
       {...rest}
       minHeight={height}
@@ -53,12 +53,12 @@ const IndexPaperCard = (props: ArticleCardProps) => {
         <CardBody>
           {name && (
             <Row>
-              <PostCardTitle mr="0.5rem">{name}</PostCardTitle>
+              <PaperCardTitle>{name}</PaperCardTitle>
             </Row>
           )}
         </CardBody>
       </IndexImageOverlay>
-    </BasePostCard>
+    </BasePaperCard>
   );
 };
 

@@ -193,14 +193,17 @@ const IndexViewAllCard = styled(Card)<IndexViewAllCardProps>`
   @media only screen and (max-width: ${(props) => `${props.theme.breakpoints[0]}`}) {
     ${IndexViewAllArrow} {
       opacity: 1;
-      right: 10%;
+      right: 25%;
+      top: 43%;
     }
   }
 
-  &:hover {
-    ${IndexViewAllArrow} {
-      opacity: 1;
-      right: 10%;
+  @media only screen and (min-width: ${(props) => `${props.theme.breakpoints[0]}`}) {
+    &:hover {
+      ${IndexViewAllArrow} {
+        opacity: 1;
+        right: 10%;
+      }
     }
   }
 `;
@@ -247,7 +250,7 @@ const PostsSection = (props: PostSectionProps) => {
         my={['0.5rem', '0']}
         href="/posts"
       >
-        <H3 ml="4.5rem" my="auto">
+        <H3 ml={['8rem', '4.5rem']} my="auto">
           View all Posts
         </H3>
         <IndexViewAllArrow size={24} />
@@ -298,7 +301,7 @@ const ProjectsSection = (props: ProjectSectionProps) => {
         my={['0.5rem', '0']}
         href="/projects"
       >
-        <H3 ml="3rem" my="auto">
+        <H3 ml={['7rem', '3rem']} my="auto">
           View all Projects
         </H3>
         <IndexViewAllArrow size={24} />
@@ -343,7 +346,7 @@ const PapersSection = (props: PaperSectionProps) => {
         my={['0.5rem', '0']}
         href="/papers"
       >
-        <H3 ml="4rem" my="auto">
+        <H3 ml={['7rem', '4rem']} my="auto">
           View all Papers
         </H3>
         <IndexViewAllArrow size={24} />
