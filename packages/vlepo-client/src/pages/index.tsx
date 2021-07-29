@@ -242,8 +242,8 @@ const PostsSection = (props: PostSectionProps) => {
         mr={['auto', '1rem']}
         ml={['auto', '0']}
         height={['10rem', '20rem']}
-        width={[1, '20rem']}
-        minWidth={[1, '20rem']}
+        width={['100%', '20rem']}
+        minWidth={['100%', '20rem']}
         my={['0.5rem', '0']}
         href="/posts"
       >
@@ -282,7 +282,7 @@ const ProjectsSection = (props: ProjectSectionProps) => {
               mr={['auto', '1rem']}
               ml={['auto', '0']}
               height={['15rem', '20rem']}
-              width={[1, '20rem']}
+              width={['100%', '20rem']}
               my={['0.5rem', '0']}
               key={e.node.id}
               project={e.node}
@@ -293,8 +293,8 @@ const ProjectsSection = (props: ProjectSectionProps) => {
         mr={['auto', '1rem']}
         ml={['auto', '0']}
         height={['10rem', '20rem']}
-        width={[1, '20rem']}
-        minWidth={[1, '20rem']}
+        width={['100%', '20rem']}
+        minWidth={['100%', '20rem']}
         my={['0.5rem', '0']}
         href="/projects"
       >
@@ -327,7 +327,7 @@ const PapersSection = (props: PaperSectionProps) => {
               mr={['auto', '1rem']}
               ml={['auto', '0']}
               height={['15rem', '20rem']}
-              width={[1, '20rem']}
+              width={['100%', '20rem']}
               my={['0.5rem', '0']}
               key={e.node.id}
               paper={e.node}
@@ -338,8 +338,8 @@ const PapersSection = (props: PaperSectionProps) => {
         mr={['auto', '1rem']}
         ml={['auto', '0']}
         height={['10rem', '20rem']}
-        width={[1, '20rem']}
-        minWidth={[1, '20rem']}
+        width={['100%', '20rem']}
+        minWidth={['100%', '20rem']}
         my={['0.5rem', '0']}
         href="/papers"
       >
