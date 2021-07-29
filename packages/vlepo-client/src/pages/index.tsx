@@ -103,9 +103,7 @@ const indexPapersFragment = graphql`
   }
 `;
 
-const IndexSlogan = styled.h1<FontSizeProps>`
-  margin-left: auto;
-  margin-right: auto;
+const IndexSlogan = styled.h1<FontSizeProps & MarginProps>`
   margin-bottom: -2rem;
   text-align: center;
   display: flex;
@@ -113,6 +111,7 @@ const IndexSlogan = styled.h1<FontSizeProps>`
   font-size: ${(props) => `${props.theme.fontSizes[7]}px`};
   font-weight: ${(props) => props.theme.fontWeights.bold};
   z-index: ${(props) => props.theme.zIndices.Badge};
+  ${margin}
   ${fontSize}
 `;
 
@@ -149,7 +148,7 @@ export const getServerSideProps = async ({ req, res }: GetServerSidePropsContext
   };
 };
 
-const IndexCardRow = styled.div<FlexDirectionProps & HeightProps>`
+const IndexCardRow = styled.div<FlexDirectionProps & HeightProps & WidthProps>`
   display: flex;
   width: auto;
   margin-top: 0.5rem;
@@ -157,8 +156,8 @@ const IndexCardRow = styled.div<FlexDirectionProps & HeightProps>`
   overflow-x: scroll;
   overflow-y: hidden;
   align-items: center;
-  padding-left: 0.2rem;
-  padding-right: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
 
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -166,6 +165,7 @@ const IndexCardRow = styled.div<FlexDirectionProps & HeightProps>`
   }
   ${flexDirection}
   ${height}
+  ${width}
 `;
 
 const IndexViewAllArrow = styled(East)`
@@ -176,9 +176,12 @@ const IndexViewAllArrow = styled(East)`
   transition: all 0.3s ease-in-out;
 `;
 
-const IndexViewAllCard = styled(Card)<
-  HeightProps & WidthProps & MinHeightProps & MinWidthProps & MarginProps
->`
+type IndexViewAllCardProps = HeightProps &
+  WidthProps &
+  MinHeightProps &
+  MinWidthProps &
+  MarginProps;
+const IndexViewAllCard = styled(Card)<IndexViewAllCardProps>`
   ${height}
   ${width}
   ${minHeight}
@@ -186,6 +189,13 @@ const IndexViewAllCard = styled(Card)<
   ${maxWidth}
   ${maxHeight}
   ${margin}
+
+  @media only screen and (max-width: ${(props) => `${props.theme.breakpoints[0]}`}) {
+    ${IndexViewAllArrow} {
+      opacity: 1;
+      right: 10%;
+    }
+  }
 
   &:hover {
     ${IndexViewAllArrow} {
@@ -206,31 +216,35 @@ const PostsSection = (props: PostSectionProps) => {
 
   if (!data || !data.postsConnection)
     return (
-      <IndexCardRow height={['auto', '22rem']}>
+      <IndexCardRow width={[0.9, 1]} height={['auto', '22rem']}>
         <PlaceHolder />
       </IndexCardRow>
     );
 
   return (
-    <IndexCardRow height={['auto', '22rem']} {...rest}>
+    <IndexCardRow width={[0.9, 1]} height={['auto', '22rem']} {...rest}>
       {data.postsConnection.edges?.map(
         (e) =>
           e &&
           e.node && (
             <IndexPostCard
-              mr="1rem"
-              height={['10rem', '20rem']}
-              width="20rem"
+              mr={['auto', '1rem']}
+              ml={['auto', '0']}
+              height={['15rem', '20rem']}
+              width={['100%', '20rem']}
+              my={['0.5rem', '0']}
               key={e.node.id}
               post={e.node}
             />
           ),
       ) ?? null}
       <IndexViewAllCard
+        mr={['auto', '1rem']}
+        ml={['auto', '0']}
         height={['10rem', '20rem']}
-        width="20rem"
-        minWidth="20rem"
-        mr="1rem"
+        width={[1, '20rem']}
+        minWidth={[1, '20rem']}
+        my={['0.5rem', '0']}
         href="/posts"
       >
         <H3 ml="4.5rem" my="auto">
@@ -253,31 +267,35 @@ const ProjectsSection = (props: ProjectSectionProps) => {
 
   if (!data || !data.projectsConnection)
     return (
-      <IndexCardRow height={['auto', '22rem']}>
+      <IndexCardRow width={[0.9, 1]} height={['auto', '22rem']}>
         <PlaceHolder />
       </IndexCardRow>
     );
 
   return (
-    <IndexCardRow height={['auto', '22rem']} {...rest}>
+    <IndexCardRow width={[0.9, 1]} height={['auto', '22rem']} {...rest}>
       {data.projectsConnection.edges?.map(
         (e) =>
           e &&
           e.node && (
             <IndexProjectCard
-              mr="1rem"
-              height={['10rem', '20rem']}
-              width="20rem"
+              mr={['auto', '1rem']}
+              ml={['auto', '0']}
+              height={['15rem', '20rem']}
+              width={[1, '20rem']}
+              my={['0.5rem', '0']}
               key={e.node.id}
               project={e.node}
             />
           ),
       ) ?? null}
       <IndexViewAllCard
+        mr={['auto', '1rem']}
+        ml={['auto', '0']}
         height={['10rem', '20rem']}
-        width="20rem"
-        minWidth="20rem"
-        mr="1rem"
+        width={[1, '20rem']}
+        minWidth={[1, '20rem']}
+        my={['0.5rem', '0']}
         href="/projects"
       >
         <H3 ml="3rem" my="auto">
@@ -300,25 +318,29 @@ const PapersSection = (props: PaperSectionProps) => {
   if (!data || !data.papersConnection) return <PlaceHolder />;
 
   return (
-    <IndexCardRow height={['auto', '22rem']} {...rest}>
+    <IndexCardRow width={[0.9, 1]} height={['auto', '22rem']} {...rest}>
       {data.papersConnection.edges?.map(
         (e) =>
           e &&
           e.node && (
             <IndexPaperCard
-              mr="1rem"
-              height={['10rem', '20rem']}
-              width="20rem"
+              mr={['auto', '1rem']}
+              ml={['auto', '0']}
+              height={['15rem', '20rem']}
+              width={[1, '20rem']}
+              my={['0.5rem', '0']}
               key={e.node.id}
               paper={e.node}
             />
           ),
       ) ?? null}
       <IndexViewAllCard
+        mr={['auto', '1rem']}
+        ml={['auto', '0']}
         height={['10rem', '20rem']}
-        width="20rem"
-        minWidth="20rem"
-        mr="1rem"
+        width={[1, '20rem']}
+        minWidth={[1, '20rem']}
+        my={['0.5rem', '0']}
         href="/papers"
       >
         <H3 ml="4rem" my="auto">
@@ -350,11 +372,11 @@ export default function Home() {
 
   return (
     <BasePage mx={['0', '3rem', '5rem']}>
-      <IndexSlogan fontSize={[5, 6, 6, 7]}>
+      <IndexSlogan mx={['1rem', 'auto']} fontSize={[5, 6, 6, 7]}>
         {process.env.NEXT_PUBLIC_DEFAULT_BLOG_SLOGAN}
       </IndexSlogan>
-      <ClientOnly>
-        <CanvasContainer height={['300px', '400px', '500px']}>
+      <CanvasContainer height={['300px', '400px', '500px']}>
+        <ClientOnly>
           <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 0], fov: 35 }}>
             <three.pointLight position={[10, 10, 10]} intensity={1.5} />
             <Suspense fallback={null}>
@@ -373,8 +395,8 @@ export default function Home() {
               far={4.5}
             />
           </Canvas>
-        </CanvasContainer>
-      </ClientOnly>
+        </ClientOnly>
+      </CanvasContainer>
       <Row ml={['2rem', '0']}>
         <H2>Posts</H2>
       </Row>

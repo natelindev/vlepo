@@ -25,7 +25,7 @@ export const BaseSubscribeSection = styled.div<BaseSubscribeSectionProps>`
   align-items: center;
   background-color: ${(props) => props.theme.colors.backgroundSecondary};
   box-shadow: ${(props) => props.theme.shadows.Card};
-  border-radius: ${(props) => props.theme.radii.default};
+  border-radius: ${(props) => `${props.theme.radii.default}px`};
   ${width}
   ${height}
   ${margin}

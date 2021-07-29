@@ -74,12 +74,13 @@ export const Form = styled.form<MarginProps & WidthProps & MaxWidthProps>`
   flex-direction: column;
 `;
 
-export const InputGroup = styled.div<MarginProps>`
+export const InputGroup = styled.div<MarginProps & WidthProps>`
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   ${margin}
   display: flex;
   flex-direction: column;
+  ${width}
 `;
 
 export const Label = styled.label<MarginProps>`

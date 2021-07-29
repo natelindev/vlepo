@@ -72,13 +72,13 @@ const SubscribeSection = () => {
         <H2 mb="1rem">Get latest lab news</H2>
         <H4 my="1rem">Get my latest post every week. No spam, unsubscribe at any time.</H4>
         <Row flexDirection={['column', 'row']} alignItems={['center', 'flex-end']}>
-          <InputGroup mr="1rem">
+          <InputGroup mr="1rem" width="100%">
             <Label>First Name</Label>
             <Input autoComplete="first name" {...register('firstName', { required: true })} />
             {errors.firstName && <ErrorText>{errors.firstName.message}</ErrorText>}
           </InputGroup>
 
-          <InputGroup mr="1rem">
+          <InputGroup mr="1rem" width="100%">
             <Label>Email</Label>
             <Input
               autoComplete="email"
@@ -86,7 +86,15 @@ const SubscribeSection = () => {
             />
             {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
           </InputGroup>
-          <GradientButton px="1rem" py="0.5rem" mt="auto" mb="0.5rem" type="submit">
+          <GradientButton
+            width={['100%', 'auto']}
+            px="1rem"
+            py="0.5rem"
+            mt={['2rem', 'auto']}
+            mb={['0', '0.5rem']}
+            mr={['1rem', '0']}
+            type="submit"
+          >
             {loading ? <Loading size={24} /> : 'Subscribe'}
           </GradientButton>
         </Row>
