@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
+import { useSpring } from 'react-spring';
 import { useFragment, useQuery } from 'relay-hooks';
 import { fetchQuery, graphql } from 'relay-runtime';
 import { pages_Index_BlogQuery } from 'src/__generated__/pages_Index_BlogQuery.graphql';
@@ -365,6 +366,9 @@ export default function Home() {
     id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
   });
 
+  const [laptopOpen, setLaptopOpen] = useState(true);
+  const props = useSpring({ open: Number(laptopOpen) });
+
   if (error) {
     return <ErrorText>{error.message}</ErrorText>;
   }
@@ -383,8 +387,14 @@ export default function Home() {
           <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 0], fov: 35 }}>
             <three.pointLight position={[10, 10, 10]} intensity={1.5} />
             <Suspense fallback={null}>
-              <group rotation={[0, Math.PI, 0]}>
-                <Model open hinge={-0.425} />
+              <group
+                rotation={[0, Math.PI, 0]}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLaptopOpen(!laptopOpen);
+                }}
+              >
+                <Model open={laptopOpen} hinge={props.open.to([0, 1], [1.575, -0.425])} />
               </group>
               <Environment preset="city" />
             </Suspense>

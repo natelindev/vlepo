@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { Interpolation } from 'react-spring';
 import * as THREE from 'three';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
@@ -10,7 +11,7 @@ import { GroupProps, useFrame } from '@react-three/fiber';
 
 type ModelProps = {
   open: boolean;
-  hinge: number;
+  hinge: Interpolation<number, number>;
 };
 
 const vec = new THREE.Vector3();
@@ -28,7 +29,10 @@ const Model = (props: ModelProps) => {
   // Load model
   const { nodes, materials } = useGLTF('/mac.glb') as GLTFResult;
   // Take care of cursor state on hover
-
+  const [hovered, setHovered] = useState(false);
+  useEffect(() => {
+    document.body.style.cursor = hovered ? 'pointer' : 'auto';
+  }, [hovered]);
   // Make it float in the air when it's opened
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
@@ -73,7 +77,9 @@ const Model = (props: ModelProps) => {
       {...rest}
       onPointerOver={(e) => {
         e.stopPropagation();
+        setHovered(true);
       }}
+      onPointerOut={() => setHovered(false)}
       dispose={null}
     >
       <three.group rotation-x={hinge} position={[0, -0.04, 0.41]}>
