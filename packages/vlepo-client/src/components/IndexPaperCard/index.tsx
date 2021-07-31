@@ -34,6 +34,7 @@ const IndexPaperCard = (props: ArticleCardProps) => {
       maxHeight={height}
       maxWidth={width}
       color={headerImageUrl ? 'whiteText' : 'text'}
+      ariaLabel={name}
       href={`${url}`}
     >
       {headerImageUrl && (

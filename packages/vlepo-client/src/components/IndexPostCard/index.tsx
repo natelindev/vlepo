@@ -41,6 +41,7 @@ const IndexPostCard = (props: ArticleCardProps) => {
       maxWidth={width}
       {...rest}
       color={headerImageUrl ? 'whiteText' : 'text'}
+      ariaLabel={title}
       href={`/posts/${slug}`}
     >
       {headerImageUrl && (

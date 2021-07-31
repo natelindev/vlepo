@@ -15,6 +15,10 @@ class CustomDocument extends Document {
             rel="stylesheet"
           />
           <link rel="icon" href="/favicon.ico" />
+          <meta
+            name="description"
+            content="Nathaniel's Lab, where he experiment various technologies and write about them"
+          />
         </Head>
         <body>
           <Main />

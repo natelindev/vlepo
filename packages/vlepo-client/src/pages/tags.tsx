@@ -173,7 +173,7 @@ const Tags = () => {
           <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 35], fov: 90 }}>
             <ContextBridge>
               <fog attach="fog" args={['#202025', 0, 80]} />
-              <Cloud radius={20} tags={data.blog?.tags ?? []} />
+              <Cloud radius={25} tags={data.blog?.tags ?? []} />
               <TrackballControls />
             </ContextBridge>
           </Canvas>

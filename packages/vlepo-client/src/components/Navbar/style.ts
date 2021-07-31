@@ -72,6 +72,13 @@ export const NavItem = styled.li<WidthProps & MarginProps>`
   text-decoration: none;
 `;
 
+export const ModeSwitch = styled.div<WidthProps & MarginProps>`
+  cursor: pointer;
+  ${width}
+  ${margin}
+  text-decoration: none;
+`;
+
 export const NavSearchBar = styled(SearchBar)`
   margin-left: auto;
   margin-right: 0.5rem;

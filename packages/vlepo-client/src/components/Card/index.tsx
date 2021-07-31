@@ -10,16 +10,21 @@ export type CardProps = {
   colorB?: string;
   href?: string | null;
   external?: boolean;
+  ariaLabel?: string;
 } & React.ComponentProps<typeof BaseCard>;
 
 const Card = React.forwardRef((props: CardProps, ref: React.Ref<HTMLDivElement>) => {
-  const { children, href, external = false, ...rest } = props;
+  const { children, href, external = false, ariaLabel, ...rest } = props;
   return (
     <BaseCard ref={ref} {...rest}>
       {children}
       {href ? (
         <Link href={href} passHref>
-          {external ? <OverlayExternalLink /> : <OverlayLink />}
+          {external ? (
+            <OverlayExternalLink aria-label={ariaLabel} />
+          ) : (
+            <OverlayLink aria-label={ariaLabel} />
+          )}
         </Link>
       ) : null}
     </BaseCard>

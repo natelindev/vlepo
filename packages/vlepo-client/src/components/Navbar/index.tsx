@@ -17,6 +17,7 @@ import UserSection from '../UserSection';
 import {
   BaseNavbar,
   LeftNavCollapse,
+  ModeSwitch,
   NavbarNav,
   NavbarToggler,
   NavBrand,
@@ -78,9 +79,10 @@ const Navbar: React.FC = () => {
           <NavLink href="/projects">Projects</NavLink>
           <NavLink href="/papers">Papers</NavLink>
           <NavLink href="/about">About</NavLink>
+          <NavLink href="/tags">Tags</NavLink>
           {/* <NavLink href="/thoughts">Thoughts</NavLink>
           <NavLink href="/friends">Friends</NavLink>
-          <NavLink href="/tags">Tags</NavLink> */}
+           */}
         </Dropdown>
         <Logo
           size="32px"
@@ -107,6 +109,9 @@ const Navbar: React.FC = () => {
             <NavLink href="/projects">Projects</NavLink>
             <NavLink href="/papers">Papers</NavLink>
             <NavLink href="/about">About</NavLink>
+            <NavLink href="/tags">
+              <NavItem>Tags</NavItem>
+            </NavLink>
             {/* <Dropdown mt="4px">
               <NavLink href="">More</NavLink>
               <NavLink href="/thoughts">
@@ -115,16 +120,13 @@ const Navbar: React.FC = () => {
               <NavLink href="/friends">
                 <NavItem>Friends</NavItem>
               </NavLink>
-              <NavLink href="/tags">
-                <NavItem>Tags</NavItem>
-              </NavLink>
             </Dropdown> */}
           </NavbarNav>
         </LeftNavCollapse>
         <RightNavCollapse>
           <NavbarNav>
             <NavSearchBar />
-            <NavItem
+            <ModeSwitch
               width="1.5rem"
               mt="7px"
               mx="1.2rem"
@@ -144,7 +146,7 @@ const Navbar: React.FC = () => {
                   })}
                 />
               </svg>
-            </NavItem>
+            </ModeSwitch>
             <UserSection setShowLoginModal={setShowLoginModal} />
           </NavbarNav>
         </RightNavCollapse>

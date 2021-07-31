@@ -34,6 +34,7 @@ const IndexProjectCard = (props: ArticleCardProps) => {
       maxWidth={width}
       {...rest}
       color={headerImageUrl ? 'whiteText' : 'text'}
+      ariaLabel={name}
       href={`${url}`}
     >
       {headerImageUrl && (

@@ -249,6 +249,7 @@ const PostsSection = (props: PostSectionProps) => {
         width={['100%', '20rem']}
         minWidth={['100%', '20rem']}
         my={['0.5rem', '0']}
+        ariaLabel="View all posts"
         href="/posts"
       >
         <H3 ml={['6rem', '4.5rem']} my="auto">
@@ -300,6 +301,7 @@ const ProjectsSection = (props: ProjectSectionProps) => {
         width={['100%', '20rem']}
         minWidth={['100%', '20rem']}
         my={['0.5rem', '0']}
+        ariaLabel="View all Projects"
         href="/projects"
       >
         <H3 ml={['5rem', '3rem']} my="auto">
@@ -345,6 +347,7 @@ const PapersSection = (props: PaperSectionProps) => {
         width={['100%', '20rem']}
         minWidth={['100%', '20rem']}
         my={['0.5rem', '0']}
+        ariaLabel="View all Papers"
         href="/papers"
       >
         <H3 ml={['5.5rem', '4rem']} my="auto">

@@ -11,7 +11,7 @@ import { ErrorText, Form, Input, InputGroup, Label } from 'src/components/Input'
 import GradientButton from '../GradientButton';
 import { Row } from '../Layout/style';
 import Loading from '../Loading';
-import { H2, H4 } from '../Typography';
+import { H3, H4 } from '../Typography';
 import { BaseSubscribeSection } from './style';
 
 export const subscribeMutation = graphql`
@@ -69,18 +69,23 @@ const SubscribeSection = () => {
       maxWidth="40rem"
     >
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <H2 mb="1rem">Get latest lab news</H2>
+        <H3 mb="1rem">Get latest lab news</H3>
         <H4 my="1rem">Get my latest post every week. No spam, unsubscribe at any time.</H4>
         <Row flexDirection={['column', 'row']} alignItems={['center', 'flex-end']}>
           <InputGroup mr="1rem" width="100%">
-            <Label>First Name</Label>
-            <Input autoComplete="first name" {...register('firstName', { required: true })} />
+            <Label htmlFor="firstName">First Name</Label>
+            <Input
+              id="firstName"
+              autoComplete="first name"
+              {...register('firstName', { required: true })}
+            />
             {errors.firstName && <ErrorText>{errors.firstName.message}</ErrorText>}
           </InputGroup>
 
           <InputGroup mr="1rem" width="100%">
-            <Label>Email</Label>
+            <Label htmlFor="email">Email</Label>
             <Input
+              id="email"
               autoComplete="email"
               {...register('email', { pattern: /^.+@.+$/, required: true })}
             />
