@@ -57,10 +57,7 @@ const Word = (props: WordProps) => {
   const out = () => setHovered(false);
   // Change the mouse cursor on hover
   useEffect(() => {
-    if (hovered) document.body.style.cursor = 'pointer';
-    return () => {
-      document.body.style.cursor = 'auto';
-    };
+    document.body.style.cursor = hovered ? 'pointer' : 'auto';
   }, [hovered]);
 
   const { theme } = useContext(ThemeContext);
