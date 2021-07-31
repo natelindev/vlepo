@@ -47,7 +47,11 @@ type BaseCardProps = { direction?: string } & WidthProps &
   FlexboxProps;
 
 export const BaseCard = styled(a.div, {
-  shouldForwardProp: (propName) => propName !== 'minWidth' && propName !== 'minHeight',
+  shouldForwardProp: (propName) =>
+    propName !== 'minWidth' &&
+    propName !== 'maxWidth' &&
+    propName !== 'minHeight' &&
+    propName !== 'maxHeight',
 })<BaseCardProps>`
   background-color: ${(props) => props.theme.colors.backgroundSecondary};
   border-radius: ${(props) => `${props.theme.radii.default}px`};

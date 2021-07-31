@@ -2,6 +2,7 @@
   hosts: web
   remote_user: root
   become: false
+  gather_facts: no
 
   vars:
     vlepo_server_dir: /root/vlepo
