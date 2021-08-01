@@ -328,6 +328,7 @@ export const creatPostMutation = mutationField('creatPostMutation', {
         objectID: post.id,
         ...post,
         content: undefined,
+        __typename: 'Post',
       });
     }
 

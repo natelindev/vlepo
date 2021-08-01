@@ -3147,10 +3147,10 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-16.4.4.tgz#bb0744c1dcc1fc374f51d3fd41d028331a2420d4"
   integrity sha512-BH/jX0HjzElFCQdAwaEMwuGBQwm6ViDZ00X6LKdnRRmGWOzkWugEH4+7a0BwfHQ8DfPPCSd/mdsm3Nu8FKFu0w==
 
-"@types/node@16.4.7":
-  version "16.4.7"
-  resolved "https://registry.npmjs.org/@types/node/-/node-16.4.7.tgz#f7afa78769d4b477f5092d7c3468e2e8653d779c"
-  integrity sha512-aDDY54sst8sx47CWT6QQqIZp45yURq4dic0+HCYfYNcY5Ejlb/CLmFnRLfy3wQuYafOeh3lB/DAKaqRKBtcZmA==
+"@types/node@16.4.9":
+  version "16.4.9"
+  resolved "https://registry.npmjs.org/@types/node/-/node-16.4.9.tgz#04eb3da65d08ea377f5e682bf0d22dc1f5e7f19e"
+  integrity sha512-HXhRf581nCItzn8yevv4LYt+bJ5cBbDBAJExbDPMeU/2n5/j0ZemGpayahFBP4xL7RseaCLASLD9i9AYyDe7Nw==
 
 "@types/node@^10.12.18":
   version "10.17.60"
@@ -6078,10 +6078,10 @@ eslint-visitor-keys@^2.0.0:
   resolved "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-2.1.0.tgz#f65328259305927392c938ed44eb0a5c9b2bd303"
   integrity sha512-0rSmRBzXgDzIsD6mGdJgevzgezI534Cer5L/vyMX0kHzT/jiB43jRhd9YUlMGYLQy2zprNmoT8qasCGtY+QaKw==
 
-eslint@7.31.0:
-  version "7.31.0"
-  resolved "https://registry.npmjs.org/eslint/-/eslint-7.31.0.tgz#f972b539424bf2604907a970860732c5d99d3aca"
-  integrity sha512-vafgJpSh2ia8tnTkNUkwxGmnumgckLh5aAbLa1xRmIn9+owi8qBNGKL+B881kNKNTy7FFqTEkpNkUvmw0n6PkA==
+eslint@7.32.0:
+  version "7.32.0"
+  resolved "https://registry.npmjs.org/eslint/-/eslint-7.32.0.tgz#c6d328a14be3fb08c8d1d21e12c02fdb7a2a812d"
+  integrity sha512-VHZ8gX+EDfz+97jGcgyGCyRia/dPOd6Xh9yPv8Bl1+SoaIwD+a/vlrOmGRUyOYu7MwUhc7CxqeaDZU13S4+EpA==
   dependencies:
     "@babel/code-frame" "7.12.11"
     "@eslint/eslintrc" "^0.4.3"
@@ -10890,10 +10890,10 @@ react-focus-lock@^2.5.0:
     use-callback-ref "^1.2.5"
     use-sidecar "^1.0.5"
 
-react-hook-form@7.12.1:
-  version "7.12.1"
-  resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.12.1.tgz#dc6adbbd78a3c8817129672a6367d45479e9ca3e"
-  integrity sha512-JBu5TZK3IXzDKw9SuNFwyQFdIx5uGZSmN9QTDsNsDSYdccU/O+43jBUh0zKG4jDc4hiNYYgDw34lLt7qLSeusA==
+react-hook-form@7.12.2:
+  version "7.12.2"
+  resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.12.2.tgz#2660afbf03c4ef360a9314ebf46ce3d972296c77"
+  integrity sha512-cpxocjrgpMAJCMJQR51BQhMoEx80/EQqePNihMTgoTYTqCRbd2GExi+N4GJIr+cFqrmbwNj9wxk5oLWYQsUefg==
 
 react-instantsearch-core@^6.12.0:
   version "6.12.0"
@@ -12624,10 +12624,10 @@ ts-node@^9, ts-node@^9.0.0:
     source-map-support "^0.5.17"
     yn "3.1.1"
 
-ts-pattern@3.2.2:
-  version "3.2.2"
-  resolved "https://registry.npmjs.org/ts-pattern/-/ts-pattern-3.2.2.tgz#8a1c0bf16d15c69096dc404e6be1e4b76b1ede28"
-  integrity sha512-ezgweMdIP6Me7vzR6fT0dwBkTDJn1d303nTk+Ej8TQ1wHSnOTATwJzWf4ObLUJawrH2tXjbNtgrGcS6RJLNDAA==
+ts-pattern@3.2.3:
+  version "3.2.3"
+  resolved "https://registry.npmjs.org/ts-pattern/-/ts-pattern-3.2.3.tgz#7a3a73a4af1679bd8cb8b2a8b534aef471cae84e"
+  integrity sha512-+diLi6NLOb8eDvehZctLVMvQzLjBLVYHRIh8Wlb96n8r+85ctINHLG8mTDRQoxBZZAUipbeGloAGeGg/VgI4QQ==
 
 ts-pnp@^1.1.6:
   version "1.2.0"
