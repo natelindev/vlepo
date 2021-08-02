@@ -33,6 +33,9 @@ module.exports = withBundleAnalyzer({
   },
   webpack5: true,
   pageExtensions: ['tsx'],
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   // Proxy to Backend
   async rewrites() {
     return [
