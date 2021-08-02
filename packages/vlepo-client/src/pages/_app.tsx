@@ -1,3 +1,4 @@
+import { DefaultSeo } from 'next-seo';
 import React, { useState } from 'react';
 import { SSRCache } from 'react-relay-network-modern-ssr/node8/server';
 import { ToastProvider } from 'react-toast-notifications';
@@ -39,6 +40,19 @@ function App({ Component, pageProps }: PageProps) {
             placement="top-right"
           >
             <Layout>
+              <DefaultSeo
+                openGraph={{
+                  type: 'website',
+                  locale: 'en_US',
+                  url: process.env.NEXT_PUBLIC_SITE_URL,
+                  site_name: process.env.NEXT_PUBLIC_DEFAULT_BLOG_NAME,
+                }}
+                twitter={{
+                  handle: process.env.NEXT_PUBLIC_TWITTER_HANDLE,
+                  site: process.env.NEXT_PUBLIC_TWITTER_HANDLE,
+                  cardType: 'summary_large_image',
+                }}
+              />
               <Component {...pageProps} />
             </Layout>
           </ToastProvider>

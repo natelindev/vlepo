@@ -1,7 +1,10 @@
 import { GetServerSideProps } from 'next';
 import { getServerSideSitemap } from 'next-sitemap';
 import { fetchQuery, graphql } from 'relay-runtime';
-import { serverSitemapXml_BlogQuery } from 'src/__generated__/serverSitemapXml_BlogQuery.graphql';
+import {
+  serverSitemapXml_BlogQuery,
+  Visibility,
+} from 'src/__generated__/serverSitemapXml_BlogQuery.graphql';
 import { initEnvironment } from 'src/relay';
 
 const blogQuery = graphql`
@@ -9,6 +12,7 @@ const blogQuery = graphql`
     blog(where: { id: $id }) {
       posts {
         slug
+        visibility
         updatedAt
       }
     }
@@ -35,14 +39,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const posts: {
     readonly slug: string;
     readonly updatedAt: string;
+    readonly visibility: Visibility;
   }[] = queryPayload.data?.blog.posts ?? [];
 
-  const fields = posts.map((p) => ({
-    loc: new URL(`posts/${p.slug}`, process.env.NEXT_PUBLIC_SITE_URL).href,
-    lastmod: p.updatedAt,
-    changefreq: 'monthly',
-    priority: '0.5',
-  }));
+  const fields = posts
+    .filter((p) => p.visibility === 'PUBLISHED')
+    .map((p) => ({
+      loc: new URL(`posts/${p.slug}`, process.env.NEXT_PUBLIC_SITE_URL).href,
+      lastmod: p.updatedAt,
+      changefreq: 'monthly',
+      priority: '0.5',
+    }));
 
   return getServerSideSitemap(ctx, fields);
 };

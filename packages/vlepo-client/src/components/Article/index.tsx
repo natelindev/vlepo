@@ -1,9 +1,8 @@
 import { format, parseISO } from 'date-fns';
 import { MDXRemote } from 'next-mdx-remote';
+import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import { useFragment } from 'relay-hooks';
 import { graphql } from 'relay-runtime';
 import { Article_post$key } from 'src/__generated__/Article_post.graphql';
@@ -31,16 +30,26 @@ const Avatar = dynamic(() => import('src/components/Avatar'), {
 const articleFragment = graphql`
   fragment Article_post on Post {
     title
+    abstract
+    slug
     renderedContent
     owner {
+      id
       name
       profileImageUrl
     }
     tags {
       name
     }
+    images {
+      url
+      width
+      height
+      alt
+    }
     minuteRead
     headerImageUrl
+    editedAt
     createdAt
     ...CommentSection_commendable
   }
@@ -54,20 +63,59 @@ const Article = (props: ArticleProps) => {
   const { post: fullPost } = props;
   const router = useRouter();
   const data = useFragment(articleFragment, fullPost);
-  const [fullUrl, setFullUrl] = useState('');
+
   const theme = useTheme();
 
-  useEffect(() => {
-    setFullUrl(window.location.href);
-  }, []);
+  const {
+    headerImageUrl,
+    title,
+    abstract,
+    slug,
+    renderedContent,
+    owner,
+    tags,
+    editedAt,
+    createdAt,
+    minuteRead,
+    images,
+  } = data;
 
-  const { headerImageUrl, title, renderedContent, owner, tags, createdAt, minuteRead } = data;
+  const fullUrl = new URL(`posts/${slug}`, process.env.NEXT_PUBLIC_SITE_URL).href;
 
   return (
     <>
-      <Head>
-        <title key="title">{title}</title>
-      </Head>
+      <NextSeo
+        title={title}
+        description={abstract ?? undefined}
+        canonical={fullUrl}
+        openGraph={{
+          url: fullUrl,
+          title,
+          description: abstract ?? undefined,
+          type: 'article',
+          article: {
+            publishedTime: createdAt,
+            modifiedTime: editedAt ?? undefined,
+            authors: [new URL(`/user/${owner.id}/profile`, process.env.NEXT_PUBLIC_SITE_URL).href],
+            tags: tags.map((t) => t.name),
+          },
+          images: [
+            { url: headerImageUrl ?? owner.profileImageUrl ?? '', alt: title ?? undefined },
+            ...images.map((i) => ({
+              url: i.url ?? undefined,
+              width: i.width ?? undefined,
+              height: i.height ?? undefined,
+              alt: i.alt ?? undefined,
+            })),
+          ],
+          site_name: process.env.NEXT_PUBLIC_DEFAULT_BLOG_NAME,
+        }}
+        twitter={{
+          handle: process.env.NEXT_PUBLIC_TWITTER_HANDLE,
+          site: process.env.NEXT_PUBLIC_TWITTER_HANDLE,
+          cardType: 'summary_large_image',
+        }}
+      />
       <Header height={['18rem', '20rem', '22rem']}>
         <Image
           objectFit="cover"
