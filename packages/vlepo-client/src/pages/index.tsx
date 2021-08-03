@@ -45,7 +45,7 @@ const IndexPaperCard = dynamic(() => import('src/components/IndexPaperCard'), { 
 const SubscribeSection = dynamic(() => import('src/components/SubscribeSection'), {
   loading: Loading,
 });
-const HomeScene = dynamic(() => import('src/scenes/home'), { loading: Loading });
+const HomeScene = dynamic(() => import('src/scenes/home'), { ssr: false });
 
 const blogQuery = graphql`
   query pages_Index_BlogQuery($id: String!) {

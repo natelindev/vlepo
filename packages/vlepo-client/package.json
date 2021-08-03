@@ -58,13 +58,13 @@
     "relay-runtime": "11.0.2",
     "styled-modal": "7.1.4",
     "styled-system": "5.1.5",
-    "three": "0.131.1",
+    "three": "0.131.2",
     "ts-pattern": "3.2.4",
     "zen-observable": "0.8.15"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "1.21.8",
-    "@graphql-codegen/schema-ast": "1.18.3",
+    "@graphql-codegen/cli": "2.0.1",
+    "@graphql-codegen/schema-ast": "2.0.0",
     "@next/bundle-analyzer": "11.0.1",
     "@types/body-scroll-lock": "2.6.2",
     "@types/debug": "4.1.7",
