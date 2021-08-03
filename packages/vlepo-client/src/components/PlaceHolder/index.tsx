@@ -12,9 +12,11 @@ import {
 
 import styled from '@emotion/styled';
 
-const PlaceHolder = styled.div<
-  { variant?: 'fixed' | 'inline' } & WidthProps & HeightProps & MarginProps & BorderRadiusProps
->`
+type PlaceHolderProps = { variant?: 'fixed' | 'inline' } & WidthProps &
+  HeightProps &
+  MarginProps &
+  BorderRadiusProps;
+const PlaceHolder = styled.div<PlaceHolderProps>`
   width: 100%;
   height: 100%;
   ${width}

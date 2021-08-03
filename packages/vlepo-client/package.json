@@ -24,6 +24,7 @@
     "@emotion-icons/material-outlined": "3.14.0",
     "@emotion/react": "11.4.0",
     "@emotion/styled": "11.3.0",
+    "@react-spring/three": "9.2.4",
     "@react-three/drei": "7.3.1",
     "@react-three/fiber": "7.0.6",
     "@vlepo/shared": "latest",

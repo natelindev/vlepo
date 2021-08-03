@@ -1,7 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import dynamic from 'next/dynamic';
-import { Suspense, useState } from 'react';
-import { useSpring } from 'react-spring';
 import { useFragment, useQuery } from 'relay-hooks';
 import { fetchQuery, graphql } from 'relay-runtime';
 import { pages_Index_BlogQuery } from 'src/__generated__/pages_Index_BlogQuery.graphql';
@@ -12,7 +10,6 @@ import Card from 'src/components/Card';
 import ClientOnly from 'src/components/ClientOnly';
 import { ErrorText } from 'src/components/Input';
 import { Row } from 'src/components/Layout/style';
-import Model from 'src/components/Model';
 import PlaceHolder, { Loading } from 'src/components/PlaceHolder';
 import { H2, H3 } from 'src/components/Typography';
 import { initEnvironment } from 'src/relay';
@@ -37,9 +34,6 @@ import {
 
 import { East } from '@emotion-icons/material-outlined';
 import styled from '@emotion/styled';
-import { a as three } from '@react-spring/three';
-import { ContactShadows, Environment } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
 
 import type { GetServerSidePropsContext } from 'next';
 
@@ -51,6 +45,7 @@ const IndexPaperCard = dynamic(() => import('src/components/IndexPaperCard'), { 
 const SubscribeSection = dynamic(() => import('src/components/SubscribeSection'), {
   loading: Loading,
 });
+const HomeScene = dynamic(() => import('src/scenes/home'), { loading: Loading });
 
 const blogQuery = graphql`
   query pages_Index_BlogQuery($id: String!) {
@@ -369,9 +364,6 @@ export default function Home() {
     id: process.env.NEXT_PUBLIC_DEFAULT_BLOG_ID,
   });
 
-  const [laptopOpen, setLaptopOpen] = useState(true);
-  const props = useSpring({ open: Number(laptopOpen) });
-
   if (error) {
     return <ErrorText>{error.message}</ErrorText>;
   }
@@ -387,30 +379,7 @@ export default function Home() {
       </IndexSlogan>
       <CanvasContainer height={['300px', '400px', '500px']}>
         <ClientOnly>
-          <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 0], fov: 35 }}>
-            <three.pointLight position={[10, 10, 10]} intensity={1.5} />
-            <Suspense fallback={null}>
-              <group
-                rotation={[0, Math.PI, 0]}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setLaptopOpen(!laptopOpen);
-                }}
-              >
-                <Model open={laptopOpen} hinge={props.open.to([0, 1], [1.575, -0.425])} />
-              </group>
-              <Environment preset="city" />
-            </Suspense>
-            <ContactShadows
-              rotation-x={Math.PI / 2}
-              position={[0, -4.5, 0]}
-              opacity={0.4}
-              width={20}
-              height={20}
-              blur={2}
-              far={4.5}
-            />
-          </Canvas>
+          <HomeScene />
         </ClientOnly>
       </CanvasContainer>
       <Row ml={['2rem', '0']}>
