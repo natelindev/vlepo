@@ -30,8 +30,8 @@ export const Abstract = styled.div`
 
 export const PostCardTitle = styled(H3)`
   padding: 0;
-  margin-block-start: 0;
-  margin-block-end: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
   font-weight: ${(props) => props.theme.fontWeights.semiBold};
   font-family: ${(props) => props.theme.fonts.heading};
   transition: all 0.3s ease-in-out;

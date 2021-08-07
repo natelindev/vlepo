@@ -4,7 +4,7 @@ import { CardBody, CardImage } from 'src/components/Card/style';
 import { Row } from 'src/components/Layout/style';
 import { HeightProps, MarginProps, WidthProps } from 'styled-system';
 
-import { BasePaperCard, IndexImageOverlay, PaperCardTitle } from './style';
+import { Abstract, BasePaperCard, IndexImageOverlay, PaperCardTitle } from './style';
 
 export type ArticleCardProps = {
   paper: IndexPaperCard_paper$key;
@@ -16,6 +16,7 @@ const indexPaperCardFragment = graphql`
   fragment IndexPaperCard_paper on Paper {
     name
     url
+    abstract
     headerImageUrl
   }
 `;
@@ -23,7 +24,7 @@ const indexPaperCardFragment = graphql`
 const IndexPaperCard = (props: ArticleCardProps) => {
   const { paper: fullPaper, height, width, ...rest } = props;
   const paper = useFragment(indexPaperCardFragment, fullPaper);
-  const { name, headerImageUrl, url } = paper;
+  const { name, headerImageUrl, url, abstract } = paper;
 
   return (
     <BasePaperCard
@@ -57,6 +58,7 @@ const IndexPaperCard = (props: ArticleCardProps) => {
               <PaperCardTitle>{name}</PaperCardTitle>
             </Row>
           )}
+          {abstract && <Abstract>{abstract}</Abstract>}
         </CardBody>
       </IndexImageOverlay>
     </BasePaperCard>

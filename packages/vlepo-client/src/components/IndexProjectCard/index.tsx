@@ -4,7 +4,7 @@ import { CardBody, CardImage } from 'src/components/Card/style';
 import { Row } from 'src/components/Layout/style';
 import { HeightProps, MarginProps, WidthProps } from 'styled-system';
 
-import { BaseProjectCard, IndexImageOverlay, ProjectCardTitle } from './style';
+import { Abstract, BaseProjectCard, IndexImageOverlay, ProjectCardTitle } from './style';
 
 export type ArticleCardProps = {
   project: IndexProjectCard_project$key;
@@ -16,6 +16,7 @@ const indexProjectCardFragment = graphql`
   fragment IndexProjectCard_project on Project {
     name
     url
+    abstract
     headerImageUrl
   }
 `;
@@ -23,7 +24,7 @@ const indexProjectCardFragment = graphql`
 const IndexProjectCard = (props: ArticleCardProps) => {
   const { project: fullProject, height, width, ...rest } = props;
   const project = useFragment(indexProjectCardFragment, fullProject);
-  const { name, headerImageUrl, url } = project;
+  const { name, headerImageUrl, url, abstract } = project;
 
   return (
     <BaseProjectCard
@@ -57,6 +58,7 @@ const IndexProjectCard = (props: ArticleCardProps) => {
               <ProjectCardTitle>{name}</ProjectCardTitle>
             </Row>
           )}
+          {abstract && <Abstract>{abstract}</Abstract>}
         </CardBody>
       </IndexImageOverlay>
     </BaseProjectCard>

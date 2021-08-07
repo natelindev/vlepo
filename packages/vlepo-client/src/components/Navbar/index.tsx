@@ -21,7 +21,6 @@ import {
   NavbarNav,
   NavbarToggler,
   NavBrand,
-  NavItem,
   NavSearchBar,
   RightNavCollapse,
   TogglerBar,
@@ -79,7 +78,7 @@ const Navbar: React.FC = () => {
           <NavLink href="/projects">Projects</NavLink>
           <NavLink href="/papers">Papers</NavLink>
           <NavLink href="/about">About</NavLink>
-          <NavLink href="/tags">Tags</NavLink>
+          {/* <NavLink href="/tags">Tags</NavLink> */}
           {/* <NavLink href="/thoughts">Thoughts</NavLink>
           <NavLink href="/friends">Friends</NavLink>
            */}
@@ -109,9 +108,7 @@ const Navbar: React.FC = () => {
             <NavLink href="/projects">Projects</NavLink>
             <NavLink href="/papers">Papers</NavLink>
             <NavLink href="/about">About</NavLink>
-            <NavLink href="/tags">
-              <NavItem>Tags</NavItem>
-            </NavLink>
+            {/* <NavLink href="/tags">Tags</NavLink> */}
             {/* <Dropdown mt="4px">
               <NavLink href="">More</NavLink>
               <NavLink href="/thoughts">

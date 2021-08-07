@@ -14,8 +14,6 @@ type ModelProps = {
   hinge: Interpolation<number, number>;
 };
 
-const vec = new THREE.Vector3();
-
 type GLTFResult = GLTF & {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   nodes: any;
@@ -36,8 +34,6 @@ const Model = (props: ModelProps) => {
   // Make it float in the air when it's opened
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
-    state.camera.position.lerp(vec.set(0, 0, open ? -24 : -32), 0.1);
-    state.camera.lookAt(0, 0, 0);
     if (
       group &&
       group.current &&

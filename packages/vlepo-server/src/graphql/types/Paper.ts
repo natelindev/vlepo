@@ -1,5 +1,8 @@
 import { serialize } from 'next-mdx-remote/serialize';
 import { nonNull, objectType } from 'nexus';
+import remark from 'remark';
+import mdx from 'remark-mdx';
+import strip from 'remark-mdx-to-plain-text';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 
@@ -19,6 +22,16 @@ export const Paper = objectType({
       type: nonNull('Json'),
       async resolve({ content }) {
         return JSON.stringify(await serialize(content));
+      },
+    });
+    t.string('abstract', {
+      async resolve({ content }) {
+        const strippedContent = await remark()
+          .use(mdx)
+          .use(strip)
+          .process(content ?? '');
+        const result = strippedContent.toString();
+        return result.length > 0 ? result.slice(0, 150) : null;
       },
     });
     t.model.headerImageUrl();

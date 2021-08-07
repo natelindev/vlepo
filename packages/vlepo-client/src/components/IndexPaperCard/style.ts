@@ -19,6 +19,16 @@ import Card from '../Card';
 import { ImageOverlay } from '../Image/style';
 import { H3 } from '../Typography';
 
+export const Abstract = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+`;
+
 export const PaperCardTitle = styled(H3)`
   padding: 0;
   margin-left: auto;
@@ -29,9 +39,7 @@ export const PaperCardTitle = styled(H3)`
 `;
 
 export const IndexImageOverlay = styled(ImageOverlay)`
-  display: flex;
-  align-items: center;
-  opacity: 0;
+  top: 25%;
   transition: all 0.3s ease-in-out;
 `;
 
@@ -62,15 +70,20 @@ export const BasePaperCard = styled(Card)<BasePaperCardProps>`
     margin-bottom: auto;
   }
 
-  @media only screen and (max-width: ${(props) => `${props.theme.breakpoints[0]}`}) {
-    ${IndexImageOverlay} {
-      opacity: 1;
-    }
-  }
+  @media only screen and (min-width: ${(props) => `${props.theme.breakpoints[0]}`}) {
+    &:hover {
+      ${Abstract} {
+        opacity: 1;
+      }
 
-  &:hover {
-    ${IndexImageOverlay} {
-      opacity: 1;
+      ${PaperCardTitle} {
+        margin-top: unset;
+        margin-bottom: unset;
+      }
+
+      ${IndexImageOverlay} {
+        top: 0;
+      }
     }
   }
 `;
