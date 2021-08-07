@@ -10,7 +10,6 @@ export const Abstract = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-grow: 1;
-  word-break: break-all;
   margin-top: 1rem;
   margin-bottom: 1rem;
 `;

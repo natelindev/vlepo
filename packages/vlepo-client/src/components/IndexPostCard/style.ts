@@ -23,7 +23,6 @@ export const Abstract = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-grow: 1;
-  word-break: break-all;
   margin-top: 1rem;
   margin-bottom: 1rem;
   transition: all 0.3s ease-in-out;
