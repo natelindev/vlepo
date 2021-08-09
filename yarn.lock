@@ -3276,10 +3276,10 @@
   dependencies:
     csstype "^3.0.2"
 
-"@types/three@0.130.2":
-  version "0.130.2"
-  resolved "https://registry.yarnpkg.com/@types/three/-/three-0.130.2.tgz#af48f897c844b3b41f649cc2642f61566332be7e"
-  integrity sha512-9rgbc2KobttgyCbaizjxUa6lfmbXSUhjcdd3TKPiG6YIr0ZkUSUuRu0q5qA72sak3gxSGSZCjV+Zuzhl/+VRjA==
+"@types/three@0.131.0":
+  version "0.131.0"
+  resolved "https://registry.yarnpkg.com/@types/three/-/three-0.131.0.tgz#98f59887b05f71e665cf2fbdf04e0e4ceb9f89b6"
+  integrity sha512-4VCtsDi6mIId96GcGKG91e2Y6VwU2T0u/YB7vCFJh1kXik93arxn7l9tVZHo1LXOtgCJJDdC+e1fwf2Vu/4ySw==
 
 "@types/unist@*", "@types/unist@^2.0.0", "@types/unist@^2.0.2", "@types/unist@^2.0.3":
   version "2.0.6"
