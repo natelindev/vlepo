@@ -22,7 +22,7 @@
   "dependencies": {
     "@emotion-icons/fa-brands": "3.14.0",
     "@emotion-icons/material-outlined": "3.14.0",
-    "@emotion/react": "11.4.0",
+    "@emotion/react": "11.4.1",
     "@emotion/styled": "11.3.0",
     "@react-spring/three": "9.2.4",
     "@react-three/drei": "7.3.1",
