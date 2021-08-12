@@ -1,4 +1,4 @@
-import { RouterContext } from 'next/dist/next-server/lib/router-context';
+import { RouterContext } from 'next/dist/shared/lib/router-context';
 import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useFragment } from 'relay-hooks';
