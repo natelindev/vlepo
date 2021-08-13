@@ -28,7 +28,7 @@
   "dependencies": {
     "@devoxa/prisma-relay-cursor-connection": "2.0.2",
     "@koa/cors": "3.1.0",
-    "@prisma/client": "2.29.0",
+    "@prisma/client": "2.29.1",
     "@vlepo/shared": "latest",
     "algoliasearch": "4.10.3",
     "argon2": "0.28.2",
