@@ -645,10 +645,10 @@
   resolved "https://registry.npmjs.org/@corex/deepmerge/-/deepmerge-2.6.20.tgz#a72d1cb5a101fd11160815b96f499a588362ba5b"
   integrity sha512-oZZxwDtV0bf8VPcSIhZPvdBFUkVIC8zRblUjrrVAsbGRiqUuZJfoXw2M6NDiIXWcUCfOqbkFND6Yf3b9ej9AjA==
 
-"@cspell/cspell-bundled-dicts@^5.7.0":
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/@cspell/cspell-bundled-dicts/-/cspell-bundled-dicts-5.7.0.tgz#62db33f8d793554c4e391e886dd96075866340cb"
-  integrity sha512-IsPU52piCumOrrDXLxxpVNdBCJSrlVTP2f8SMpTJhGpOryOR3/6AWFEhw5mE40lXfkFRCREDLzo0RDIWzJ0x9w==
+"@cspell/cspell-bundled-dicts@^5.7.1":
+  version "5.7.1"
+  resolved "https://registry.yarnpkg.com/@cspell/cspell-bundled-dicts/-/cspell-bundled-dicts-5.7.1.tgz#ef63c07c8291ae816ae3221832d9c49b3ee29891"
+  integrity sha512-eOUJver2zJglrl4pjaDVJxoXAogtcWmI9ttVWqgPENeFQAdoNjVSPjRtyLDTp4jXC87TzpTWSKRhC0RNZBZPCg==
   dependencies:
     "@cspell/dict-ada" "^1.1.2"
     "@cspell/dict-aws" "^1.0.14"
@@ -5256,12 +5256,12 @@ cspell-io@^5.7.0:
     iconv-lite "^0.6.3"
     iterable-to-stream "^2.0.0"
 
-cspell-lib@^5.7.0:
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/cspell-lib/-/cspell-lib-5.7.0.tgz#9f5d69e54b2f3f363aa4405b3feb82eac3187b0b"
-  integrity sha512-fK7CvQNd09SX+KliZZ3lqQB4l6rY9MImsKPZ9DJ21BJdOxlAvIvZJQt1Q8sKCQgAZg0D/zjh6C3htoh+AZGtNQ==
+cspell-lib@^5.7.1:
+  version "5.7.1"
+  resolved "https://registry.yarnpkg.com/cspell-lib/-/cspell-lib-5.7.1.tgz#c021ef423a390b71bd56ce103ec98b4df8127b0f"
+  integrity sha512-uE+a292JTroaJMb2L/w2OodtvOTAm/4l6BMkeJtYfdjYGzaKJEKmypazIsEvLuw5AeZNZfIcZoI8iajMypuFUg==
   dependencies:
-    "@cspell/cspell-bundled-dicts" "^5.7.0"
+    "@cspell/cspell-bundled-dicts" "^5.7.1"
     "@cspell/cspell-types" "^5.7.0"
     clear-module "^4.1.1"
     comment-json "^4.1.1"
@@ -5286,17 +5286,17 @@ cspell-trie-lib@^5.7.0:
     fs-extra "^10.0.0"
     gensequence "^3.1.1"
 
-cspell@5.7.0:
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/cspell/-/cspell-5.7.0.tgz#64e8e459b138b5f67fe85c133358472d2c254fe1"
-  integrity sha512-aJZazYIRAa7dJXj2NEhSb9BV/gtnN8N9C8wX2D0XwaQGCvzJqXb5rwcn65r3xI+kpsm4UHxnaU9mhi12AlsLrQ==
+cspell@5.7.1:
+  version "5.7.1"
+  resolved "https://registry.yarnpkg.com/cspell/-/cspell-5.7.1.tgz#4485f9ea31b3ca20abf300b355a05c998ad4c6a8"
+  integrity sha512-SbM9nSYioCkWVz+3jfN7RqTHxuFTaDJSlH66ZesRukctzDbHitQoBRFFlMpF2Qrn/XdlNBVWHA8e3rZRTIEDRg==
   dependencies:
     "@cspell/cspell-types" "^5.7.0"
     chalk "^4.1.2"
     commander "^8.1.0"
     comment-json "^4.1.1"
     cspell-glob "^5.7.0"
-    cspell-lib "^5.7.0"
+    cspell-lib "^5.7.1"
     fs-extra "^10.0.0"
     get-stdin "^8.0.0"
     glob "^7.1.7"
