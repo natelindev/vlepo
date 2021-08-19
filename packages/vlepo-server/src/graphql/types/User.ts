@@ -2,7 +2,6 @@ import { list, nonNull, objectType } from 'nexus';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 
-import { OAuthResolve } from '../../oauth2/nexus';
 import { Comment } from './Comment';
 import { Image } from './Image';
 import { Post } from './Post';
@@ -15,7 +14,7 @@ export const User = objectType({
     t.implements('Commendable');
     t.relayGlobalId('id', { description: 'ID for a resource' });
     t.model.name();
-    t.model.email({ resolve: OAuthResolve('user:email:view') });
+    t.model.email();
     t.model.website();
     t.model.profileImageUrl();
     t.model.description();

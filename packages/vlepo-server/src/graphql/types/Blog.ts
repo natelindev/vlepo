@@ -75,6 +75,7 @@ export const Blog = objectType({
     t.model.links();
     t.model.papers();
     t.model.projects();
+    t.model.ownerId();
 
     t.connectionField('postsConnection', {
       type: Post,

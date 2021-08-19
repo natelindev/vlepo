@@ -12,6 +12,8 @@ declare global {
       NEXT_PUBLIC_DEFAULT_BLOG_SLOGAN: string;
       NEXT_PUBLIC_SITE_URL: string;
       NEXT_PUBLIC_TWITTER_HANDLE: string;
+      NEXT_PUBLIC_USER_NAME: string;
+      NEXT_PUBLIC_USER_EMAIL: string;
       PORT: string;
     }
   }

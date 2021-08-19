@@ -3,7 +3,7 @@ import { getServerSideSitemap } from 'next-sitemap';
 import { fetchQuery, graphql } from 'relay-runtime';
 import {
   serverSitemapXml_BlogQuery,
-  Visibility,
+  serverSitemapXml_BlogQueryResponse,
 } from 'src/__generated__/serverSitemapXml_BlogQuery.graphql';
 import { initEnvironment } from 'src/relay';
 
@@ -20,9 +20,6 @@ const blogQuery = graphql`
 `;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  // Method to source urls from cms
-  // const urls = await fetch('https//example.com/api')
-
   const { environment, relaySSR } = initEnvironment(ctx.req.cookies.accessToken);
   await new Promise((resolve, reject) => {
     fetchQuery<serverSitemapXml_BlogQuery>(environment, blogQuery, {
@@ -36,11 +33,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const [relayData] = await relaySSR.getCache();
   const [, queryPayload] = relayData ?? [];
 
-  const posts: {
-    readonly slug: string;
-    readonly updatedAt: string;
-    readonly visibility: Visibility;
-  }[] = queryPayload.data?.blog.posts ?? [];
+  const posts: serverSitemapXml_BlogQueryResponse['blog']['posts'] =
+    queryPayload.data?.blog.posts ?? [];
 
   const fields = posts
     .filter((p) => p.visibility === 'PUBLISHED')

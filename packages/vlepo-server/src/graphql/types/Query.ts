@@ -2,7 +2,6 @@ import { inputObjectType, nonNull, queryField } from 'nexus';
 
 import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 
-import { OAuthCheckScope } from '../../oauth2/nexus';
 import { fromGlobalId } from '../plugins/relayGlobalId';
 import { connectionArgsValidator, orderByArgs } from '../util/connectionArgsValidator';
 import { getVisibilityArgs } from '../util/visibilityArgs';
@@ -46,19 +45,17 @@ const whereUniqueInput = inputObjectType({
 
 export const Query = queryField((t) => {
   t.field('blog', {
-    type: Blog,
+    type: nonNull(Blog),
     args: {
       where: nonNull(whereUniqueInput.asArg()),
     },
     resolve: async (_root, { where: { id } }, ctx) => {
-      if (!OAuthCheckScope('blog')) {
-        return null;
-      }
-      return ctx.prisma.blog.findFirst({
+      const blog = (await ctx.prisma.blog.findFirst({
         where: {
           id: fromGlobalId(id ?? '').id,
         },
-      });
+      })) as DBBlog;
+      return blog;
     },
   });
 
