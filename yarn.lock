@@ -13005,10 +13005,10 @@ ts-node@^9, ts-node@^9.0.0:
     source-map-support "^0.5.17"
     yn "3.1.1"
 
-ts-pattern@3.2.4:
-  version "3.2.4"
-  resolved "https://registry.npmjs.org/ts-pattern/-/ts-pattern-3.2.4.tgz#b89e57579ecf1ff58d21e70d7f50743266e52777"
-  integrity sha512-sDZfdG1f8P2y3d6H6HOYn1HMlpjYslyK0wch9VOgdpjiXJ40Pkd5oNjXzoN+8UblTzEK1SW72fJWk+h6vaoNIw==
+ts-pattern@3.2.5:
+  version "3.2.5"
+  resolved "https://registry.yarnpkg.com/ts-pattern/-/ts-pattern-3.2.5.tgz#54e60641e38f089cde47bb8f1921c56f0eaf0a58"
+  integrity sha512-MTA3NkxMxyDX3IPx4jcRYoSF5UtZ2tveWT+e83pT7E++j+MJGQzu6+WNNprnBm7tjYGcD6n7pOcbUP5jy+MV/Q==
 
 ts-pnp@^1.1.6:
   version "1.2.0"
