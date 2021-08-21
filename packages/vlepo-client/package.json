@@ -60,7 +60,7 @@
     "styled-modal": "7.1.4",
     "styled-system": "5.1.5",
     "three": "0.131.3",
-    "ts-pattern": "3.2.4",
+    "ts-pattern": "3.2.5",
     "zen-observable": "0.8.15"
   },
   "devDependencies": {
