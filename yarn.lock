@@ -3272,10 +3272,10 @@
   dependencies:
     graphql "^14.5.3"
 
-"@types/graphql-upload@8.0.6":
-  version "8.0.6"
-  resolved "https://registry.npmjs.org/@types/graphql-upload/-/graphql-upload-8.0.6.tgz#6212b69fabb171389ca3c29e0a54b8c0d7b12301"
-  integrity sha512-PNFVwWMy1btDKN51ncAZbD2sTFdqGq416Tk/pUC/U5op97Vg0uw9/4psOPkDn+oEZMJjH0xMMFyJAH2lnoOxSA==
+"@types/graphql-upload@8.0.7":
+  version "8.0.7"
+  resolved "https://registry.yarnpkg.com/@types/graphql-upload/-/graphql-upload-8.0.7.tgz#71dd5d4a8d9ddb598df91298d6e98a943061b255"
+  integrity sha512-uXhInuUY/W6n9a+PdCt9vcZ7z2m+NzByBJFvvDM+46pljqEwXXnIAjsEI1Dka2FKRTGthetm/imN//RhtEEYSA==
   dependencies:
     "@types/express" "*"
     "@types/fs-capacitor" "*"
@@ -3546,10 +3546,15 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/relay-runtime@*", "@types/relay-runtime@11.0.2":
+"@types/relay-runtime@*":
   version "11.0.2"
   resolved "https://registry.npmjs.org/@types/relay-runtime/-/relay-runtime-11.0.2.tgz#3e7a1371c13ee731288c751a53e7392c6afff2b5"
   integrity sha512-GDw27MCYF45medCb0Ug08EPJVHA/K0yNKZ4N4LOGMaclUnLmzZJz9w6ja6pZMhBT84PQ9wsPZbHRPyXl57Am1Q==
+
+"@types/relay-runtime@11.0.3":
+  version "11.0.3"
+  resolved "https://registry.yarnpkg.com/@types/relay-runtime/-/relay-runtime-11.0.3.tgz#359cecd4eeb00a51db7691eeb38b756238a60176"
+  integrity sha512-wZRKA7hy1jXqrs7vZmwlwPll6UjLMhsbF0AUd63f+WT/DRnVDF1087zvCx9qZ4giPq+whyASVpx+nfz2+sBQtw==
 
 "@types/scheduler@*":
   version "0.16.2"
