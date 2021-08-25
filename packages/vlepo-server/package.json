@@ -72,7 +72,7 @@
     "@types/koa": "2.13.4",
     "@types/koa-bodyparser": "4.3.3",
     "@types/koa-graphql": "0.8.5",
-    "@types/koa-mount": "4.0.0",
+    "@types/koa-mount": "4.0.1",
     "@types/koa-router": "7.4.4",
     "@types/koa-send": "4.1.3",
     "@types/koa-session": "5.10.4",
