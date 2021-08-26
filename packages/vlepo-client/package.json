@@ -28,7 +28,7 @@
     "@react-three/drei": "7.5.0",
     "@react-three/fiber": "7.0.6",
     "@vlepo/shared": "latest",
-    "algoliasearch": "4.10.4",
+    "algoliasearch": "4.10.5",
     "bezier-easing": "2.1.0",
     "body-scroll-lock": "4.0.0-beta.0",
     "date-fns": "2.23.0",
@@ -59,7 +59,7 @@
     "relay-runtime": "11.0.2",
     "styled-modal": "7.1.4",
     "styled-system": "5.1.5",
-    "three": "0.131.3",
+    "three": "0.132.0",
     "ts-pattern": "3.2.5",
     "zen-observable": "0.8.15"
   },

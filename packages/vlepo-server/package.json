@@ -30,7 +30,7 @@
     "@koa/cors": "3.1.0",
     "@prisma/client": "2.30.0",
     "@vlepo/shared": "latest",
-    "algoliasearch": "4.10.4",
+    "algoliasearch": "4.10.5",
     "argon2": "0.28.2",
     "crypto-random-string": "3.3.1",
     "date-fns": "2.23.0",
