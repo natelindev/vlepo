@@ -45,7 +45,7 @@
     "prism-react-renderer": "1.2.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-hook-form": "7.13.0",
+    "react-hook-form": "7.14.0",
     "react-instantsearch-dom": "6.12.1",
     "react-relay": "11.0.2",
     "react-relay-network-modern": "6.0.0",
@@ -59,7 +59,7 @@
     "relay-runtime": "11.0.2",
     "styled-modal": "7.1.4",
     "styled-system": "5.1.5",
-    "three": "0.132.0",
+    "three": "0.132.2",
     "ts-pattern": "3.2.5",
     "zen-observable": "0.8.15"
   },
