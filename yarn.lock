@@ -7218,10 +7218,10 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6
   resolved "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.8.tgz#e412b8d33f5e006593cbd3cee6df9f2cebbe802a"
   integrity sha512-qkIilPUYcNhJpd33n0GBXTB1MMPp14TxEsEs0pTrsSVucApsYzW5V+Q8Qxhik6KU3evy+qkAAowTByymK0avdg==
 
-grant@5.4.16:
-  version "5.4.16"
-  resolved "https://registry.npmjs.org/grant/-/grant-5.4.16.tgz#45cbb65d4498d7f4f60c925bf31faad0362a3fc0"
-  integrity sha512-o4z8bmhaMmze/sqs/QZo1Tn9wp7gX7geYDJuAe8cbvMupWd9JW7k5Y8Apf1dNhrxEhETELPMpesjMXQcCuq+GQ==
+grant@5.4.17:
+  version "5.4.17"
+  resolved "https://registry.yarnpkg.com/grant/-/grant-5.4.17.tgz#59aad7f04c1843612cb0e6816e038a07f65c9859"
+  integrity sha512-bLpJYxkmi3kg/gV5v9Iv7xqgzAgWP7MhXaMwZVKnzhwiFPKZGzntUgq61aQ8QuLdmpm7tPxRv9Rw6xY4vqaAsA==
   dependencies:
     qs "^6.10.1"
     request-compose "^2.1.4"
