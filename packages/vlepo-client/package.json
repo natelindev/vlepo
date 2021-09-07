@@ -64,8 +64,8 @@
     "zen-observable": "0.8.15"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "2.1.1",
-    "@graphql-codegen/schema-ast": "2.1.0",
+    "@graphql-codegen/cli": "2.2.0",
+    "@graphql-codegen/schema-ast": "2.2.0",
     "@graphql-codegen/visitor-plugin-common": "2.2.0",
     "@next/bundle-analyzer": "11.1.2",
     "@types/body-scroll-lock": "3.1.0",
