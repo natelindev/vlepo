@@ -28,7 +28,7 @@
   "dependencies": {
     "@devoxa/prisma-relay-cursor-connection": "2.0.2",
     "@koa/cors": "3.1.0",
-    "@prisma/client": "2.30.3",
+    "@prisma/client": "3.0.1",
     "@vlepo/shared": "latest",
     "algoliasearch": "4.10.5",
     "argon2": "0.28.2",
@@ -86,7 +86,7 @@
     "@typescript-eslint/parser": "4.31.0",
     "faker": "5.5.3",
     "meow": "9.0.0",
-    "prisma": "2.30.3",
+    "prisma": "3.0.1",
     "ts-node": "10.2.1",
     "ts-node-dev": "1.1.8",
     "typescript": "4.4.2"
