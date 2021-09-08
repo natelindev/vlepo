@@ -13,7 +13,6 @@
     "db:new-migration": "prisma migrate dev --name",
     "db:push": "prisma db push",
     "db:reset": "prisma migrate reset",
-    "db:seed": "DEBUG=vlepo* ts-node --transpile-only prisma/seed.ts -s",
     "dev": "NODE_ENV=development DEBUG=vlepo* ts-node-dev -r dotenv/config --exit-child --tree-kill --respawn --transpile-only src/app.ts",
     "generate": "yarn generate:prisma && yarn generate:nexus",
     "generate:nexus": "NODE_ENV=development ts-node --transpile-only src/graphql",
@@ -21,14 +20,13 @@
     "lint": "eslint src --ext .ts,.tsx",
     "spellcheck": "cspell src/**/*.{ts,tsx}",
     "start": "NODE_ENV=production DEBUG=vlepo* pm2 start app.js --name vlepo-server",
-    "ts-node": "ts-node --transpile-only",
     "typecheck": "tsc --noEmit",
     "zip": "rm -rf ../../artifact && mkdir -p ../../artifact && zip -r ../../artifact/vlepo-server.zip build"
   },
   "dependencies": {
     "@devoxa/prisma-relay-cursor-connection": "2.0.2",
     "@koa/cors": "3.1.0",
-    "@prisma/client": "2.30.3",
+    "@prisma/client": "3.0.1",
     "@vlepo/shared": "latest",
     "algoliasearch": "4.10.5",
     "argon2": "0.28.2",
@@ -79,16 +77,19 @@
     "@types/koa-static": "4.0.2",
     "@types/koa__cors": "3.0.3",
     "@types/mailgun-js": "0.22.12",
-    "@types/node": "16.7.10",
+    "@types/node": "16.7.13",
     "@types/node-fetch": "2.5.12",
     "@types/uuid": "8.3.1",
     "@typescript-eslint/eslint-plugin": "4.31.0",
     "@typescript-eslint/parser": "4.31.0",
     "faker": "5.5.3",
     "meow": "9.0.0",
-    "prisma": "2.30.3",
+    "prisma": "3.0.1",
     "ts-node": "10.2.1",
     "ts-node-dev": "1.1.8",
     "typescript": "4.4.2"
+  },
+  "prisma": {
+    "seed": "DEBUG=vlepo* ts-node --transpile-only prisma/seed.ts -s"
   }
 }
