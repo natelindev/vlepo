@@ -84,7 +84,7 @@
     "relay-compiler": "12.0.0",
     "relay-compiler-language-typescript": "14.1.0",
     "relay-config": "12.0.0",
-    "typescript": "4.4.2",
+    "typescript": "4.4.3",
     "typescript-styled-plugin": "0.18.1",
     "vscode-apollo-relay": "1.5.1"
   }
