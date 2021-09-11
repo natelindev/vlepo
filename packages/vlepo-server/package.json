@@ -24,7 +24,7 @@
     "zip": "rm -rf ../../artifact && mkdir -p ../../artifact && zip -r ../../artifact/vlepo-server.zip build"
   },
   "dependencies": {
-    "@devoxa/prisma-relay-cursor-connection": "2.0.2",
+    "@devoxa/prisma-relay-cursor-connection": "2.0.3",
     "@koa/cors": "3.1.0",
     "@prisma/client": "3.0.2",
     "@vlepo/shared": "latest",
@@ -49,7 +49,7 @@
     "koa-session": "6.2.0",
     "koa-static": "5.0.0",
     "mailgun-js": "0.22.0",
-    "mjml": "4.10.2",
+    "mjml": "4.10.3",
     "next-mdx-remote": "3.0.4",
     "nexus": "1.1.0",
     "nexus-plugin-prisma": "0.35.0",
