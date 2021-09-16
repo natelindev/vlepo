@@ -2959,10 +2959,10 @@
     "@react-spring/shared" "~9.2.0"
     "@react-spring/types" "~9.2.0"
 
-"@react-three/drei@7.8.0":
-  version "7.8.0"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-7.8.0.tgz#ef052779a4398a0665390eb2be84b6b2681353f5"
-  integrity sha512-2HbNZB3HEzMC1sDBTZwCA973MW1ke65oIQAlH+ZW5pucNnuHgpiuDmmWRSq055sJfgY2GtTEHCzFjb5J465W6A==
+"@react-three/drei@7.8.2":
+  version "7.8.2"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-7.8.2.tgz#0fe823f4d6e0785fb8c62327ea4a36b47e8b138b"
+  integrity sha512-bFVbtfWjemGKwyihswv+/HncKArmCTWL93AxhVrL7NrEUYqJSszQDu8i8up9uv2YV0xqEWgomA3s2WRyfSiSCQ==
   dependencies:
     "@babel/runtime" "^7.11.2"
     blob-polyfill "^5.0.20210201"
@@ -9971,10 +9971,10 @@ next-mdx-remote@3.0.4:
     esbuild "^0.12.9"
     pkg-dir "^5.0.0"
 
-next-seo@4.26.0:
-  version "4.26.0"
-  resolved "https://registry.npmjs.org/next-seo/-/next-seo-4.26.0.tgz#4218cfae5651fdc2e330dcdf1cc1b34ce199d41c"
-  integrity sha512-5TqywQ3XAwqdmEU1AyNZjR7WdDKFTkDD8aBtgQelPvzBUEy8i0mTjtiw+09jhiHFNik6FqS8uPKCaYcY6jRgSQ==
+next-seo@4.27.0:
+  version "4.27.0"
+  resolved "https://registry.yarnpkg.com/next-seo/-/next-seo-4.27.0.tgz#9e6d1b9b49c09c3f5e1e86443dc04854b4edbd48"
+  integrity sha512-nodRrdEePRjFBo+2osYpDCVi+EbO45/MmCnLQpmS59HuEXBDePa3gpM67kJk9cCJ9dKkfp/MwYtmNbhDImMvmg==
 
 next-sitemap@1.6.168:
   version "1.6.168"
