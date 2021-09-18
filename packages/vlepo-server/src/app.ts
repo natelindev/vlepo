@@ -87,6 +87,8 @@ app.use((ctx, next) => {
   debug(`method: ${ctx.request.method}`);
   debug(`path: ${ctx.request.path}`);
   if (ctx.request.method === 'POST' && ctx.request.path === '/graphql') {
+    debug(`id: ${ctx.request.body.id}`);
+    debug(`value: ${persistedQueries[ctx.request.body.id as keyof typeof persistedQueries]}`);
     const { id } = ctx.request.body;
     if (id && id in persistedQueries) {
       ctx.request.body.query = persistedQueries[id as keyof typeof persistedQueries];
