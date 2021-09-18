@@ -7,3 +7,4 @@ yarn.lock                    merge=binary
 .yarn/releases/**            merge=binary
 .yarn/plugins/**             merge=binary
 schema.graphql               merge=binary
+persistedQueries.json        merge=binary

@@ -83,17 +83,18 @@ app.use(
       }),
 );
 
+// graphql request whitelist
 app.use((ctx, next) => {
-  const { id } = ctx.request.body;
-  if (ctx.headers['x-introspect-secret'] === process.env.GRAPHQL_INTROSPECT_SECRET) {
-    return next();
+  if (ctx.request.method === 'POST' && ctx.request.path === '/graphql') {
+    const { id } = ctx.request.body;
+    if (id && id in persistedQueries) {
+      ctx.request.body.query = persistedQueries[id as keyof typeof persistedQueries];
+      return next();
+    }
+    ctx.status = 400;
+    return undefined;
   }
-  if (id && id in persistedQueries) {
-    ctx.request.body.query = persistedQueries[id as keyof typeof persistedQueries];
-    return next();
-  }
-  ctx.status = 400;
-  return undefined;
+  return next();
 });
 
 app.use(session(app));
