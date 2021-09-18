@@ -22,6 +22,7 @@ import schema from './graphql';
 import { grantConfig } from './oauth2/grantConfig';
 import * as oauth from './oauth2/model';
 import authRouter from './oauth2/router';
+import persistedQueries from './persistedQueries.json';
 
 import type { PrismaClient, User } from '@prisma/client';
 
@@ -81,6 +82,16 @@ app.use(
         ],
       }),
 );
+
+app.use((ctx, next) => {
+  const { id } = ctx.request.body;
+  if (id && id in persistedQueries) {
+    ctx.request.body.query = persistedQueries[id as keyof typeof persistedQueries];
+    return next();
+  }
+  ctx.status = 400;
+  return undefined;
+});
 
 app.use(session(app));
 app.use(grant.koa()(grantConfig));

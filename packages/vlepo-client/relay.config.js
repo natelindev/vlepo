@@ -3,6 +3,7 @@ module.exports = {
   src: './src',
   language: 'typescript',
   schema: './src/schema/schema.graphql',
+  'persist-output': '../vlepo-server/src/persistedQueries.json',
   exclude: [
     '**/.next/**',
     '**/node_modules/**',
