@@ -2959,10 +2959,10 @@
     "@react-spring/shared" "~9.2.0"
     "@react-spring/types" "~9.2.0"
 
-"@react-three/drei@7.8.2":
-  version "7.8.2"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-7.8.2.tgz#0fe823f4d6e0785fb8c62327ea4a36b47e8b138b"
-  integrity sha512-bFVbtfWjemGKwyihswv+/HncKArmCTWL93AxhVrL7NrEUYqJSszQDu8i8up9uv2YV0xqEWgomA3s2WRyfSiSCQ==
+"@react-three/drei@7.8.4":
+  version "7.8.4"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-7.8.4.tgz#0b6c4af8b7c7bd3a471971e44cada625d8ca4b6f"
+  integrity sha512-hrb8J8gZb1Tz2vFTw8oIUW6WGFFAgcpq5FwNqoK6/eebG2Wvr9WLjMkJWXfexIKNXnq4w8bvgNtzBCCAbq6UJA==
   dependencies:
     "@babel/runtime" "^7.11.2"
     blob-polyfill "^5.0.20210201"
@@ -13170,10 +13170,10 @@ ts-node@^9, ts-node@^9.0.0:
     source-map-support "^0.5.17"
     yn "3.1.1"
 
-ts-pattern@3.2.5:
-  version "3.2.5"
-  resolved "https://registry.npmjs.org/ts-pattern/-/ts-pattern-3.2.5.tgz#54e60641e38f089cde47bb8f1921c56f0eaf0a58"
-  integrity sha512-MTA3NkxMxyDX3IPx4jcRYoSF5UtZ2tveWT+e83pT7E++j+MJGQzu6+WNNprnBm7tjYGcD6n7pOcbUP5jy+MV/Q==
+ts-pattern@3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/ts-pattern/-/ts-pattern-3.3.1.tgz#cedd39ff9a5ffd7787de5b3008618bd0c50c62ef"
+  integrity sha512-E1Au2Biw2j5T6D3WJ1HISJt/nBsrR+zoQYLEODI1JvWTkE7QY2K2wtYbiK9ZtxEFTZ8PnBqj7nbl2U/TzW2MtQ==
 
 ts-pnp@^1.1.6:
   version "1.2.0"
