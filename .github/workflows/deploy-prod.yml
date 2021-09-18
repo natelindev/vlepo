@@ -5,12 +5,8 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  deploy-server:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: ["14"]
 
     environment:
       name: Production
@@ -19,7 +15,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 2
-          always-auth: true
 
       - name: determine what need to be deployed
         run: |
@@ -29,15 +24,12 @@ jobs:
           if ! git diff HEAD^ HEAD --quiet ./packages/vlepo-server; then
               echo "DEPLOY_SERVER=true" >> "$GITHUB_ENV"
           fi
-          if ! git diff HEAD^ HEAD --quiet ./packages/vlepo-client; then
-              echo "DEPLOY_CLIENT=true" >> "$GITHUB_ENV"
-          fi
 
-      - name: use Node.js ${{ matrix.node_version }}
+      - name: use Node.js 14
         if: env.DEPLOY_SHARED == 'true' || env.DEPLOY_SERVER == 'true'
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node_version }}
+          node-version: 14
           registry-url: 'https://registry.npmjs.org'
           scope: '@vlepo'
 
@@ -65,6 +57,23 @@ jobs:
           inventory: |
             [web]
             ${{secrets.SERVER_URL}} ansible_port=${{secrets.SERVER_SSH_PORT}}
+
+  deploy-client:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: Production
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: determine what need to be deployed
+        run:
+          if ! git diff HEAD^ HEAD --quiet ./packages/vlepo-client; then
+              echo "DEPLOY_CLIENT=true" >> "$GITHUB_ENV"
+          fi
 
       - name: deploy client
         if: env.DEPLOY_CLIENT == 'true'
