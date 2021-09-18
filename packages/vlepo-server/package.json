@@ -78,8 +78,6 @@
     "@types/node": "16.9.2",
     "@types/node-fetch": "2.5.12",
     "@types/uuid": "8.3.1",
-    "@typescript-eslint/eslint-plugin": "4.31.1",
-    "@typescript-eslint/parser": "4.31.1",
     "faker": "5.5.3",
     "meow": "9.0.0",
     "prisma": "3.0.2",
