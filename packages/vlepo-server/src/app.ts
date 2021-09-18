@@ -1,7 +1,6 @@
 import algoliasearch, { SearchIndex } from 'algoliasearch';
 import debugInit from 'debug';
 import grant from 'grant';
-import depthLimit from 'graphql-depth-limit';
 import koaPlayground from 'graphql-playground-middleware-koa';
 import { graphqlUploadKoa } from 'graphql-upload';
 import Koa from 'koa';
@@ -85,6 +84,8 @@ app.use(
 
 // graphql request whitelist
 app.use((ctx, next) => {
+  debug(`method: ${ctx.request.method}`);
+  debug(`path: ${ctx.request.path}`);
   if (ctx.request.method === 'POST' && ctx.request.path === '/graphql') {
     const { id } = ctx.request.body;
     if (id && id in persistedQueries) {
@@ -106,7 +107,6 @@ const router = new Router();
 const graphqlServer = graphqlHTTP((_req, _res, ctx) => ({
   schema,
   context: ctx,
-  validationRules: [depthLimit(10)],
   formatError: (error: Error) => {
     debug(error.stack);
     return {
