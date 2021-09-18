@@ -1,4 +1,7 @@
-schema: ${NEXT_PUBLIC_API_ENDPOINT}/graphql
+schema:
+  - '${NEXT_PUBLIC_API_ENDPOINT}/graphql':
+      headers:
+        x-introspect-secret: '${GRAPHQL_INTROSPECT_SECRET}'
 extensions:
   codegen:
     generates:

@@ -85,6 +85,9 @@ app.use(
 
 app.use((ctx, next) => {
   const { id } = ctx.request.body;
+  if (ctx.headers['x-introspect-secret'] === process.env.GRAPHQL_INTROSPECT_SECRET) {
+    return next();
+  }
   if (id && id in persistedQueries) {
     ctx.request.body.query = persistedQueries[id as keyof typeof persistedQueries];
     return next();

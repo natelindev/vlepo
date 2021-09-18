@@ -23,6 +23,7 @@ declare global {
       NEXT_PUBLIC_ALGOLIA_INDEX_NAME: string;
       MAILGUN_API_KEY: string;
       MAILGUN_DOMAIN: string;
+      GRAPHQL_INTROSPECT_SECRET: string;
     }
   }
 }
