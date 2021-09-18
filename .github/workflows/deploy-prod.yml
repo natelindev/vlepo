@@ -70,7 +70,7 @@ jobs:
           fetch-depth: 2
 
       - name: determine what need to be deployed
-        run:
+        run: |
           if ! git diff HEAD^ HEAD --quiet ./packages/vlepo-client; then
               echo "DEPLOY_CLIENT=true" >> "$GITHUB_ENV"
           fi
