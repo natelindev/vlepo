@@ -6575,10 +6575,10 @@ graphql-upload@12.0.0:
     isobject "^4.0.0"
     object-path "^0.11.5"
 
-graphql@15.5.3:
-  version "15.5.3"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.5.3.tgz#c72349017d5c9f5446a897fe6908b3186db1da00"
-  integrity sha512-sM+jXaO5KinTui6lbK/7b7H/Knj9BpjGxZ+Ki35v7YbUJxxdBCUqNM0h3CRVU1ZF9t5lNiBzvBCSYPvIwxPOQA==
+graphql@15.6.0:
+  version "15.6.0"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.6.0.tgz#e69323c6a9780a1a4b9ddf7e35ca8904bb04df02"
+  integrity sha512-WJR872Zlc9hckiEPhXgyUftXH48jp2EjO5tgBBOyNMRJZ9fviL2mJBD6CAysk6N5S0r9BTs09Qk39nnJBkvOXQ==
 
 "graphql@^14.0.0 || ^15.0.0", graphql@^15.1.0, graphql@^15.3.0:
   version "15.5.1"
@@ -8859,10 +8859,10 @@ next-mdx-remote@3.0.4:
     esbuild "^0.12.9"
     pkg-dir "^5.0.0"
 
-next-seo@4.27.0:
-  version "4.27.0"
-  resolved "https://registry.yarnpkg.com/next-seo/-/next-seo-4.27.0.tgz#9e6d1b9b49c09c3f5e1e86443dc04854b4edbd48"
-  integrity sha512-nodRrdEePRjFBo+2osYpDCVi+EbO45/MmCnLQpmS59HuEXBDePa3gpM67kJk9cCJ9dKkfp/MwYtmNbhDImMvmg==
+next-seo@4.28.0:
+  version "4.28.0"
+  resolved "https://registry.yarnpkg.com/next-seo/-/next-seo-4.28.0.tgz#1200c2b1d567ae009826d103c82be5c007a9af29"
+  integrity sha512-jlB7GBX7LA5UAzFbsSdaQQ//lDz1RU+6a1JtrDQPPtk0/Wk07kU/NmZLAx1U087355u5ToWZjQB8W0rQb4C3Gg==
 
 next-sitemap@1.6.168:
   version "1.6.168"
@@ -8971,10 +8971,12 @@ node-fetch@2.6.1, node-fetch@^2.6.0, node-fetch@^2.6.1:
   resolved "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
-node-fetch@2.6.2:
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.2.tgz#986996818b73785e47b1965cc34eb093a1d464d0"
-  integrity sha512-aLoxToI6RfZ+0NOjmWAgn9+LEd30YCkJKFSyWacNZdEKTit/ZMcKjGkTRo8uWEsnIb/hfKecNPEbln02PdWbcA==
+node-fetch@2.6.3:
+  version "2.6.3"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.3.tgz#57b29b34400e9c52346cbfb575cf3d10f7a49e92"
+  integrity sha512-BXSmNTLLDHT0UjQDg5E23x+0n/hPDjySqc0ELE4NpCa2wE5qmmaEWFRP/+v8pfuocchR9l5vFLbSB7CPE2ahvQ==
+  dependencies:
+    whatwg-url "^5.0.0"
 
 node-gyp@^5.0.2:
   version "5.1.1"
@@ -11680,6 +11682,11 @@ tr46@^2.1.0:
   dependencies:
     punycode "^2.1.1"
 
+tr46@~0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/tr46/-/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
+  integrity sha1-gYT9NH2snNwYWZLzpmIuFLnZq2o=
+
 tree-kill@^1.2.2:
   version "1.2.2"
   resolved "https://registry.npmjs.org/tree-kill/-/tree-kill-1.2.2.tgz#4ca09a9092c88b73a7cdc5e8a01b507b0790a0cc"
@@ -12396,6 +12403,11 @@ webgl-constants@^1.1.1:
   resolved "https://registry.npmjs.org/webgl-constants/-/webgl-constants-1.1.1.tgz#f9633ee87fea56647a60b9ce735cbdfb891c6855"
   integrity sha512-LkBXKjU5r9vAW7Gcu3T5u+5cvSvh5WwINdr0C+9jpzVB41cjQAP5ePArDtk/WHYdVj0GefCgM73BA7FlIiNtdg==
 
+webidl-conversions@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-3.0.1.tgz#24534275e2a7bc6be7bc86611cc16ae0a5654871"
+  integrity sha1-JFNCdeKnvGvnvIZhHMFq4KVlSHE=
+
 webidl-conversions@^4.0.2:
   version "4.0.2"
   resolved "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
@@ -12420,6 +12432,14 @@ webpack-bundle-analyzer@4.3.0:
     opener "^1.5.2"
     sirv "^1.0.7"
     ws "^7.3.1"
+
+whatwg-url@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/whatwg-url/-/whatwg-url-5.0.0.tgz#966454e8765462e37644d3626f6742ce8b70965d"
+  integrity sha1-lmRU6HZUYuN2RNNib2dCzotwll0=
+  dependencies:
+    tr46 "~0.0.3"
+    webidl-conversions "^3.0.0"
 
 whatwg-url@^7.0.0:
   version "7.1.0"
