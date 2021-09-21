@@ -26,7 +26,7 @@
   "dependencies": {
     "@devoxa/prisma-relay-cursor-connection": "2.0.3",
     "@koa/cors": "3.1.0",
-    "@prisma/client": "3.0.2",
+    "@prisma/client": "3.1.1",
     "@vlepo/shared": "latest",
     "algoliasearch": "4.10.5",
     "argon2": "0.28.2",
@@ -52,7 +52,7 @@
     "next-mdx-remote": "3.0.4",
     "nexus": "1.1.0",
     "nexus-plugin-prisma": "0.35.0",
-    "node-fetch": "2.6.3",
+    "node-fetch": "2.6.4",
     "node-vibrant": "3.2.1-alpha.1",
     "reading-time": "1.5.0",
     "remark": "13.0.0",
