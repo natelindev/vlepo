@@ -71,7 +71,7 @@
     "@types/react-instantsearch-dom": "6.12.0",
     "@types/react-relay": "11.0.2",
     "@types/react-typist": "2.0.2",
-    "@types/relay-runtime": "11.0.4",
+    "@types/relay-runtime": "12.0.0",
     "@types/styled-system": "5.1.13",
     "@types/three": "0.131.1",
     "@types/zen-observable": "0.8.3",
