@@ -75,7 +75,7 @@
     "@types/koa-static": "4.0.2",
     "@types/koa__cors": "3.0.3",
     "@types/mailgun-js": "0.22.12",
-    "@types/node": "16.9.2",
+    "@types/node": "16.9.6",
     "@types/node-fetch": "2.5.12",
     "@types/uuid": "8.3.1",
     "faker": "5.5.3",

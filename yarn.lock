@@ -2548,10 +2548,10 @@
     "@react-spring/shared" "~9.2.0"
     "@react-spring/types" "~9.2.0"
 
-"@react-three/drei@7.11.1":
-  version "7.11.1"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-7.11.1.tgz#fb68e7ae8b2113c5be822cf73e03eb086ef56e1f"
-  integrity sha512-mZCiw07b41UubCEY9xqwAJql/s1XUGhTc5ttLgZM9ALXpV/f/SN2112Xp0jxs++d153XarwR1Bo/Sx1HBpllIA==
+"@react-three/drei@7.12.1":
+  version "7.12.1"
+  resolved "https://registry.npmjs.org/@react-three/drei/-/drei-7.12.1.tgz#b808c6c9b14dd1cb11ef6c94f391e5701aa36f46"
+  integrity sha512-0H19vqhfNYDJYgiMhLSUJtahO9jKcE2+pSdhWLAMVhvRuzC6/NMFPwBW2omqoxwLDazyxx5GnhNtW6QD9aj+tQ==
   dependencies:
     "@babel/runtime" "^7.11.2"
     blob-polyfill "^5.0.20210201"
@@ -2985,10 +2985,10 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-16.7.2.tgz#0465a39b5456b61a04d98bd5545f8b34be340cb7"
   integrity sha512-TbG4TOx9hng8FKxaVrCisdaxKxqEwJ3zwHoCWXZ0Jw6mnvTInpaB99/2Cy4+XxpXtjNv9/TgfGSvZFyfV/t8Fw==
 
-"@types/node@16.9.2":
-  version "16.9.2"
-  resolved "https://registry.npmjs.org/@types/node/-/node-16.9.2.tgz#81f5a039d6ed1941f8cc57506c74e7c2b8fc64b9"
-  integrity sha512-ZHty/hKoOLZvSz6BtP1g7tc7nUeJhoCf3flLjh8ZEv1vFKBWHXcnMbJMyN/pftSljNyy0kNW/UqI3DccnBnZ8w==
+"@types/node@16.9.6":
+  version "16.9.6"
+  resolved "https://registry.npmjs.org/@types/node/-/node-16.9.6.tgz#040a64d7faf9e5d9e940357125f0963012e66f04"
+  integrity sha512-YHUZhBOMTM3mjFkXVcK+WwAcYmyhe1wL4lfqNtzI0b3qAy7yuSetnM7QJazgE5PFmgVTNGiLOgRFfJMqW7XpSQ==
 
 "@types/node@^10.12.18":
   version "10.17.60"
