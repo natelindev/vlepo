@@ -10554,10 +10554,10 @@ relateurl@^0.2.7:
   resolved "https://registry.npmjs.org/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha1-VNvzd+UUQKypCkzSdGANP/LYiKk=
 
-relay-compiler-language-typescript@14.1.1:
-  version "14.1.1"
-  resolved "https://registry.yarnpkg.com/relay-compiler-language-typescript/-/relay-compiler-language-typescript-14.1.1.tgz#c1f8350be5a9699049def30c14b679abb40d9455"
-  integrity sha512-Jp4CaIBBJaRpbOe2F7m2cBHLsutTx4W+lKFQbY1aPDy4mgkXzirQvOgO4HoXMUFIiqks+7k11oX123+qBvmVEw==
+relay-compiler-language-typescript@14.1.2:
+  version "14.1.2"
+  resolved "https://registry.yarnpkg.com/relay-compiler-language-typescript/-/relay-compiler-language-typescript-14.1.2.tgz#f0430c64f9acd5000938ceef39bacad7f34a3e64"
+  integrity sha512-b9iPJ5qzn4R9dttVTYAJwm182auz3/8161lJD3FgFPp1uBr+xKspqwRXnwzj0vtUg12uu8L0Z4d9dxXsf/12Jg==
   dependencies:
     invariant "^2.2.4"
 
