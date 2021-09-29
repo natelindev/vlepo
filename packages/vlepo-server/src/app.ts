@@ -21,6 +21,7 @@ import schema from './graphql';
 import { grantConfig } from './oauth2/grantConfig';
 import * as oauth from './oauth2/model';
 import authRouter from './oauth2/router';
+import persistedQueries from './persisted-queries.json';
 import persistedQueries from './persistedQueries.json';
 
 import type { PrismaClient, User } from '@prisma/client';
@@ -82,18 +83,15 @@ app.use(
       }),
 );
 
-// graphql request whitelist
 app.use((ctx, next) => {
-  if (ctx.request.method === 'POST' && ctx.request.path.includes('/graphql')) {
-    const { id } = ctx.request.body;
-    if (id && id in persistedQueries) {
-      ctx.request.body.query = persistedQueries[id as keyof typeof persistedQueries];
-      return next();
-    }
-    ctx.status = 400;
-    return undefined;
+  if (ctx.request.body.id && Object.keys(persistedQueries).includes(ctx.request.body.id)) {
+    // whitelisted persisted query
+    ctx.request.body.query = persistedQueries[ctx.request.body.id as keyof typeof persistedQueries];
+    return next();
   }
-  return next();
+  // invalid query
+  ctx.status = 400;
+  return undefined;
 });
 
 app.use(session(app));
