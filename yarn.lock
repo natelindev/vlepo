@@ -2548,10 +2548,10 @@
     "@react-spring/shared" "~9.2.0"
     "@react-spring/types" "~9.2.0"
 
-"@react-three/drei@7.12.3":
-  version "7.12.3"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-7.12.3.tgz#9b49b3c83da1068aec1be9175de8dfdd893b555d"
-  integrity sha512-3xA40awOUNctep8vdJaXYiWmJMKxtqnxIdfWCnXSlc8W0HiRwZ2oTFwcXdZ7uor5npCPohqUMpSTtQkfWzX4tA==
+"@react-three/drei@7.12.4":
+  version "7.12.4"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-7.12.4.tgz#3328fd48cf2cf0918995c8a31140f18d9a92c188"
+  integrity sha512-IGpnCxthaO3iP3wSi3zig0JuR1U27C+jTlAwEYHc9liHKe3IRB66QXK7TQyQP4FY5aMHkc386ozqURp0OYsuvQ==
   dependencies:
     "@babel/runtime" "^7.11.2"
     blob-polyfill "^5.0.20210201"
@@ -2997,10 +2997,10 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-16.7.2.tgz#0465a39b5456b61a04d98bd5545f8b34be340cb7"
   integrity sha512-TbG4TOx9hng8FKxaVrCisdaxKxqEwJ3zwHoCWXZ0Jw6mnvTInpaB99/2Cy4+XxpXtjNv9/TgfGSvZFyfV/t8Fw==
 
-"@types/node@16.9.6":
-  version "16.9.6"
-  resolved "https://registry.npmjs.org/@types/node/-/node-16.9.6.tgz#040a64d7faf9e5d9e940357125f0963012e66f04"
-  integrity sha512-YHUZhBOMTM3mjFkXVcK+WwAcYmyhe1wL4lfqNtzI0b3qAy7yuSetnM7QJazgE5PFmgVTNGiLOgRFfJMqW7XpSQ==
+"@types/node@16.10.1":
+  version "16.10.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.10.1.tgz#f3647623199ca920960006b3dccf633ea905f243"
+  integrity sha512-4/Z9DMPKFexZj/Gn3LylFgamNKHm4K3QDi0gz9B26Uk0c8izYf97B5fxfpspMNkWlFupblKM/nV8+NA9Ffvr+w==
 
 "@types/node@^10.12.18":
   version "10.17.60"
@@ -3127,10 +3127,10 @@
   dependencies:
     csstype "^3.0.2"
 
-"@types/three@0.132.0":
-  version "0.132.0"
-  resolved "https://registry.yarnpkg.com/@types/three/-/three-0.132.0.tgz#d2d4c8336faf993855c0a5933d7107d4e70de9b6"
-  integrity sha512-NCZ7KbGMa0l8z8Pk4cNCw3tSST+keOXeD9IXdiOJWQnVaFpbUpE/wIdbalkK1c0fs/Z+OZzjLZEWf2zRoVGOCg==
+"@types/three@0.132.1":
+  version "0.132.1"
+  resolved "https://registry.yarnpkg.com/@types/three/-/three-0.132.1.tgz#16e0889fdbd41259c2fdf18ff2444baa0afc8e57"
+  integrity sha512-d+eB9/zaK7Bo690EmWCrMwutNWiMYGnW+G5cRO4jvRHvKhI/fe2B2d6xHf1MW0yl+nQ0ij+ctezYGePWtVhAAA==
 
 "@types/unist@*", "@types/unist@^2.0.0", "@types/unist@^2.0.2", "@types/unist@^2.0.3":
   version "2.0.6"
@@ -10203,10 +10203,10 @@ react-focus-lock@^2.5.0:
     use-callback-ref "^1.2.5"
     use-sidecar "^1.0.5"
 
-react-hook-form@7.16.0:
-  version "7.16.0"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.16.0.tgz#7769dabe5f81690568dae4ef44fbd19525ae04cd"
-  integrity sha512-94sQPKcDSK7D88IMzOI4ASFQpegtlR+rlA+RFfHDQUAq2jbgUN8D3fR0hA9/X0Wusg/LyDdrB4NMt0SL6vttuA==
+react-hook-form@7.16.1:
+  version "7.16.1"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.16.1.tgz#669046df378a71949e5cf8a2398cbe20d5cb27bc"
+  integrity sha512-kcLDmSmlyLUFx2UU5bG/o4+3NeK753fhKodJa8gkplXohGkpAq0/p+TR24OWjZmkEc3ES7ppC5v5d6KUk+fJTA==
 
 react-instantsearch-core@^6.12.1:
   version "6.12.1"

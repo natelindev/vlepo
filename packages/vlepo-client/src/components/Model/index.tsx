@@ -15,17 +15,15 @@ type ModelProps = {
 };
 
 type GLTFResult = GLTF & {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  nodes: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  materials: any;
+  nodes: Record<string, { geometry: THREE.BufferGeometry }>;
+  materials: Record<string, THREE.Material[]>;
 };
 
 const Model = (props: ModelProps) => {
   const { open, hinge, ...rest } = props;
   const group = useRef<GroupProps | null>(null);
   // Load model
-  const { nodes, materials } = useGLTF('/mac.glb') as GLTFResult;
+  const { nodes, materials } = useGLTF('/mac.glb') as unknown as GLTFResult;
   // Take care of cursor state on hover
   const [hovered, setHovered] = useState(false);
   useEffect(() => {
