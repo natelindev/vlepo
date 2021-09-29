@@ -21,7 +21,6 @@ import schema from './graphql';
 import { grantConfig } from './oauth2/grantConfig';
 import * as oauth from './oauth2/model';
 import authRouter from './oauth2/router';
-import persistedQueries from './persisted-queries.json';
 import persistedQueries from './persistedQueries.json';
 
 import type { PrismaClient, User } from '@prisma/client';
