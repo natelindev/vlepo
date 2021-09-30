@@ -2548,10 +2548,10 @@
     "@react-spring/shared" "~9.2.0"
     "@react-spring/types" "~9.2.0"
 
-"@react-three/drei@7.12.4":
-  version "7.12.4"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-7.12.4.tgz#3328fd48cf2cf0918995c8a31140f18d9a92c188"
-  integrity sha512-IGpnCxthaO3iP3wSi3zig0JuR1U27C+jTlAwEYHc9liHKe3IRB66QXK7TQyQP4FY5aMHkc386ozqURp0OYsuvQ==
+"@react-three/drei@7.12.5":
+  version "7.12.5"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-7.12.5.tgz#3e7e1a0988486e63c1a09b2c8ef615d52abfaece"
+  integrity sha512-3mVraLz2Q3IQLcGoVD0RY/NmtefBBvXwxgLSdKqL6Lv6krEHuxJ34ehooVrivxPi8odb213zqRIJkM0hpPREEw==
   dependencies:
     "@babel/runtime" "^7.11.2"
     blob-polyfill "^5.0.20210201"
@@ -8879,10 +8879,10 @@ next-seo@4.28.1:
   resolved "https://registry.yarnpkg.com/next-seo/-/next-seo-4.28.1.tgz#c98ee559c8ab7196c62d0f6903afd7a8cde47a03"
   integrity sha512-WZgwdM+UhpNF3A37zFllzmPhnOVJ9vYeYlc0n3Z/kYfz/QQgy8NEdncNNggS9dU4JD8xriaCcyknhy5OsrFsJw==
 
-next-sitemap@1.6.168:
-  version "1.6.168"
-  resolved "https://registry.yarnpkg.com/next-sitemap/-/next-sitemap-1.6.168.tgz#5d184b7713edf03c16e6d9064c9a00b2339ec78c"
-  integrity sha512-zzveI/1tjyvdTHd9qoxzH1JyK+wNqW3L+AxHf7Ppa7FbmcLb9Gj30b2pBLTK9wSiRVuSYAjOGxsPliL+daxspQ==
+next-sitemap@1.6.173:
+  version "1.6.173"
+  resolved "https://registry.yarnpkg.com/next-sitemap/-/next-sitemap-1.6.173.tgz#a61e8891c6a655333d52d5fa0e2e8dc9c61e99da"
+  integrity sha512-wRLMQ4M03bNElt6BqFBPrqt+5q+qgD5/VFnJ9aYFvfYehkQb/kPbQh74FY7chG2VNn8ZYLydOfTBKsH7PW/X9g==
   dependencies:
     "@corex/deepmerge" "^2.6.34"
     matcher "^4.0.0"
@@ -10189,10 +10189,10 @@ react-focus-lock@^2.5.0:
     use-callback-ref "^1.2.5"
     use-sidecar "^1.0.5"
 
-react-hook-form@7.16.1:
-  version "7.16.1"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.16.1.tgz#669046df378a71949e5cf8a2398cbe20d5cb27bc"
-  integrity sha512-kcLDmSmlyLUFx2UU5bG/o4+3NeK753fhKodJa8gkplXohGkpAq0/p+TR24OWjZmkEc3ES7ppC5v5d6KUk+fJTA==
+react-hook-form@7.16.2:
+  version "7.16.2"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.16.2.tgz#d1faca72ceab609e4079574988a0480ef67ae1ed"
+  integrity sha512-99BOspznkVoYppJJSMRsQv9jIw65P0T5g3JhegeosRAeNut/VEEViuBPViDb+mU4sP+uaAcPqqSa7dxZOOgknw==
 
 react-instantsearch-core@^6.12.1:
   version "6.12.1"
