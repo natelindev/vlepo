@@ -24,7 +24,7 @@
     "@emotion/react": "11.4.1",
     "@emotion/styled": "11.3.0",
     "@react-spring/three": "9.2.5",
-    "@react-three/drei": "7.12.5",
+    "@react-three/drei": "7.12.6",
     "@react-three/fiber": "7.0.9",
     "@vlepo/shared": "latest",
     "algoliasearch": "4.10.5",
@@ -58,7 +58,7 @@
     "relay-runtime": "12.0.0",
     "styled-modal": "7.1.4",
     "styled-system": "5.1.5",
-    "three": "0.133.0",
+    "three": "0.133.1",
     "ts-pattern": "3.3.3",
     "zen-observable": "0.8.15"
   },
