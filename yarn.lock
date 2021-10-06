@@ -3115,10 +3115,10 @@
   dependencies:
     csstype "^3.0.2"
 
-"@types/three@0.132.2":
-  version "0.132.2"
-  resolved "https://registry.yarnpkg.com/@types/three/-/three-0.132.2.tgz#80dad683a326e1eb7a87d388e10188b7beb41a18"
-  integrity sha512-DpaP0sObpHvKX8zdfCqyTK526N8lQ86Qstp6MnQJ3jNYie7Bv9AMRTALuoIH8dgVZ62z9twuNvEarWHXOZwmSw==
+"@types/three@0.133.0":
+  version "0.133.0"
+  resolved "https://registry.yarnpkg.com/@types/three/-/three-0.133.0.tgz#2e344ce10bc81dc89295b79a98c09932b3f0c294"
+  integrity sha512-neDN9L64GK1fhT2raWXYIFvIr6ktM6XYgssfTh4zZp+XRgowD1qJ4/w79hLrLQ0w87u1E91ZfvHB0198wBsuHg==
 
 "@types/unist@*", "@types/unist@^2.0.0", "@types/unist@^2.0.2", "@types/unist@^2.0.3":
   version "2.0.6"
