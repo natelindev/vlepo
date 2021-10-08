@@ -2548,10 +2548,10 @@
     "@react-spring/shared" "~9.2.6-beta.0"
     "@react-spring/types" "~9.2.6-beta.0"
 
-"@react-three/drei@7.12.6":
-  version "7.12.6"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-7.12.6.tgz#9d09d493e39e7d4505f3e4f97c3c93b3115dab6d"
-  integrity sha512-JCj1HUMBowLzLxwalDm4XU1JN+YGnceYFqYidtpsKwmGC0I7UPKpV9MmNFG3yCby27y5NkA0G9ZfsX4IyaE05g==
+"@react-three/drei@7.13.1":
+  version "7.13.1"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-7.13.1.tgz#e7a5408362c829243037f1e33c286789816eaaaa"
+  integrity sha512-GH6AU5DXiRA8aSf2SBtotvvvCGU8PVEmhhRnfr8a8jId+ULbUTsbleIEThITbw+2LdBPzsSncIcTxEE7YInhqg==
   dependencies:
     "@babel/runtime" "^7.11.2"
     blob-polyfill "^5.0.20210201"
@@ -2569,10 +2569,10 @@
     utility-types "^3.10.0"
     zustand "^3.5.1"
 
-"@react-three/fiber@7.0.10":
-  version "7.0.10"
-  resolved "https://registry.yarnpkg.com/@react-three/fiber/-/fiber-7.0.10.tgz#00b5cb22e6b1e943fd72771f24fbff50c8262908"
-  integrity sha512-IHe0DjKpDX+L10EyrggVFpd0RRWCDspcFeHT4oY4s4eeOvwbQew1bbryiuE/0sFB3dUsE13xb/n/qb83EN35cg==
+"@react-three/fiber@7.0.12":
+  version "7.0.12"
+  resolved "https://registry.yarnpkg.com/@react-three/fiber/-/fiber-7.0.12.tgz#1c14eab7a26e8c063f22b94c472e551972c3c985"
+  integrity sha512-nTpVgNMG9q9fYoJnFLJ+uW4Iewya4a+u9MHmjslZTFG5LsFiOQFqY8smhGJjOyaPwqQlx3CteTH+2x21Fb6KKw==
   dependencies:
     "@babel/runtime" "^7.13.10"
     react-merge-refs "^1.1.0"
@@ -10198,10 +10198,10 @@ react-focus-lock@^2.5.0:
     use-callback-ref "^1.2.5"
     use-sidecar "^1.0.5"
 
-react-hook-form@7.17.1:
-  version "7.17.1"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.17.1.tgz#dc257a5e34b3c353460ecdbbba5236e066cf80b1"
-  integrity sha512-9nQ+qKFHFpnWzQHdDh6F4Egxa8iJkue1KU921F8qqeyUVbPPjgQZDXaQyNHABEYjRh0ndjTI24GDA+lwm2lQdg==
+react-hook-form@7.17.2:
+  version "7.17.2"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.17.2.tgz#235f15bb65c13e7a1198d33f2db24bcc9e27b303"
+  integrity sha512-oBaHwlYnbpzSFdNrs43QpcM+K2A0kUeNjV86ECYkCimlR1Ctl+tz4oQQd9plfGYkO7PJGLVMOVpUtL5EHjAcYQ==
 
 react-instantsearch-core@^6.12.1:
   version "6.12.1"
