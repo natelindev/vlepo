@@ -48,7 +48,7 @@
     "koa-session": "6.2.0",
     "koa-static": "5.0.0",
     "mailgun-js": "0.22.0",
-    "mjml": "4.10.3",
+    "mjml": "4.10.4",
     "next-mdx-remote": "3.0.5",
     "nexus": "1.1.0",
     "nexus-plugin-prisma": "0.35.0",
