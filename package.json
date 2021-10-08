@@ -29,7 +29,7 @@
     "up": "yarn upgrade-interactive --latest"
   },
   "devDependencies": {
-    "@types/eslint": "7.28.0",
+    "@types/eslint": "7.28.1",
     "@types/node": "16.10.1",
     "@types/react": "17.0.27",
     "@typescript-eslint/eslint-plugin": "4.33.0",
