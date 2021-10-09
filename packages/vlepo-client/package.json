@@ -25,7 +25,7 @@
     "@emotion/styled": "11.3.0",
     "@react-spring/three": "9.2.6",
     "@react-three/drei": "7.13.1",
-    "@react-three/fiber": "7.0.12",
+    "@react-three/fiber": "7.0.14",
     "@vlepo/shared": "latest",
     "algoliasearch": "4.10.5",
     "bezier-easing": "2.1.0",
