@@ -25,12 +25,12 @@
     "spellcheck": "lerna run spellcheck --parallel",
     "start": "pm2 start ./pm2.yml",
     "typecheck": "lerna run typecheck --parallel",
-    "watch": "lerna run watch --parallel",
-    "up": "yarn upgrade-interactive --latest"
+    "up": "yarn upgrade-interactive --latest",
+    "watch": "lerna run watch --parallel"
   },
   "devDependencies": {
     "@types/eslint": "7.28.1",
-    "@types/node": "16.10.1",
+    "@types/node": "16.10.3",
     "@types/react": "17.0.27",
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
