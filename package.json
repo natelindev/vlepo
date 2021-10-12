@@ -31,7 +31,7 @@
   "devDependencies": {
     "@types/eslint": "7.28.1",
     "@types/node": "16.10.3",
-    "@types/react": "17.0.27",
+    "@types/react": "17.0.28",
     "@typescript-eslint/eslint-plugin": "5.0.0",
     "@typescript-eslint/parser": "5.0.0",
     "cspell": "5.12.3",
