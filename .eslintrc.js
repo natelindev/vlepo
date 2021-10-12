@@ -28,7 +28,6 @@ module.exports = {
       {
         arrowParens: 'always',
         bracketSpacing: true,
-        jsxBracketSameLine: false,
         printWidth: 100,
         proseWrap: 'preserve',
         requirePragma: false,
