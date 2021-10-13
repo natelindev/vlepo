@@ -2416,10 +2416,10 @@
     "@react-spring/shared" "~9.3.0"
     "@react-spring/types" "~9.3.0"
 
-"@react-three/drei@7.14.1":
-  version "7.14.1"
-  resolved "https://registry.npmjs.org/@react-three/drei/-/drei-7.14.1.tgz#1e90a3997f7290a705c9c292c23e620d74e6baaa"
-  integrity sha512-bfxax/ATc1OITjoet5auJtxygUrFzULtXL1n+6+2QdQpiFw2XdjS2bwmTYwEUCtfe1L+wj9rk8Q7dXfHfBFZ5g==
+"@react-three/drei@7.14.2":
+  version "7.14.2"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-7.14.2.tgz#43d6945451911696e00153ec84b33b149229bc00"
+  integrity sha512-hV6sN6atF6M6BpXU6MRyISIBqDWR+6bubNJRUgCpdOn32Ha12CGlvxtZ7GZIlXJs5gTQ48Zlr59HhVIgRCwMBQ==
   dependencies:
     "@babel/runtime" "^7.11.2"
     blob-polyfill "^5.0.20210201"
@@ -2431,7 +2431,7 @@
     react-merge-refs "^1.1.0"
     stats.js "^0.17.0"
     three-mesh-bvh "^0.5.0"
-    three-stdlib "^2.5.3"
+    three-stdlib "^2.5.4"
     troika-three-text "^0.43.0"
     use-asset "^1.0.4"
     utility-types "^3.10.0"
@@ -10104,10 +10104,10 @@ react-focus-lock@^2.5.0:
     use-callback-ref "^1.2.5"
     use-sidecar "^1.0.5"
 
-react-hook-form@7.17.2:
-  version "7.17.2"
-  resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.17.2.tgz#235f15bb65c13e7a1198d33f2db24bcc9e27b303"
-  integrity sha512-oBaHwlYnbpzSFdNrs43QpcM+K2A0kUeNjV86ECYkCimlR1Ctl+tz4oQQd9plfGYkO7PJGLVMOVpUtL5EHjAcYQ==
+react-hook-form@7.17.3:
+  version "7.17.3"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.17.3.tgz#3ed85bed3a6aa4d013e0027a93799d668064c201"
+  integrity sha512-hUKOVtz6Wb319VJRl6OKV8vAhLo5P5raOQEG8lJZt/VXBMv6n2adgpIl1e+36rjX126Wq351ipM0goCgj4UUzQ==
 
 react-instantsearch-core@^6.12.1:
   version "6.12.1"
@@ -11474,10 +11474,10 @@ three-mesh-bvh@^0.5.0:
   resolved "https://registry.npmjs.org/three-mesh-bvh/-/three-mesh-bvh-0.5.0.tgz#3dac1812b7df682df932efaa43f68da79fc7ff73"
   integrity sha512-CvWHCltKn7oVY5ckcA0QC5GtkfwWcnOxUuazrTKvAB0OroFV2hOKj974Oh0Gi7MvNiqFYkHYgxnUSaUQzlAfgQ==
 
-three-stdlib@^2.5.3:
-  version "2.5.3"
-  resolved "https://registry.npmjs.org/three-stdlib/-/three-stdlib-2.5.3.tgz#30d60a8c0a06d93c5207920d071dd0bfd15ffd2f"
-  integrity sha512-zTzK22uuaCoH4eUopMbn0kGD5YmQjDtzwUrDcAu3nLjWqp6FGpxMzgHikK99AOQUVcoCWJcm9DZKNrux7+PRig==
+three-stdlib@^2.5.4:
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/three-stdlib/-/three-stdlib-2.5.4.tgz#2eda85a067ac572c698eba288d82a07121ccca25"
+  integrity sha512-uuzjg8CBp5S6uHIR5DsUOxmFfl25p5aXo31Pdj0wq9wlBnj2xYynW4bBBKp24Q3KnQXKy5H5119soIIBui06ig==
   dependencies:
     "@babel/runtime" "^7.14.6"
     "@webgpu/glslang" "^0.0.15"
