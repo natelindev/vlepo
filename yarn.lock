@@ -2416,10 +2416,10 @@
     "@react-spring/shared" "~9.3.0"
     "@react-spring/types" "~9.3.0"
 
-"@react-three/drei@7.14.3":
-  version "7.14.3"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-7.14.3.tgz#4631af9217cdffe553362547e5c6906c0103137f"
-  integrity sha512-r+z5/VJmX+GduxD+ACLpWrDqkRNiMbgYzwzvkTNRXxf+yUlbOGT0jaasTJcq4AOtg+Y5YoKDUieuQVAJ12O44w==
+"@react-three/drei@7.14.4":
+  version "7.14.4"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-7.14.4.tgz#dde583398db04ba68c5f2c90f5f2b6db849ea3d1"
+  integrity sha512-HIk8RhPX9NXs2irBdNxYoqtUBg3cPDk5eoNNSf2TNAPlTwG6Pdwe05xhv10hBjP0ArFEs+UylBqRZOnhbX1Bog==
   dependencies:
     "@babel/runtime" "^7.11.2"
     detect-gpu "^3.1.21"
@@ -2436,10 +2436,10 @@
     utility-types "^3.10.0"
     zustand "^3.5.13"
 
-"@react-three/fiber@7.0.15":
-  version "7.0.15"
-  resolved "https://registry.npmjs.org/@react-three/fiber/-/fiber-7.0.15.tgz#1f3b4a6166987b821b0ee3a7e75b16ff4f1aab66"
-  integrity sha512-EeCbOlcUASskZjdCFnBgtSNyol+Kg09DEQXvCUOzqax2oMBrWKXmj9MogNG9Yzvm2dtSTmEUqe6eN8Rs8Z2nyQ==
+"@react-three/fiber@7.0.16":
+  version "7.0.16"
+  resolved "https://registry.yarnpkg.com/@react-three/fiber/-/fiber-7.0.16.tgz#cc309b89247a94fe790f6325f2e145048f27ff78"
+  integrity sha512-yIRMFfkHBMcii/GkRjOsEAMnvcbn/8jdI/b83zfH5sX8MEKZU1Bi1PmSQNcMbqZOY8eZQl4DCLxwBa4asA6Fig==
   dependencies:
     "@babel/runtime" "^7.13.10"
     react-merge-refs "^1.1.0"
