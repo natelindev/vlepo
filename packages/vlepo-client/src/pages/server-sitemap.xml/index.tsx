@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     .map((p) => ({
       loc: new URL(`posts/${p.slug}`, process.env.NEXT_PUBLIC_SITE_URL).href,
       lastmod: p.updatedAt,
-      changefreq: 'monthly',
+      changefreq: 'monthly' as const,
       priority: 0.5,
     }));
 
