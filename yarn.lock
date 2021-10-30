@@ -2520,10 +2520,10 @@
     "@react-spring/shared" "~9.3.0"
     "@react-spring/types" "~9.3.0"
 
-"@react-three/drei@7.18.0":
-  version "7.18.0"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-7.18.0.tgz#9b9feb7dfcac69b8b63dbc08de1fe21fd5038fb0"
-  integrity sha512-2vOpu1juyCMxniTob2jmH87NBK50aIMX+uuhQuSDmOeDAzLwnJgJvwjwWcFEO4XtepzHS7l2dUWUvdRuQnuWlw==
+"@react-three/drei@7.19.2":
+  version "7.19.2"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-7.19.2.tgz#7df6b3309bba14cd0412edb058ce6ead0ae2d2f6"
+  integrity sha512-ifmz+aJ17Tj3EQ1/8baTqRG9BbvMXKjVJ4IsNEXzb3fzkHeAJ4LwksTV6bcs7VEAG6+1ytBhEoYJowobh5ZlkQ==
   dependencies:
     "@babel/runtime" "^7.11.2"
     detect-gpu "^3.1.21"
@@ -6572,10 +6572,10 @@ graphql-upload@12.0.0:
     isobject "^4.0.0"
     object-path "^0.11.5"
 
-graphql@15.7.1:
-  version "15.7.1"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.7.1.tgz#c821a1741e04e2bc2c91e138f34c06a86c0464f1"
-  integrity sha512-x34S6gC0/peBZnlK60zCJox/d45A7p6At9oN9EPA3qhoIAlR4LNZmXRLkICBckwwTMJzVdA8cx3QIQZMOl606A==
+graphql@15.7.2:
+  version "15.7.2"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.7.2.tgz#85ab0eeb83722977151b3feb4d631b5f2ab287ef"
+  integrity sha512-AnnKk7hFQFmU/2I9YSQf3xw44ctnSFCfp3zE0N6W174gqe9fWG/2rKaKxROK7CcI3XtERpjEKFqts8o319Kf7A==
 
 "graphql@^14.0.0 || ^15.0.0", graphql@^15.1.0, graphql@^15.3.0:
   version "15.6.1"
@@ -11535,10 +11535,10 @@ three-stdlib@^2.5.4:
     potpack "^1.0.1"
     zstddec "^0.0.2"
 
-three@0.133.1:
-  version "0.133.1"
-  resolved "https://registry.npmjs.org/three/-/three-0.133.1.tgz#5606f4817d67a09d9212d4ccbd6826564774f8f4"
-  integrity sha512-WydohO8ll949B0FTD6MGz59Yv2Lwj8hvObg/0Heh2r42S6+tQC1WByfCNRdmG4D7+odfGod+n8JPV1I2xrboWw==
+three@0.134.0:
+  version "0.134.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.134.0.tgz#d7ad4d85d050da0861bf39749b06ddfb5f17157f"
+  integrity sha512-LbBerg7GaSPjYtTOnu41AMp7tV6efUNR3p4Wk5NzkSsNTBuA5mDGOfwwZL1jhhVMLx9V20HolIUo0+U3AXehbg==
 
 through2@^2.0.0:
   version "2.0.5"

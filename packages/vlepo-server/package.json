@@ -35,7 +35,7 @@
     "debug": "4.3.2",
     "dotenv": "10.0.0",
     "grant": "5.4.18",
-    "graphql": "15.7.1",
+    "graphql": "15.7.2",
     "graphql-playground-middleware-koa": "1.6.21",
     "graphql-scalars": "1.12.0",
     "graphql-upload": "12.0.0",
