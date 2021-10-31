@@ -66,7 +66,7 @@
     "@types/faker": "5.5.9",
     "@types/graphql-upload": "8.0.7",
     "@types/koa": "2.13.4",
-    "@types/koa-bodyparser": "4.3.3",
+    "@types/koa-bodyparser": "4.3.4",
     "@types/koa-graphql": "0.8.5",
     "@types/koa-mount": "4.0.1",
     "@types/koa-router": "7.4.4",
