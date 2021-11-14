@@ -45,16 +45,14 @@ const IndexPostCard = (props: ArticleCardProps) => {
       href={`/posts/${slug}`}
     >
       {headerImageUrl && (
-        <>
-          <CardImage
-            layout="responsive"
-            height={200}
-            width={200}
-            objectFit="cover"
-            src={headerImageUrl}
-            alt={title}
-          />
-        </>
+        <CardImage
+          layout="responsive"
+          height={200}
+          width={200}
+          objectFit="cover"
+          src={headerImageUrl}
+          alt={title}
+        />
       )}
 
       <IndexImageOverlay textShadow={headerImageUrl ? 'rgba(0,0,0, 0.3) 0 0 8px' : 'none'}>

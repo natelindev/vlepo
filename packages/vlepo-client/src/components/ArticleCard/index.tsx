@@ -69,17 +69,15 @@ const ArticleCard = (props: ArticleCardProps) => {
         </Row>
       )}
       {headerImageUrl && (
-        <>
-          <CardImage
-            layout="responsive"
-            height={100}
-            width={200}
-            objectFit="cover"
-            src={headerImageUrl}
-            alt={title}
-            variant="top"
-          />
-        </>
+        <CardImage
+          layout="responsive"
+          height={100}
+          width={200}
+          objectFit="cover"
+          src={headerImageUrl}
+          alt={title}
+          variant="top"
+        />
       )}
 
       <CardBody>

@@ -189,41 +189,39 @@ const CommentSection = (props: CommentSectionProps) => {
               </Row>
             </>
           ) : (
-            <>
-              <Row
-                flexDirection={['column', 'row']}
-                justifyContent="center"
-                alignItems="center"
-                height="8rem"
-              >
-                <H5>Continue with</H5>
-                <OauthButtonSection>
-                  {process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS &&
-                    process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS.split(',').map((provider) => (
-                      <OauthButton
-                        key={provider}
-                        type="button"
-                        onClick={() =>
-                          openOauthWindow(
-                            `/api/connect/${provider}`,
-                            `User Oauth`,
-                            provider === 'reddit' ? 1000 : 400,
-                            600,
-                          )
-                        }
-                      >
-                        <Image
-                          src={`/images/logo/${provider}.svg`}
-                          height={24}
-                          width={24}
-                          layout="fixed"
-                        />
-                      </OauthButton>
-                    ))}
-                </OauthButtonSection>
-                <H5>to comment</H5>
-              </Row>
-            </>
+            <Row
+              flexDirection={['column', 'row']}
+              justifyContent="center"
+              alignItems="center"
+              height="8rem"
+            >
+              <H5>Continue with</H5>
+              <OauthButtonSection>
+                {process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS &&
+                  process.env.NEXT_PUBLIC_SUPPORTED_OAUTH_PROVIDERS.split(',').map((provider) => (
+                    <OauthButton
+                      key={provider}
+                      type="button"
+                      onClick={() =>
+                        openOauthWindow(
+                          `/api/connect/${provider}`,
+                          `User Oauth`,
+                          provider === 'reddit' ? 1000 : 400,
+                          600,
+                        )
+                      }
+                    >
+                      <Image
+                        src={`/images/logo/${provider}.svg`}
+                        height={24}
+                        width={24}
+                        layout="fixed"
+                      />
+                    </OauthButton>
+                  ))}
+              </OauthButtonSection>
+              <H5>to comment</H5>
+            </Row>
           )}
         </NewComment>
       )}

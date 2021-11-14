@@ -1,2 +1,2 @@
-const Settings = () => <></>;
+const Settings = () => null;
 export default Settings;

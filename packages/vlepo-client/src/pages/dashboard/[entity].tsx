@@ -107,19 +107,17 @@ const Dashboard = () => {
   }
 
   return (
-    <>
-      <Container>
-        <Sidebar />
-        <ClientOnly>
-          <DashboardMain>
-            {match(entity)
-              .with('blog', () => <BlogSection />)
-              .with('post', () => data.viewer && <PostSection user={data.viewer} />)
-              .otherwise(() => null)}
-          </DashboardMain>
-        </ClientOnly>
-      </Container>
-    </>
+    <Container>
+      <Sidebar />
+      <ClientOnly>
+        <DashboardMain>
+          {match(entity)
+            .with('blog', () => <BlogSection />)
+            .with('post', () => data.viewer && <PostSection user={data.viewer} />)
+            .otherwise(() => null)}
+        </DashboardMain>
+      </ClientOnly>
+    </Container>
   );
 };
 

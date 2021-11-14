@@ -1,11 +1,10 @@
 import dynamic from 'next/dynamic';
-import { ReactNode } from 'react';
 
-type ClientOnlyProps = { children: ReactNode };
+type ClientOnlyProps = { children: JSX.Element };
 const ClientOnly = (props: ClientOnlyProps) => {
   const { children } = props;
 
-  return <>{children}</>;
+  return children;
 };
 
 export default dynamic(() => Promise.resolve(ClientOnly), {

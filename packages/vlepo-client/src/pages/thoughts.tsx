@@ -1,2 +1,2 @@
-const Thoughts = () => <></>;
+const Thoughts = () => null;
 export default Thoughts;

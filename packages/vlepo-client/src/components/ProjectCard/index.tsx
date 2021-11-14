@@ -78,16 +78,14 @@ const ProjectCard = (props: ProjectCardProps) => {
         </Row>
       )}
       {headerImageUrl && (
-        <>
-          <Image
-            variant="top"
-            height="15rem"
-            width="100%"
-            objectFit="cover"
-            src={headerImageUrl}
-            alt={name}
-          />
-        </>
+        <Image
+          variant="top"
+          height="15rem"
+          width="100%"
+          objectFit="cover"
+          src={headerImageUrl}
+          alt={name}
+        />
       )}
       <CardBody>
         {name && (

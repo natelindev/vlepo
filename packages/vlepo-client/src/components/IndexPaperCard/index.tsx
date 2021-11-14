@@ -39,16 +39,14 @@ const IndexPaperCard = (props: ArticleCardProps) => {
       href={`${url}`}
     >
       {headerImageUrl && (
-        <>
-          <CardImage
-            layout="responsive"
-            height={200}
-            width={200}
-            objectFit="cover"
-            src={headerImageUrl}
-            alt={name}
-          />
-        </>
+        <CardImage
+          layout="responsive"
+          height={200}
+          width={200}
+          objectFit="cover"
+          src={headerImageUrl}
+          alt={name}
+        />
       )}
 
       <IndexImageOverlay textShadow={headerImageUrl ? 'rgba(0,0,0, 0.3) 0 0 8px' : 'none'}>

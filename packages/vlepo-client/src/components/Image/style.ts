@@ -40,12 +40,15 @@ type ImageContainerProps = SizeProps &
 
 export const ImageContainer = styled.div<ImageContainerProps>`
   display: flex;
-  > div {
+  ${height}
+
+  > span {
     &:first-of-type {
       position: unset !important;
     }
     ${color}
     ${height}
+    width: 100% !important;
     ${width}
     ${maxHeight}
     ${maxWidth}

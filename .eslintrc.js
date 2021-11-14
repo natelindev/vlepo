@@ -96,5 +96,10 @@ module.exports = {
     'relay/generated-flow-types': 'off',
     // typescript covered
     'react/prop-types': 'off',
+    'react/function-component-definition': 'off',
+    'react/no-arrow-function-lifecycle': 'off',
+    'react/no-invalid-html-attribute': 'off',
+    'react/no-unused-class-component-methods': 'off',
+    'react/jsx-no-constructed-context-values': 'off',
   },
 };
