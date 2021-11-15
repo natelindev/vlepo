@@ -29,7 +29,7 @@
     "watch": "lerna run watch --parallel"
   },
   "devDependencies": {
-    "@types/eslint": "7.28.2",
+    "@types/eslint": "7.29.0",
     "@types/node": "16.11.7",
     "@types/react": "17.0.34",
     "@typescript-eslint/eslint-plugin": "5.3.1",
