@@ -38,7 +38,7 @@
     "graphql": "15.7.2",
     "graphql-playground-middleware-koa": "1.6.22",
     "graphql-scalars": "1.13.6",
-    "graphql-upload": "12.0.0",
+    "graphql-upload": "13.0.0",
     "image-size": "1.0.0",
     "koa": "2.13.4",
     "koa-bodyparser": "4.3.0",
