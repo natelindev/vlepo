@@ -3,11 +3,11 @@
 </p>
 
 <p align="center">
-  <a aria-label="Actions" href="https://github.com/llldar/vlepo/actions">
-    <img alt="Github actions" src="https://img.shields.io/github/workflow/status/llldar/vlepo/deploy-prod?color=green&label=actions&logo=github&logoColor=green&style=for-the-badge">
+  <a aria-label="Actions" href="https://github.com/natelindev/vlepo/actions">
+    <img alt="Github actions" src="https://img.shields.io/github/workflow/status/natelindev/vlepo/deploy-prod?color=green&label=actions&logo=github&logoColor=green&style=for-the-badge">
   </a>
-  <a aria-label="License" href="https://github.com/llldar/vlepo/blob/master/LICENSE">
-    <img alt="MIT License" src="https://img.shields.io/github/license/llldar/vlepo?style=for-the-badge">
+  <a aria-label="License" href="https://github.com/natelindev/vlepo/blob/master/LICENSE">
+    <img alt="MIT License" src="https://img.shields.io/github/license/natelindev/vlepo?style=for-the-badge">
   </a>
 </p>
 
@@ -30,7 +30,7 @@ Here are steps you need to have your own blog setup:
 ### clone the code
 
 ```bash
-git clone https://github.com/llldar/vlepo.git
+git clone https://github.com/natelindev/vlepo.git
 ```
 
 ### install dependencies

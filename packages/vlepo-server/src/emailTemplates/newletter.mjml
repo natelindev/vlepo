@@ -70,8 +70,8 @@
         <mj-raw>
           <!-- Footer left -->
         </mj-raw>
-        <mj-text padding="0px 25px" font-size="12px" font-weight="300" line-height="30px" align="center" color="#bbbbbb"><a href="https://telegram.me/llldar"><img src="images/telegram.png" width="25" height="25" style="width: 25px; height: 25px;" /></a>&nbsp;&nbsp;
-          <a href="https://github.com/llldar"><img src="images/github.png" width="25" height="25" style="width: 25px; height: 25px;" /></a>&nbsp;&nbsp;</mj-text>
+        <mj-text padding="0px 25px" font-size="12px" font-weight="300" line-height="30px" align="center" color="#bbbbbb"><a href="https://telegram.me/natelindev"><img src="images/telegram.png" width="25" height="25" style="width: 25px; height: 25px;" /></a>&nbsp;&nbsp;
+          <a href="https://github.com/natelindev"><img src="images/github.png" width="25" height="25" style="width: 25px; height: 25px;" /></a>&nbsp;&nbsp;</mj-text>
         <mj-text font-family="Roboto" font-size="12px" line-height="20px" font-weight="300" align="center" color="#bbbbbb">
           <multiline>© 2016-2021 Nathaniel's Lab.<br>
             <multiline>Made by Nathaniel with ❤️ and effort<br>
