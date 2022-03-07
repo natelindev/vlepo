@@ -27,7 +27,7 @@ jobs:
 
       - name: use Node.js 14
         if: env.DEPLOY_SHARED == 'true' || env.DEPLOY_SERVER == 'true'
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14
           registry-url: 'https://registry.npmjs.org'
