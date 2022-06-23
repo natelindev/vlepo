@@ -14,7 +14,7 @@
     "watch": "tsc --watch"
   },
   "dependencies": {
-    "debug": "4.3.2"
+    "debug": "4.3.4"
   },
   "devDependencies": {
     "@types/debug": "4.1.7",
