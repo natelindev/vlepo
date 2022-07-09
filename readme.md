@@ -11,6 +11,10 @@
   </a>
 </p>
 
+## Deprecated
+
+Please use [vlepo2](https://github.com/natelindev/vlepo2) instead
+
 ## Features
 
 - Generate modern clean looking blog with ease.
